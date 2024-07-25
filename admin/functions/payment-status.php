@@ -1,33 +1,50 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
-    // Database connection details
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "schooldb";
 
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "schooldb";
 
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Collect and sanitize form data
-    $studentID = $conn->real_escape_string($_POST['studentID']);
-    $status = $conn->real_escape_string($_POST['payment_status']);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Collect value of each input field
+    $studentID = $_POST['studentID'];
+    $status = $_POST['payment_status'];
 
     // Prepare an update statement
-    $sql = "UPDATE tbl_payments SET payment_status = '$status' WHERE studentID = '$studentID'";
+    $sql = "UPDATE tbl_payments SET payment_status = ? WHERE studentID = ?";
 
-    if ($conn->query($sql) === TRUE) {
-        header("Location: ../stud_profile.php?error=success");
+    // Prepare and bind
+    if ($stmt = $conn->prepare($sql)) {
+        $stmt->bind_param(
+            "ss", // Both parameters are strings
+            $status, // First parameter
+            $studentID // Second parameter
+        );
+
+        // Execute the statement
+        if ($stmt->execute()) {
+            header("Location: ../payment.php?error=update-success");
+            exit(); // Ensure no further code is executed after redirection
+        } else {
+            echo "Error updating record: " . $stmt->error;
+        }
+
+        // Close the statement
+        $stmt->close();
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Error preparing statement: " . $conn->error;
     }
 
-    // Close connection
+    // Close the connection
     $conn->close();
 } else {
     echo "Invalid request method.";

@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "DELETE FROM tbl_students WHERE studentID = '$studentID'";
 
     if ($conn->query($sql) === TRUE) {
-        header("Location: ../stud_profile.php?error=delete-success");
+        header("Location: ../studentRecords1.php?error=delete-success");
         exit();
     } else {
         echo "Error: " . $conn->error;

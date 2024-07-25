@@ -241,7 +241,7 @@ $lname = $user['user_lname'];
             <li class="dropdown-header">
               <h6>
                 <h6>
-                  <?php echo $lname ?><?php echo $fname ?>
+                  <?php echo $lname ?>, <?php echo $fname ?>
                 </h6>
             </li>
             <li>
@@ -314,7 +314,7 @@ $lname = $user['user_lname'];
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="../admin/studentRecords.php">
+        <a class="nav-link collapsed" href="../admin/studentRecords1.php">
           <i class="ri ri-group-line"></i>
           <span>Student</span>
         </a>

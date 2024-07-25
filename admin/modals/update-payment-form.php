@@ -18,14 +18,15 @@
             </div>
 
             <div class="col-md-8">
-              <label for="status" class="form-label">Status</label>
-              <select class="form-select" id="status" name="status" required>
+              <label for="payment_status" class="form-label">Status</label>
+              <select class="form-select" id="payment_status" name="payment_status" required>
                 <option value="">Choose...</option>
-                <option value="Paid">Paid</option>
-                <option value="Pending">Pending</option>
-                <option value="Overdue">Overdue</option>
+                <option value="Paid" <?php if ($row["payment_status"] == "Paid") echo "selected"; ?>>Paid</option>
+                <option value="Pending" <?php if ($row["payment_status"] == "Pending") echo "selected"; ?>>Pending</option>
+                <option value="Overdue" <?php if ($row["payment_status"] == "Overdue") echo "selected"; ?>>Overdue</option>
               </select>
             </div>
+
 
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

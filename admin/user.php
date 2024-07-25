@@ -25,12 +25,18 @@
         </div>
         <div class="modal-body">
 
-          <form action="includes/register.inc.php" method="post" class="row g-3 needs-validation" novalidate style="padding: 20px;">
+          <form action="includes/register.inc2.php" method="post" class="row g-3 needs-validation" novalidate style="padding: 20px;">
 
             <div class="col-12">
-              <label for="yourName" class="form-label">Your Name</label>
+              <label for="yourName" class="form-label">First Name</label>
               <input type="text" name="fname" class="form-control" id="yourName" required>
-              <div class="invalid-feedback">Please, enter your name!</div>
+              <div class="invalid-feedback">Please, enter your first name!</div>
+            </div>
+
+            <div class="col-12">
+              <label for="yourLName" class="form-label">Last Name</label>
+              <input type="text" name="lname" class="form-control" id="yourLName" required>
+              <div class="invalid-feedback">Please, enter your last name!</div>
             </div>
 
             <div class="col-12">
@@ -54,7 +60,6 @@
               <div class="invalid-feedback">Please enter your password!</div>
             </div>
 
-            <!-- Role selection field -->
             <div class="col-12">
               <label for="yourRole" class="form-label">Role</label>
               <select name="role" class="form-control" id="yourRole" required>

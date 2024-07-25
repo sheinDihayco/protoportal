@@ -4,8 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>Pages / Register - NiceAdmin Bootstrap Template</title>
+  <title>Register - MicroTech</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -28,74 +27,33 @@
 
   <!-- Template Main CSS File -->
   <link href="../assets/css/style.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: NiceAdmin
-  * Updated: Mar 09 2023 with Bootstrap v5.2.3
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
-
   <main>
     <div class="container">
-
       <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
         <div class="container">
           <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
-
+            <div class="col-lg-5 col-md-6 d-flex flex-column align-items-center justify-content-center">
               <div class="d-flex justify-content-center py-4">
-                <a href="index.html" class="logo d-flex align-items-center w-auto">
-                  <img src="../assets/img/logo.png" alt="">
-                  <span class="d-none d-lg-block">SCC-SYSTEM</span>
+                <a href="index.php" class="logo d-flex align-items-center w-auto">
+                  <img src="../assets/img/miit.png" alt="">
+                  <span class="d-none d-lg-block">MicroTech</span>
                 </a>
               </div><!-- End Logo -->
 
               <div class="card mb-3">
-
                 <div class="card-body">
-
                   <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
-                    <p class="text-center small">Enter your personal details to create account</p>
+                    <h5 class="card-title text-center pb-0 fs-4">Register Your Account</h5>
                   </div>
 
-                  <form class="row g-3 needs-validation" action="includes/register.inc.php" method="post">
+                  <form class="row g-3 needs-validation" action="includes/register.inc.php" method="post" novalidate>
                     <div class="col-12">
-                      <label for="yourName" class="form-label">Your Name</label>
-                      <input type="text" name="fname" class="form-control" id="yourName" required>
-                      <div class="invalid-feedback">Please, enter your name!</div>
-                    </div>
-
-                    <div class="col-12">
-                      <label for="yourEmail" class="form-label">Your Email</label>
-                      <input type="email" name="email" class="form-control" id="yourEmail" required>
-                      <div class="invalid-feedback">Please enter a valid Email adddress!</div>
-                    </div>
-
-                    <div class="col-12">
-                      <label for="yourUsername" class="form-label">Username</label>
-                      <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
-                        <div class="invalid-feedback">Please choose a username.</div>
-                      </div>
-                    </div>
-
-                    <div class="col-12">
-                      <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
-                    </div>
-
-                    <!-- Role selection field -->
-                    <div class="col-12">
-                      <label for="yourRole" class="form-label">Role</label>
-                      <select name="role" class="form-control" id="yourRole" required>
+                      <label for="role" class="form-label">Role</label>
+                      <select name="role" id="role" class="form-select" required>
+                        <option value="" disabled selected>Select your role</option>
                         <option value="admin">Admin</option>
                         <option value="teacher">Teacher</option>
                         <option value="student">Student</option>
@@ -104,17 +62,52 @@
                     </div>
 
                     <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                        <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
-                        <div class="invalid-feedback">You must agree before submitting.</div>
-                      </div>
+                      <label for="firstName" class="form-label">First Name</label>
+                      <input type="text" name="firstName" class="form-control" id="firstName" required>
+                      <div class="invalid-feedback">Please enter your first name.</div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="lastName" class="form-label">Last Name</label>
+                      <input type="text" name="lastName" class="form-control" id="lastName" required>
+                      <div class="invalid-feedback">Please enter your last name.</div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="email" class="form-label">Email</label>
+                      <input type="email" name="email" class="form-control" id="email" required>
+                      <div class="invalid-feedback">Please enter a valid email address.</div>
+                    </div>
+
+                    <div class="col-12" id="usernameDiv">
+                      <label for="username" class="form-label">Username</label>
+                      <input type="text" name="username" class="form-control" id="username">
+                      <div class="invalid-feedback">Please enter a valid username.</div>
+                    </div>
+
+                    <div class="col-12" id="schoolidDiv" style="display: none;">
+                      <label for="schoolid" class="form-label">School ID</label>
+                      <input type="text" name="schoolid" class="form-control" id="schoolid" pattern="[A-Za-z0-9\-]+" title="School ID can only contain letters, numbers, and dashes.">
+                      <div class="invalid-feedback">Please enter a valid school ID (letters, numbers, and dashes only).</div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="password" class="form-label">Password</label>
+                      <input type="password" name="password" class="form-control" id="password" required>
+                      <div class="invalid-feedback">Please enter a password.</div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="repeatPassword" class="form-label">Repeat Password</label>
+                      <input type="password" name="repeatPassword" class="form-control" id="repeatPassword" required>
+                      <div class="invalid-feedback">Please repeat your password.</div>
+                    </div>
+
+                    <div class="col-12">
+                      <button class="btn btn-primary w-100" type="submit" name="register">Register</button>
                     </div>
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit" name="submit">Create Account</button>
-                    </div>
-                    <div class="col-12">
-                      <p class="small mb-0">Already have an account? <a href="login.php">Log in</a></p>
+                      <p class="small mb-0">Already have an account? <a href="login.php">Login here</a></p>
                     </div>
                   </form>
 
@@ -124,27 +117,27 @@
             </div>
           </div>
         </div>
-
       </section>
-
     </div>
-  </main><!-- End #main -->
-
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  </main>
 
   <!-- Vendor JS Files -->
-  <script src="../assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/vendor/chart.js/chart.umd.js"></script>
-  <script src="../assets/vendor/echarts/echarts.min.js"></script>
-  <script src="../assets/vendor/quill/quill.min.js"></script>
-  <script src="../assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="../assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="../assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
   <script src="../assets/js/main.js"></script>
-
+  <script>
+    document.getElementById('role').addEventListener('change', function() {
+      var role = this.value;
+      if (role === 'student') {
+        document.getElementById('usernameDiv').style.display = 'none';
+        document.getElementById('schoolidDiv').style.display = 'block';
+      } else {
+        document.getElementById('usernameDiv').style.display = 'block';
+        document.getElementById('schoolidDiv').style.display = 'none';
+      }
+    });
+  </script>
 </body>
 
 </html>

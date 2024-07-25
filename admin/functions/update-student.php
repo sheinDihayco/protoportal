@@ -145,7 +145,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Execute the statement
         if ($stmt->execute()) {
-            header("Location: ../studentRecords.php?error=update-success");
+            header("Location: ../studentRecords1.php?error=update-success");
             exit(); // Ensure no further code is executed after redirection
         } else {
             echo "Error updating record: " . $stmt->error;

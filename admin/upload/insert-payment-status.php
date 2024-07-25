@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $status = $conn->real_escape_string($_POST['payment_status']);
 
     // Check if studentID exists in tbl_students
-    $checkStudentQuery = "SELECT studentID FROM tbl_students WHERE studentID = '$studentID'";
+    $checkStudentQuery = "SELECT studentID FROM tbl_student_records WHERE studentID = '$studentID'";
     $result = $conn->query($checkStudentQuery);
 
     if ($result->num_rows > 0) {
@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
             $sql = "INSERT INTO tbl_payments (studentID, payment_status) VALUES ('$studentID', '$status')";
 
             if ($conn->query($sql) === TRUE) {
-                header("location: ../stud_profile?error=success");
+                header("location: ../stud_profile.php?error=success");
             } else {
                 echo "Error: " . $sql . "<br>" . $conn->error;
             }

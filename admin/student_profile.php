@@ -5,7 +5,7 @@ $_SESSION['stud'] = $_POST["stud_id"];
 if (isset($_SESSION['stud']) && !empty($_SESSION['stud'])) {
   $studid = $_SESSION['stud'];
 } else {
-  header("Location: stud_profile.php?error=nofile");
+  header("Location: index3.php?error=nofile");
   exit();
 }
 ?>
@@ -15,10 +15,12 @@ include_once "../templates/header.php";
 include_once "includes/connect.php";
 include_once 'includes/connection.php';
 
+// Prepare and execute the statement to fetch student details with INNER JOIN
 $statement = $conn->prepare("
-    SELECT s.fname, s.lname, s.course, s.year, sr.major, s.contact, sr.email, sr.cityAdd, sr.curAddress
+    SELECT s.*, sr.major, sr.email, sr.cityAdd, sr.curAddress, u.user_name
     FROM tbl_student_records s
     INNER JOIN tbl_students sr ON s.studentID = sr.studentID
+    INNER JOIN tbl_users u ON s.user_name = sr.studentID
     WHERE s.studentID = :sid
 ");
 
@@ -30,20 +32,15 @@ $studs = $statement->fetch(PDO::FETCH_ASSOC);
 <main id="main" class="main">
 
   <div class="pagetitle">
-    <?php if ($studs) : ?>
-      <h1><?php echo htmlspecialchars($studs["lname"]); ?>, <?php echo htmlspecialchars($studs["fname"]); ?></h1>
-      <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#insertStudent">
-      </button>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><?php echo htmlspecialchars($studs["course"]) ?></li>
-        </ol>
-      </nav>
-    <?php else : ?>
-      <h1>No ID Found</h1>
-    <?php endif; ?>
+    <h1><?php echo htmlspecialchars($studs["lname"]) ?>, <?php echo htmlspecialchars($studs["fname"]) ?></h1>
+    <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#insertStudent">
+    </button>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><?php echo htmlspecialchars($studs["course"]) ?></li>
+      </ol>
+    </nav>
   </div><!-- End Page Title -->
-
   <div class="modal fade" id="insertStudent" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
@@ -77,7 +74,6 @@ $studs = $statement->fetch(PDO::FETCH_ASSOC);
       </div>
     </div>
   </div>
-
   <section class="section profile">
     <div class="col-lg-12">
       <div class="row">
@@ -86,12 +82,15 @@ $studs = $statement->fetch(PDO::FETCH_ASSOC);
           <div class="card-body pt-3">
             <!-- Bordered Tabs -->
             <ul class="nav nav-tabs nav-tabs-bordered">
+
               <li class="nav-item">
                 <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#payment-status">Payment Status</button>
               </li>
+
               <li class="nav-item">
                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
               </li>
+
             </ul>
             <!-- End Bordered Tabs -->
 
@@ -139,8 +138,15 @@ $studs = $statement->fetch(PDO::FETCH_ASSOC);
                           <tr>
                             <th scope="row"><a href=""><?php echo htmlspecialchars($row["studentID"]); ?></a></th>
                             <td><?php echo htmlspecialchars($row["payment_status"]) ? htmlspecialchars($row["payment_status"]) : 'Not Available'; ?></td>
-                            <td><button type="button" class="ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#updatePaymentStatus<?php echo $row["studentID"] ?>"></button></td>
-                            <?php include('modals/update-payment-form.php'); ?>
+                            <td>
+                              <button type="button" class="ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editStudent<?php echo htmlspecialchars($row["studentID"]); ?>"></button>
+                              <form method="POST" action="../admin/upload/delete-student.php" onsubmit="return confirm('Are you sure you want to delete this student?');" style="display:inline;">
+                                <input type="hidden" name="studentID" value="<?php echo htmlspecialchars($row["studentID"]); ?>">
+                                <button type="submit" class="ri-delete-bin-6-line"></button>
+                              </form>
+                            </td>
+
+                            <?php include('modals/form-edit-Student.php'); ?>
                           </tr>
                       <?php
                         }

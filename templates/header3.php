@@ -357,7 +357,7 @@ $lname = $user['user_lname'];
 
       <!--PAYMENT STATUS ONLY-->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+        <a class="nav-link collapsed" href="../admin/payment1.php">
           <i class="bx bx-wallet"></i>
           <span>Payment</span>
         </a>
@@ -377,6 +377,13 @@ $lname = $user['user_lname'];
                 </a>
             </li>
 -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="../admin/student_profile.php">
+          <i class="ri ri-group-line"></i>
+          <span>Profile</span>
+        </a>
+      </li>
+
       <li class="nav-item">
         <a class="nav-link collapsed" href="">
           <i class="ri-logout-circle-r-line"></i>

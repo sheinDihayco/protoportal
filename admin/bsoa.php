@@ -384,8 +384,12 @@
                                         $db = $database->open();
 
                                         try {
-                                            $query = "SELECT * FROM tbl_students WHERE major = 'Programming' /* Chnage major here!!!!!!! */
-                                                      ORDER BY lname ASC";
+                                            $query = "SELECT *, sr.lname, sr.fname, sr.course,sr.year, s.major, s.studentID
+                                                    FROM tbl_student_records sr
+                                                    JOIN tbl_students s ON sr.studentID = s.studentID
+                                                    WHERE s.major = 'OA'
+                                                    ORDER BY sr.lname ASC";
+
                                             foreach ($db->query($query) as $row) {
                                         ?>
                                                 <tr>
@@ -393,8 +397,12 @@
                                                     <td><?php echo $row["lname"] ?>, <?php echo $row["fname"] ?></td>
                                                     <td><?php echo $row["course"] ?> - <?php echo $row["year"] ?></td>
                                                     <td><?php echo $row["major"] ?></td>
-                                                    <td><button type="button" class="ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editStudent<?php echo $row["studentID"] ?>"></button></td>
-                                                    <?php include('modals/form-edit-student.php'); ?>
+                                                    <td><button type="button" class="ri-eye-fill" data-bs-toggle="modal" data-bs-target="#viewStudent<?php echo $row["studentID"] ?>"></button>
+                                                        <button type="button" class="ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editStudent<?php echo htmlspecialchars($row["studentID"]); ?>"></button>
+                                                    </td>
+
+                                                    <?php include('modals/form-view-student.php'); ?>
+                                                    <?php include('modals/form-edit-Student.php'); ?>
                                                 </tr>
                                         <?php
                                             }
