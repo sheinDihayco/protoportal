@@ -16,7 +16,6 @@ $statements->execute();
 $user = $statements->fetch(PDO::FETCH_ASSOC);
 $fname = $user['user_fname'];
 $lname = $user['user_lname'];
-
 ?>
 
 <!DOCTYPE html>

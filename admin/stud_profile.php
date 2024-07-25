@@ -1,30 +1,32 @@
 <?php
-
-$_SESSION['stud'] = $_POST["stud_id"];
+if (isset($_POST['stud_id']) && !empty($_POST['stud_id'])) {
+  $_SESSION['stud'] = $_POST['stud_id'];
+}
 
 if (isset($_SESSION['stud']) && !empty($_SESSION['stud'])) {
   $studid = $_SESSION['stud'];
 } else {
-  header("Location: stud_profile.php?error=nofile");
-  exit();
+  exit('No student ID provided');
 }
-?>
 
-<?php
 include_once "../templates/header.php";
 include_once "includes/connect.php";
 include_once 'includes/connection.php';
 
-$statement = $conn->prepare("
-    SELECT s.fname, s.lname, s.course, s.year, sr.major, s.contact, sr.email, sr.cityAdd, sr.curAddress
-    FROM tbl_student_records s
-    INNER JOIN tbl_students sr ON s.studentID = sr.studentID
-    WHERE s.studentID = :sid
-");
+try {
+  $statement = $conn->prepare("
+        SELECT s.fname, s.lname, s.course, s.year, sr.major, s.contact, sr.email, sr.cityAdd, sr.curAddress
+        FROM tbl_students s
+        INNER JOIN tbl_students sr ON s.studentID = sr.studentID
+        WHERE s.studentID = :sid
+    ");
 
-$statement->bindParam(':sid', $studid);
-$statement->execute();
-$studs = $statement->fetch(PDO::FETCH_ASSOC);
+  $statement->bindParam(':sid', $studid, PDO::PARAM_INT);
+  $statement->execute();
+  $studs = $statement->fetch(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+  echo 'Query failed: ' . $e->getMessage();
+}
 ?>
 
 <main id="main" class="main">
@@ -36,7 +38,7 @@ $studs = $statement->fetch(PDO::FETCH_ASSOC);
       </button>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><?php echo htmlspecialchars($studs["course"]) ?></li>
+          <li class="breadcrumb-item"><?php echo htmlspecialchars($studs["course"]); ?></li>
         </ol>
       </nav>
     <?php else : ?>
@@ -125,7 +127,7 @@ $studs = $statement->fetch(PDO::FETCH_ASSOC);
 
                       // Query to fetch students with their payment status for the selected studentID
                       $sql = 'SELECT s.studentID, p.payment_status
-                          FROM tbl_student_records s 
+                          FROM tbl_students s 
                           LEFT JOIN tbl_payments p ON s.studentID = p.studentID
                           WHERE s.studentID = ?';
 
@@ -139,7 +141,7 @@ $studs = $statement->fetch(PDO::FETCH_ASSOC);
                           <tr>
                             <th scope="row"><a href=""><?php echo htmlspecialchars($row["studentID"]); ?></a></th>
                             <td><?php echo htmlspecialchars($row["payment_status"]) ? htmlspecialchars($row["payment_status"]) : 'Not Available'; ?></td>
-                            <td><button type="button" class="ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#updatePaymentStatus<?php echo $row["studentID"] ?>"></button></td>
+                            <td><button type="button" class="ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#updatePaymentStatus<?php echo $row["studentID"]; ?>"></button></td>
                             <?php include('modals/update-payment-form.php'); ?>
                           </tr>
                       <?php
@@ -162,32 +164,32 @@ $studs = $statement->fetch(PDO::FETCH_ASSOC);
 
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label">Full Name <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo $studs["fname"] ?> <?php echo $studs["lname"] ?></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["fname"]); ?> <?php echo htmlspecialchars($studs["lname"]); ?></div>
                 </div>
 
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label">Course <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo $studs["course"] ?> - <?php echo $studs["year"] ?></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["course"]); ?> - <?php echo htmlspecialchars($studs["year"]); ?></div>
                 </div>
 
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label">Major <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo $studs["major"] ?></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["major"]); ?></div>
                 </div>
 
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label">Address <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo $studs["curAddress"] ?> <?php echo $studs["cityAdd"] ?></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["curAddress"]); ?> <?php echo htmlspecialchars($studs["cityAdd"]); ?></div>
                 </div>
 
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label">Phone <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo $studs["contact"] ?></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["contact"]); ?></div>
                 </div>
 
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label">Email <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo $studs["email"] ?></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["email"]); ?></div>
                 </div>
               </div>
             </div>

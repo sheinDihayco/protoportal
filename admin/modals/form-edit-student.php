@@ -1,4 +1,4 @@
-<div class="modal fade" id="editStudent<?php echo $row["studentID"] ?>" tabindex="-1">
+<div class="modal fade" id="editStudent<?php echo $row["user_id"] ?>" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -13,8 +13,44 @@
           <form action="upload/insert-student-rec.php" method="post" novalidate>
 
             <div class=" col-md-8">
+              <label for="user_id" class="form-label">User ID</label>
+              <input type="text" class="form-control" id="user_id" name="user_id" value="<?php echo $row["user_id"] ?>" required>
+            </div>
+
+            <div class=" col-md-8">
               <label for="studentID" class="form-label">Student ID</label>
-              <input type="text" class="form-control" id="studentID" name="studentID" value="<?php echo $row["studentID"] ?>" requiredrequired>
+              <input type="text" class="form-control" id="studentID" name="studentID" required>
+            </div>
+
+
+            <div class="col-md-8">
+              <label for="lname" class="form-label">Last Name</label>
+              <input type="text" class="form-control" id="lname" name="lname" required>
+            </div>
+
+            <div class="col-md-8">
+              <label for="fname" class="form-label">First Name</label>
+              <input type="text" class="form-control" id="fname" name="fname" required>
+            </div>
+
+            <div class="col-md-8">
+              <label for="middleInitial" class="form-label">Middle Initial</label>
+              <input type="text" class="form-control" id="middleInitial" name="middleInitial" required>
+            </div>
+
+            <div class="col-md-8">
+              <label for="Suffix" class="form-label">Suffix</label>
+              <input type="text" class="form-control" id="Suffix" name="Suffix">
+            </div>
+
+            <div class="col-md-8">
+              <label for="course" class="form-label">Course</label>
+              <input type="text" class="form-control" id="course" name="course" required>
+            </div>
+
+            <div class="col-md-8">
+              <label for="year" class="form-label">Year</label>
+              <input type="text" class="form-control" id="year" name="year" required>
             </div>
 
             <div class="col-md-8">
@@ -31,7 +67,7 @@
             </div>
             <div class="col-md-8">
               <label for="pob" class="form-label">Place of Birth</label>
-              <input type="text" class="form-control" id="pob" name="pob" requiredrequired>
+              <input type="text" class="form-control" id="pob" name="pob" required>
             </div>
             <div class=" col-md-8">
               <label for="email" class="form-label">Email</label>

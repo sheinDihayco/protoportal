@@ -1,16 +1,28 @@
 <?php
 include_once "../templates/header3.php";
-include_once "includes/connect.php";
-include_once 'includes/connection.php';
 ?>
+
 <main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1> Account Records</h1>
+        <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#insertStudent">
+        </button>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                <li class="breadcrumb-item active">Accounts</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+
     <section class="section dashboard">
         <div class="row">
-
             <!-- Left side columns -->
             <div class="col-lg-12">
                 <div class="row">
-
+                    <!-- Recent Sales -->
                     <div class="col-12">
                         <div class="card recent-sales overflow-auto">
 
@@ -20,82 +32,79 @@ include_once 'includes/connection.php';
                                     <li class="dropdown-header text-start">
                                         <h6>Filter</h6>
                                     </li>
-                                    <li><a class="dropdown-item" href="#">Today</a></li>
-                                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                                    <li><a class="dropdown-item" href="../admin/user-instructor.php">Instructor</a></li>
+                                    <li><a class="dropdown-item" href="../admin/user-student.php">Student</a></li>
+                                    <li><a class="dropdown-item" href="../admin/user.php">Admin</a></li>
                                 </ul>
                             </div>
 
                             <div class="card-body">
-                                <h5 class="card-title"><?php echo $lname ?> <span>| Enrolled</span></h5>
+                                <h5 class="card-title">Accounts <span>| Registered</span></h5>
 
                                 <table class="table table-borderless datatable">
                                     <thead>
                                         <tr>
-                                            <th scope="col">School ID</th>
+                                            <th scope="col">User ID</th>
                                             <th scope="col">Full Name</th>
-                                            <th scope="col">Course</th>
-                                            <th scope="col">Payment Status</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Username</th>
+                                            <th scope="col">Role</th>
+                                            <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
+
                                         $database = new Connection();
                                         $db = $database->open();
 
                                         try {
-                                            // Define your SQL query
-                                            $sql = 'SELECT *, p.payment_status
-                                                FROM tbl_student_records s
-                                                INNER JOIN tbl_payments p  ON s.studentID = p.studentID
-                                                WHERE lname = ?
-                                                ORDER BY lname ASC';;
+                                            // Prepare the SQL statement
+                                            $sql = "SELECT s.*, u.*
+                                                    FROM tbl_students s
+                                                    INNER JOIN tbl_users u ON s.user_id = u.user_id
+                                                    WHERE s.user_id = :user_id";
 
-                                            // Prepare the statement
                                             $stmt = $db->prepare($sql);
+                                            $stmt->bindParam(':user_id', $userid);
+                                            $stmt->execute();
+                                            $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                                            // Execute the statement with parameters
-                                            $stmt->execute([$lname]); // Ensure $studentID is set before this
-
-                                            // Fetch all results
-                                            $results = $stmt->fetchAll();
-
-                                            // Iterate over the results and display them
-                                            foreach ($results as $rows) {
+                                            if ($row) {
                                         ?>
                                                 <tr>
-                                                    <th scope="row"><a href="#"><?php echo htmlspecialchars($rows["studentID"], ENT_QUOTES, 'UTF-8'); ?></a></th>
-                                                    <td><?php echo htmlspecialchars($rows["lname"], ENT_QUOTES, 'UTF-8'); ?>, <?php echo htmlspecialchars($rows["fname"], ENT_QUOTES, 'UTF-8'); ?></td>
-                                                    <td><?php echo htmlspecialchars($rows["course"], ENT_QUOTES, 'UTF-8'); ?> - <?php echo htmlspecialchars($rows["year"], ENT_QUOTES, 'UTF-8'); ?></td>
-                                                    <td><?php echo htmlspecialchars($rows["payment_status"], ENT_QUOTES, 'UTF-8'); ?></td>
-                                                    <!--<td>
-                                                        <button type="button" class="ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editStudent<?php echo htmlspecialchars($row["studentID"]); ?>"></button>
-                                                        <form method="POST" action="../admin/upload/delete-student.php" onsubmit="return confirm('Are you sure you want to delete this student?');" style="display:inline;">
-                                                            <input type="hidden" name="studentID" value="<?php echo htmlspecialchars($row["studentID"]); ?>">
+                                                    <th scope="row"><a href="#"><?php echo htmlspecialchars($row["user_id"]); ?></a></th>
+                                                    <td><?php echo htmlspecialchars($row["user_fname"]); ?>, <?php echo htmlspecialchars($row["user_lname"]); ?></td>
+                                                    <td><?php echo htmlspecialchars($row["user_email"]); ?></td>
+                                                    <td><?php echo htmlspecialchars($row["user_name"]); ?></td>
+                                                    <td><?php echo htmlspecialchars($row["user_role"]); ?></td>
+                                                    <td>
+                                                        <button type="button" class="ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editModal<?php echo htmlspecialchars($row["user_id"]); ?>"></button>
+                                                        <form method="POST" action="../admin/upload/delete-user.php" onsubmit="return confirm('Are you sure you want to delete this user?');" style="display:inline;">
+                                                            <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($row["user_id"]); ?>">
                                                             <button type="submit" class="ri-delete-bin-6-line"></button>
                                                         </form>
-                                                    </td>-->
+                                                    </td>
+                                                    <?php include('modals/edit-employee.php'); ?>
                                                 </tr>
                                         <?php
+                                            } else {
+                                                echo "<p>No user found.</p>";
                                             }
                                         } catch (PDOException $e) {
-                                            echo "There was a problem with the connection: " . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8');
+                                            echo "There is some problem in connection: " . $e->getMessage();
                                         }
 
-                                        // Close the database connection
                                         $database->close();
                                         ?>
-
                                     </tbody>
                                 </table>
                             </div>
 
                         </div>
                     </div><!-- End Recent Sales -->
-
                 </div>
             </div><!-- End Left side columns -->
-
         </div>
     </section>
 

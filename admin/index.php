@@ -11,7 +11,7 @@ $statements = $conn->prepare("SELECT COUNT(employee_id) AS count_emp FROM tbl_em
 $statements->execute();
 $empcount = $statements->fetch(PDO::FETCH_ASSOC);
 
-$statements = $conn->prepare("SELECT COUNT(studentID) AS count_stud FROM tbl_student_records");
+$statements = $conn->prepare("SELECT COUNT(studentID) AS count_stud FROM tbl_students");
 $statements->execute();
 $studcount = $statements->fetch(PDO::FETCH_ASSOC);
 
@@ -283,7 +283,7 @@ $studcount = $statements->fetch(PDO::FETCH_ASSOC);
                     $db = $database->open();
 
                     try {
-                      $sql = 'SELECT * FROM tbl_student_records ORDER BY lname ASC';
+                      $sql = 'SELECT * FROM tbl_students ORDER BY lname ASC';
                       foreach ($db->query($sql) as $row) {
                     ?>
                         <tr>

@@ -18,14 +18,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $fname = $conn->real_escape_string($_POST['fname']);
     $lname = $conn->real_escape_string($_POST['lname']);
     $middleInitial = $conn->real_escape_string($_POST['middleInitial']);
+    $Suffix = $conn->real_escape_string($_POST['Suffix']);
     $contact = $conn->real_escape_string($_POST['contact']);
     $studentID = $conn->real_escape_string($_POST['studentID']);
     $course = $conn->real_escape_string($_POST['course']);
     $year = $conn->real_escape_string($_POST['year']);
 
     // SQL insert statement
-    $sql = "INSERT INTO tbl_student_records (fname, lname, middleInitial , contact,studentID, course, year)
-    VALUES ('$fname', '$lname', '$middleInitial', '$contact', '$studentID', '$course', '$year')";
+    $sql = "INSERT INTO tbl_students (fname, lname, middleInitial ,Suffix, contact,studentID, course, year)
+    VALUES ('$fname', '$lname', '$middleInitial', '$Suffix', '$contact', '$studentID', '$course', '$year')";
 
     if ($conn->query($sql) === TRUE) {
         header("location: ../studentRecords1.php?error=success");

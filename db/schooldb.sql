@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 25, 2024 at 05:35 AM
+-- Generation Time: Jul 25, 2024 at 09:23 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -152,9 +152,7 @@ CREATE TABLE `tbl_payments` (
 --
 
 INSERT INTO `tbl_payments` (`payment_id`, `studentID`, `payment_status`) VALUES
-(1, 2021123, 'Pending'),
-(2, 2021137, 'Paid'),
-(3, 2021160, 'Paid');
+(9, 2021137, 'Paid');
 
 -- --------------------------------------------------------
 
@@ -165,6 +163,13 @@ INSERT INTO `tbl_payments` (`payment_id`, `studentID`, `payment_status`) VALUES
 CREATE TABLE `tbl_students` (
   `studentID` int(20) NOT NULL,
   `user_id` int(20) NOT NULL,
+  `lname` varchar(50) NOT NULL,
+  `fname` varchar(50) NOT NULL,
+  `middleInitial` varchar(10) NOT NULL,
+  `Suffix` varchar(15) NOT NULL,
+  `course` varchar(50) NOT NULL,
+  `year` int(10) NOT NULL,
+  `contact` varchar(20) NOT NULL,
   `gender` varchar(10) NOT NULL,
   `bdate` varchar(50) NOT NULL,
   `pob` text NOT NULL,
@@ -203,36 +208,9 @@ CREATE TABLE `tbl_students` (
 -- Dumping data for table `tbl_students`
 --
 
-INSERT INTO `tbl_students` (`studentID`, `user_id`, `gender`, `bdate`, `pob`, `email`, `major`, `nationality`, `civilStatus`, `religion`, `modality`, `fb`, `curAddress`, `cityAdd`, `zipcode`, `fatherName`, `fwork`, `motherName`, `mwork`, `primarySchool`, `primaryAddress`, `primaryCompleted`, `entermediateSchool`, `entermediateAddress`, `entermediateCompleted`, `hsSchool`, `hsAddress`, `hsCompleted`, `shSchool`, `shAddress`, `shCompleted`, `collegeSchool`, `collegeAddress`, `collegeCompleted`) VALUES
-(2021137, 0, 'Female', '2003-02-09', 'Mactan, Lapu-Lapu City , Cebu', 'sheinalie020903@gmail.com', 'Programming', 'Filipino', 'Single', 'Roman Catholic', 'Face to Face', 'Shien Dihayco', 'Purok Sagay, Kalubihan', 'Tuyan, City of Naga, Cebu', '6037', 'Mechille V. DIhayco', 'N/A', 'Divina V. Dihayco', 'Baby Sitter', 'Punta Engano Elementary School', 'Puntan Engano, Lapu-Lapu City', '2012-2013', 'TCES', 'Tuyan, City of Naga', '2014-2015', 'TNHS', 'Tabtuy, Tuyan, City of Naga, Cebu', '2018-2019 ', 'TUYAN SENIOR HIGH SCHOOL', 'Tabtuy, Tuyan, City of Naga, Cebu', '2020-2021', 'MIIT', 'Inayagan, City of Naga, Cebu', '-'),
-(2021123, 0, 'Male', '2002-11-22', 'N/A', 'zuild@gmail.com', 'Programming', 'Filipino', 'Single', 'Roman Catholic', 'Face to Face', 'Zean Marius C. Algarme', 'Tungkop', 'Minglanilla, Cebu', '6046', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'MIIT', 'Inayagan, City of Naga, Cebu', '-'),
-(2021160, 0, 'Female', '2003-03-24', 'N/A', 'louiethnlngt@gmail.com', 'Programming', 'Filipino', 'Single', 'Roman Catholic', 'Face to Face', 'Louie Tahanlangit', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_student_records`
---
-
-CREATE TABLE `tbl_student_records` (
-  `studentID` int(20) NOT NULL,
-  `lname` varchar(50) NOT NULL,
-  `fname` varchar(50) NOT NULL,
-  `middleInitial` varchar(10) NOT NULL,
-  `course` varchar(10) NOT NULL,
-  `year` varchar(10) NOT NULL,
-  `contact` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tbl_student_records`
---
-
-INSERT INTO `tbl_student_records` (`studentID`, `lname`, `fname`, `middleInitial`, `course`, `year`, `contact`) VALUES
-(2021123, 'Algrame', 'Zean Mariuss', 'C.', ' BSIT', '3', '09912988991'),
-(2021124, 'Aguipo', 'Ashielamae', 'C.', ' BSIT', '3', '09912988991'),
-(2021137, 'Dihayco', 'Sheinalie', 'V.', ' BSIT', '3', '09996707038'),
-(2021160, 'Tahanlangit', 'Louie', 'A.', ' BSIT', '3', '09096082906');
+INSERT INTO `tbl_students` (`studentID`, `user_id`, `lname`, `fname`, `middleInitial`, `Suffix`, `course`, `year`, `contact`, `gender`, `bdate`, `pob`, `email`, `major`, `nationality`, `civilStatus`, `religion`, `modality`, `fb`, `curAddress`, `cityAdd`, `zipcode`, `fatherName`, `fwork`, `motherName`, `mwork`, `primarySchool`, `primaryAddress`, `primaryCompleted`, `entermediateSchool`, `entermediateAddress`, `entermediateCompleted`, `hsSchool`, `hsAddress`, `hsCompleted`, `shSchool`, `shAddress`, `shCompleted`, `collegeSchool`, `collegeAddress`, `collegeCompleted`) VALUES
+(2021124, 8, 'Algrame', 'Zean Mariuss', 'C.', '-', ' BSIT', 3, '', 'Male', '2002-11-22', 'N/A', 'zuild@gmail.com', 'Programming', 'Filipino', 'Single', 'Roman Catholic', 'Face to Face', 'Zean Marius C. Algarme', 'Tungkop, Minglanilla', 'Minglanilla, Cebu', '6046', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'MIIT', 'Inayagan, City of Naga, Cebu', 'N/A'),
+(2021137, 7, 'Dihayco', 'Sheinalie', 'V.', '-', 'BSIT', 3, '', 'Female', '2003-02-09', 'Mactan, Lapu-Lapu City , Cebu', 'dihayco020903@gmail.com', 'Programming', 'Filipino', 'Single', 'Roman Catholic', 'Face to Face', 'Shien Dihayco', 'Purok Sagay, Kalubihan', 'Tuyan, City of Naga, Cebu', '6037', 'Mechille V. DIhayco', 'N/A', 'Divina V. Dihayco', 'Baby Sitter', 'Punta Engano Elementary School', 'Puntan Engano, Lapu-Lapu City', '2012-2013', 'TCES', 'Tuyan, City of Naga', '2014-2015', 'TNHS', 'Tabtuy, Tuyan, City of Naga, Cebu', '2018-2019 ', 'TUYAN SENIOR HIGH SCHOOL', 'Tabtuy, Tuyan, City of Naga, Cebu', '2020-2021', 'MIIT', 'Inayagan, City of Naga, Cebu', '-');
 
 -- --------------------------------------------------------
 
@@ -274,12 +252,11 @@ INSERT INTO `tbl_transaction` (`transaction_id`, `employee_id`, `period`, `days`
 --
 
 CREATE TABLE `tbl_users` (
-  `user_id` int(10) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `user_fname` varchar(50) NOT NULL,
   `user_lname` varchar(50) NOT NULL,
   `user_email` varchar(80) NOT NULL,
   `user_name` varchar(50) NOT NULL,
-  `studentID` int(20) NOT NULL,
   `user_pass` varchar(100) NOT NULL,
   `user_role` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -288,10 +265,10 @@ CREATE TABLE `tbl_users` (
 -- Dumping data for table `tbl_users`
 --
 
-INSERT INTO `tbl_users` (`user_id`, `user_fname`, `user_lname`, `user_email`, `user_name`, `studentID`, `user_pass`, `user_role`) VALUES
-(17, 'Sheinalie', 'Dihayco', 'dihayco020903@gmail.com', '2021137', 0, '$2y$10$lccJSHCeQFIoAVvgJOQISOrt3XPtAEth6oa.e.AYn9ItvJPKHi4By', 'student'),
-(18, 'Jessamae', 'Carzano', 'jessamae@gmail.com', 'Carzano@123', 0, '$2y$10$jrkw4IdL8x6ki/kuTMNCWuKLO/KhC2RubKihD4oBmYSWq5bd6GtJm', 'admin'),
-(19, 'Zean Mariuss', 'Algarme', 'zuild@gmail.com', '2021123', 0, '$2y$10$HVbjuT7xTWSb/yn/nHE4BuWUQegfZTb4boOjphNbZgqP2Wr0tA4He', 'student');
+INSERT INTO `tbl_users` (`user_id`, `user_fname`, `user_lname`, `user_email`, `user_name`, `user_pass`, `user_role`) VALUES
+(3, 'Jessamae', 'Carzano', 'jessamae@gmail.com', 'Carzano@123', '$2y$10$aDsR8a1Guds2Vf17YchHduBPMu1XnmX.2EwDFlTZtrwni9mTbkITa', 'admin'),
+(7, 'Sheinalie', 'Dihayco', 'dihayco020903@gmail.com', '2021137', '$2y$10$l1subB.o/qk8.DU2mXsMyumneRRNPXaQeMQcfNx7mAZjrATDJKyhC', 'student'),
+(8, 'Zean Mariuss', 'Algarme', 'zuild@gmail.com', '2021123', '$2y$10$SmI.RADkHu3sYr9/XPFtt.3MW/w02uVVYPjKyCaZDtqFhzRNfYX2W', 'student');
 
 --
 -- Indexes for dumped tables
@@ -340,13 +317,8 @@ ALTER TABLE `tbl_payments`
 -- Indexes for table `tbl_students`
 --
 ALTER TABLE `tbl_students`
-  ADD KEY `TRY` (`studentID`);
-
---
--- Indexes for table `tbl_student_records`
---
-ALTER TABLE `tbl_student_records`
-  ADD PRIMARY KEY (`studentID`);
+  ADD PRIMARY KEY (`studentID`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `tbl_transaction`
@@ -398,7 +370,7 @@ ALTER TABLE `tbl_leave`
 -- AUTO_INCREMENT for table `tbl_payments`
 --
 ALTER TABLE `tbl_payments`
-  MODIFY `payment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `payment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_transaction`
@@ -410,7 +382,7 @@ ALTER TABLE `tbl_transaction`
 -- AUTO_INCREMENT for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
-  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
@@ -420,13 +392,13 @@ ALTER TABLE `tbl_users`
 -- Constraints for table `tbl_payments`
 --
 ALTER TABLE `tbl_payments`
-  ADD CONSTRAINT `payment` FOREIGN KEY (`studentID`) REFERENCES `tbl_student_records` (`studentID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `payment` FOREIGN KEY (`studentID`) REFERENCES `tbl_students` (`studentID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tbl_students`
 --
 ALTER TABLE `tbl_students`
-  ADD CONSTRAINT `TRY` FOREIGN KEY (`studentID`) REFERENCES `tbl_student_records` (`studentID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `tbl_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

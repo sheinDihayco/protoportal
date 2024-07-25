@@ -24,45 +24,11 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-
           <form action="includes/register.inc2.php" method="post" class="row g-3 needs-validation" novalidate style="padding: 20px;">
-
             <div class="col-12">
-              <label for="yourName" class="form-label">First Name</label>
-              <input type="text" name="fname" class="form-control" id="yourName" required>
-              <div class="invalid-feedback">Please, enter your first name!</div>
-            </div>
-
-            <div class="col-12">
-              <label for="yourLName" class="form-label">Last Name</label>
-              <input type="text" name="lname" class="form-control" id="yourLName" required>
-              <div class="invalid-feedback">Please, enter your last name!</div>
-            </div>
-
-            <div class="col-12">
-              <label for="yourEmail" class="form-label">Your Email</label>
-              <input type="email" name="email" class="form-control" id="yourEmail" required>
-              <div class="invalid-feedback">Please enter a valid Email adddress!</div>
-            </div>
-
-            <div class="col-12">
-              <label for="yourUsername" class="form-label">Username</label>
-              <div class="input-group has-validation">
-                <span class="input-group-text" id="inputGroupPrepend">@</span>
-                <input type="text" name="username" class="form-control" id="yourUsername" required>
-                <div class="invalid-feedback">Please choose a username.</div>
-              </div>
-            </div>
-
-            <div class="col-12">
-              <label for="yourPassword" class="form-label">Password</label>
-              <input type="password" name="password" class="form-control" id="yourPassword" required>
-              <div class="invalid-feedback">Please enter your password!</div>
-            </div>
-
-            <div class="col-12">
-              <label for="yourRole" class="form-label">Role</label>
-              <select name="role" class="form-control" id="yourRole" required>
+              <label for="role" class="form-label">Role</label>
+              <select name="role" id="role" class="form-select" required>
+                <option value="" disabled selected>Select your role</option>
                 <option value="admin">Admin</option>
                 <option value="teacher">Teacher</option>
                 <option value="student">Student</option>
@@ -71,14 +37,49 @@
             </div>
 
             <div class="col-12">
-              <div class="form-check">
-                <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
-                <div class="invalid-feedback">You must agree before submitting.</div>
-              </div>
+              <label for="firstName" class="form-label">First Name</label>
+              <input type="text" name="firstName" class="form-control" id="firstName" required>
+              <div class="invalid-feedback">Please enter your first name.</div>
             </div>
+
             <div class="col-12">
-              <button class="btn btn-primary w-100" type="submit" name="submit">Create Account</button>
+              <label for="lastName" class="form-label">Last Name</label>
+              <input type="text" name="lastName" class="form-control" id="lastName" required>
+              <div class="invalid-feedback">Please enter your last name.</div>
+            </div>
+
+            <div class="col-12">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" name="email" class="form-control" id="email" required>
+              <div class="invalid-feedback">Please enter a valid email address.</div>
+            </div>
+
+            <div class="col-12" id="usernameDiv">
+              <label for="username" class="form-label">Username</label>
+              <input type="text" name="username" class="form-control" id="username">
+              <div class="invalid-feedback">Please enter a valid username.</div>
+            </div>
+
+            <div class="col-12" id="schoolidDiv" style="display: none;">
+              <label for="schoolid" class="form-label">School ID</label>
+              <input type="text" name="schoolid" class="form-control" id="schoolid" pattern="[A-Za-z0-9\-]+" title="School ID can only contain letters, numbers, and dashes.">
+              <div class="invalid-feedback">Please enter a valid school ID (letters, numbers, and dashes only).</div>
+            </div>
+
+            <div class="col-12">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" name="password" class="form-control" id="password" required>
+              <div class="invalid-feedback">Please enter a password.</div>
+            </div>
+
+            <div class="col-12">
+              <label for="repeatPassword" class="form-label">Repeat Password</label>
+              <input type="password" name="repeatPassword" class="form-control" id="repeatPassword" required>
+              <div class="invalid-feedback">Please repeat your password.</div>
+            </div>
+
+            <div class="col-12">
+              <button class="btn btn-primary w-100" type="submit" name="register">Register</button>
             </div>
         </div>
         </form>
@@ -167,7 +168,19 @@
 
 
 </main><!-- End #main -->
-
+<script src="../assets/js/main.js"></script>
+<script>
+  document.getElementById('role').addEventListener('change', function() {
+    var role = this.value;
+    if (role === 'student') {
+      document.getElementById('usernameDiv').style.display = 'none';
+      document.getElementById('schoolidDiv').style.display = 'block';
+    } else {
+      document.getElementById('usernameDiv').style.display = 'block';
+      document.getElementById('schoolidDiv').style.display = 'none';
+    }
+  });
+</script>
 <?php
 include_once "../templates/footer.php";
 ?>

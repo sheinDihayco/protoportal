@@ -55,7 +55,7 @@
                     $db = $database->open();
 
                     try {
-                      $sql = 'SELECT * FROM tbl_student_records ORDER BY lname ASC';
+                      $sql = 'SELECT * FROM tbl_students ORDER BY lname ASC';
                       foreach ($db->query($sql) as $row) {
                     ?>
                         <tr>
@@ -63,7 +63,6 @@
                           <td><?php echo $row["lname"] ?>, <?php echo $row["fname"] ?></td>
                           <td><?php echo $row["course"] ?> - <?php echo $row["year"] ?></td>
                           <td><?php echo $row["contact"] ?></td>
-
                           <td>
                             <form action="stud_profile.php" method="post">
                               <input type="hidden" name="stud_id" value="<?php echo $row['studentID']; ?>">

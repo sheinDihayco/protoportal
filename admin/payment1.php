@@ -134,9 +134,9 @@ $studs = $statement->fetch(PDO::FETCH_ASSOC);
 
                                             // Query to fetch students with their payment status for the selected studentID
                                             $sql = 'SELECT s.studentID, p.payment_status
-                          FROM tbl_student_records s 
-                          LEFT JOIN tbl_payments p ON s.studentID = p.studentID
-                          WHERE s.studentID = ?';
+                                                    FROM tbl_students s 
+                                                    LEFT JOIN tbl_payments p ON s.studentID = p.studentID
+                                                    WHERE s.studentID = ?';
 
                                             if ($stmt = $conn->prepare($sql)) {
                                                 $stmt->bind_param("s", $studid);

@@ -1,82 +1,51 @@
 <?php
-include("connect.php");
-include("connection.php");
+include_once "connect.php";
 
-function emptyInputSignup($fname, $lname, $email, $username, $password, $role)
-{
-    return empty($fname) || empty($lname) || empty($email) || empty($username) || empty($password) || empty($role);
-}
+// Enable error reporting
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-function invalidUsername($username)
-{
-    return !preg_match("/^[a-zA-Z0-9]*$/", $username);
-}
-
-function invalidPassword($password)
-{
-    return strlen($password) < 6 || !preg_match('/[A-Z]/', $password) || !preg_match('/[!@#$%^&*(),.?":{}|<>]/', $password);
-}
-
-function usernameExists($conn, $username, $email)
-{
-    $sql = "SELECT * FROM tbl_users WHERE user_name = :username OR user_email = :email";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':username', $username);
-    $stmt->bindParam(':email', $email);
-    $stmt->execute();
-    return $stmt->fetch(PDO::FETCH_ASSOC);
-}
-
-if (isset($_POST["submit"])) {
-    $fname = $_POST["fname"];
-    $lname = $_POST["lname"];
-    $email = $_POST["email"];
-    $username = $_POST["username"];
-    $password = $_POST["password"];
+if (isset($_POST["register"])) {
     $role = $_POST["role"];
+    $firstName = $_POST["firstName"];
+    $lastName = $_POST["lastName"];
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+    $repeatPassword = $_POST["repeatPassword"];
 
-    if (emptyInputSignup($fname, $lname, $email, $username, $password, $role)) {
-        header("location: ../register.php?error=emptyinput&fname=$fname&lname=$lname&email=$email&username=$username&role=$role");
-        exit();
+    // Validate password
+    if ($password !== $repeatPassword) {
+        header("location:../register.php?error=passwordmismatch");
+        exit;
     }
 
-    if (invalidUsername($username)) {
-        header("location: ../register.php?error=invalidusername&fname=$fname&lname=$lname&email=$email&username=$username&role=$role");
-        exit();
+    // Hash the password
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+    // Prepare SQL statement
+    if ($role == 'student') {
+        $schoolid = $_POST["schoolid"];
+        $statement = $conn->prepare("INSERT INTO tbl_users (user_fname, user_lname, user_email, user_name, user_pass, user_role) VALUES (:firstName, :lastName, :email, :userName, :password, :role)");
+        $statement->bindParam(':userName', $schoolid);
+    } else {
+        $username = $_POST["username"];
+        $statement = $conn->prepare("INSERT INTO tbl_users (user_fname, user_lname, user_email, user_name, user_pass, user_role) VALUES (:firstName, :lastName, :email, :userName, :password, :role)");
+        $statement->bindParam(':userName', $username);
     }
 
-    if (invalidPassword($password)) {
-        header("location: ../register.php?error=invalidpassword&fname=$fname&lname=$lname&email=$email&username=$username&role=$role");
-        exit();
+    $statement->bindParam(':firstName', $firstName);
+    $statement->bindParam(':lastName', $lastName);
+    $statement->bindParam(':email', $email);
+    $statement->bindParam(':password', $hashedPassword);
+    $statement->bindParam(':role', $role);
+
+    // Execute the query
+    if ($statement->execute()) {
+        header("location:../user.php?register=success");
+    } else {
+        print_r($statement->errorInfo());
+        header("location:../register.php?error=sqlerror");
     }
-
-    $database = new Connection();
-    $dbs = $database->open();
-
-    if (usernameExists($dbs, $username, $email)) {
-        header("location: ../register.php?error=userexists&fname=$fname&lname=$lname&email=$email&username=$username&role=$role");
-        exit();
-    }
-
-    $hashedPwd = password_hash($password, PASSWORD_DEFAULT);
-
-    try {
-        $sql = "INSERT INTO tbl_users (user_fname, user_lname, user_email, user_name, user_pass, user_role) VALUES (:fname, :lname, :email, :username, :password, :role)";
-        $stmt = $dbs->prepare($sql);
-        $stmt->bindParam(':fname', $fname);
-        $stmt->bindParam(':lname', $lname);
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':username', $username);
-        $stmt->bindParam(':password', $hashedPwd);
-        $stmt->bindParam(':role', $role);
-        $stmt->execute();
-        header("location: ../user.php?error=none");
-    } catch (PDOException $e) {
-        echo $sql . "<br>" . $e->getMessage();
-    }
-
-    $database->close();
-} else {
-    header("location: ../user.php");
-    exit();
+    exit;
 }
