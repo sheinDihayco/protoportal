@@ -2,9 +2,10 @@
 
 
 <main id="main" class="main">
+
   <div class="pagetitle">
     <h1>Student Records</h1>
-    <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#insertStudent">
+    <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#insertStudentUser">
     </button>
     <nav>
       <ol class="breadcrumb">
@@ -14,11 +15,11 @@
     </nav>
   </div><!-- End Page Title -->
 
-  <div class="modal fade" id="insertStudent" tabindex="-1">
+  <div class="modal fade" id="insertStudentUser" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Register Account</h5>
+          <h5 class="card-title">Register Account</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -93,7 +94,7 @@
         <div class="col-12">
           <div class="card recent-sales overflow-auto">
 
-            <div class="filter">
+            <!-- <div class="filter">
               <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
               <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                 <li class="dropdown-header text-start">
@@ -103,7 +104,7 @@
                 <li><a class="dropdown-item" href="../admin/bsba.php">BSBA</a></li>
                 <li><a class=" dropdown-item" href="../admin/bsoa.php">BSOA</a></li>
               </ul>
-            </div>
+            </div>-->
 
             <div class="card-body">
               <h5 class="card-title">Students <span>| Enrolled</span></h5>
@@ -137,6 +138,7 @@
                         <td><?php echo $row["user_role"] ?></td>
                         <td>
                           <button type="button" class="ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editStudent<?php echo $row["user_id"] ?>"></button>
+
                           <form method="POST" action="../admin/upload/delete-user.php" onsubmit="return confirm('Are you sure you want to delete this user?');" style="display:inline;">
                             <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($row["user_id"]); ?>">
                             <button type="submit" class="ri-delete-bin-6-line"></button>

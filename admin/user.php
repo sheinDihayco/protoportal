@@ -24,7 +24,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="includes/register.inc2.php" method="post" class="row g-3 needs-validation" novalidate style="padding: 20px;">
+          <form action="includes/register.inc.php" method="post" class="row g-3 needs-validation" novalidate style="padding: 20px;">
             <div class="col-12">
               <label for="role" class="form-label">Role</label>
               <select name="role" id="role" class="form-select" required>
@@ -76,6 +76,10 @@
               <label for="repeatPassword" class="form-label">Repeat Password</label>
               <input type="password" name="repeatPassword" class="form-control" id="repeatPassword" required>
               <div class="invalid-feedback">Please repeat your password.</div>
+            </div>
+
+            <div class="col-12">
+              <button class="btn btn-primary w-100" type="submit" name="register">Register</button>
             </div>
 
             <div class="col-12">
@@ -140,13 +144,11 @@
                           <td><?php echo $row["user_name"] ?></td>
                           <td><?php echo $row["user_role"] ?></td>
                           <td>
-                            <button type="button" class="ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $row["user_id"] ?>"></button>
                             <form method="POST" action="../admin/upload/delete-user.php" onsubmit="return confirm('Are you sure you want to delete this user?');" style="display:inline;">
                               <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($row["user_id"]); ?>">
                               <button type="submit" class="ri-delete-bin-6-line"></button>
                             </form>
                           </td>
-                          <?php include('modals/edit-employee.php'); ?>
                         </tr>
                     <?php
                       }
@@ -168,6 +170,10 @@
 
 
 </main><!-- End #main -->
+<!-- Vendor JS Files -->
+<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Template Main JS File -->
 <script src="../assets/js/main.js"></script>
 <script>
   document.getElementById('role').addEventListener('change', function() {

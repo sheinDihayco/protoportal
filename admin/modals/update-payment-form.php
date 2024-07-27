@@ -12,12 +12,24 @@
           <!-- Horizontal Form -->
           <form action="functions/payment-status.php" method="POST" novalidate>
 
-            <div class=" col-md-8">
+            <div class=" col-md-6">
               <label for="studentID" class="form-label">Student ID</label>
               <input type="text" class="form-control" id="studentID" name="studentID" value="<?php echo $row["studentID"] ?>" required>
             </div>
 
-            <div class="col-md-8">
+            <div class="col-md-6">
+              <label for="semester" class="form-label">Semester</label>
+              <select class="form-select" id="semester" name="semester" required>
+                <option value="">Choose...</option>
+                <option value="1st" <?php if ($row["semester"] == "1st") echo "selected"; ?>>1st</option>
+                <option value="2nd" <?php if ($row["semester"] == "2nd") echo "selected"; ?>>2nd</option>
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid semester.
+              </div>
+            </div>
+
+            <div class="col-md-6">
               <label for="payment_status" class="form-label">Status</label>
               <select class="form-select" id="payment_status" name="payment_status" required>
                 <option value="">Choose...</option>
@@ -26,15 +38,14 @@
                 <option value="Overdue" <?php if ($row["payment_status"] == "Overdue") echo "selected"; ?>>Overdue</option>
               </select>
             </div>
-
-
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary" name="submit">Save changes</button>
-            </div>
-          </form>
         </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" name="submit">Save changes</button>
+        </div>
+        </form>
       </div>
     </div>
   </div>
+</div>
 </div>

@@ -376,12 +376,7 @@ $lname = $user['user_lname'];
                 </a>
             </li>
 -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="../admin/student_profile.php">
-          <i class="ri ri-group-line"></i>
-          <span>Profile</span>
-        </a>
-      </li>
+
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="">

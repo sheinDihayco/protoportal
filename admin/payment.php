@@ -5,7 +5,7 @@
 
   <div class="pagetitle">
     <h1>Student Records</h1>
-    </button>
+    <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#insertStudent"></button>
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
@@ -14,6 +14,73 @@
     </nav>
   </div><!-- End Page Title -->
 
+  <!--<div class="modal fade" id="insertStudent" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Insert Stduent</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <form action="../admin/upload/insert-initial-data.php" method="post" class="row g-3 needs-validation" novalidate style="padding: 20px;">
+
+            <div class="col-md-6">
+              <label for="fname" class="form-label">First name</label>
+              <input type="text" class="form-control" id="fname" name="fname" required>
+              <div class="invalid-feedback">
+                Please provide a valid first name.
+              </div>
+            </div>
+            <div class="col-md-5">
+              <label for="lname" class="form-label">Last name</label>
+              <input type="text" class="form-control" id="lname" name="lname" required>
+              <div class="invalid-feedback">
+                Please provide a valid last name.
+              </div>
+            </div>
+            <div class="col-md-1">
+              <label for="middleInitial" class="form-label">M.I</label>
+              <input type="text" class="form-control" id="middleInitial" name="middleInitial" required>
+              <div class="invalid-feedback">
+                Please provide a valid last name.
+              </div>
+            </div>
+
+
+            <div class="col-md-4">
+              <label for="studentID" class="form-label">Student ID</label>
+              <input type="text" class="form-control" id="studentID" name="studentID" required>
+              <div class="invalid-feedback">
+                Please provide a valid department.
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label for="course" class="form-label">Course</label>
+              <input type="text" class="form-control" id="course" name="course" required>
+              <div class="invalid-feedback">
+                Please provide a valid date.
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <label for="year" class="form-label">Year</label>
+              <input type="text" class="form-control" id="year" name="year" required>
+              <div class="invalid-feedback">
+                Please provide a valid title.
+              </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" name="submit">Save changes</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>-->
 
   <section class="section dashboard">
     <div class="row">
@@ -45,7 +112,6 @@
                       <th scope="col">Student ID</th>
                       <th scope="col">Full Name</th>
                       <th scope="col">Course</th>
-                      <th scope="col">Contact</th>
                       <th scope="col">Status</th>
                     </tr>
                   </thead>
@@ -62,9 +128,8 @@
                           <th scope="row"><a href="#"><?php echo $row["studentID"] ?></a></th>
                           <td><?php echo $row["lname"] ?>, <?php echo $row["fname"] ?></td>
                           <td><?php echo $row["course"] ?> - <?php echo $row["year"] ?></td>
-                          <td><?php echo $row["contact"] ?></td>
                           <td>
-                            <form action="stud_profile.php" method="post">
+                            <form action="student_profile.php" method="post">
                               <input type="hidden" name="stud_id" value="<?php echo $row['studentID']; ?>">
                               <button type="submit" class="" name="submit"><i class="ri-arrow-right-circle-fill"></i></button>
                             </form>

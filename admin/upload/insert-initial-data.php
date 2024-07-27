@@ -15,12 +15,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     }
 
     // Collect and sanitize form data
+    $user_id = $conn->real_escape_string($_POST['user_id']);
     $fname = $conn->real_escape_string($_POST['fname']);
     $lname = $conn->real_escape_string($_POST['lname']);
+    $middleInitial = $conn->real_escape_string($_POST['middleInitial']);
+    $Suffix = $conn->real_escape_string($_POST['Suffix']);
     $studentID = $conn->real_escape_string($_POST['studentID']);
     $course = $conn->real_escape_string($_POST['course']);
     $year = $conn->real_escape_string($_POST['year']);
-    $contact = $conn->real_escape_string($_POST['contact']);
 
     // Check if studentID already exists
     $checkQuery = "SELECT studentID FROM tbl_students WHERE studentID = '$studentID'";
@@ -31,10 +33,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         echo "Error: A record with the student ID $studentID already exists.";
     } else {
         // SQL insert statement
-        $sql = "INSERT INTO tbl_students (fname, lname, studentID, course, year, contact)
-                VALUES ('$fname', '$lname', '$studentID', '$course', '$year', '$contact')";
+        $sql = "INSERT INTO tbl_students (user_id, fname, lname,Suffix, middleInitial, studentID, course, year)
+                VALUES ('$user_id','$fname', '$lname', '$middleInitial', '$Suffix','$studentID', '$course', '$year')";
 
         if ($conn->query($sql) === TRUE) {
+            header("location: ../payment.php?error=success");
             echo "Record inserted successfully";
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;

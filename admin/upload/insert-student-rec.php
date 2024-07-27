@@ -28,6 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $email = $conn->real_escape_string($_POST['email']);
     $studentID = $conn->real_escape_string($_POST['studentID']);
     $major = $conn->real_escape_string($_POST['major']);
+    $contact = $conn->real_escape_string($_POST['contact']);
     $nationality = $conn->real_escape_string($_POST['nationality']);
     $civilStatus = $conn->real_escape_string($_POST['civilStatus']);
     $religion = $conn->real_escape_string($_POST['religion']);
@@ -75,6 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                       pob = '$pob',
                       email = '$email',
                       major = '$major',
+                      contact = '$contact',
                       nationality = '$nationality',
                       civilStatus = '$civilStatus',
                       religion = '$religion',
@@ -105,17 +107,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                       WHERE studentID = '$studentID'";
 
         if ($conn->query($updateSQL) === TRUE) {
-            header("location: ../studentRecords1.php?error=success");
+            header("location: ../stud_profile.php?error=success");
         } else {
             echo "Error updating record: " . $conn->error;
         }
     } else {
         // studentID does not exist, insert a new record
-        $insertSQL = "INSERT INTO tbl_students (user_id, lname, fname, middleInitial, Suffix, course, year, gender, bdate, pob, email, studentID, major, nationality, civilStatus, religion, modality, fb, curAddress, cityAdd, zipcode, fatherName, fwork, motherName, mwork, primarySchool, primaryAddress, primaryCompleted, entermediateSchool, entermediateAddress, entermediateCompleted, hsSchool, hsAddress, hsCompleted, shSchool, shAddress, shCompleted, collegeSchool, collegeAddress, collegeCompleted)
-                      VALUES ('$user_id', '$lname', '$fname', '$middleInitial', '$Suffix', '$course', '$year', '$gender', '$bdate', '$pob', '$email', '$studentID', '$major', '$nationality', '$civilStatus', '$religion', '$modality', '$fb', '$curAddress', '$cityAdd', '$zipcode', '$fatherName', '$fwork', '$motherName', '$mwork', '$primarySchool', '$primaryAddress', '$primaryCompleted', '$entermediateSchool', '$entermediateAddress', '$entermediateCompleted', '$hsSchool', '$hsAddress', '$hsCompleted', '$shSchool', '$shAddress', '$shCompleted', '$collegeSchool', '$collegeAddress', '$collegeCompleted')";
+        $insertSQL = "INSERT INTO tbl_students (user_id, lname, fname, middleInitial, Suffix, course, year, gender, bdate, pob, email, studentID, major,contact, nationality, civilStatus, religion, modality, fb, curAddress, cityAdd, zipcode, fatherName, fwork, motherName, mwork, primarySchool, primaryAddress, primaryCompleted, entermediateSchool, entermediateAddress, entermediateCompleted, hsSchool, hsAddress, hsCompleted, shSchool, shAddress, shCompleted, collegeSchool, collegeAddress, collegeCompleted)
+                      VALUES ('$user_id', '$lname', '$fname', '$middleInitial', '$Suffix', '$course', '$year', '$gender', '$bdate', '$pob', '$email', '$studentID', '$major', '$contact', '$nationality', '$civilStatus', '$religion', '$modality', '$fb', '$curAddress', '$cityAdd', '$zipcode', '$fatherName', '$fwork', '$motherName', '$mwork', '$primarySchool', '$primaryAddress', '$primaryCompleted', '$entermediateSchool', '$entermediateAddress', '$entermediateCompleted', '$hsSchool', '$hsAddress', '$hsCompleted', '$shSchool', '$shAddress', '$shCompleted', '$collegeSchool', '$collegeAddress', '$collegeCompleted')";
 
         if ($conn->query($insertSQL) === TRUE) {
-            header("location: ../studentRecords1.php?error=success");
+            header("location: ../stud_profile.php?error=success");
         } else {
             echo "Error inserting record: " . $conn->error;
         }

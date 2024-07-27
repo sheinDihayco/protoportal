@@ -81,6 +81,9 @@
                         <div class="col-12">
                             <button class="btn btn-primary w-100" type="submit" name="register">Register</button>
                         </div>
+                        <div class="col-12">
+                            <p class="small mb-0">Already have an account? <a href="login.php">Login here</a></p>
+                        </div>
                 </div>
                 </form>
             </div>
@@ -140,13 +143,11 @@
                                                     <td><?php echo $row["user_name"] ?></td>
                                                     <td><?php echo $row["user_role"] ?></td>
                                                     <td>
-                                                        <button type="button" class="ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $row["user_id"] ?>"></button>
                                                         <form method="POST" action="../admin/upload/delete-user.php" onsubmit="return confirm('Are you sure you want to delete this user?');" style="display:inline;">
                                                             <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($row["user_id"]); ?>">
                                                             <button type="submit" class="ri-delete-bin-6-line"></button>
                                                         </form>
                                                     </td>
-                                                    <?php include('modals/edit-employee.php'); ?>
                                                 </tr>
                                         <?php
                                             }

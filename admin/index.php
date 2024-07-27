@@ -14,9 +14,7 @@ $empcount = $statements->fetch(PDO::FETCH_ASSOC);
 $statements = $conn->prepare("SELECT COUNT(studentID) AS count_stud FROM tbl_students");
 $statements->execute();
 $studcount = $statements->fetch(PDO::FETCH_ASSOC);
-
 ?>
-
 
 <main id="main" class="main">
 
@@ -32,174 +30,109 @@ $studcount = $statements->fetch(PDO::FETCH_ASSOC);
 
   <section class="section dashboard">
     <div class="row">
-
       <!-- Left side columns -->
       <div class="col-lg-12">
         <div class="row">
-
-          <!-- Sales Card -->
+          <!-- Employee Count Card -->
           <div class="col-xxl-4 col-md-6">
             <div class="card info-card sales-card">
-
               <div class="filter">
                 <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                   <li class="dropdown-header text-start">
                     <h6>Filter</h6>
                   </li>
-
                   <li><a class="dropdown-item" href="#">Today</a></li>
                   <li><a class="dropdown-item" href="#">This Month</a></li>
                   <li><a class="dropdown-item" href="#">This Year</a></li>
                 </ul>
               </div>
-
               <div class="card-body">
                 <h5 class="card-title">Employee <span>| Count</span></h5>
-
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                     <i class="bi bi-people"></i>
                   </div>
                   <div class="ps-3">
                     <h6><?php echo $empcount['count_emp'] ?></h6>
-                    <!-- <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
-
                   </div>
                 </div>
               </div>
-
             </div>
-          </div><!-- End Sales Card -->
-          <!-- Sales Card -->
+          </div><!-- End Employee Count Card -->
+
+          <!-- Student Count Card -->
           <div class="col-xxl-4 col-md-6">
             <div class="card info-card sales-card">
-
               <div class="filter">
                 <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                   <li class="dropdown-header text-start">
                     <h6>Filter</h6>
                   </li>
-
                   <li><a class="dropdown-item" href="#">Today</a></li>
                   <li><a class="dropdown-item" href="#">This Month</a></li>
                   <li><a class="dropdown-item" href="#">This Year</a></li>
                 </ul>
               </div>
-
               <div class="card-body">
                 <h5 class="card-title">Student <span>| Count</span></h5>
-
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                     <i class="bi bi-people"></i>
                   </div>
                   <div class="ps-3">
                     <h6><?php echo $studcount['count_stud'] ?></h6>
-                    <!-- <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
-
                   </div>
                 </div>
               </div>
-
             </div>
-          </div><!-- End Sales Card -->
+          </div><!-- End Student Count Card -->
+
           <!-- Revenue Card -->
           <div class="col-xxl-4 col-md-6">
             <div class="card info-card revenue-card">
-
               <div class="filter">
                 <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                   <li class="dropdown-header text-start">
                     <h6>Filter</h6>
                   </li>
-
                   <li><a class="dropdown-item" href="#">Today</a></li>
                   <li><a class="dropdown-item" href="#">This Month</a></li>
                   <li><a class="dropdown-item" href="#">This Year</a></li>
                 </ul>
               </div>
-
               <div class="card-body">
                 <h5 class="card-title">Total Net <span>| This Year</span></h5>
-
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                     <i class="bi bi-currency-dollar"></i>
                   </div>
                   <div class="ps-3">
                     <h6><?php echo number_format($totalnet['total_netpay'], 2, '.', ',') ?></h6>
-                    <!-- <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
-
                   </div>
                 </div>
               </div>
-
             </div>
           </div><!-- End Revenue Card -->
-
-          <!-- Customers Card -->
-          <!-- <div class="col-xxl-4 col-xl-6">
-
-              <div class="card info-card customers-card">
-
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div>
-
-                <div class="card-body">
-                  <h5 class="card-title">Customers <span>| This Year</span></h5>
-
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-people"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6>1244</h6>
-                      <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
-
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
-            </div> -->
-          <!-- End Customers Card -->
-
-
 
           <!-- Recent Sales -->
           <div class="col-12">
             <div class="card recent-sales overflow-auto">
-
               <div class="filter">
                 <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                   <li class="dropdown-header text-start">
                     <h6>Filter</h6>
                   </li>
-
                   <li><a class="dropdown-item" href="#">Today</a></li>
                   <li><a class="dropdown-item" href="#">This Month</a></li>
                   <li><a class="dropdown-item" href="#">This Year</a></li>
                 </ul>
               </div>
-
               <div class="card-body">
                 <h5 class="card-title">Employee <span>| Hired</span></h5>
-
                 <table class="table table-borderless datatable">
                   <thead>
                     <tr>
@@ -216,8 +149,7 @@ $studcount = $statements->fetch(PDO::FETCH_ASSOC);
                     $db = $database->open();
 
                     try {
-                      $sql = 'SELECT * FROM tbl_employee
-                          ORDER BY tbl_employee.last_name ASC';
+                      $sql = 'SELECT * FROM tbl_employee ORDER BY tbl_employee.last_name ASC';
                       foreach ($db->query($sql) as $row) {
                     ?>
                         <tr>
@@ -232,8 +164,6 @@ $studcount = $statements->fetch(PDO::FETCH_ASSOC);
                             </form>
                           </td>
                         </tr>
-
-
                     <?php
                       }
                     } catch (PDOException $e) {
@@ -242,16 +172,14 @@ $studcount = $statements->fetch(PDO::FETCH_ASSOC);
                     $database->close();
                     ?>
                   </tbody>
-
                 </table>
-
               </div>
-            </div><!-- End Recent Sales -->
-          </div>
+            </div>
+          </div><!-- End Recent Sales -->
 
+          <!-- Students Enrolled -->
           <div class="col-12">
             <div class="card recent-sales overflow-auto">
-
               <div class="filter">
                 <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
@@ -263,17 +191,14 @@ $studcount = $statements->fetch(PDO::FETCH_ASSOC);
                   <li><a class="dropdown-item" href="#">This Year</a></li>
                 </ul>
               </div>
-
               <div class="card-body">
                 <h5 class="card-title">Students <span>| Enrolled</span></h5>
-
                 <table class="table table-borderless datatable">
                   <thead>
                     <tr>
                       <th scope="col">Student ID</th>
                       <th scope="col">Full Name</th>
                       <th scope="col">Course</th>
-                      <th scope="col">Contact</th>
                       <th scope="col">Action</th>
                     </tr>
                   </thead>
@@ -287,12 +212,11 @@ $studcount = $statements->fetch(PDO::FETCH_ASSOC);
                       foreach ($db->query($sql) as $row) {
                     ?>
                         <tr>
-                          <th scope="row"><a href="#"><?php echo $row["studentID"] ?></a></th>
+                          <th scope="row"><a href=""><?php echo $row["studentID"] ?></a></th>
                           <td><?php echo $row["lname"] ?>, <?php echo $row["fname"] ?></td>
                           <td><?php echo $row["course"] ?> - <?php echo $row["year"] ?></td>
-                          <td><?php echo $row["contact"] ?></td>
                           <td>
-                            <form action="stud_profile.php" method="post">
+                            <form action="student_profile.php" method="post">
                               <input type="hidden" name="stud_id" value="<?php echo $row['studentID']; ?>">
                               <button type="submit" class="" name="submit"><i class="ri-arrow-right-circle-fill"></i></button>
                             </form>
@@ -308,13 +232,34 @@ $studcount = $statements->fetch(PDO::FETCH_ASSOC);
                   </tbody>
                 </table>
               </div>
-
             </div>
-          </div><!-- End Recent Sales -->
+          </div><!-- End Students Enrolled -->
 
+        </div>
+      </div>
+    </div>
   </section>
 
 </main><!-- End #main -->
+<script>
+  function loginAlert() {
+    $.bootstrapGrowl("Successfully Login!", {
+      type: "success",
+      offset: {
+        from: "top",
+        amount: 300
+      },
+      align: "center",
+      allow_dismiss: true,
+      stackup_spacing: 10
+    });
+  }
+</script>
+
+<!-- Link to Bootstrap JS and its dependencies -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 <?php
 include_once "../templates/footer.php";

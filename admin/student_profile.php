@@ -1,46 +1,46 @@
 <?php
-
-$_SESSION['stud'] = $_POST["stud_id"];
+if (isset($_POST['stud_id']) && !empty($_POST['stud_id'])) {
+  $_SESSION['stud'] = $_POST['stud_id'];
+}
 
 if (isset($_SESSION['stud']) && !empty($_SESSION['stud'])) {
   $studid = $_SESSION['stud'];
 } else {
-  header("Location: index3.php?error=nofile");
-  exit();
+  exit('No student ID provided');
 }
-?>
 
-<?php
 include_once "../templates/header.php";
 include_once "includes/connect.php";
 include_once 'includes/connection.php';
 
-// Prepare and execute the statement to fetch student details with INNER JOIN
-$statement = $conn->prepare("
-    SELECT s.*, sr.major, sr.email, sr.cityAdd, sr.curAddress, u.user_name
-    FROM tbl_student_records s
-    INNER JOIN tbl_students sr ON s.studentID = sr.studentID
-    INNER JOIN tbl_users u ON s.user_name = sr.studentID
-    WHERE s.studentID = :sid
-");
+try {
+  $statement = $conn->prepare("SELECT * FROM tbl_students WHERE studentID = :sid ");
 
-$statement->bindParam(':sid', $studid);
-$statement->execute();
-$studs = $statement->fetch(PDO::FETCH_ASSOC);
+  $statement->bindParam(':sid', $studid, PDO::PARAM_INT);
+  $statement->execute();
+  $studs = $statement->fetch(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+  echo 'Query failed: ' . $e->getMessage();
+}
 ?>
 
 <main id="main" class="main">
 
   <div class="pagetitle">
-    <h1><?php echo htmlspecialchars($studs["lname"]) ?>, <?php echo htmlspecialchars($studs["fname"]) ?></h1>
-    <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#insertStudent">
-    </button>
-    <nav>
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><?php echo htmlspecialchars($studs["course"]) ?></li>
-      </ol>
-    </nav>
+    <?php if ($studs) : ?>
+      <h1><?php echo htmlspecialchars($studs["lname"]); ?>, <?php echo htmlspecialchars($studs["fname"]); ?></h1>
+      <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#insertStudent">
+      </button>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><?php echo htmlspecialchars($studs["course"]); ?></li>
+        </ol>
+      </nav>
+    <?php else : ?>
+      <h1>No ID Found</h1>
+    <?php endif; ?>
   </div><!-- End Page Title -->
+
   <div class="modal fade" id="insertStudent" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
@@ -54,6 +54,17 @@ $studs = $statement->fetch(PDO::FETCH_ASSOC);
               <input type="number" class="form-control" id="studentID" name="studentID" value="<?php echo htmlspecialchars($studid); ?>" required readonly>
               <div class="invalid-feedback">
                 Please enter a valid student ID.
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="semester" class="form-label">Semester</label>
+              <select class="form-select" id="semester" name="semester" required>
+                <option value="">Choose...</option>
+                <option value="1st">1st</option>
+                <option value="2nd">2nd</option>
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid semester.
               </div>
             </div>
             <div class="col-md-6">
@@ -74,6 +85,7 @@ $studs = $statement->fetch(PDO::FETCH_ASSOC);
       </div>
     </div>
   </div>
+
   <section class="section profile">
     <div class="col-lg-12">
       <div class="row">
@@ -82,15 +94,15 @@ $studs = $statement->fetch(PDO::FETCH_ASSOC);
           <div class="card-body pt-3">
             <!-- Bordered Tabs -->
             <ul class="nav nav-tabs nav-tabs-bordered">
-
               <li class="nav-item">
                 <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#payment-status">Payment Status</button>
               </li>
-
               <li class="nav-item">
                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
               </li>
-
+              <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Info</button>
+              </li>
             </ul>
             <!-- End Bordered Tabs -->
 
@@ -103,6 +115,7 @@ $studs = $statement->fetch(PDO::FETCH_ASSOC);
                     <thead>
                       <tr>
                         <th scope="col">Student ID</th>
+                        <th scope="col">Semester</th>
                         <th scope="col">Payment Status</th>
                         <th scope="col">Action</th>
                       </tr>
@@ -123,8 +136,8 @@ $studs = $statement->fetch(PDO::FETCH_ASSOC);
                       }
 
                       // Query to fetch students with their payment status for the selected studentID
-                      $sql = 'SELECT s.studentID, p.payment_status
-                          FROM tbl_student_records s 
+                      $sql = 'SELECT s.*, p.*
+                          FROM tbl_students s 
                           LEFT JOIN tbl_payments p ON s.studentID = p.studentID
                           WHERE s.studentID = ?';
 
@@ -137,16 +150,13 @@ $studs = $statement->fetch(PDO::FETCH_ASSOC);
                       ?>
                           <tr>
                             <th scope="row"><a href=""><?php echo htmlspecialchars($row["studentID"]); ?></a></th>
-                            <td><?php echo htmlspecialchars($row["payment_status"]) ? htmlspecialchars($row["payment_status"]) : 'Not Available'; ?></td>
-                            <td>
-                              <button type="button" class="ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editStudent<?php echo htmlspecialchars($row["studentID"]); ?>"></button>
-                              <form method="POST" action="../admin/upload/delete-student.php" onsubmit="return confirm('Are you sure you want to delete this student?');" style="display:inline;">
-                                <input type="hidden" name="studentID" value="<?php echo htmlspecialchars($row["studentID"]); ?>">
-                                <button type="submit" class="ri-delete-bin-6-line"></button>
-                              </form>
-                            </td>
 
-                            <?php include('modals/form-edit-Student.php'); ?>
+                            <td><?php echo htmlspecialchars($row["semester"]) ? htmlspecialchars($row["semester"]) : 'Choose semester'; ?></td>
+
+                            <td><?php echo htmlspecialchars($row["payment_status"]) ? htmlspecialchars($row["payment_status"]) : 'Not Available'; ?></td>
+
+                            <td><button type="button" class="ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#updatePaymentStatus<?php echo $row["studentID"]; ?>"></button></td>
+                            <?php include('modals/update-payment-form.php'); ?>
                           </tr>
                       <?php
                         }
@@ -168,35 +178,190 @@ $studs = $statement->fetch(PDO::FETCH_ASSOC);
 
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label">Full Name <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo $studs["fname"] ?> <?php echo $studs["lname"] ?></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["fname"]); ?> <?php echo htmlspecialchars($studs["lname"]); ?> <?php echo htmlspecialchars($studs["middleInitial"]); ?> <?php echo htmlspecialchars($studs["Suffix"]); ?></div>
                 </div>
 
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label">Course <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo $studs["course"] ?> - <?php echo $studs["year"] ?></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["course"]); ?> - <?php echo htmlspecialchars($studs["year"]); ?></div>
                 </div>
 
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label">Major <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo $studs["major"] ?></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["major"]); ?></div>
                 </div>
 
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label">Address <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo $studs["curAddress"] ?> <?php echo $studs["cityAdd"] ?></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["curAddress"]); ?> <?php echo htmlspecialchars($studs["cityAdd"]); ?> <?php echo htmlspecialchars($studs["zipcode"]); ?> </div>
                 </div>
 
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label">Phone <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo $studs["contact"] ?></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["contact"]); ?></div>
                 </div>
 
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label">Email <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo $studs["email"] ?></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["email"]); ?></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Gender <span> : </span></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["gender"]); ?></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Date of Birth <span> : </span></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["bdate"]); ?></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Place of Birth <span> : </span></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["pob"]); ?></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Nationality <span> : </span></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["nationality"]); ?></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Civil Status <span> : </span></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["civilStatus"]); ?></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Religion <span> : </span></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["religion"]); ?></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Modality <span> : </span></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["modality"]); ?></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Facebook Account <span> : </span></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["fb"]); ?></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Father's Name <span> : </span></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["fatherName"]); ?></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Father's Occupation <span> : </span></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["fwork"]); ?></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Mother's Name <span> : </span></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["motherName"]); ?></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Mother's Occupation <span> : </span></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["mwork"]); ?></div>
+                </div>
+
+                <p class="card-title" style="margin-top: 1%;">Primary (Grade 1 - 4)</p>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Primary School <span> : </span></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["primarySchool"]); ?></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">School Address <span> : </span></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["primaryAddress"]); ?></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Year Completed <span> : </span></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["primaryCompleted"]); ?></div>
+                </div>
+
+                <p class="card-title" style="margin-top: 2%;">Intermediate (Grade 5 - 6)</p>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">School Name <span> : </span></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["entermediateSchool"]); ?></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">School Address <span> : </span></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["entermediateAddress"]); ?></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Year Completed <span> : </span></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["entermediateCompleted"]); ?></div>
+                </div>
+
+                <p class="card-title" style="margin-top: 2%;">High School</p>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">School Name <span> : </span></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["hsSchool"]); ?></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">School Address<span> : </span></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["hsAddress"]); ?></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Year Completed <span> : </span></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["hsCompleted"]); ?></div>
+                </div>
+
+                <p class="card-title" style="margin-top: 2%;">K12</p>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">School Name <span> : </span></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["shSchool"]); ?></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Address <span> : </span></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["shAddress"]); ?></div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label"> Year Completed <span> : </span></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["shCompleted"]); ?></div>
+                </div>
+
+                <p class="card-title" style="margin-top: 2%;">College</p>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">School Name <span> : </span></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["collegeSchool"]); ?></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">School Address <span> : </span></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["collegeAddress"]); ?></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Year Completed <span> : </span></div>
+                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["collegeCompleted"]); ?></div>
+                </div>
+
+              </div>
+            </div>
+
+
+            <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+              <div class="row mb-3">
+                <div class="col-md-2 col-lg-9">
+                  <label for="collegeCompleted" class="col-sm-6 col-form-label">Editing is not permitted on this page.</label>
                 </div>
               </div>
             </div>
+
           </div><!-- End Bordered Tabs -->
         </div>
       </div><!-- End Left side columns -->
