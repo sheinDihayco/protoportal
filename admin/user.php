@@ -146,7 +146,7 @@
                           <td>
                             <form method="POST" action="../admin/upload/delete-user.php" onsubmit="return confirm('Are you sure you want to delete this user?');" style="display:inline;">
                               <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($row["user_id"]); ?>">
-                              <button type="submit" class="ri-delete-bin-6-line"></button>
+                              <button type="submit" class=" btn btn-sm btn-danger ri-delete-bin-6-line"></button>
                             </form>
                           </td>
                         </tr>

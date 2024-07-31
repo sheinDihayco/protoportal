@@ -131,7 +131,7 @@
                           <td>
                             <form action="student_profile.php" method="post">
                               <input type="hidden" name="stud_id" value="<?php echo $row['studentID']; ?>">
-                              <button type="submit" class="" name="submit"><i class="ri-arrow-right-circle-fill"></i></button>
+                              <button type="submit" class="btn btn-sm btn-success" name="submit"><i class="ri-arrow-right-circle-fill"></i></button>
                             </form>
                           </td>
                         </tr>

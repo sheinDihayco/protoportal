@@ -160,7 +160,7 @@ $studcount = $statements->fetch(PDO::FETCH_ASSOC);
                           <td>
                             <form action="profile.php" method="post">
                               <input type="hidden" name="emps_id" value="<?php echo $row['employee_id']; ?>">
-                              <button type="submit" class="" name="submit"><i class="ri-arrow-right-circle-fill"></i></button>
+                              <button type="submit" class="btn btn-sm btn-success" name="submit"><i class="ri-arrow-right-circle-fill"></i></button>
                             </form>
                           </td>
                         </tr>
@@ -218,7 +218,7 @@ $studcount = $statements->fetch(PDO::FETCH_ASSOC);
                           <td>
                             <form action="student_profile.php" method="post">
                               <input type="hidden" name="stud_id" value="<?php echo $row['studentID']; ?>">
-                              <button type="submit" class="" name="submit"><i class="ri-arrow-right-circle-fill"></i></button>
+                              <button type="submit" class="btn btn-sm btn-success" name="submit"><i class="ri-arrow-right-circle-fill"></i></button>
                             </form>
                           </td>
                         </tr>

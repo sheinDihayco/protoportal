@@ -49,6 +49,7 @@ $lname = $user['user_lname'];
   <!-- Template Main CSS File -->
   <link href="../assets/css/style.css" rel="stylesheet">
 
+
   <!-- =======================================================
   * Template Name: NiceAdmin
   * Updated: Mar 09 2023 with Bootstrap v5.2.3
@@ -326,9 +327,16 @@ $lname = $user['user_lname'];
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+        <a class="nav-link collapsed" href="../admin/schedule.php">
           <i class="ri-calendar-2-fill"></i>
-          <span>Announcements</span>
+          <span>Schedule</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="../admin/subject.php">
+          <i class="ri-calendar-2-fill"></i>
+          <span>Prospectus</span>
         </a>
       </li>
 

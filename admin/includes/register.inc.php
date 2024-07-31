@@ -42,7 +42,7 @@ if (isset($_POST["register"])) {
 
     // Execute the query
     if ($statement->execute()) {
-        header("location:../login.php?register=success");
+        header("location:../studentRecords1.php?register=success");
     } else {
         print_r($statement->errorInfo());
         header("location:../register.php?error=sqlerror");

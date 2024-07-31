@@ -25,12 +25,12 @@ $lname = $user['user_lname'];
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Pay-App</title>
+  <title>MicroTech//Events</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="../assets/img/favicon.png" rel="icon">
+  <link href="../assets/img/miit.png" rel="icon">
   <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
@@ -65,7 +65,7 @@ $lname = $user['user_lname'];
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="../admin/index.php" class="logo d-flex align-items-center">
+      <a href="../admin/index3.php" class="logo d-flex align-items-center">
         <img src="../assets/img/miit.png" alt="">
         <span class="d-none d-lg-block">MicroTech</span>
       </a>
@@ -306,7 +306,7 @@ $lname = $user['user_lname'];
       <!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="">
+        <a class="nav-link collapsed" href="#">
           <i class="ri ri-group-line"></i>
           <span>Schedule</span>
         </a>
@@ -319,29 +319,43 @@ $lname = $user['user_lname'];
                 </a>
             </li>-->
 
-      <li class="nav-item">
+      <!--  <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
           <i class="ri ri-group-line"></i><span>Components</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <!-- STUDY LOAD -->
+            STUDY LOAD
             <a href="#">
               <i class="ri-booklet-fill"></i><span>Subjects</span>
             </a>
           </li>
 
           <li>
-            <!-- TO GIVE GRADES-->
+           TO GIVE GRADES
             <a href="#">
               <i class="ri-booklet-fill"></i><span>Grades</span>
             </a>
           </li>
         </ul>
-      </li><!-- End Components Nav -->
+      </li>End Components Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="#">
+          <i class="bx bx-book"></i>
+          <span>Grades</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
+          <i class="bx bx-book"></i>
+          <span>Subjects</span>
+        </a>
+      </li>
+
+      <!--<li class="nav-item">
+        <a class="nav-link collapsed" href="../admin/event-student.php">
           <i class="ri-calendar-check-line"></i>
           <span>Events</span>
         </a>
@@ -352,7 +366,7 @@ $lname = $user['user_lname'];
           <i class="ri-calendar-2-fill"></i>
           <span>Announcements</span>
         </a>
-      </li>
+      </li>-->
 
       <!--PAYMENT STATUS ONLY-->
       <li class="nav-item">
@@ -379,7 +393,7 @@ $lname = $user['user_lname'];
 
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="">
+        <a class="nav-link collapsed" href="../admin/includes/logout.inc.php">
           <i class="ri-logout-circle-r-line"></i>
           <span>Log out</span>
         </a>

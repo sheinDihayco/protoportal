@@ -133,7 +133,7 @@
                           <button class="btn btn-primary w-100" type="submit" name="login" onclick="loginAlert()">Login</button>
                         </div>
                         <div class="col-12">
-                          <!-- <p class="small mb-0">Don't have an account? <a href="register2.php">Create an account</a></p> -->
+                          <p class="small mb-0">Don't have an account? <a href="register.php">Create an account</a></p>
                         </div>
                       </form>
                     </div>
@@ -170,8 +170,8 @@
               <div class="course-inner-text py-4 px-4">
                 <span class="course-price">$20</span>
                 <div class="meta"><span class="icon-clock-o"></span>2 Semester / year</div>
-                <h3><a href="#">Bachelor of Science in Office Administration</a></h3>
-                <p>Focusing on developing skills in office management, administrative tasks, and organizational efficiency. </p>
+                <h3><a href="BSOA.html">Bachelor of Science in Office Administration</a></h3>
+                <p> is a four year degree program designed to provide students with knowledge and skills in business management and office processes needed in different workplaces such as general business offices, legal or medical offices.</p>
               </div>
               <div class="d-flex border-top stats">
                 <div class="py-3 px-4"><span class="icon-users"></span> 200 students</div>
@@ -186,8 +186,8 @@
               <div class="course-inner-text py-4 px-4">
                 <span class="course-price">$99</span>
                 <div class="meta"><span class="icon-clock-o"></span>2 Semester / year</div>
-                <h3><a href="#">Bachelor of Science in Business Administration</a></h3>
-                <p>Focuses on essential business management skills including operations, and strategic planning.</p>
+                <h3><a href="BSBA.html">Bachelor of Science in Business Administration</a></h3>
+                <p>Major in Business Economics program (BSBA-BUSEC) is designed to provide students with a strong foundation and an understanding of the world of economics, covering local and global economic conditions as well as the methods and applications of economic analysis. </p>
               </div>
               <div class="d-flex border-top stats">
                 <div class="py-3 px-4"><span class="icon-users"></span> 200 students</div>
@@ -197,13 +197,13 @@
 
             <div class="course bg-white h-100 align-self-stretch">
               <figure class="m-0">
-                <a href="course-single.html"><img src="images/bsit.jpg" alt="Image" class="img-fluid"></a>
+                <a href="BSIT.html"><img src="images/bsit.jpg" alt="Image" class="img-fluid"></a>
               </figure>
               <div class="course-inner-text py-4 px-4">
                 <span class="course-price">$99</span>
                 <div class="meta"><span class="icon-clock-o"></span>2 Semester / year</div>
-                <h3><a href="#">Bachelor of Science in Information Technology</a></h3>
-                <p>Focuses on computer systems, software development, networking, and information management.</p>
+                <h3><a href="BSIT.html">Bachelor of Science in Information Technology</a></h3>
+                <p>A Bachelor of Science in Information Technology degree program typically takes three to four years depending on the country. This degree is primarily focused on subjects such as software, databases, and networking.</p>
               </div>
               <div class="d-flex border-top stats">
                 <div class="py-3 px-4"><span class="icon-users"></span> 100 students</div>
@@ -235,10 +235,10 @@
             <img src="images/undraw_youtube_tutorial.svg" alt="Image" class="img-fluid">
           </div>
           <div class="col-lg-4 ml-auto" data-aos="fade-up" data-aos-delay="200">
-            <h2 class="text-black mb-4">We Are Excellent In Education</h2>
-            <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem maxime nam porro possimus fugiat quo molestiae illo.</p>
+            <h2 class="text-black mb-4">Vision</h2>
+            <p class="mb-4"> To become an educational institute whose quality education in all fields of study is anchored on technology and economic development in the 21st century.</p>
 
-            <div class="d-flex align-items-center custom-icon-wrap mb-3">
+            <!-- <div class="d-flex align-items-center custom-icon-wrap mb-3">
               <span class="custom-icon-inner mr-3"><span class="icon icon-graduation-cap"></span></span>
               <div>
                 <h3 class="m-0">22,931 Yearly Graduates</h3>
@@ -250,7 +250,7 @@
               <div>
                 <h3 class="m-0">150 Universities Worldwide</h3>
               </div>
-            </div>
+            </div>-->
 
           </div>
         </div>
@@ -260,10 +260,10 @@
             <img src="images/undraw_teaching.svg" alt="Image" class="img-fluid">
           </div>
           <div class="col-lg-4 mr-auto order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-            <h2 class="text-black mb-4">Strive for Excellent</h2>
-            <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem maxime nam porro possimus fugiat quo molestiae illo.</p>
+            <h2 class="text-black mb-4">Mission</h2>
+            <p class="mb-4">To establish, operate and promote quality education and training-based institute in the field of science and technology, and all other fields of study, at affordable fees for every individual.</p>
 
-            <div class="d-flex align-items-center custom-icon-wrap mb-3">
+            <!--<div class="d-flex align-items-center custom-icon-wrap mb-3">
               <span class="custom-icon-inner mr-3"><span class="icon icon-graduation-cap"></span></span>
               <div>
                 <h3 class="m-0">22,931 Yearly Graduates</h3>
@@ -275,7 +275,7 @@
               <div>
                 <h3 class="m-0">150 Universities Worldwide</h3>
               </div>
-            </div>
+            </div>-->
 
           </div>
         </div>
@@ -285,10 +285,17 @@
             <img src="images/undraw_teacher.svg" alt="Image" class="img-fluid">
           </div>
           <div class="col-lg-4 ml-auto" data-aos="fade-up" data-aos-delay="200">
-            <h2 class="text-black mb-4">Education is life</h2>
-            <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem maxime nam porro possimus fugiat quo molestiae illo.</p>
+            <h2 class="text-black mb-4">Core Values</h2>
+            <p class="mb-4"> <b>Magnanimity</b>- as a Christian institute of higher learning, MIIT prides itself of being magnanimous in fostering academic excellence through personalized instruction and hands-on learning, open communication, quality performance among students and staff always bearing in mind the MIIT student as a responsible learner.
+              <br>
+              <b>Integrity</b> - MIIT promotes integrity,honesty, and respect for the individual through it's dedicated and diverse faculty and staff by emphasizing ethics and professional behavior in the pursuit of academic freedom and in the process of respecting the worth of each individual.
+              <br>
+              <b>Innovativeness</b> - MIIT believes in continuous improvement when it endeavors to serve the community through its various outreach activities, in particular and when it aims to contribute its share of nation academics in general.
+              <br>
+              <b>Technology-Driven Teamwork</b> - MIIT fosters a healthy knowledge-based environment that encourages technology transfer nurtures service excellence not only in academicals but also in research thus molding the student to be globally competitive.
+            </p>
 
-            <div class="d-flex align-items-center custom-icon-wrap mb-3">
+            <!-- <div class="d-flex align-items-center custom-icon-wrap mb-3">
               <span class="custom-icon-inner mr-3"><span class="icon icon-graduation-cap"></span></span>
               <div>
                 <h3 class="m-0">22,931 Yearly Graduates</h3>
@@ -300,7 +307,7 @@
               <div>
                 <h3 class="m-0">150 Universities Worldwide</h3>
               </div>
-            </div>
+            </div>-->
 
           </div>
         </div>

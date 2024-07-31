@@ -109,7 +109,7 @@ try {
                             <td><?php echo htmlspecialchars($row["payment_status"]) ? htmlspecialchars($row["payment_status"]) : 'Not Available'; ?></td>
 
                             <td>
-                              <button class="btn btn-sm-2"><i class="bi view-list"></i></button>
+                              <button type="button" class=" btn btn-sm btn-warning ri-edit-2-fill"><i class="bi view-list"></i></button>
                             </td>
                           </tr>
 
