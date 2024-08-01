@@ -7,6 +7,7 @@ $pdo = $connection->open();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get the form data
+    $year = $_POST['year'];
     $semester = $_POST['semester'];
     $code = $_POST['code'];
     $description = $_POST['description'];
@@ -18,10 +19,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $course = $_POST['course'];
 
     // Insert the data into the database
-    $sql = "INSERT INTO tbl_subjects (semester, code, description, lec, lab, unit, pre_req, total, course)
-            VALUES (:semester, :code, :description, :lec, :lab, :unit, :pre_req, :total, :course)";
+    $sql = "INSERT INTO tbl_subjects (year, semester, code, description, lec, lab, unit, pre_req, total, course)
+            VALUES (:year, :semester, :code, :description, :lec, :lab, :unit, :pre_req, :total, :course)";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([
+        ':year' => $year,
         ':semester' => $semester,
         ':code' => $code,
         ':description' => $description,

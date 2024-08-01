@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 28, 2024 at 07:03 AM
+-- Generation Time: Aug 01, 2024 at 07:00 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -112,6 +112,50 @@ INSERT INTO `tbl_employee` (`employee_id`, `first_name`, `last_name`, `date_of_b
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_events`
+--
+
+CREATE TABLE `tbl_events` (
+  `id` int(11) NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `date` date NOT NULL,
+  `description` varchar(10000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_events`
+--
+
+INSERT INTO `tbl_events` (`id`, `title`, `date`, `description`) VALUES
+(24, 'My Birthday', '2025-02-09', 'Another year, another blessing');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_image`
+--
+
+CREATE TABLE `tbl_image` (
+  `id` int(11) NOT NULL,
+  `uploaded_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `front_image_path` varchar(50) NOT NULL,
+  `back_image_path` varchar(50) NOT NULL,
+  `course` varchar(50) NOT NULL,
+  `front_image_hash` varchar(50) NOT NULL,
+  `back_image_hash` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_image`
+--
+
+INSERT INTO `tbl_image` (`id`, `uploaded_at`, `front_image_path`, `back_image_path`, `course`, `front_image_hash`, `back_image_hash`) VALUES
+(9, '2024-07-29 13:27:17', './uploaded_files/66a798b50608d_front.jpg', './uploaded_files/66a798b506096_back.jpg', 'BSBA', 'c7e68ce7ed0664909c9c686a9abe3bea', '6831224601e6124b99984bbf1c4a856a'),
+(11, '2024-07-29 14:22:07', './uploaded_files/66a7a58f39d97_bsoa_front.jpg', './uploaded_files/66a7a58f39d9d_bsoa_back.jpg', 'BSOA', '696d9030513555aa1f13b1ef926cf3c6', 'c2673773a98a30142e48573ea4a26d44');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_leave`
 --
 
@@ -158,8 +202,7 @@ CREATE TABLE `tbl_payments` (
 
 INSERT INTO `tbl_payments` (`payment_id`, `studentID`, `payment_status`, `semester`, `prelim`, `midterm`, `prefinal`, `final`) VALUES
 (13, 2021124, 'Paid', '2nd', '', '', '', ''),
-(14, 2021137, 'Pending', '2nd', '', '', '', ''),
-(15, 2021160, 'Paid', '2nd', '', '', '', '');
+(14, 2021137, 'Pending', '2nd', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -218,7 +261,45 @@ CREATE TABLE `tbl_students` (
 INSERT INTO `tbl_students` (`studentID`, `user_id`, `lname`, `fname`, `middleInitial`, `Suffix`, `course`, `year`, `contact`, `gender`, `bdate`, `pob`, `email`, `major`, `nationality`, `civilStatus`, `religion`, `modality`, `fb`, `curAddress`, `cityAdd`, `zipcode`, `fatherName`, `fwork`, `motherName`, `mwork`, `primarySchool`, `primaryAddress`, `primaryCompleted`, `entermediateSchool`, `entermediateAddress`, `entermediateCompleted`, `hsSchool`, `hsAddress`, `hsCompleted`, `shSchool`, `shAddress`, `shCompleted`, `collegeSchool`, `collegeAddress`, `collegeCompleted`) VALUES
 (2021124, 8, 'Algrame', 'Zean Mariuss', 'C.', '-', ' BSIT', 3, '09912988991', 'Male', '2002-11-22', 'N/A', 'zuild@gmail.com', 'Programming', 'Filipino', 'Single', 'Roman Catholic', 'Face to Face', 'Zean Marius C. Algarme', 'Tungkop, Minglanilla', 'Minglanilla, Cebu', '6046', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'MIIT', 'Inayagan, City of Naga, Cebu', 'N/A'),
 (2021137, 7, 'Dihayco', 'Sheinalie', 'V.', '-', 'BSIT', 3, '09996707038', 'Female', '2003-02-09', 'Mactan, Lapu-Lapu City , Cebu', 'sheinalie020903@gmail.com', 'Programming', 'Filipino', 'Single', 'Roman Catholic', 'Face to Face', 'Shien Dihayco', 'Purok Sagay, Kalubihan', 'Tuyan, City of Naga, Cebu', '6037', 'Mechille V. DIhayco', 'N/A', 'Divina V. Dihayco', 'Baby Sitter', 'Punta Engano Elementary School', 'Puntan Engano, Lapu-Lapu City', '2012-2013', 'TCES', 'Tuyan, City of Naga', '2014-2015', 'TNHS', 'Tabtuy, Tuyan, City of Naga, Cebu', '2018-2019 ', 'TUYAN SENIOR HIGH SCHOOL', 'Tabtuy, Tuyan, City of Naga, Cebu', '2020-2021', 'MIIT', 'Inayagan, City of Naga, Cebu', '-'),
-(2021160, 11, 'Tahanlangit', 'Louie', '-', 'A.', ' BSIT', 3, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+(2021160, 15, 'Tahanlangit', 'Louie', '-', 'C.', ' BSIT', 3, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_subjects`
+--
+
+CREATE TABLE `tbl_subjects` (
+  `id` int(11) NOT NULL,
+  `year` int(11) NOT NULL,
+  `semester` int(11) NOT NULL,
+  `code` varchar(50) NOT NULL,
+  `description` varchar(50) NOT NULL,
+  `lec` int(11) NOT NULL,
+  `lab` int(11) NOT NULL,
+  `unit` int(11) NOT NULL,
+  `pre_req` varchar(50) NOT NULL,
+  `total` int(11) NOT NULL,
+  `course` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_subjects`
+--
+
+INSERT INTO `tbl_subjects` (`id`, `year`, `semester`, `code`, `description`, `lec`, `lab`, `unit`, `pre_req`, `total`, `course`) VALUES
+(8, 1, 1, 'GE 1', 'Understanding the Self ', 3, 0, 3, '1st Year', 3, 'BSIT'),
+(9, 1, 1, 'GE 2', 'Ethics ', 3, 0, 3, 'none', 3, 'BSIT'),
+(10, 1, 1, 'GE 6 ', 'Mathemtatics in the Modern World', 3, 0, 3, 'None', 3, 'BSIT'),
+(11, 1, 1, 'GE 4 ', 'Science, Technology and Society', 3, 0, 3, 'None', 3, 'BSIT'),
+(12, 1, 1, 'FIL 1 ', 'Wikang Filipino ', 2, 1, 3, 'None', 5, 'BSIT'),
+(13, 1, 1, 'CC101', 'Introduction to Computing ', 2, 1, 3, 'None', 5, 'BSIT'),
+(14, 1, 1, 'CC102', 'Computer Programming ', 3, 0, 3, 'None', 3, 'BSIT'),
+(15, 1, 1, 'ENGPLUS', 'English Enhancement ', 3, 0, 3, 'None', 3, 'BSIT'),
+(16, 1, 1, 'MATHPLUS', 'Basic Mathematics ', 3, 0, 3, 'None', 3, 'BSIT'),
+(17, 1, 1, 'PE1', 'Physical Fitness ', 2, 0, 2, 'None', 2, 'BSIT'),
+(18, 1, 1, 'NSTP1', 'National Service Training Program 1', 3, 0, 3, 'None', 3, 'BSIT'),
+(19, 1, 2, 'EN2', 'Technical Writing ', 3, 0, 3, 'None', 3, 'BSIT');
 
 -- --------------------------------------------------------
 
@@ -277,7 +358,7 @@ INSERT INTO `tbl_users` (`user_id`, `user_fname`, `user_lname`, `user_email`, `u
 (3, 'Jessamae', 'Carzano', 'jessamae@gmail.com', 'Carzano@123', '$2y$10$aDsR8a1Guds2Vf17YchHduBPMu1XnmX.2EwDFlTZtrwni9mTbkITa', 'admin'),
 (7, 'Sheinalie', 'Dihayco', 'dihayco020903@gmail.com', '2021137', '$2y$10$l1subB.o/qk8.DU2mXsMyumneRRNPXaQeMQcfNx7mAZjrATDJKyhC', 'student'),
 (8, 'Zean Mariuss', 'Algarme', 'zuild@gmail.com', '2021123', '$2y$10$SmI.RADkHu3sYr9/XPFtt.3MW/w02uVVYPjKyCaZDtqFhzRNfYX2W', 'student'),
-(11, 'Louie', 'Tahanlangit', 'louiethnlngt@gmail.com', '', '$2y$10$ZZVc2s5cgOphSXeaPQP0t.xwUJKDdSQZtonl37xj6qiqeLOAMaZci', 'student');
+(15, 'Louie', 'Tahanlangit', 'louiethnlngt@gmail.com', '2021160', '$2y$10$pS4nG8leTekj3W4bvgBSguG.mL6RQK7qRvzIBzIXG6a1LXn4KU/oi', 'student');
 
 --
 -- Indexes for dumped tables
@@ -287,7 +368,8 @@ INSERT INTO `tbl_users` (`user_id`, `user_fname`, `user_lname`, `user_email`, `u
 -- Indexes for table `tbl_attendance`
 --
 ALTER TABLE `tbl_attendance`
-  ADD PRIMARY KEY (`att_id`);
+  ADD PRIMARY KEY (`att_id`),
+  ADD KEY `attendace` (`transaction_id`);
 
 --
 -- Indexes for table `tbl_borrows`
@@ -310,10 +392,23 @@ ALTER TABLE `tbl_employee`
   ADD PRIMARY KEY (`employee_id`);
 
 --
+-- Indexes for table `tbl_events`
+--
+ALTER TABLE `tbl_events`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_image`
+--
+ALTER TABLE `tbl_image`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tbl_leave`
 --
 ALTER TABLE `tbl_leave`
-  ADD PRIMARY KEY (`lvs_id`);
+  ADD PRIMARY KEY (`lvs_id`),
+  ADD KEY `leave` (`employee_id`);
 
 --
 -- Indexes for table `tbl_payments`
@@ -330,10 +425,17 @@ ALTER TABLE `tbl_students`
   ADD KEY `user_id` (`user_id`);
 
 --
+-- Indexes for table `tbl_subjects`
+--
+ALTER TABLE `tbl_subjects`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tbl_transaction`
 --
 ALTER TABLE `tbl_transaction`
-  ADD PRIMARY KEY (`transaction_id`);
+  ADD PRIMARY KEY (`transaction_id`),
+  ADD KEY `transaction` (`employee_id`);
 
 --
 -- Indexes for table `tbl_users`
@@ -370,6 +472,18 @@ ALTER TABLE `tbl_employee`
   MODIFY `employee_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12406;
 
 --
+-- AUTO_INCREMENT for table `tbl_events`
+--
+ALTER TABLE `tbl_events`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT for table `tbl_image`
+--
+ALTER TABLE `tbl_image`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
 -- AUTO_INCREMENT for table `tbl_leave`
 --
 ALTER TABLE `tbl_leave`
@@ -382,6 +496,12 @@ ALTER TABLE `tbl_payments`
   MODIFY `payment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
+-- AUTO_INCREMENT for table `tbl_subjects`
+--
+ALTER TABLE `tbl_subjects`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
 -- AUTO_INCREMENT for table `tbl_transaction`
 --
 ALTER TABLE `tbl_transaction`
@@ -391,11 +511,35 @@ ALTER TABLE `tbl_transaction`
 -- AUTO_INCREMENT for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `tbl_attendance`
+--
+ALTER TABLE `tbl_attendance`
+  ADD CONSTRAINT `attendace` FOREIGN KEY (`transaction_id`) REFERENCES `tbl_transaction` (`transaction_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tbl_borrows`
+--
+ALTER TABLE `tbl_borrows`
+  ADD CONSTRAINT `borrow` FOREIGN KEY (`employee_id`) REFERENCES `tbl_employee` (`employee_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tbl_compensation`
+--
+ALTER TABLE `tbl_compensation`
+  ADD CONSTRAINT `compensation` FOREIGN KEY (`employee_id`) REFERENCES `tbl_employee` (`employee_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tbl_leave`
+--
+ALTER TABLE `tbl_leave`
+  ADD CONSTRAINT `leave` FOREIGN KEY (`employee_id`) REFERENCES `tbl_employee` (`employee_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tbl_payments`
@@ -408,6 +552,12 @@ ALTER TABLE `tbl_payments`
 --
 ALTER TABLE `tbl_students`
   ADD CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `tbl_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tbl_transaction`
+--
+ALTER TABLE `tbl_transaction`
+  ADD CONSTRAINT `transaction` FOREIGN KEY (`employee_id`) REFERENCES `tbl_employee` (`employee_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

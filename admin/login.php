@@ -70,8 +70,8 @@
               <ul class="site-menu main-menu js-clone-nav mx-auto d-none d-lg-block  m-0 p-0">
                 <li><a href="#home-section" class="nav-link">Home</a></li>
                 <li><a href="#courses-section" class="nav-link">Courses</a></li>
-                <li><a href="#programs-section" class="nav-link">Programs</a></li>
-                <li><a href="#teachers-section" class="nav-link">Teachers</a></li>
+                <li><a href="#programs-section" class="nav-link">Principles</a></li>
+                <li><a href="#teachers-section" class="nav-link">Administrative</a></li>
               </ul>
             </nav>
           </div>
@@ -79,7 +79,7 @@
           <div class="ml-auto w-25">
             <nav class="site-navigation position-relative text-right" role="navigation">
               <ul class="site-menu main-menu site-menu-dark js-clone-nav mr-auto d-none d-lg-block m-0 p-0">
-                <li class="cta"><a href="#contact-section" class="nav-link" style="color: green;"><span>Contact Us</span></a></li>
+                <li class="cta"><a href="login.php" class="nav-link" style="color: green;"><span>Log In</span></a></li>
               </ul>
             </nav>
             <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right"><span class="icon-menu h3"></span></a>
@@ -99,7 +99,7 @@
                 <div class="col-lg-6 mb-4">
                   <h1 data-aos="fade-up" data-aos-delay="100">MicroTech</h1>
                   <p class="mb-4" data-aos="fade-up" data-aos-delay="200">A school portal designed to enhance school operations and management.</p>
-                  <p data-aos="fade-up" data-aos-delay="300"><a href="" class="btn btn-primary py-3 px-5 btn-pill">Admission Now</a></p>
+                  <!--<p data-aos="fade-up" data-aos-delay="300"><a href="" class="btn btn-primary py-3 px-5 btn-pill">Admission Now</a></p>-->
                 </div>
 
                 <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="300">
@@ -226,88 +226,50 @@
       <div class="container">
         <div class="row mb-5 justify-content-center">
           <div class="col-lg-7 text-center" data-aos="fade-up" data-aos-delay="">
-            <h2 class="section-title">Our Programs</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam repellat aut neque! Doloribus sunt non aut reiciendis, vel recusandae obcaecati hic dicta repudiandae in quas quibusdam ullam, illum sed veniam!</p>
+            <h2 class="section-title">Foundational Statements</h2>
+            <p>Microsystemts International Institute of Technology: mission, vision, and core values</p>
           </div>
         </div>
         <div class="row mb-5 align-items-center">
           <div class="col-lg-7 mb-5" data-aos="fade-up" data-aos-delay="100">
-            <img src="images/undraw_youtube_tutorial.svg" alt="Image" class="img-fluid">
+            <img src="images/vision.webp" alt="Image" class="img-fluid">
           </div>
           <div class="col-lg-4 ml-auto" data-aos="fade-up" data-aos-delay="200">
             <h2 class="text-black mb-4">Vision</h2>
             <p class="mb-4"> To become an educational institute whose quality education in all fields of study is anchored on technology and economic development in the 21st century.</p>
 
-            <!-- <div class="d-flex align-items-center custom-icon-wrap mb-3">
-              <span class="custom-icon-inner mr-3"><span class="icon icon-graduation-cap"></span></span>
-              <div>
-                <h3 class="m-0">22,931 Yearly Graduates</h3>
-              </div>
-            </div>
-
-            <div class="d-flex align-items-center custom-icon-wrap">
-              <span class="custom-icon-inner mr-3"><span class="icon icon-university"></span></span>
-              <div>
-                <h3 class="m-0">150 Universities Worldwide</h3>
-              </div>
-            </div>-->
 
           </div>
         </div>
 
         <div class="row mb-5 align-items-center">
           <div class="col-lg-7 mb-5 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="100">
-            <img src="images/undraw_teaching.svg" alt="Image" class="img-fluid">
+            <img src="images/mission.webp" alt="Image" class="img-fluid">
           </div>
           <div class="col-lg-4 mr-auto order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
             <h2 class="text-black mb-4">Mission</h2>
             <p class="mb-4">To establish, operate and promote quality education and training-based institute in the field of science and technology, and all other fields of study, at affordable fees for every individual.</p>
-
-            <!--<div class="d-flex align-items-center custom-icon-wrap mb-3">
-              <span class="custom-icon-inner mr-3"><span class="icon icon-graduation-cap"></span></span>
-              <div>
-                <h3 class="m-0">22,931 Yearly Graduates</h3>
-              </div>
-            </div>
-
-            <div class="d-flex align-items-center custom-icon-wrap">
-              <span class="custom-icon-inner mr-3"><span class="icon icon-university"></span></span>
-              <div>
-                <h3 class="m-0">150 Universities Worldwide</h3>
-              </div>
-            </div>-->
 
           </div>
         </div>
 
         <div class="row mb-5 align-items-center">
           <div class="col-lg-7 mb-5" data-aos="fade-up" data-aos-delay="100">
-            <img src="images/undraw_teacher.svg" alt="Image" class="img-fluid">
+            <img src="images/values.webp" alt="Image" class="img-fluid">
           </div>
           <div class="col-lg-4 ml-auto" data-aos="fade-up" data-aos-delay="200">
             <h2 class="text-black mb-4">Core Values</h2>
             <p class="mb-4"> <b>Magnanimity</b>- as a Christian institute of higher learning, MIIT prides itself of being magnanimous in fostering academic excellence through personalized instruction and hands-on learning, open communication, quality performance among students and staff always bearing in mind the MIIT student as a responsible learner.
               <br>
+              <br>
               <b>Integrity</b> - MIIT promotes integrity,honesty, and respect for the individual through it's dedicated and diverse faculty and staff by emphasizing ethics and professional behavior in the pursuit of academic freedom and in the process of respecting the worth of each individual.
+              <br>
               <br>
               <b>Innovativeness</b> - MIIT believes in continuous improvement when it endeavors to serve the community through its various outreach activities, in particular and when it aims to contribute its share of nation academics in general.
               <br>
+              <br>
               <b>Technology-Driven Teamwork</b> - MIIT fosters a healthy knowledge-based environment that encourages technology transfer nurtures service excellence not only in academicals but also in research thus molding the student to be globally competitive.
             </p>
-
-            <!-- <div class="d-flex align-items-center custom-icon-wrap mb-3">
-              <span class="custom-icon-inner mr-3"><span class="icon icon-graduation-cap"></span></span>
-              <div>
-                <h3 class="m-0">22,931 Yearly Graduates</h3>
-              </div>
-            </div>
-
-            <div class="d-flex align-items-center custom-icon-wrap">
-              <span class="custom-icon-inner mr-3"><span class="icon icon-university"></span></span>
-              <div>
-                <h3 class="m-0">150 Universities Worldwide</h3>
-              </div>
-            </div>-->
 
           </div>
         </div>
@@ -320,8 +282,8 @@
 
         <div class="row mb-5 justify-content-center">
           <div class="col-lg-7 mb-5 text-center" data-aos="fade-up" data-aos-delay="">
-            <h2 class="section-title">Our Teachers</h2>
-            <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam repellat aut neque! Doloribus sunt non aut reiciendis, vel recusandae obcaecati hic dicta repudiandae in quas quibusdam ullam, illum sed veniam!</p>
+            <h2 class="section-title">Administrative & Faculty Members </h2>
+            <p class="mb-5">Individuals managing daily operations and organizational aspects of a school. And Educators and academic professionals responsible for teaching, research, and student development.</p>
           </div>
         </div>
 
@@ -329,55 +291,210 @@
 
           <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
             <div class="teacher text-center">
-              <img src="images/person_1.jpg" alt="Image" class="img-fluid w-50 rounded-circle mx-auto mb-4">
+              <img src="images/director.png" alt="Image" class="img-fluid w-50 rounded-circle mx-auto mb-4">
               <div class="py-2">
-                <h3 class="text-black">Benjamin Stone</h3>
-                <p class="position">Physics Teacher</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro eius suscipit delectus enim iusto tempora, adipisci at provident.</p>
+                <h3 class="text-black">Alfredo S. Moreno Jr., Ed D.</h3>
+                <p class="position">School Director</p>
               </div>
             </div>
           </div>
 
-          <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
             <div class="teacher text-center">
-              <img src="images/person_2.jpg" alt="Image" class="img-fluid w-50 rounded-circle mx-auto mb-4">
+              <img src="images/registrar.jpg" alt="Image" class="img-fluid w-50 rounded-circle mx-auto mb-4">
               <div class="py-2">
-                <h3 class="text-black">Katleen Stone</h3>
-                <p class="position">Physics Teacher</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro eius suscipit delectus enim iusto tempora, adipisci at provident.</p>
+                <h3 class="text-black">Mariza M. Leyco, BSED</h3>
+                <p class="position"> School Registrar</p>
+                <p class="position"> Chairman, Gen. Ed.</p>
               </div>
             </div>
           </div>
 
-          <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="300">
+          <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
             <div class="teacher text-center">
-              <img src="images/person_3.jpg" alt="Image" class="img-fluid w-50 rounded-circle mx-auto mb-4">
+              <img src="images/" alt="Image" class="img-fluid w-50 rounded-circle mx-auto mb-4">
               <div class="py-2">
-                <h3 class="text-black">Sadie White</h3>
-                <p class="position">Physics Teacher</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro eius suscipit delectus enim iusto tempora, adipisci at provident.</p>
+                <h3 class="text-black">Jericho Vicente A. Cutas, MSBA</h3>
+                <p class="position">College Dean / HR Officer</p>
               </div>
             </div>
           </div>
+
+          <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="teacher text-center">
+              <img src="images/maam_rose.png" alt="Image" class="img-fluid w-50 rounded-circle mx-auto mb-4">
+              <div class="py-2">
+                <h3 class="text-black">Rosemarie R. Jipulan, BSIT</h3>
+                <p class="position">Scholarship Coordinator </p>
+                <p class="position"> SHS In-charge</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="teacher text-center">
+              <img src="images/maam_jessa.png" alt="Image" class="img-fluid w-50 rounded-circle mx-auto mb-4">
+              <div class="py-2">
+                <h3 class="text-black">Jessa Mae s. Carzano, BSIT</h3>
+                <p class="position">Accounting Officer</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="teacher text-center">
+              <img src="images/estrera.jpg" alt="Image" class="img-fluid w-50 rounded-circle mx-auto mb-4">
+              <div class="py-2">
+                <h3 class="text-black">Romulo M. Estrera, Ph D.</h3>
+                <p class="position">Chairman, Information Tech.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="teacher text-center">
+              <img src="images/" alt="Image" class="img-fluid w-50 rounded-circle mx-auto mb-4">
+              <div class="py-2">
+                <h3 class="text-black">Renaben G. Raganas, BSOA</h3>
+                <p class="position">Marketing Officer</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="teacher text-center">
+              <img src="images/daniel.png" alt="Image" class="img-fluid w-50 rounded-circle mx-auto mb-4">
+              <div class="py-2">
+                <h3 class="text-black">Gad Daniel Z. Flormata, BSIT</h3>
+                <p class="position">Laboratory Technicians</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="teacher text-center">
+              <img src="images/sir_mike.jpg" alt="Image" class="img-fluid w-50 rounded-circle mx-auto mb-4">
+              <div class="py-2">
+                <h3 class="text-black">Michael John Bustamante , BSIT</h3>
+                <p class="position">IT Instructor</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="teacher text-center">
+              <img src="images/bsoa_instructor.png" alt="Image" class="img-fluid w-50 rounded-circle mx-auto mb-4">
+              <div class="py-2">
+                <h3 class="text-black">Metciho R. Jipulan, BSED - Major in English</h3>
+                <p class="position">NSTP / SAO / ALUMNI</p>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="teacher text-center">
+              <img src="images/bsba_instructor.jpg" alt="Image" class="img-fluid w-50 rounded-circle mx-auto mb-4">
+              <div class="py-2">
+                <h3 class="text-black">Nerissa M. Auxilo , BSC-MBA</h3>
+                <p class="position">Instructor</p>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="teacher text-center">
+              <img src="images/rene.jpg" alt="Image" class="img-fluid w-50 rounded-circle mx-auto mb-4">
+              <div class="py-2">
+                <h3 class="text-black">Rene R. Ababan, BSIT</h3>
+                <p class="position">IT Instructor</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="teacher text-center">
+              <img src="images/sunshine.jpg" alt="Image" class="img-fluid w-50 rounded-circle mx-auto mb-4">
+              <div class="py-2">
+                <h3 class="text-black">Sunshin Jill L. Bilagantol, BEED - Gen. Ed.</h3>
+                <p class="position">Guidance Councilor</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="teacher text-center">
+              <img src="images/maam_angela.jpg" alt="Image" class="img-fluid w-50 rounded-circle mx-auto mb-4">
+              <div class="py-2">
+                <h3 class="text-black">Angela S. Gravines, MAED </h3>
+                <p class="position">Major in Mathematics</p>
+                <p class="position">Instructor</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="teacher text-center">
+              <img src="images/maam_bolen.jpg" alt="Image" class="img-fluid w-50 rounded-circle mx-auto mb-4">
+              <div class="py-2">
+                <h3 class="text-black">Ethel M. Bolen, AB -English</h3>
+                <p class="position">Insructor</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="teacher text-center">
+              <img src="images/" alt="Image" class="img-fluid w-50 rounded-circle mx-auto mb-4">
+              <div class="py-2">
+                <h3 class="text-black">Luzmindo L. Bolongaita, BSBA</h3>
+                <p class="position">Major in Marketing Management</p>
+                <p class="position">Instructor</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="teacher text-center">
+              <img src="images/dulusa.jpg" alt="Image" class="img-fluid w-50 rounded-circle mx-auto mb-4">
+              <div class="py-2">
+                <h3 class="text-black">Raul A. Dulusa, AB - Englsih</h3>
+                <p class="position">MAED</p>
+                <p class="position">Instructor</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="teacher text-center">
+              <img src="images/ella.jpg" alt="Image" class="img-fluid w-50 rounded-circle mx-auto mb-4">
+              <div class="py-2">
+                <h3 class="text-black">Ella Marrie E. Gabasa, BIT</h3>
+                <p class="position">GAD Coordinator</p>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
 
-    <div class="site-section bg-image overlay" style="background-image: url('images/hero_1.jpg');">
+    <!-- <div class="site-section bg-image overlay" style="background-image: url('images/hero_1.jpg');">
       <div class="container">
         <div class="row justify-content-center align-items-center">
           <div class="col-md-8 text-center testimony">
             <img src="images/person_4.jpg" alt="Image" class="img-fluid w-25 mb-4 rounded-circle">
             <h3 class="mb-4">Jerome Jensen</h3>
             <blockquote>
-              <p>&ldquo; Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum rem soluta sit eius necessitatibus voluptate excepturi beatae ad eveniet sapiente impedit quae modi quo provident odit molestias! Rem reprehenderit assumenda &rdquo;</p>
+              <p>&ldquo;A founder can carry an institution only so far, and then others have to step in, even the alumni. That's how an institution becomes one. &rdquo;</p>
             </blockquote>
           </div>
         </div>
       </div>
-    </div>
+  </div>-->
 
-    <div class="site-section pb-0">
+    <!-- <div class="site-section pb-0">
 
       <div class="future-blobs">
         <div class="blob_2">
@@ -449,13 +566,13 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
 
 
 
 
-    <div class="site-section bg-light" id="contact-section">
+    <!--<div class="site-section bg-light" id="contact-section">
       <div class="container">
 
         <div class="row justify-content-center">
@@ -504,24 +621,32 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>-->
 
 
     <footer class="footer-section bg-white">
       <div class="container">
         <div class="row">
           <div class="col-md-4">
-            <h3>About OneSchool</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro consectetur ut hic ipsum et veritatis corrupti. Itaque eius soluta optio dolorum temporibus in, atque, quos fugit sunt sit quaerat dicta.</p>
+            <h3>About Us</h3>
+            <p>
+              Microsystems International Institute of Technology, Inc. (MIIT) is a premier educational institution dedicated to fostering
+              academic excellence and personal growth. Our mission is to inspire and prepare students for global competitiveness
+              through a distinctively Christian environment that values learning, service excellence, and quality performance.
+
+              Founded in 2001 by Filipino educators, engineers, and businessmen, MIIT addresses the demand for a highly educated and
+              well-trained workforce. We offer cutting-edge programs and emphasize research and innovation, with strong ties to
+              industry and community partners. MIITinians are expected to uphold high standards of conduct, embodying our values of
+              respect, helpfulness, and professionalism.</p>
           </div>
 
           <div class="col-md-3 ml-auto">
             <h3>Links</h3>
             <ul class="list-unstyled footer-links">
-              <li><a href="#">Home</a></li>
-              <li><a href="#">Courses</a></li>
-              <li><a href="#">Programs</a></li>
-              <li><a href="#">Teachers</a></li>
+              <li><a href="login.php">Home</a></li>
+              <li><a href="login.php">Courses</a></li>
+              <li><a href="login.php">Principles</a></li>
+              <li><a href="login.php">Administrative</a></li>
             </ul>
           </div>
 

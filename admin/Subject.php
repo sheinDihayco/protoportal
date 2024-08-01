@@ -21,6 +21,35 @@
         </div>
         <div class="modal-body">
           <form action="functions/add-subject.php" method="post" class="row g-3 needs-validation" novalidate>
+
+            <div class="col-md-6">
+              <label for="course" class="form-label">Course</label>
+              <select class="form-select" id="course" name="course" required>
+                <option selected disabled value="">Choose...</option>
+                <option>11</option>
+                <option>12</option>
+                <option>BSIT</option>
+                <option>BSBA</option>
+                <option>BSOA</option>
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid course.
+              </div>
+            </div>
+            <div class="col-md-2">
+              <label for="year" class="form-label">Year</label>
+              <select class="form-select" id="year" name="year" required>
+                <option selected disabled value="">Choose...</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid semester.
+              </div>
+            </div>
+
             <div class="col-md-2">
               <label for="semester" class="form-label">Semester</label>
               <select class="form-select" id="semester" name="semester" required>
@@ -85,28 +114,6 @@
                 Please provide a valid number.
               </div>
             </div>
-            <div class="col-md-6">
-              <label for="course" class="form-label">Course</label>
-              <select class="form-select" id="course" name="course" required>
-                <option selected disabled value="">Choose...</option>
-                <option>11</option>
-                <option>12</option>
-                <option>BSIT</option>
-                <option>BSBA</option>
-                <option>BSOA</option>
-              </select>
-              <div class="invalid-feedback">
-                Please select a valid course.
-              </div>
-
-              <div class="col-md-2">
-                <label for="year" class="form-label">Year</label>
-                <input type="number" class="form-control" id="year" name="year" required>
-                <div class="invalid-feedback">
-                  Please provide a valid number.
-                </div>
-              </div>
-            </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -134,7 +141,7 @@
             </div>
 
             <div class="card-body">
-              <h5 class="card-title">Subject <span>| BSIT </span></h5>
+              <h5 class="card-title">Course <span>| BSIT </span></h5>
 
               <table class="table table-borderless datatable">
                 <thead>
