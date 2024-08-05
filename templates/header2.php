@@ -1,5 +1,4 @@
 <?php
-
 include_once "includes/connect.php";
 include_once "includes/connection.php";
 
@@ -11,11 +10,15 @@ if (!isset($_SESSION["login"])) {
 
 $userid = $_SESSION["login"];
 
-$statements = $conn->prepare("SELECT * FROM tbl_users WHERE user_id = '$userid'");
-$statements->execute();
+// Fetch user information from the database
+$statements = $conn->prepare("SELECT user_fname, user_lname, image FROM tbl_users WHERE user_id = ?");
+$statements->execute([$userid]);
 $user = $statements->fetch(PDO::FETCH_ASSOC);
+
 $fname = $user['user_fname'];
 $lname = $user['user_lname'];
+$image = $user['user_image'];
+
 
 ?>
 
@@ -297,6 +300,41 @@ $lname = $user['user_lname'];
   <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
+
+      <div class="profile-section">
+        <div class="profile-img">
+          <img src="upload-files/<?php echo htmlspecialchars($image); ?>" alt="Profile Image" class="rounded-circle">
+        </div>
+
+        <div class="profile-info">
+          <h5><?php echo htmlspecialchars($lname) . ', ' . htmlspecialchars($fname); ?></h5>
+        </div>
+        <div class="settings-icon">
+          <a href="javascript:void(0);" onclick="document.getElementById('fileInput').click();">
+            <i class="ri-upload-fill"></i> <!-- Upload icon -->
+          </a>
+        </div>
+
+        <form action="upload/upload-image2.php" method="post" enctype="multipart/form-data">
+          <input type="file" id="fileInput" name="file" style="display: none;" onchange="showSaveButton();" />
+
+          <!-- Save Button -->
+          <div class="save-button" id="saveButton" style="display: none;">
+            <button type="submit" class="btn btn-primary btn-sm" name="save">Save</button>
+          </div>
+        </form>
+      </div>
+      <script>
+        function showSaveButton() {
+          var fileInput = document.getElementById('fileInput');
+          var saveButton = document.getElementById('saveButton');
+          if (fileInput.files.length > 0) {
+            saveButton.style.display = 'block';
+          } else {
+            saveButton.style.display = 'none';
+          }
+        }
+      </script>
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="../admin/index2.php">

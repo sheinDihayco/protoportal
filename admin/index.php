@@ -29,6 +29,18 @@ $studcount = $statements->fetch(PDO::FETCH_ASSOC);
   </div><!-- End Page Title -->
 
   <section class="section dashboard">
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card shadow-sm border-0 rounded-lg">
+          <div class="card-header bg-primary text-white d-flex align-items-center">
+            <span style="font-size: 3rem; margin-right: 0.5rem; margin-left: 2rem">👋</span>
+            <h5 class="card-title mb-0" style="border-radius: 3px; font-size: 1.75rem; color: white ">Welcome, <?php echo htmlspecialchars($fname); ?>!</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="row">
       <!-- Left side columns -->
       <div class="col-lg-12">

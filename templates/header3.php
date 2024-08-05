@@ -1,5 +1,4 @@
 <?php
-
 include_once "includes/connect.php";
 include_once "includes/connection.php";
 
@@ -11,12 +10,17 @@ if (!isset($_SESSION["login"])) {
 
 $userid = $_SESSION["login"];
 
-$statements = $conn->prepare("SELECT * FROM tbl_users WHERE user_id = '$userid'");
-$statements->execute();
+// Fetch user information from the database
+$statements = $conn->prepare("SELECT user_fname, user_lname, user_image FROM tbl_users WHERE user_id = ?");
+$statements->execute([$userid]);
 $user = $statements->fetch(PDO::FETCH_ASSOC);
+
 $fname = $user['user_fname'];
 $lname = $user['user_lname'];
+$image = $user['user_image'];
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +29,7 @@ $lname = $user['user_lname'];
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>MicroTech//Events</title>
+  <title>MicroTech</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -45,18 +49,9 @@ $lname = $user['user_lname'];
   <link href="../assets/vendor/quill/quill.bubble.css" rel="stylesheet">
   <link href="../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="../assets/vendor/simple-datatables/style.css" rel="stylesheet">
-
   <!-- Template Main CSS File -->
   <link href="../assets/css/style.css" rel="stylesheet">
 
-
-  <!-- =======================================================
-  * Template Name: NiceAdmin
-  * Updated: Mar 09 2023 with Bootstrap v5.2.3
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -72,13 +67,6 @@ $lname = $user['user_lname'];
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
-    <!-- <div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-      </form> -->
-    </div><!-- End Search Bar -->
-
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
 
@@ -89,11 +77,6 @@ $lname = $user['user_lname'];
         </li><!-- End Search Icon-->
 
         <li class="nav-item dropdown">
-
-          <!-- <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-bell"></i>
-            <span class="badge bg-primary badge-number">4</span>
-          </a>End Notification Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
             <li class="dropdown-header">
@@ -163,147 +146,55 @@ $lname = $user['user_lname'];
 
         </li><!-- End Notification Nav -->
 
-        <!-- <li class="nav-item dropdown">
-
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-chat-left-text"></i>
-            <span class="badge bg-success badge-number">3</span>
-          </a>End Messages Icon -->
-
-        <!-- <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-            <li class="dropdown-header">
-              You have 3 new messages
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="../assets/img/messages-1.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>Maria Hudson</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>4 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="../assets/img/messages-2.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>Anna Nelson</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>6 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="../assets/img/messages-3.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>David Muldon</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>8 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="dropdown-footer">
-              <a href="#">Show all messages</a>
-            </li>
-
-          </ul>End Messages Dropdown Items -->
-
-        </li><!-- End Messages Nav -->
-
-        <li class="nav-item dropdown pe-3">
-
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="../assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $lname ?></span>
-          </a><!-- End Profile Iamge Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">
-              <h6>
-                <h6>
-                  <?php echo $lname ?>, <?php echo $fname ?>
-                </h6>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.php">
-                <i class="bi bi-person"></i>
-                <span>My Profile</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.php">
-                <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                <i class="bi bi-question-circle"></i>
-                <span>Need Help?</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="../admin/includes/logout.inc.php">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
-            </li>
-
-          </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
-
-      </ul>
-    </nav><!-- End Icons Navigation -->
-
   </header><!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
 
+
     <ul class="sidebar-nav" id="sidebar-nav">
+
+      <div class="profile-section">
+        <div class="profile-img">
+          <img src="upload-files/<?php echo htmlspecialchars($image); ?>" alt="Profile Image" class="rounded-circle">
+        </div>
+
+        <div class="profile-info">
+          <h5><?php echo htmlspecialchars($lname) . ', ' . htmlspecialchars($fname); ?></h5>
+        </div>
+        <div class="settings-icon">
+          <a href="javascript:void(0);" onclick="document.getElementById('fileInput').click();">
+            <i class="ri-upload-fill"></i> <!-- Upload icon -->
+          </a>
+        </div>
+
+        <form action="upload/upload-image.php" method="post" enctype="multipart/form-data">
+          <input type="file" id="fileInput" name="file" style="display: none;" onchange="showSaveButton();" />
+
+          <!-- Save Button -->
+          <div class="save-button" id="saveButton" style="display: none;">
+            <button type="submit" class="btn btn-primary btn-sm" name="save">Save</button>
+          </div>
+        </form>
+      </div>
+      <script>
+        function showSaveButton() {
+          var fileInput = document.getElementById('fileInput');
+          var saveButton = document.getElementById('saveButton');
+          if (fileInput.files.length > 0) {
+            saveButton.style.display = 'block';
+          } else {
+            saveButton.style.display = 'none';
+          }
+        }
+      </script>
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="../admin/index3.php">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
-      </li>
-      <!-- End Dashboard Nav -->
+      </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="#">
@@ -312,33 +203,12 @@ $lname = $user['user_lname'];
         </a>
       </li>
 
-      <!-- <li class="nav-item">
-                <a class="nav-link collapsed" href="../admin/stud_recs.php">
-                    <i class="ri ri-group-line"></i>
-                    <span>Student</span>
-                </a>
-            </li>-->
-
-      <!--  <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="ri ri-group-line"></i><span>Components</span><i class="bi bi-chevron-down ms-auto"></i>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="../admin/event-student.php">
+          <i class="ri ri-group-line"></i>
+          <span>Events</span>
         </a>
-        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            STUDY LOAD
-            <a href="#">
-              <i class="ri-booklet-fill"></i><span>Subjects</span>
-            </a>
-          </li>
-
-          <li>
-           TO GIVE GRADES
-            <a href="#">
-              <i class="ri-booklet-fill"></i><span>Grades</span>
-            </a>
-          </li>
-        </ul>
-      </li>End Components Nav -->
+      </li>
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="#">
@@ -354,43 +224,12 @@ $lname = $user['user_lname'];
         </a>
       </li>
 
-      <!--<li class="nav-item">
-        <a class="nav-link collapsed" href="../admin/event-student.php">
-          <i class="ri-calendar-check-line"></i>
-          <span>Events</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
-          <i class="ri-calendar-2-fill"></i>
-          <span>Announcements</span>
-        </a>
-      </li>-->
-
-      <!--PAYMENT STATUS ONLY-->
       <li class="nav-item">
         <a class="nav-link collapsed" href="../admin/payment1.php">
           <i class="bx bx-wallet"></i>
           <span>Payment</span>
         </a>
       </li>
-      <!--
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
-                    <i class="ri-user-fill"></i>
-                    <span>Users</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="../admin/compensation.php">
-                    <i class="bi bi-layout-text-window-reverse"></i>
-                    <span>Compensation</span>
-                </a>
-            </li>
--->
-
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="../admin/includes/logout.inc.php">
@@ -398,56 +237,34 @@ $lname = $user['user_lname'];
           <span>Log out</span>
         </a>
       </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#user-nav" data-bs-toggle="collapse" href="#">
-          <i class="ri ri-group-line"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="user-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="../admin/student.php">
-              <i class="bi bi-circle-fill"></i><span>Students</span>
-            </a>
-          </li>
-          <li>
-            <a href="../admin/instructor.php">
-              <i class="bi bi-circle-fill"></i><span>Instructors</span>
-            </a>
-          </li>
-        </ul>
-      </li> -->
-      <!-- End Components Nav -->
-
-      <!-- <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Components</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="../admin/enrollment.php">
-              <i class="bi bi-circle"></i><span>Enrollment</span>
-            </a>
-          </li>
-          <li>
-            <a href="../admin/schedule.php">
-              <i class="bi bi-circle"></i><span>Schedule</span>
-            </a>
-          </li>
-          <li>
-            <a href="../admin/upload.eval.php">
-              <i class="bi bi-circle"></i><span>Evaluation</span>
-            </a>
-          </li>
-          <li>
-            <a href="../admin/grade.php">
-              <i class="bi bi-circle"></i><span>Grade</span>
-            </a>
-          </li>
-        </ul>
-      </li> -->
-
-      <!-- End Components Nav -->
-
     </ul>
+  </aside><!-- End Sidebar -->
 
 
-  </aside><!-- End Sidebar-->
+  <style>
+    /* Inline styles for quick adjustments */
+    .profile-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      /* Center horizontally */
+      padding: 1rem;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .profile-img img {
+      width: 80px;
+      /* Adjust size as needed */
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+      /* Space between image and text */
+    }
+
+    .profile-info h5 {
+      margin: 0;
+      font-size: 1.1rem;
+      text-align: center;
+    }
+  </style>

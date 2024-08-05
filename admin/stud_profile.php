@@ -128,15 +128,30 @@ try {
                 </div>
               </div>
 
-              <div class="tab-pane fade" id="profile-overview">
+              <div class="tab-pane fade" id="profile-overview" style="padding: 50px;">
                 <h5 class="card-title">Student Profile Details</h5>
 
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Full Name <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["fname"]); ?> <?php echo htmlspecialchars($studs["lname"]); ?> <?php echo htmlspecialchars($studs["middleInitial"]); ?> <?php echo htmlspecialchars($studs["Suffix"]); ?></div>
+
+                <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+
+                  <img src="upload-files/<?php echo htmlspecialchars($image); ?>" alt="Profile Image" class="rounded-circle">
+                  <h2><?php echo $fname . ' ' . $lname; ?></h2>
+                  <h3><?php echo htmlspecialchars($studs["course"]); ?></h3>
+                  <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                      Profile Options
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <li><a class="dropdown-item" href="#">Action</a></li>
+                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                  </div>
+
                 </div>
 
-                <div class="row">
+
+                <div class="row" style="margin-top: 5%;">
                   <div class="col-lg-3 col-md-4 label">Course <span> : </span></div>
                   <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["course"]); ?> - <?php echo htmlspecialchars($studs["year"]); ?></div>
                 </div>
@@ -312,6 +327,7 @@ try {
             <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
               <!-- Profile Edit Form -->
               <form action="upload/insert-student-rec.php" method="post" novalidate>
+
 
                 <div class="row mb-3">
                   <div class=" col-md-8">

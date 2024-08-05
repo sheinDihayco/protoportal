@@ -7,11 +7,9 @@
       </div>
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Horizontal Form</h5>
 
           <!-- Horizontal Form -->
           <form action="upload/insert-initial-data.php" method="post" novalidate>
-
             <div class="row mb-3">
               <div class=" col-md-6">
                 <label for="user_id" class="col-sm-2 col-form-label">User ID</label>
@@ -22,7 +20,7 @@
             <div class="row mb-3">
               <div class=" col-md-7">
                 <label for="studentID" class="col-sm-2 col-form-label">Student ID</label>
-                <input type="text" class="form-control" id="studentID" name="studentID" value="" required>
+                <input type="text" class="form-control" id="studentID" name="studentID" value="<?php echo $row["user_name"] ?>" required>
               </div>
             </div>
 
@@ -41,28 +39,28 @@
             </div>
 
             <div class="row mb-3">
-              <div class="col-md-2">
+              <div class="col-md-4">
                 <label for="middleInitial" class="form-label">Middle Initial</label>
                 <input type="text" class="form-control" id="middleInitial" name="middleInitial" value="" required>
               </div>
             </div>
 
             <div class="row mb-3">
-              <div class="col-md-2">
+              <div class="col-md-4">
                 <label for="Suffix" class="form-label">Suffix</label>
                 <input type="text" class="form-control" id="Suffix" name="Suffix" name="middleInitial" value="" required>
               </div>
             </div>
 
             <div class="row mb-3">
-              <div class="col-md-8">
+              <div class="col-md-6">
                 <label for="course" class="form-label">Course</label>
                 <input type="text" class="form-control" id="course" name="course" value="" required>
               </div>
             </div>
 
             <div class=" row mb-3">
-              <div class="col-md-2">
+              <div class="col-md-4">
                 <label for="year" class="form-label">Year</label>
                 <input type="text" class="form-control" id="year" name="year" value="" required>
               </div>

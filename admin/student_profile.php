@@ -22,6 +22,7 @@ try {
 } catch (PDOException $e) {
   echo 'Query failed: ' . $e->getMessage();
 }
+
 ?>
 
 <main id="main" class="main">
@@ -176,9 +177,13 @@ try {
               <div class="tab-pane fade" id="profile-overview">
                 <h5 class="card-title">Student Profile Details</h5>
 
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Full Name <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["fname"]); ?> <?php echo htmlspecialchars($studs["lname"]); ?> <?php echo htmlspecialchars($studs["middleInitial"]); ?> <?php echo htmlspecialchars($studs["Suffix"]); ?></div>
+                <div class="profile-section">
+                  <div class="profile-img">
+                    <img src="upload-files/<?php echo htmlspecialchars($studs["image"]); ?>" alt="Profile Image" class="rounded-circle">
+                  </div>
+                  <div class="profile-info">
+                    <h5><?php echo htmlspecialchars($studs["lname"]); ?> <?php echo htmlspecialchars($studs["fname"]); ?> <?php echo htmlspecialchars($studs["middleInitial"]); ?> <?php echo htmlspecialchars($studs["Suffix"]); ?></h5>
+                  </div>
                 </div>
 
                 <div class="row">

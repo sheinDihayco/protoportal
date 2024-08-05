@@ -1,6 +1,5 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
-    // Database connection details
     $servername = "localhost";
     $username = "root";
     $password = "";
@@ -24,6 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $course = $conn->real_escape_string($_POST['course']);
     $year = $conn->real_escape_string($_POST['year']);
 
+
     // Check if studentID already exists
     $checkQuery = "SELECT studentID FROM tbl_students WHERE studentID = '$studentID'";
     $result = $conn->query($checkQuery);
@@ -33,8 +33,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         echo "Error: A record with the student ID $studentID already exists.";
     } else {
         // SQL insert statement
-        $sql = "INSERT INTO tbl_students (user_id, fname, lname,Suffix, middleInitial, studentID, course, year)
-                VALUES ('$user_id','$fname', '$lname', '$middleInitial', '$Suffix','$studentID', '$course', '$year')";
+        $sql = "INSERT INTO tbl_students (user_id, fname, lname, middleInitial, Suffix, studentID, course, year)
+                VALUES ('$user_id', '$fname', '$lname', '$middleInitial', '$Suffix', '$studentID', '$course', '$year')";
 
         if ($conn->query($sql) === TRUE) {
             header("location: ../payment.php?error=success");

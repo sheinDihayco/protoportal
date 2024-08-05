@@ -9,8 +9,6 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Horizontal Form</h5>
-
-          <!-- Horizontal Form -->
           <form action="functions/update-employee.php" method="post" novalidate>
 
             <div class="row mb-3">

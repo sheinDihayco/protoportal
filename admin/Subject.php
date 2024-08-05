@@ -183,14 +183,14 @@
                         <td><?php echo htmlspecialchars($subject['total']); ?></td>
                         <td><?php echo htmlspecialchars($subject['course']); ?></td>
                         <td>
-                          <button type="button" class="btn btn-sm btn-warning ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editStudent<?php echo $subject['id']; ?>"></button>
+                          <button type="button" class="btn btn-sm btn-warning ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editSubject<?php echo $subject['id']; ?>"></button>
                           <form method="POST" action="../admin/upload/delete_subject.php" onsubmit="return confirm('Are you sure you want to delete this subject?');" style="display:inline;">
                             <input type="hidden" name="id" value="<?php echo htmlspecialchars($subject['id']); ?>">
                             <button type="submit" class="btn btn-sm btn-danger ri-delete-bin-6-line"></button>
                           </form>
 
                         </td>
-                        <?php include('modals/form-edit-Student.php'); ?>
+                        <?php include('modals/form-edit-subjects.php'); ?>
                       </tr>
                   <?php
                     }

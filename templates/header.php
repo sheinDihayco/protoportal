@@ -1,5 +1,4 @@
 <?php
-
 include_once "includes/connect.php";
 include_once "includes/connection.php";
 
@@ -11,13 +10,16 @@ if (!isset($_SESSION["login"])) {
 
 $userid = $_SESSION["login"];
 
-$statements = $conn->prepare("SELECT * FROM tbl_users WHERE user_id = '$userid'");
-$statements->execute();
+// Fetch user information from the database
+$statements = $conn->prepare("SELECT user_fname, user_lname, user_image FROM tbl_users WHERE user_id = ?");
+$statements->execute([$userid]);
 $user = $statements->fetch(PDO::FETCH_ASSOC);
+
 $fname = $user['user_fname'];
 $lname = $user['user_lname'];
-
+$image = $user['user_image'];
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -49,14 +51,6 @@ $lname = $user['user_lname'];
   <!-- Template Main CSS File -->
   <link href="../assets/css/style.css" rel="stylesheet">
 
-
-  <!-- =======================================================
-  * Template Name: NiceAdmin
-  * Updated: Mar 09 2023 with Bootstrap v5.2.3
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -76,8 +70,9 @@ $lname = $user['user_lname'];
       <form class="search-form d-flex align-items-center" method="POST" action="#">
         <input type="text" name="query" placeholder="Search" title="Enter search keyword">
         <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-      </form> -->
-    </div><!-- End Search Bar -->
+      </form>
+    </div> -->
+    <!-- End Search Ba -->
 
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
@@ -229,66 +224,66 @@ $lname = $user['user_lname'];
 
         </li><!-- End Messages Nav -->
 
-        <li class="nav-item dropdown pe-3">
+        <!--<li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="../assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $lname ?></span>
-          </a><!-- End Profile Iamge Icon -->
+          </a>End Profile Iamge Icon -->
 
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">
+        <!--<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+          <li class="dropdown-header">
+            <h6>
               <h6>
-                <h6>
-                  <?php echo $lname ?>, <?php echo $fname ?>
-                </h6>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+                <?php echo $lname ?>, <?php echo $fname ?>
+              </h6>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
 
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.php">
-                <i class="bi bi-person"></i>
-                <span>My Profile</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="users-profile.php">
+              <i class="bi bi-person"></i>
+              <span>My Profile</span>
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
 
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.php">
-                <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="users-profile.php">
+              <i class="bi bi-gear"></i>
+              <span>Account Settings</span>
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
 
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                <i class="bi bi-question-circle"></i>
-                <span>Need Help?</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+              <i class="bi bi-question-circle"></i>
+              <span>Need Help?</span>
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
 
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="../admin/includes/logout.inc.php">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
-            </li>
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="../admin/includes/logout.inc.php">
+              <i class="bi bi-box-arrow-right"></i>
+              <span>Sign Out</span>
+            </a>
+          </li>
 
-          </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
+      </ul>End Profile Dropdown Items 
+        </li> End Profile Nav
 
       </ul>
-    </nav><!-- End Icons Navigation -->
+    </nav>End Icons Navigation -->
 
   </header><!-- End Header -->
 
@@ -296,6 +291,44 @@ $lname = $user['user_lname'];
   <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
+
+      <div class="profile-section">
+        <div class="profile-img">
+          <img src="upload-files/<?php echo htmlspecialchars($image); ?>" alt="Profile Image" class="rounded-circle">
+        </div>
+
+        <div class="profile-info">
+          <h5><?php echo htmlspecialchars($lname) . ', ' . htmlspecialchars($fname); ?></h5>
+        </div>
+        <div class="settings-icon">
+          <a href="javascript:void(0);" onclick="document.getElementById('fileInput').click();">
+            <i class="ri-upload-fill"></i> <!-- Upload icon -->
+          </a>
+        </div>
+
+        <form action="upload/upload-image1.php" method="post" enctype="multipart/form-data">
+          <input type="file" id="fileInput" name="file" style="display: none;" onchange="showSaveButton();" />
+
+          <!-- Save Button -->
+          <div class="save-button" id="saveButton" style="display: none;">
+            <button type="submit" class="btn btn-primary" name="save">Save</button>
+          </div>
+        </form>
+      </div>
+
+      <script>
+        function showSaveButton() {
+          var fileInput = document.getElementById('fileInput');
+          var saveButton = document.getElementById('saveButton');
+          if (fileInput.files.length > 0) {
+            saveButton.style.display = 'block';
+          } else {
+            saveButton.style.display = 'none';
+          }
+        }
+      </script>
+
+
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="../admin/index.php">
@@ -367,6 +400,13 @@ $lname = $user['user_lname'];
           <span>Log out</span>
         </a>
       </li>
+
+      <br>
+      <div class="settings-icon">
+        <a href="../admin/user-form.php">
+          <i class="bi bi-gear"></i> <!-- Settings icon -->
+        </a>
+      </div>
       <!-- <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#user-nav" data-bs-toggle="collapse" href="#">
           <i class="ri ri-group-line"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -417,6 +457,32 @@ $lname = $user['user_lname'];
       <!-- End Components Nav -->
 
     </ul>
-
-
   </aside><!-- End Sidebar-->
+
+  <style>
+    /* Inline styles for quick adjustments */
+    .profile-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      /* Center horizontally */
+      padding: 1rem;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .profile-img img {
+      width: 80px;
+      /* Adjust size as needed */
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+      /* Space between image and text */
+    }
+
+    .profile-info h5 {
+      margin: 0;
+      font-size: 1.1rem;
+      text-align: center;
+    }
+  </style>

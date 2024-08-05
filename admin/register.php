@@ -18,6 +18,7 @@
                 </div>
 
                 <form class="row g-3 needs-validation" action="includes/register.inc.php" method="post" novalidate>
+
                   <div class="col-12">
                     <label for="role" class="form-label">Role</label>
                     <select name="role" id="role" class="form-select" required>
