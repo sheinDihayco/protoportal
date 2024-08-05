@@ -32,6 +32,7 @@
   <link rel="stylesheet" href="css/owl.carousel.min.css">
   <link rel="stylesheet" href="css/owl.theme.default.min.css">
   <link rel="stylesheet" href="css/owl.theme.default.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <link rel="stylesheet" href="css/jquery.fancybox.min.css">
 
@@ -651,15 +652,28 @@
           </div>
 
           <div class="col-md-4">
-            <h3>Subscribe</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt incidunt iure iusto architecto? Numquam, natus?</p>
-            <form action="#" class="footer-subscribe">
-              <div class="d-flex mb-5">
-                <input type="text" class="form-control rounded-0" placeholder="Email">
-                <input type="submit" class="btn btn-primary rounded-0" value="Subscribe">
-              </div>
-            </form>
+            <h3>Account</h3>
+
+            <!-- Social Links -->
+            <div class="social-links" style="display: flex; gap: 10px;">
+              <!-- Facebook Link with Icon -->
+              <a href="https://www.facebook.com/MIITOFFICIALPAGE" target="_blank" title="Follow us on Facebook" style="text-decoration: none; color: #3b5998; font-size: 24px;">
+                <i class="fab fa-facebook-f"></i> <!-- Font Awesome Facebook Icon -->
+              </a>
+
+              <!-- Twitter Link with Icon -->
+              <a href="#" target="_blank" title="Follow us on Twitter" style="text-decoration: none; color: #1da1f2; font-size: 24px;">
+                <i class="fab fa-twitter"></i> <!-- Font Awesome Twitter Icon -->
+              </a>
+
+              <!-- Instagram Link with Icon -->
+              <a href="#" target="_blank" title="Follow us on Instagram" style="text-decoration: none; color: #c13584; font-size: 24px;">
+                <i class="fab fa-instagram"></i> <!-- Font Awesome Instagram Icon -->
+              </a>
+            </div>
           </div>
+
+
 
         </div>
 
@@ -670,7 +684,7 @@
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 Copyright &copy;<script>
                   document.write(new Date().getFullYear());
-                </script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                </script> All rights reserved |Microsystems International Institute of Technology
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
               </p>
             </div>
