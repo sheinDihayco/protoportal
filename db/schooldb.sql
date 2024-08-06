@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 01, 2024 at 11:04 AM
+-- Generation Time: Aug 06, 2024 at 10:42 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -107,7 +107,7 @@ CREATE TABLE `tbl_employee` (
 
 INSERT INTO `tbl_employee` (`employee_id`, `first_name`, `last_name`, `date_of_birth`, `gender`, `hire_date`, `job_title`, `department`, `phone_number`, `address`) VALUES
 (12404, 'Michael John', 'Bustamante', '1997-12-17', 'Male', '2024-01-24', 'Instructor', 'IT', '094582311', 'Linao-Lipata, Minglanilla, Cebu'),
-(12405, 'Jessamae', 'Carzano', '2000-01-01', 'Female', '0004-01-01', 'Accounting', 'Accounting Dept.', '099999999999', 'Inayagan, City of Naga');
+(12405, 'Jessamae', 'Carzano', '1996-01-01', 'Female', '0004-01-01', 'Accounting', 'Accounting Dept.', '099999999999', 'Inayagan, City of Naga');
 
 -- --------------------------------------------------------
 
@@ -127,7 +127,7 @@ CREATE TABLE `tbl_events` (
 --
 
 INSERT INTO `tbl_events` (`id`, `title`, `date`, `description`) VALUES
-(24, 'My Birthday', '2025-02-09', 'Another year, another blessing');
+(26, 'Enrollment Day', '2024-08-05', 'All student must be enrolled on this day, to secure slots for the upcoming event in school. Thank you!');
 
 -- --------------------------------------------------------
 
@@ -196,14 +196,6 @@ CREATE TABLE `tbl_payments` (
   `final` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `tbl_payments`
---
-
-INSERT INTO `tbl_payments` (`payment_id`, `studentID`, `payment_status`, `semester`, `prelim`, `midterm`, `prefinal`, `final`) VALUES
-(13, 2021124, 'Paid', '2nd', '', '', '', ''),
-(14, 2021137, 'Pending', '2nd', '', '', '', '');
-
 -- --------------------------------------------------------
 
 --
@@ -251,17 +243,19 @@ CREATE TABLE `tbl_students` (
   `shCompleted` varchar(30) NOT NULL,
   `collegeSchool` varchar(100) NOT NULL,
   `collegeAddress` text NOT NULL,
-  `collegeCompleted` varchar(30) NOT NULL
+  `collegeCompleted` varchar(30) NOT NULL,
+  `user_image` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_students`
 --
 
-INSERT INTO `tbl_students` (`studentID`, `user_id`, `lname`, `fname`, `middleInitial`, `Suffix`, `course`, `year`, `contact`, `gender`, `bdate`, `pob`, `email`, `major`, `nationality`, `civilStatus`, `religion`, `modality`, `fb`, `curAddress`, `cityAdd`, `zipcode`, `fatherName`, `fwork`, `motherName`, `mwork`, `primarySchool`, `primaryAddress`, `primaryCompleted`, `entermediateSchool`, `entermediateAddress`, `entermediateCompleted`, `hsSchool`, `hsAddress`, `hsCompleted`, `shSchool`, `shAddress`, `shCompleted`, `collegeSchool`, `collegeAddress`, `collegeCompleted`) VALUES
-(2021124, 8, 'Algrame', 'Zean Mariuss', 'C.', '-', ' BSIT', 3, '09912988991', 'Male', '2002-11-22', 'N/A', 'zuild@gmail.com', 'Programming', 'Filipino', 'Single', 'Roman Catholic', 'Face to Face', 'Zean Marius C. Algarme', 'Tungkop, Minglanilla', 'Minglanilla, Cebu', '6046', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'MIIT', 'Inayagan, City of Naga, Cebu', 'N/A'),
-(2021137, 7, 'Dihayco', 'Sheinalie', 'V.', '-', 'BSIT', 3, '09996707038', 'Female', '2003-02-09', 'Mactan, Lapu-Lapu City , Cebu', 'sheinalie020903@gmail.com', 'Programming', 'Filipino', 'Single', 'Roman Catholic', 'Face to Face', 'Shien Dihayco', 'Purok Sagay, Kalubihan', 'Tuyan, City of Naga, Cebu', '6037', 'Mechille V. DIhayco', 'N/A', 'Divina V. Dihayco', 'Baby Sitter', 'Punta Engano Elementary School', 'Puntan Engano, Lapu-Lapu City', '2012-2013', 'TCES', 'Tuyan, City of Naga', '2014-2015', 'TNHS', 'Tabtuy, Tuyan, City of Naga, Cebu', '2018-2019 ', 'TUYAN SENIOR HIGH SCHOOL', 'Tabtuy, Tuyan, City of Naga, Cebu', '2020-2021', 'MIIT', 'Inayagan, City of Naga, Cebu', '-'),
-(2021160, 15, 'Tahanlangit', 'Louie', '-', 'C.', ' BSIT', 3, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+INSERT INTO `tbl_students` (`studentID`, `user_id`, `lname`, `fname`, `middleInitial`, `Suffix`, `course`, `year`, `contact`, `gender`, `bdate`, `pob`, `email`, `major`, `nationality`, `civilStatus`, `religion`, `modality`, `fb`, `curAddress`, `cityAdd`, `zipcode`, `fatherName`, `fwork`, `motherName`, `mwork`, `primarySchool`, `primaryAddress`, `primaryCompleted`, `entermediateSchool`, `entermediateAddress`, `entermediateCompleted`, `hsSchool`, `hsAddress`, `hsCompleted`, `shSchool`, `shAddress`, `shCompleted`, `collegeSchool`, `collegeAddress`, `collegeCompleted`, `user_image`) VALUES
+(2021080, 21, 'Lazaga', 'Cherry mae', 'G.', '-', 'BSBA', 3, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(2021123, 20, 'Algarme', 'Zean Mariuss', 'C.', '-', ' BSIT', 3, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(2021137, 19, 'Dihayco', 'Sheinalie', 'V.', '-', ' BSIT', 3, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(2021160, 31, 'Tahanlangit', 'Louie', 'A.', '-', ' BSIT', 3, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -288,7 +282,7 @@ CREATE TABLE `tbl_subjects` (
 --
 
 INSERT INTO `tbl_subjects` (`id`, `year`, `semester`, `code`, `description`, `lec`, `lab`, `unit`, `pre_req`, `total`, `course`) VALUES
-(8, 1, 1, 'GE 1', 'Understanding the Self ', 3, 0, 3, '1st Year', 3, 'BSIT'),
+(8, 1, 1, 'GE 1', 'Understanding the Self ', 3, 0, 3, '1', 3, 'BSIT'),
 (9, 1, 1, 'GE 2', 'Ethics ', 3, 0, 3, 'none', 3, 'BSIT'),
 (10, 1, 1, 'GE 6 ', 'Mathemtatics in the Modern World', 3, 0, 3, 'None', 3, 'BSIT'),
 (11, 1, 1, 'GE 4 ', 'Science, Technology and Society', 3, 0, 3, 'None', 3, 'BSIT'),
@@ -363,7 +357,6 @@ INSERT INTO `tbl_subjects` (`id`, `year`, `semester`, `code`, `description`, `le
 (81, 3, 2, 'OA5', 'Public and Customer Relations', 3, 0, 3, 'EM', 16, 'BSOA'),
 (82, 3, 2, 'OA6', 'Corporate Social Responsibility', 3, 0, 3, 'NONE', 16, 'BSOA'),
 (83, 3, 2, 'MS', 'MS Concept', 3, 0, 3, 'Comp 1, 2, & 3', 16, 'BSOA'),
-(84, 1, 1, 'GE 1', 'Understanding the self', 3, 0, 3, 'None', 23, 'BSOA'),
 (85, 1, 1, 'GE 2', 'Ethics', 3, 0, 3, 'None', 23, 'BSOA'),
 (86, 1, 1, 'GE 3', 'Readings In Philippine History', 3, 0, 3, 'None', 23, 'BSOA'),
 (87, 1, 1, 'GE 4', 'Science, Technology, and Society', 3, 0, 3, 'None', 23, 'BSOA'),
@@ -403,7 +396,6 @@ INSERT INTO `tbl_subjects` (`id`, `year`, `semester`, `code`, `description`, `le
 (121, 4, 2, 'OA Elective 5', 'OA Professional Elective 5', 1, 2, 3, 'Elect. 1, 2, & 3', 10, 'BSOA'),
 (122, 4, 2, 'OA Elective 6', 'OA Professional Elective 6', 1, 2, 3, 'Elect. 1, 2, & 3', 10, 'BSOA'),
 (123, 4, 2, 'ACCTG 02', 'Managerial Accounting', 3, 0, 3, 'ACCTG1', 10, 'BSOA'),
-(124, 1, 1, 'GE 1', 'Understanding the Self', 3, 0, 3, 'None', 26, 'BSBA'),
 (125, 1, 1, 'GE 2', 'Ethics', 3, 0, 3, 'None', 26, 'BSBA'),
 (126, 1, 1, 'GE 3', 'Readings in Philippine History', 3, 0, 3, 'None', 26, 'BSBA'),
 (127, 1, 1, 'GE 4', 'Science, Technology, and Society', 3, 0, 3, 'None', 26, 'BSBA'),
@@ -501,18 +493,20 @@ CREATE TABLE `tbl_users` (
   `user_email` varchar(80) NOT NULL,
   `user_name` varchar(50) NOT NULL,
   `user_pass` varchar(100) NOT NULL,
-  `user_role` varchar(20) NOT NULL
+  `user_role` varchar(20) NOT NULL,
+  `user_image` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_users`
 --
 
-INSERT INTO `tbl_users` (`user_id`, `user_fname`, `user_lname`, `user_email`, `user_name`, `user_pass`, `user_role`) VALUES
-(3, 'Jessamae', 'Carzano', 'jessamae@gmail.com', 'Carzano@123', '$2y$10$aDsR8a1Guds2Vf17YchHduBPMu1XnmX.2EwDFlTZtrwni9mTbkITa', 'admin'),
-(7, 'Sheinalie', 'Dihayco', 'dihayco020903@gmail.com', '2021137', '$2y$10$l1subB.o/qk8.DU2mXsMyumneRRNPXaQeMQcfNx7mAZjrATDJKyhC', 'student'),
-(8, 'Zean Mariuss', 'Algarme', 'zuild@gmail.com', '2021123', '$2y$10$SmI.RADkHu3sYr9/XPFtt.3MW/w02uVVYPjKyCaZDtqFhzRNfYX2W', 'student'),
-(15, 'Louie', 'Tahanlangit', 'louiethnlngt@gmail.com', '2021160', '$2y$10$pS4nG8leTekj3W4bvgBSguG.mL6RQK7qRvzIBzIXG6a1LXn4KU/oi', 'student');
+INSERT INTO `tbl_users` (`user_id`, `user_fname`, `user_lname`, `user_email`, `user_name`, `user_pass`, `user_role`, `user_image`) VALUES
+(3, 'Jessamae', 'Carzano', 'jessamae@gmail.com', 'Carzano@123', '$2y$10$aDsR8a1Guds2Vf17YchHduBPMu1XnmX.2EwDFlTZtrwni9mTbkITa', 'admin', '../admin/upload/upload-files/maam_jessa.png'),
+(19, 'Sheinalie', 'Dihayco', 'dihayco020903@gmail.com', '2021137', '$2y$10$5O4wC/B6F0ZpAiG/cVi2KO3Dx4AgLp6LZ0ye5dT20N0xT8UN1tNAa', 'student', '../admin/upload/upload-files/me.jpeg'),
+(20, 'Zean Mariuss', 'Algarme', 'zuild@gmail.com', '2021123', '$2y$10$uwQStnHBgbXqbtV/gXgLkuABdFy7brTVbunYPkCS/4zrvs71LYAN6', 'student', '../admin/upload/upload-files/zean.jpg'),
+(21, 'Cherry mae', 'Lazaga', 'cherry@gmail.com', '2021080', '$2y$10$HRCkTAaB7htW.L66Kmc/TOPbOc4SQrAMFAK2SDzYkzXwyJLKPWVnC', 'student', '../admin/upload/upload-files/cherry.jpg'),
+(31, 'Louie', 'Tahanlangit', 'louiethnlngt@gmail.com', '2021160', '$2y$10$cCDEziqQWajqENhgIIiZy.u6ToHgHT2MIKYV2Vx8iZi6KGwV1ni6u', 'student', '');
 
 --
 -- Indexes for dumped tables
@@ -623,13 +617,13 @@ ALTER TABLE `tbl_compensation`
 -- AUTO_INCREMENT for table `tbl_employee`
 --
 ALTER TABLE `tbl_employee`
-  MODIFY `employee_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12406;
+  MODIFY `employee_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12409;
 
 --
 -- AUTO_INCREMENT for table `tbl_events`
 --
 ALTER TABLE `tbl_events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `tbl_image`
@@ -647,7 +641,7 @@ ALTER TABLE `tbl_leave`
 -- AUTO_INCREMENT for table `tbl_payments`
 --
 ALTER TABLE `tbl_payments`
-  MODIFY `payment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `payment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `tbl_subjects`
@@ -665,7 +659,7 @@ ALTER TABLE `tbl_transaction`
 -- AUTO_INCREMENT for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- Constraints for dumped tables
