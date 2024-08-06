@@ -11,18 +11,23 @@ if (isset($_SESSION['stud']) && !empty($_SESSION['stud'])) {
 
 include_once "../templates/header.php";
 include_once "includes/connect.php";
-include_once 'includes/connection.php';
+include_once "includes/connection.php";
 
 try {
-  $statement = $conn->prepare("SELECT * FROM tbl_students WHERE studentID = :sid ");
-
+  $statement = $conn->prepare("SELECT * FROM tbl_students WHERE studentID = :sid");
   $statement->bindParam(':sid', $studid, PDO::PARAM_INT);
   $statement->execute();
   $studs = $statement->fetch(PDO::FETCH_ASSOC);
+
+  if ($studs && !empty($studs["user_image"])) {
+    $userImage = htmlspecialchars($studs["user_image"]);
+  } else {
+    $userImage = "default.jpg";
+  }
 } catch (PDOException $e) {
   echo 'Query failed: ' . $e->getMessage();
+  exit;
 }
-
 ?>
 
 <main id="main" class="main">
@@ -179,7 +184,7 @@ try {
 
                 <div class="profile-section">
                   <div class="profile-img">
-                    <img src="upload-files/<?php echo htmlspecialchars($studs["image"]); ?>" alt="Profile Image" class="rounded-circle">
+                    <img src="upload-files/<?php echo $userImage; ?>" alt="Profile Image" class="rounded-circle">
                   </div>
                   <div class="profile-info">
                     <h5><?php echo htmlspecialchars($studs["lname"]); ?> <?php echo htmlspecialchars($studs["fname"]); ?> <?php echo htmlspecialchars($studs["middleInitial"]); ?> <?php echo htmlspecialchars($studs["Suffix"]); ?></h5>
@@ -371,9 +376,7 @@ try {
         </div>
       </div><!-- End Left side columns -->
     </div>
-    </div>
   </section>
-
 </main><!-- End #main -->
 
 <?php

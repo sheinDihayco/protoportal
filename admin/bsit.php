@@ -384,31 +384,37 @@
                                         $db = $database->open();
 
                                         try {
-                                            $query = "SELECT *, sr.lname, sr.fname, sr.course,sr.year, s.major, s.studentID
-                                                    FROM tbl_student_records sr
-                                                    JOIN tbl_students s ON sr.studentID = s.studentID
-                                                    WHERE s.major = 'Programming'
-                                                    ORDER BY sr.lname ASC";
+                                            // Query to select all students in the 'BSIT' course
+                                            $query = "SELECT * FROM tbl_students WHERE course = 'BSIT'";
 
+                                            // Execute the query
                                             foreach ($db->query($query) as $row) {
                                         ?>
                                                 <tr>
-                                                    <th scope="row"><a href="#"><?php echo $row["studentID"] ?></a></th>
-                                                    <td><?php echo $row["lname"] ?>, <?php echo $row["fname"] ?></td>
-                                                    <td><?php echo $row["course"] ?> - <?php echo $row["year"] ?></td>
-                                                    <td><?php echo $row["major"] ?></td>
-                                                    <td><button type="button" class="ri-eye-fill" data-bs-toggle="modal" data-bs-target="#viewStudent<?php echo $row["studentID"] ?>"></button>
+                                                    <th scope="row">
+                                                        <a href="#"><?php echo htmlspecialchars($row["studentID"]); ?></a>
+                                                    </th>
+                                                    <td><?php echo htmlspecialchars($row["lname"]) . ', ' . htmlspecialchars($row["fname"]); ?></td>
+                                                    <td><?php echo htmlspecialchars($row["course"]) . ' - ' . htmlspecialchars($row["year"]); ?></td>
+                                                    <td><?php echo htmlspecialchars($row["major"]); ?></td>
+                                                    <td>
+                                                        <!-- View button -->
+                                                        <button type="button" class="ri-eye-fill" data-bs-toggle="modal" data-bs-target="#viewStudent<?php echo htmlspecialchars($row["studentID"]); ?>"></button>
+                                                        <!-- Edit button -->
                                                         <button type="button" class="ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editStudent<?php echo htmlspecialchars($row["studentID"]); ?>"></button>
                                                     </td>
 
+                                                    <!-- Include modals, ensure they use unique IDs -->
                                                     <?php include('modals/form-view-student.php'); ?>
-                                                    <?php include('modals/form-edit-Student.php'); ?>
+                                                    <?php include('modals/form-edit-student.php'); ?>
                                                 </tr>
                                         <?php
                                             }
                                         } catch (PDOException $e) {
-                                            echo "There is some problem in connection: " . $e->getMessage();
+                                            echo "There is some problem in connection: " . htmlspecialchars($e->getMessage());
                                         }
+
+                                        // Close the database connection
                                         $database->close();
                                         ?>
                                     </tbody>

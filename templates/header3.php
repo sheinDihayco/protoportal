@@ -11,16 +11,26 @@ if (!isset($_SESSION["login"])) {
 $userid = $_SESSION["login"];
 
 // Fetch user information from the database
-$statements = $conn->prepare("SELECT user_fname, user_lname, user_image FROM tbl_users WHERE user_id = ?");
-$statements->execute([$userid]);
+$statements = $conn->prepare("SELECT u.user_fname, u.user_lname, u.user_image, s.course
+    FROM tbl_users u
+    JOIN tbl_students s ON u.user_id = s.user_id
+    WHERE u.user_id = :userid
+");
+$statements->bindParam(':userid', $userid, PDO::PARAM_INT);
+$statements->execute();
 $user = $statements->fetch(PDO::FETCH_ASSOC);
 
-$fname = $user['user_fname'];
-$lname = $user['user_lname'];
-$image = $user['user_image'];
-
+if ($user) {
+  $fname = $user['user_fname'];
+  $lname = $user['user_lname'];
+  $image = $user['user_image'];
+  $course = $user['course'];
+} else {
+  // Handle the case where no user was found
+  echo "User or student information not found.";
+  exit;
+}
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -221,6 +231,75 @@ $image = $user['user_image'];
         <a class="nav-link collapsed" href="#">
           <i class="bx bx-book"></i>
           <span>Subjects</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="Subjects">
+          <i class="ri-calendar-2-fill"></i>
+          <span>Prospectus</span>
+          <i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <?php
+          // Debugging: Output the course value
+          // echo '<li><a href="#"><i class="bi bi-circle"></i><span>Course: ' . htmlspecialchars($course) . '</span></a></li>';
+
+          // Display prospectus links based on the course
+          switch (strtoupper(trim($course))) {
+            case 'BSIT':
+              echo '<li>
+              <a href="../admin/bsit-prospectus.php">
+                <i class="bi bi-circle"></i><span>BSIT</span>
+              </a>
+            </li>';
+              break;
+            case 'BSBA':
+              echo '<li>
+              <a href="../admin/bsba-prospectus.php">
+                <i class="bi bi-circle"></i><span>BSBA</span>
+              </a>
+            </li>';
+              break;
+            case 'BSOA':
+              echo '<li>
+              <a href="../admin/bsoa-prospectus.php">
+                <i class="bi bi-circle"></i><span>BSOA</span>
+              </a>
+            </li>';
+              break;
+            case 'GRADE11':
+              echo '<li>
+              <a href="../admin/grade11-prospectus.php">
+                <i class="bi bi-circle"></i><span>Grade 11 Subjects</span>
+              </a>
+            </li>';
+              break;
+            case 'GRADE12':
+              echo '<li>
+              <a href="../admin/grade12-prospectus.php">
+                <i class="bi bi-circle"></i><span>Grade 12 Subjects</span>
+              </a>
+            </li>';
+              break;
+            default:
+              // Optionally handle the case where $course does not match any known values
+              echo '<li>
+              <a href="#">
+                <i class="bi bi-circle"></i><span>No Prospectus Available</span>
+              </a>
+            </li>';
+              break;
+          }
+          ?>
+        </ul>
+      </li>
+
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="">
+          <i class="bx bx-book"></i>
+          <span>Enrollment</span>
         </a>
       </li>
 

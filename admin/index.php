@@ -22,7 +22,7 @@ $studcount = $statements->fetch(PDO::FETCH_ASSOC);
     <h1>Dashboard</h1>
     <nav>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item"><a href="../admin/index.php">Home</a></li>
         <li class="breadcrumb-item active">Dashboard</li>
       </ol>
     </nav>
@@ -35,11 +35,34 @@ $studcount = $statements->fetch(PDO::FETCH_ASSOC);
         <div class="card shadow-sm border-0 rounded-lg">
           <div class="card-header bg-primary text-white d-flex align-items-center">
             <span style="font-size: 3rem; margin-right: 0.5rem; margin-left: 2rem">👋</span>
-            <h5 class="card-title mb-0" style="border-radius: 3px; font-size: 1.75rem; color: white ">Welcome, <?php echo htmlspecialchars($fname); ?>!</h5>
+            <h5 class="card-title mb-0" style="border-radius: 3px; font-size: 1.75rem; color: white;">
+              Welcome, <?php echo htmlspecialchars($fname); ?>!
+            </h5>
           </div>
         </div>
       </div>
     </div>
+
+    <script>
+      $(document).ready(function() {
+        function loginAlert() {
+          $.bootstrapGrowl("Successfully Logged In!", {
+            type: "success",
+            offset: {
+              from: "top",
+              amount: 300
+            },
+            align: "center",
+            allow_dismiss: true,
+            stackup_spacing: 10
+          });
+        }
+
+        // Call loginAlert function if a certain condition is met, e.g., after login
+        // For demonstration, it's called immediately; adjust as needed.
+        loginAlert();
+      });
+    </script>
 
     <div class="row">
       <!-- Left side columns -->
@@ -253,20 +276,6 @@ $studcount = $statements->fetch(PDO::FETCH_ASSOC);
   </section>
 
 </main><!-- End #main -->
-<script>
-  function loginAlert() {
-    $.bootstrapGrowl("Successfully Login!", {
-      type: "success",
-      offset: {
-        from: "top",
-        amount: 300
-      },
-      align: "center",
-      allow_dismiss: true,
-      stackup_spacing: 10
-    });
-  }
-</script>
 
 <!-- Link to Bootstrap JS and its dependencies -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

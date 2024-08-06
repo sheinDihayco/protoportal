@@ -32,9 +32,9 @@
                 <li class="dropdown-header text-start">
                   <h6>Filter</h6>
                 </li>
-                <li><a class="dropdown-item" href="../admin/bsit.php">BSIT</a></li>
-                <li><a class="dropdown-item" href="../admin/bsba.php">BSBA</a></li>
-                <li><a class=" dropdown-item" href="../admin/bsoa.php">BSOA</a></li>
+                <li><a class="dropdown-item" href="#">BSIT</a></li>
+                <li><a class="dropdown-item" href="#">BSBA</a></li>
+                <li><a class=" dropdown-item" href="#">BSOA</a></li>
               </ul>
             </div>
 

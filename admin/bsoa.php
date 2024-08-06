@@ -374,7 +374,6 @@
                                             <th scope="col">Student ID</th>
                                             <th scope="col">Full Name</th>
                                             <th scope="col">Course</th>
-                                            <th scope="col">Major</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
@@ -384,11 +383,7 @@
                                         $db = $database->open();
 
                                         try {
-                                            $query = "SELECT *, sr.lname, sr.fname, sr.course,sr.year, s.major, s.studentID
-                                                    FROM tbl_student_records sr
-                                                    JOIN tbl_students s ON sr.studentID = s.studentID
-                                                    WHERE s.major = 'OA'
-                                                    ORDER BY sr.lname ASC";
+                                            $query = "SELECT * FROM tbl_students WHERE course = 'BSOA' ";
 
                                             foreach ($db->query($query) as $row) {
                                         ?>
@@ -396,9 +391,8 @@
                                                     <th scope="row"><a href="#"><?php echo $row["studentID"] ?></a></th>
                                                     <td><?php echo $row["lname"] ?>, <?php echo $row["fname"] ?></td>
                                                     <td><?php echo $row["course"] ?> - <?php echo $row["year"] ?></td>
-                                                    <td><?php echo $row["major"] ?></td>
-                                                    <td><button type="button" class="ri-eye-fill" data-bs-toggle="modal" data-bs-target="#viewStudent<?php echo $row["studentID"] ?>"></button>
-                                                        <button type="button" class="ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editStudent<?php echo htmlspecialchars($row["studentID"]); ?>"></button>
+                                                    <td><button type="button" class="btn btn-sm btn-warning ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#viewStudent<?php echo $row["studentID"] ?>"></button>
+                                                        <button type="button" class="btn btn-sm btn-danger ri-delete-bin-6-line" data-bs-toggle="modal" data-bs-target="#editStudent<?php echo htmlspecialchars($row["studentID"]); ?>"></button>
                                                     </td>
 
                                                     <?php include('modals/form-view-student.php'); ?>

@@ -51,6 +51,11 @@ $image = $user['user_image'];
   <!-- Template Main CSS File -->
   <link href="../assets/css/style.css" rel="stylesheet">
 
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.1.3/bootstrap-growl.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.1.3/bootstrap-growl.min.js"></script>
 </head>
 
 <body>
@@ -302,7 +307,7 @@ $image = $user['user_image'];
         </div>
         <div class="settings-icon">
           <a href="javascript:void(0);" onclick="document.getElementById('fileInput').click();">
-            <i class="ri-upload-fill"></i> <!-- Upload icon -->
+            <i class="ri-upload-fill"></i>
           </a>
         </div>
 
@@ -327,8 +332,6 @@ $image = $user['user_image'];
           }
         }
       </script>
-
-
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="../admin/index.php">
@@ -381,16 +384,24 @@ $image = $user['user_image'];
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="../admin/user.php">
-          <i class="ri-user-fill"></i>
-          <span>Users</span>
+        <a class="nav-link collapsed" href="../admin/compensation.php">
+          <i class="bi bi-layout-text-window-reverse"></i>
+          <span>Compensation</span>
         </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="../admin/compensation.php">
+        <a class="nav-link collapsed" href="">
           <i class="bi bi-layout-text-window-reverse"></i>
-          <span>Compensation</span>
+          <span>Enrollment</span>
+          <!--INCLUDING : STUDY LOAD FORM, ENROLLMENT FORM -->
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="../admin/user.php">
+          <i class="ri-user-fill"></i>
+          <span>Users</span>
         </a>
       </li>
 
