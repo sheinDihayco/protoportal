@@ -1,5 +1,23 @@
 <?php include_once "../templates/header.php"; ?>
 
+<?php
+if (isset($_SESSION['employee_created']) && $_SESSION['employee_created']) {
+  echo "
+      <div class='alert'>
+          <span class='closebtn' onclick='this.parentElement.style.display=\"none\";'>&times;</span>
+          New employee successfully added!
+      </div>
+      <script>
+          setTimeout(function() {
+              document.querySelector('.alert').style.opacity = '0';
+              setTimeout(function() {
+                  document.querySelector('.alert').style.display = 'none';
+              }, 600);
+          }, 5000);
+      </script>";
+  unset($_SESSION['employee_created']);
+}
+?>
 
 <main id="main" class="main">
 
@@ -14,7 +32,6 @@
       </ol>
     </nav>
   </div><!-- End Page Title -->
-
 
   <div class="modal fade" id="verticalycentered" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -95,17 +112,7 @@
                 Please provide a valid address.
               </div>
             </div>
-            <!-- <div class="col-12">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-                    <label class="form-check-label" for="invalidCheck">
-                      Agree to terms and conditions
-                    </label>
-                    <div class="invalid-feedback">
-                      You must agree before submitting.
-                    </div>
-                  </div>
-                </div> -->
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -122,119 +129,6 @@
       <!-- Left side columns -->
       <div class="col-lg-12">
         <div class="row">
-
-          <!-- Sales Card -->
-          <!-- <div class="col-xxl-4 col-md-6">
-              <div class="card info-card sales-card">
-
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div>
-
-                <div class="card-body">
-                  <h5 class="card-title">Total <span>| Students</span></h5>
-
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-people"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6><?php echo $st_count["num"] ?></h6>
-                      <span class="text-success small pt-1 fw-bold">Student</span> <span class="text-muted small pt-2 ps-1">Count</span>
-
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-             -->
-          <!-- End Sales Card -->
-
-          <!-- Revenue Card -->
-          <!-- <div class="col-xxl-4 col-md-6">
-              <div class="card info-card revenue-card">
-
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div>
-
-                <div class="card-body">
-                  <h5 class="card-title">Revenue <span>| This Month</span></h5>
-
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-currency-dollar"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6>$3,264</h6>
-                      <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div> -->
-
-          <!-- End Revenue Card -->
-
-          <!-- Customers Card -->
-          <!-- <div class="col-xxl-4 col-xl-12">
-
-              <div class="card info-card customers-card">
-
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div>
-
-                <div class="card-body">
-                  <h5 class="card-title">Customers <span>| This Year</span></h5>
-
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-people"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6>1244</h6>
-                      <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
-
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
-            </div> -->
-          <!-- End Customers Card -->
-
           <!-- Recent Sales -->
           <div class="col-12">
             <div class="card recent-sales overflow-auto">
@@ -314,3 +208,35 @@
 <?php
 include_once "../templates/footer.php";
 ?>
+
+<style>
+  .alert {
+    padding: 20px;
+    background-color: #4CAF50;
+    /* Green */
+    color: white;
+    opacity: 1;
+    transition: opacity 0.6s;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+
+  .closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .closebtn:hover {
+    color: black;
+  }
+</style>

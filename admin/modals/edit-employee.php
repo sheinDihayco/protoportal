@@ -72,8 +72,8 @@
             <input type="hidden" class="form-control" id="inputEmail" value="<?php echo $row["employee_id"] ?>" name="empid">
 
             <div class="col-12 d-flex justify-content-end">
-              <button class="btn btn-primary" type="submit" name="submit">Submit form</button>
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button class="btn btn-primary btn-sm" type="submit" name="submit">Save</button>
+              <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
             </div>
 
           </form>

@@ -2,11 +2,10 @@
 include_once "connect.php";
 
 if (isset($_POST["login"])) {
-    $identifier = $_POST["identifier"]; // Could be username or school ID
+    $identifier = $_POST["identifier"];
     $pass = $_POST["password"];
     $remember = isset($_POST["remember"]);
 
-    // Determine if the identifier is a school ID or username
     $column = preg_match('/^[a-zA-Z0-9-]+$/', $identifier) ? 'user_name' : 'user_name';
 
     $statement = $conn->prepare("SELECT * FROM tbl_users WHERE user_name = :identifier");
@@ -24,14 +23,15 @@ if (isset($_POST["login"])) {
         } else {
             session_start();
             $_SESSION['login'] = $user["user_id"];
-            $_SESSION['role'] = $user["user_role"]; // Store user role in session
+            $_SESSION['role'] = $user["user_role"];
+            $_SESSION['login_success'] = true;
 
             if ($remember) {
-                setcookie("rememberedIdentifier", $identifier, time() + (86400 * 30), "/"); // 30 days
-                setcookie("rememberedPassword", $pass, time() + (86400 * 30), "/"); // 30 days
+                setcookie("rememberedIdentifier", $identifier, time() + (86400 * 30), "/");
+                setcookie("rememberedPassword", $pass, time() + (86400 * 30), "/");
             } else {
-                setcookie("rememberedIdentifier", "", time() - 3600, "/"); // Expire cookie
-                setcookie("rememberedPassword", "", time() - 3600, "/"); // Expire cookie
+                setcookie("rememberedIdentifier", "", time() - 3600, "/");
+                setcookie("rememberedPassword", "", time() - 3600, "/");
             }
 
             // Redirect based on role

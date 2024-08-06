@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $servername = "localhost";
     $username = "root";
@@ -23,24 +25,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $course = $conn->real_escape_string($_POST['course']);
     $year = $conn->real_escape_string($_POST['year']);
 
-
     // Check if studentID already exists
     $checkQuery = "SELECT studentID FROM tbl_students WHERE studentID = '$studentID'";
     $result = $conn->query($checkQuery);
 
     if ($result->num_rows > 0) {
         // Student ID already exists
-        echo "Error: A record with the student ID $studentID already exists.";
+        $_SESSION['initial_update_error'] = "Error: A record with the student ID $studentID already exists.";
+        header("Location: ../admin/insert-initial-data.php");
     } else {
         // SQL insert statement
         $sql = "INSERT INTO tbl_students (user_id, fname, lname, middleInitial, Suffix, studentID, course, year)
                 VALUES ('$user_id', '$fname', '$lname', '$middleInitial', '$Suffix', '$studentID', '$course', '$year')";
 
         if ($conn->query($sql) === TRUE) {
-            header("location: ../payment.php?error=success");
-            echo "Record inserted successfully";
+            $_SESSION['initial_update'] = true;
+            header("location:../payment.php?register=success?register=success");
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            $_SESSION['initial_update_error'] = "Error: " . $sql . "<br>" . $conn->error;
+            header("Location: ../admin/insert-initial-data.php");
         }
     }
 

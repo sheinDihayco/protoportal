@@ -1,11 +1,46 @@
-<?php include_once "../templates/header.php" ?>;
+<?php
+include_once "../templates/header.php"; // Corrected PHP include tag
+?>
+<?php
+if (isset($_SESSION['initial_update']) && $_SESSION['initial_update']) {
+  echo "
+        <div class='alert'>
+            <span class='closebtn' onclick='this.parentElement.style.display=\"none\";'>&times;</span>
+            Record successfully updated!
+        </div>
+        <script>
+            setTimeout(function() {
+                document.querySelector('.alert').style.opacity = '0';
+                setTimeout(function() {
+                    document.querySelector('.alert').style.display = 'none';
+                }, 600);
+            }, 5000);
+        </script>";
+  unset($_SESSION['initial_update']);
+}
+
+if (isset($_SESSION['initial_update_error'])) {
+  echo "
+        <div class='alert' style='background-color: #f44336;'>
+            <span class='closebtn' onclick='this.parentElement.style.display=\"none\";'>&times;</span>
+            " . $_SESSION['initial_update_error'] . "
+        </div>
+        <script>
+            setTimeout(function() {
+                document.querySelector('.alert').style.opacity = '0';
+                setTimeout(function() {
+                    document.querySelector('.alert').style.display = 'none';
+                }, 600);
+            }, 5000);
+        </script>";
+  unset($_SESSION['initial_update_error']);
+}
+?>
 
 
 <main id="main" class="main">
-
   <div class="pagetitle">
     <h1>Student Records</h1>
-    <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#insertStudent"></button>
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
@@ -13,75 +48,6 @@
       </ol>
     </nav>
   </div><!-- End Page Title -->
-
-  <!--<div class="modal fade" id="insertStudent" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Insert Stduent</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-
-          <form action="../admin/upload/insert-initial-data.php" method="post" class="row g-3 needs-validation" novalidate style="padding: 20px;">
-
-            <div class="col-md-6">
-              <label for="fname" class="form-label">First name</label>
-              <input type="text" class="form-control" id="fname" name="fname" required>
-              <div class="invalid-feedback">
-                Please provide a valid first name.
-              </div>
-            </div>
-            <div class="col-md-5">
-              <label for="lname" class="form-label">Last name</label>
-              <input type="text" class="form-control" id="lname" name="lname" required>
-              <div class="invalid-feedback">
-                Please provide a valid last name.
-              </div>
-            </div>
-            <div class="col-md-1">
-              <label for="middleInitial" class="form-label">M.I</label>
-              <input type="text" class="form-control" id="middleInitial" name="middleInitial" required>
-              <div class="invalid-feedback">
-                Please provide a valid last name.
-              </div>
-            </div>
-
-
-            <div class="col-md-4">
-              <label for="studentID" class="form-label">Student ID</label>
-              <input type="text" class="form-control" id="studentID" name="studentID" required>
-              <div class="invalid-feedback">
-                Please provide a valid department.
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <label for="course" class="form-label">Course</label>
-              <input type="text" class="form-control" id="course" name="course" required>
-              <div class="invalid-feedback">
-                Please provide a valid date.
-              </div>
-            </div>
-
-            <div class="col-md-2">
-              <label for="year" class="form-label">Year</label>
-              <input type="text" class="form-control" id="year" name="year" required>
-              <div class="invalid-feedback">
-                Please provide a valid title.
-              </div>
-            </div>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" name="submit">Save changes</button>
-        </div>
-        </form>
-      </div>
-    </div>
-  </div>-->
-
   <section class="section dashboard">
     <div class="row">
       <!-- Left side columns -->
@@ -125,12 +91,12 @@
                       foreach ($db->query($sql) as $row) {
                     ?>
                         <tr>
-                          <th scope="row"><a href="#"><?php echo $row["studentID"] ?></a></th>
-                          <td><?php echo $row["lname"] ?>, <?php echo $row["fname"] ?></td>
-                          <td><?php echo $row["course"] ?> - <?php echo $row["year"] ?></td>
+                          <th scope="row"><a href="#"><?php echo htmlspecialchars($row["studentID"]); ?></a></th>
+                          <td><?php echo htmlspecialchars($row["lname"]) . ", " . htmlspecialchars($row["fname"]); ?></td>
+                          <td><?php echo htmlspecialchars($row["course"]) . " - " . htmlspecialchars($row["year"]); ?></td>
                           <td>
                             <form action="student_profile.php" method="post">
-                              <input type="hidden" name="stud_id" value="<?php echo $row['studentID']; ?>">
+                              <input type="hidden" name="stud_id" value="<?php echo htmlspecialchars($row['studentID']); ?>">
                               <button type="submit" class="btn btn-sm btn-success" name="submit"><i class="ri-arrow-right-circle-fill"></i></button>
                             </form>
                           </td>
@@ -138,7 +104,7 @@
                     <?php
                       }
                     } catch (PDOException $e) {
-                      echo "There is some problem in connection: " . $e->getMessage();
+                      echo "There is some problem in connection: " . htmlspecialchars($e->getMessage());
                     }
                     $database->close();
                     ?>
@@ -153,9 +119,45 @@
     </div>
   </section>
 
-
 </main><!-- End #main -->
 
 <?php
 include_once "../templates/footer.php";
 ?>
+
+<style>
+  .alert {
+    padding: 20px;
+    background-color: #4CAF50;
+    /* Green background for success */
+    color: white;
+    opacity: 1;
+    transition: opacity 0.6s;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+
+  .alert.error {
+    background-color: #f44336;
+    /* Red background for errors */
+  }
+
+  .closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .closebtn:hover {
+    color: black;
+  }
+</style>

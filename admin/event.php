@@ -1,4 +1,5 @@
 <?php include_once "../templates/header.php" ?>
+
 <?php
 include_once 'includes/connection.php';
 
@@ -38,9 +39,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $connection->close();
 ?>
-
+<?php
+if (isset($_SESSION['event_created']) && $_SESSION['event_created']) {
+    echo "
+        <div class='alert'>
+            <span class='closebtn' onclick='this.parentElement.style.display=\"none\";'>&times;</span>
+            New employee successfully added!
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                setTimeout(function() {
+                    var alert = document.querySelector('.alert');
+                    if (alert) {
+                        alert.style.opacity = '0';
+                        setTimeout(function() {
+                            alert.style.display = 'none';
+                        }, 600);
+                    }
+                }, 5000);
+            });
+        </script>";
+    unset($_SESSION['event_created']);
+}
+?>
 <main id="main" class="main">
-
     <div class="pagetitle">
         <h1>School Calendar</h1>
         <nav>
@@ -52,8 +74,9 @@ $connection->close();
     </div><!-- End Page Title -->
 
     <section class="section calendar">
-        <div class="row">
 
+
+        <div class="row">
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
@@ -104,14 +127,12 @@ $connection->close();
                                     </li>
                                 <?php endforeach; ?>
                             <?php else : ?>
-                                <li class="list-group-item">No events found.</li>
+                                <li class="list-group-item">No events today.</li>
                             <?php endif; ?>
                         </ul>
                     </div>
                 </div>
             </div>
-
-
 
             <div class="col-lg-6">
                 <div class="card">
@@ -173,6 +194,36 @@ $connection->close();
 
     .navbar-brand {
         text-decoration: none !important;
+    }
+
+    .alert {
+        padding: 20px;
+        background-color: #4CAF50;
+        color: white;
+        opacity: 1;
+        transition: opacity 0.6s;
+        margin-bottom: 15px;
+        border-radius: 4px;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 5000;
+        width: 300px;
+    }
+
+    .closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .closebtn:hover {
+        color: black;
     }
 </style>
 <!-- Add required JS -->

@@ -1,5 +1,6 @@
 <?php
 include_once "connect.php";
+session_start(); // Start the session
 
 // Enable error reporting
 ini_set('display_errors', 1);
@@ -42,6 +43,7 @@ if (isset($_POST["register"])) {
 
     // Execute the query
     if ($statement->execute()) {
+        $_SESSION['student_created'] = true;
         header("location:../studentRecords1.php?register=success");
     } else {
         print_r($statement->errorInfo());

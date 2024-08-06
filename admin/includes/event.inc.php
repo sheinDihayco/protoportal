@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once 'connection.php';
 
 function sanitizeInput($data)
@@ -31,8 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute(['title' => $title, 'date' => $date, 'description' => $description]);
 
         $connection->close();
-
-        header('Location: ../event.php');
+        $_SESSION['event_created'] = true;
+        header('Location: ../event.php?error=success');
         exit();
     }
 }

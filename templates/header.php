@@ -20,7 +20,6 @@ $lname = $user['user_lname'];
 $image = $user['user_image'];
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,15 +50,40 @@ $image = $user['user_image'];
   <!-- Template Main CSS File -->
   <link href="../assets/css/style.css" rel="stylesheet">
 
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.1.3/bootstrap-growl.min.css" rel="stylesheet">
+
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.1.3/bootstrap-growl.min.js"></script>
+
+  <script>
+    function showLoginAlert() {
+      alert("Successfully logged in!");
+    }
+  </script>
+
 </head>
 
 <body>
 
+  <?php
+  if (isset($_SESSION['login_success']) && $_SESSION['login_success']) {
+    echo "
+        <div class='alert'>
+            <span class='closebtn' onclick='this.parentElement.style.display=\"none\";'>&times;</span>
+            Successfully logged in!
+        </div>
+        <script>
+            // Automatically close the alert after 5 seconds
+            setTimeout(function() {
+                document.querySelector('.alert').style.opacity = '0';
+                setTimeout(function() {
+                    document.querySelector('.alert').style.display = 'none';
+                }, 600);
+            }, 5000);
+        </script>";
+    unset($_SESSION['login_success']);
+  }
+  ?>
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -495,5 +519,39 @@ $image = $user['user_image'];
       margin: 0;
       font-size: 1.1rem;
       text-align: center;
+    }
+
+    /* Style for the alert box */
+    .alert {
+      padding: 20px;
+      background-color: #4CAF50;
+      /* Green */
+      color: white;
+      opacity: 1;
+      transition: opacity 0.6s;
+      /* Fade out effect */
+      margin-bottom: 15px;
+      border-radius: 4px;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      /* Ensure it's on top of other elements */
+    }
+
+    /* Close button */
+    .closebtn {
+      margin-left: 15px;
+      color: white;
+      font-weight: bold;
+      float: right;
+      font-size: 22px;
+      line-height: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .closebtn:hover {
+      color: black;
     }
   </style>

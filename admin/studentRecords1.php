@@ -1,6 +1,4 @@
-<?php include_once "../templates/header.php" ?>;
-
-
+<?php include_once "../templates/header.php"; ?>
 <main id="main" class="main">
 
   <div class="pagetitle">
@@ -17,30 +15,34 @@
     </nav>
   </div><!-- End Page Title -->
 
-
   <section class="section dashboard">
-    <!-- Left side columns -->
     <div class="col-lg-12">
       <div class="row">
-        <!-- Recent Sales -->
         <div class="col-12">
           <div class="card recent-sales overflow-auto">
-
-            <div class="filter">
-              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <li class="dropdown-header text-start">
-                  <h6>Filter</h6>
-                </li>
-                <li><a class="dropdown-item" href="#">BSIT</a></li>
-                <li><a class="dropdown-item" href="#">BSBA</a></li>
-                <li><a class=" dropdown-item" href="#">BSOA</a></li>
-              </ul>
-            </div>
-
             <div class="card-body">
               <h5 class="card-title">Students <span>| Enrolled</span></h5>
 
+              <!-- Custom alert for new student creation -->
+              <?php
+              if (isset($_SESSION['student_created']) && $_SESSION['student_created']) {
+                echo "
+                  <div class='alert'>
+                      <span class='closebtn' onclick='this.parentElement.style.display=\"none\";'>&times;</span>
+                      New student successfully created!
+                  </div>
+                  <script>
+                      // Automatically close the alert after 5 seconds
+                      setTimeout(function() {
+                          document.querySelector('.alert').style.opacity = '0';
+                          setTimeout(function() {
+                              document.querySelector('.alert').style.display = 'none';
+                          }, 600);
+                      }, 5000);
+                  </script>";
+                unset($_SESSION['student_created']); // Unset session variable to prevent repeated alerts
+              }
+              ?>
               <table class="table table-borderless datatable">
                 <thead>
                   <tr>
@@ -58,8 +60,7 @@
                   $db = $database->open();
 
                   try {
-                    $sql = "SELECT * FROM tbl_users WHERE user_role = 'student'
-                            ORDER BY user_id ASC";
+                    $sql = "SELECT * FROM tbl_users WHERE user_role = 'student' ORDER BY user_id ASC";
                     foreach ($db->query($sql) as $row) {
                   ?>
                       <tr>
@@ -69,11 +70,11 @@
                         <td><?php echo $row["user_name"] ?></td>
                         <td><?php echo $row["user_role"] ?></td>
                         <td>
-                          <button type="button" class=" btn btn-sm btn-warning ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editStudent<?php echo $row["user_id"] ?>"></button>
+                          <button type="button" class="btn btn-sm btn-warning ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editStudent<?php echo $row["user_id"] ?>"></button>
 
                           <form method="POST" action="../admin/upload/delete-user.php" onsubmit="return confirm('Are you sure you want to delete this user?');" style="display:inline;">
                             <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($row["user_id"]); ?>">
-                            <button type="submit" class=" btn btn-sm btn-danger ri-delete-bin-6-line"></button>
+                            <button type="submit" class="btn btn-sm btn-danger ri-delete-bin-6-line"></button>
                           </form>
                         </td>
                         <?php include('modals/form-edit-Student.php'); ?>
@@ -88,18 +89,43 @@
                 </tbody>
               </table>
             </div>
-
           </div>
-        </div><!-- End Recent Sales -->
+        </div>
       </div>
-    </div><!-- End Left side columns -->
+    </div>
   </section>
+</main>
+
+<?php include_once "../templates/footer.php"; ?>
 
 
-</main><!-- End #main -->
+<style>
+  .alert {
+    padding: 20px;
+    background-color: #4CAF50;
+    color: white;
+    opacity: 1;
+    transition: opacity 0.6s;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
 
-<!-- Template Main JS File -->
+  .closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
 
-<?php
-include_once "../templates/footer.php";
-?>
+  .closebtn:hover {
+    color: black;
+  }
+</style>

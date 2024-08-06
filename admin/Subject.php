@@ -188,7 +188,6 @@
                             <input type="hidden" name="id" value="<?php echo htmlspecialchars($subject['id']); ?>">
                             <button type="submit" class="btn btn-sm btn-danger ri-delete-bin-6-line"></button>
                           </form>
-
                         </td>
                         <?php include('modals/form-edit-subjects.php'); ?>
                       </tr>
@@ -201,6 +200,7 @@
                   ?>
                 </tbody>
               </table>
+              <button type="button" class="btn btn-sm btn-primary ri-printer-line" onclick="printTable();"></button>
             </div>
 
           </div>
@@ -281,6 +281,7 @@
                   ?>
                 </tbody>
               </table>
+              <button type="button" class="btn btn-sm btn-primary ri-printer-line" onclick="printTableBSOA();"></button>
             </div>
 
           </div>
@@ -447,6 +448,7 @@
         </div>
       </div>
     </div>
+
     <div class="col-lg-12">
       <div class="row">
         <div class="col-12">
@@ -530,3 +532,180 @@
 </main>
 
 <?php include_once "../templates/footer.php"; ?>
+
+<script>
+  function printTable() {
+    // Open a new window for printing
+    var printWindow = window.open('', '', 'height=600,width=800');
+    var table = document.querySelector('.datatable'); // Select the table
+
+    // Clone the table
+    var tableClone = table.cloneNode(true);
+
+    // Remove action column header and cells
+    var headerCells = tableClone.querySelectorAll('thead th');
+    var actionIndex = Array.from(headerCells).findIndex(cell => cell.textContent.trim() === 'Action');
+    var actionCourse = Array.from(headerCells).findIndex(cell => cell.textContent.trim() === 'Course');
+
+    if (actionIndex !== -1) {
+      // Remove action column header
+      headerCells[actionIndex].parentElement.removeChild(headerCells[actionIndex]);
+
+      // Remove action column cells from each row
+      var rows = tableClone.querySelectorAll('tbody tr');
+      rows.forEach(function(row) {
+        var cells = row.querySelectorAll('td');
+        if (cells.length > actionIndex) {
+          cells[actionIndex].parentElement.removeChild(cells[actionIndex]);
+        }
+      });
+    }
+    if (actionCourse !== -1) {
+      // Remove action column header
+      headerCells[actionCourse].parentElement.removeChild(headerCells[actionCourse]);
+
+      // Remove action column cells from each row
+      var rows = tableClone.querySelectorAll('tbody tr');
+      rows.forEach(function(row) {
+        var cells = row.querySelectorAll('td');
+        if (cells.length > actionCourse) {
+          cells[actionCourse].parentElement.removeChild(cells[actionCourse]);
+        }
+      });
+    }
+
+    // Create a new document for printing
+    var printDocument = printWindow.document;
+
+    printDocument.open();
+    printDocument.write('<html><head><title>Prospectus</title>');
+    printDocument.write('<style>table { width: 100%; border-collapse: collapse; } th, td { border: 1px solid black; padding: 2px; text-align: center; } h4 { text-align: center; margin: 10px 2px 2px 20px } p { text-align: center; margin: 2px 2px 2px 20px } h3 { text-align: left; } img { position: absolute; top: 15px; left: 30px; max-width: 10%; }</style>');
+
+
+    printDocument.write('</head><body>');
+    printDocument.write('<img src="../assets/img/miit.png" alt="Logo">');
+    printDocument.write('<h4>Microsystems International Institute of Technology, Inc.</h4> <p>(Inayagan, City of Naga, Cebu )</p> <p>(Tel. NO.: (032) 4273630</p>');
+
+    printDocument.write('<h4>Bachelor of Science in Information Technology</h4> <p>(CMO 25 S. 2015)</p> <p>(S.Y. 2021-2022)</p>');
+
+    // Group by semester
+    var tbody = tableClone.querySelector('tbody');
+    var rows = Array.from(tbody.querySelectorAll('tr'));
+    var semesters = new Set(rows.map(row => row.children[0].textContent.trim())); // Assuming semester is in the first column
+
+    semesters.forEach(function(semester) {
+      printDocument.write('<h3>Semester: ' + semester + '</h3> <h3> First Year </h3>');
+
+      var semesterTable = document.createElement('table');
+      semesterTable.innerHTML = '<thead>' + tableClone.querySelector('thead').innerHTML + '</thead><tbody></tbody>';
+      var semesterTbody = semesterTable.querySelector('tbody');
+
+      rows.forEach(function(row) {
+        if (row.children[0].textContent.trim() === semester) {
+          semesterTbody.appendChild(row.cloneNode(true));
+        }
+      });
+
+      printDocument.write(semesterTable.outerHTML);
+    });
+
+    printDocument.write('</body></html>');
+    printDocument.close();
+    printWindow.print();
+  }
+</script>
+
+<script>
+  function printTableBSOA() {
+    // Open a new window for printing
+    var printWindow = window.open('', '', 'height=600,width=800');
+    var table = document.querySelector('.datatable'); // Select the table
+
+    // Clone the table
+    var tableClone = table.cloneNode(true);
+
+    // Remove action column header and cells
+    var headerCells = tableClone.querySelectorAll('thead th');
+    var actionIndex = Array.from(headerCells).findIndex(cell => cell.textContent.trim() === 'Action');
+    var actionCourse = Array.from(headerCells).findIndex(cell => cell.textContent.trim() === 'Course');
+
+    if (actionIndex !== -1) {
+      // Remove action column header
+      headerCells[actionIndex].parentElement.removeChild(headerCells[actionIndex]);
+
+      // Remove action column cells from each row
+      var rows = tableClone.querySelectorAll('tbody tr');
+      rows.forEach(function(row) {
+        var cells = row.querySelectorAll('td');
+        if (cells.length > actionIndex) {
+          cells[actionIndex].parentElement.removeChild(cells[actionIndex]);
+        }
+      });
+    }
+    if (actionCourse !== -1) {
+      // Remove action column header
+      headerCells[actionCourse].parentElement.removeChild(headerCells[actionCourse]);
+
+      // Remove action column cells from each row
+      var rows = tableClone.querySelectorAll('tbody tr');
+      rows.forEach(function(row) {
+        var cells = row.querySelectorAll('td');
+        if (cells.length > actionCourse) {
+          cells[actionCourse].parentElement.removeChild(cells[actionCourse]);
+        }
+      });
+    }
+
+    // Create a new document for printing
+    var printDocument = printWindow.document;
+
+    printDocument.open();
+    printDocument.write('<html><head><title>Prospectus</title>');
+    printDocument.write('<style>');
+    printDocument.write('table { width: 100%; border-collapse: collapse; }');
+    printDocument.write('th, td { border: 1px solid black; padding: 2px; text-align: center; }');
+    printDocument.write('h4 { text-align: center; margin: 10px 2px 2px 20px; }');
+    printDocument.write('p { text-align: center; margin: 2px 2px 2px 20px; }');
+    printDocument.write('h3 { text-align: left; }');
+    printDocument.write('img { position: absolute; top: 15px; left: 30px; max-width: 10%; }');
+    printDocument.write('</style>');
+    printDocument.write('</head><body>');
+
+    // Add the image at the top-left corner
+    printDocument.write('<img src="../assets/img/miit.png" alt="Logo">');
+
+    // Add institution and document title
+    printDocument.write('<h4>Microsystems International Institute of Technology, Inc.</h4>');
+    printDocument.write('<p>(Inayagan, City of Naga, Cebu)</p>');
+    printDocument.write('<p>(Tel. NO.: (032) 4273630)</p>');
+    printDocument.write('<h4>Bachelor of Science in Office Administration</h4>');
+    printDocument.write('<p>(CMO 17 S. 2017)</p>');
+    printDocument.write('<p>(S.Y. 2023-2024)</p>');
+
+    // Group by semester
+    var tbody = tableClone.querySelector('tbody');
+    var rows = Array.from(tbody.querySelectorAll('tr'));
+    var semesters = new Set(rows.map(row => row.children[0].textContent.trim())); // Assuming semester is in the first column
+
+    semesters.forEach(function(semester) {
+      printDocument.write('<h3>Semester: ' + semester + '</h3> <h3>First Year</h3>');
+
+      var semesterTable = document.createElement('table');
+      semesterTable.innerHTML = '<thead>' + tableClone.querySelector('thead').innerHTML + '</thead><tbody></tbody>';
+      var semesterTbody = semesterTable.querySelector('tbody');
+
+      rows.forEach(function(row) {
+        if (row.children[0].textContent.trim() === semester) {
+          semesterTbody.appendChild(row.cloneNode(true));
+        }
+      });
+
+      printDocument.write(semesterTable.outerHTML);
+    });
+
+    printDocument.write('</body></html>');
+    printDocument.close();
+    printWindow.print();
+  }
+</script>
+<button type="button" class="btn btn-sm btn-primary ri-printer-line" onclick="printTableBSOA();">Print</button>
