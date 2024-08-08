@@ -621,75 +621,71 @@
       </div>
     </div>-->
 
+  </div>
+  <footer class="footer-section bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h3>About Us</h3>
+          <p>
+            Microsystems International Institute of Technology, Inc. (MIIT) is a premier educational institution dedicated to fostering
+            academic excellence and personal growth. Our mission is to inspire and prepare students for global competitiveness
+            through a distinctively Christian environment that values learning, service excellence, and quality performance.
 
-    <footer class="footer-section bg-white">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <h3>About Us</h3>
-            <p>
-              Microsystems International Institute of Technology, Inc. (MIIT) is a premier educational institution dedicated to fostering
-              academic excellence and personal growth. Our mission is to inspire and prepare students for global competitiveness
-              through a distinctively Christian environment that values learning, service excellence, and quality performance.
-
-              Founded in 2001 by Filipino educators, engineers, and businessmen, MIIT addresses the demand for a highly educated and
-              well-trained workforce. We offer cutting-edge programs and emphasize research and innovation, with strong ties to
-              industry and community partners. MIITinians are expected to uphold high standards of conduct, embodying our values of
-              respect, helpfulness, and professionalism.</p>
-          </div>
-
-          <div class="col-md-3 ml-auto">
-            <h3>Links</h3>
-            <ul class="list-unstyled footer-links">
-              <li><a href="login.php">Home</a></li>
-              <li><a href="login.php">Courses</a></li>
-              <li><a href="login.php">Principles</a></li>
-              <li><a href="login.php">Administrative</a></li>
-            </ul>
-          </div>
-
-          <div class="col-md-4">
-            <h3>Account</h3>
-
-            <!-- Social Links -->
-            <div class="social-links" style="display: flex; gap: 10px;">
-              <!-- Facebook Link with Icon -->
-              <a href="https://www.facebook.com/MIITOFFICIALPAGE" target="_blank" title="Follow us on Facebook" style="text-decoration: none; color: #3b5998; font-size: 24px;">
-                <i class="fab fa-facebook-f"></i> <!-- Font Awesome Facebook Icon -->
-              </a>
-
-              <!-- Twitter Link with Icon -->
-              <a href="#" target="_blank" title="Follow us on Twitter" style="text-decoration: none; color: #1da1f2; font-size: 24px;">
-                <i class="fab fa-twitter"></i> <!-- Font Awesome Twitter Icon -->
-              </a>
-
-              <!-- Instagram Link with Icon -->
-              <a href="#" target="_blank" title="Follow us on Instagram" style="text-decoration: none; color: #c13584; font-size: 24px;">
-                <i class="fab fa-instagram"></i> <!-- Font Awesome Instagram Icon -->
-              </a>
-            </div>
-          </div>
-
-
-
+            Founded in 2001 by Filipino educators, engineers, and businessmen, MIIT addresses the demand for a highly educated and
+            well-trained workforce. We offer cutting-edge programs and emphasize research and innovation, with strong ties to
+            industry and community partners. MIITinians are expected to uphold high standards of conduct, embodying our values of
+            respect, helpfulness, and professionalism.</p>
         </div>
 
-        <div class="row pt-5 mt-5 text-center">
-          <div class="col-md-12">
-            <div class="border-top pt-5">
-              <p>
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                Copyright &copy;<script>
-                  document.write(new Date().getFullYear());
-                </script> All rights reserved |Microsystems International Institute of Technology
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-              </p>
-            </div>
-          </div>
-
+        <div class="col-md-3 ml-auto">
+          <h3>Links</h3>
+          <ul class="list-unstyled footer-links">
+            <li><a href="login.php">Home</a></li>
+            <li><a href="#courses-section">Courses</a></li>
+            <li><a href="#programs-section">Principles</a></li>
+            <li><a href="#teachers-section">Administrative</a></li>
+          </ul>
         </div>
+
+        <div class="col-md-4">
+          <h3>Account</h3>
+
+          <!-- Social Links -->
+          <div class="social-links" style="display: flex; gap: 10px;">
+            <!-- Facebook Link with Icon -->
+            <a href="https://www.facebook.com/MIITOFFICIALPAGE" target="_blank" title="Follow us on Facebook" style="text-decoration: none; color: #3b5998; font-size: 24px;">
+              <i class="fab fa-facebook-f"></i> <!-- Font Awesome Facebook Icon -->
+            </a>
+
+            <!-- Twitter Link with Icon -->
+            <a href="#" target="_blank" title="Follow us on Twitter" style="text-decoration: none; color: #1da1f2; font-size: 24px;">
+              <i class="fab fa-twitter"></i> <!-- Font Awesome Twitter Icon -->
+            </a>
+
+            <!-- Instagram Link with Icon -->
+            <a href="#" target="_blank" title="Follow us on Instagram" style="text-decoration: none; color: #c13584; font-size: 24px;">
+              <i class="fab fa-instagram"></i> <!-- Font Awesome Instagram Icon -->
+            </a>
+          </div>
+        </div>
+
       </div>
-    </footer>
+      <div class="row pt-5 mt-5 text-center">
+        <div class="col-md-12">
+          <div class="border-top pt-5">
+            <p>
+              Copyright &copy;
+              <script>
+                document.write(new Date().getFullYear());
+              </script> All rights reserved |Microsystems International Institute of Technology, Inc.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </footer>
 
   </div> <!-- .site-wrap -->
 
