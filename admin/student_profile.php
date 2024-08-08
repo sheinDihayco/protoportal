@@ -14,21 +14,35 @@ include_once "includes/connect.php";
 include_once "includes/connection.php";
 
 try {
+  // Fetching student details from tbl_students
   $statement = $conn->prepare("SELECT * FROM tbl_students WHERE studentID = :sid");
   $statement->bindParam(':sid', $studid, PDO::PARAM_INT);
   $statement->execute();
   $studs = $statement->fetch(PDO::FETCH_ASSOC);
 
-  if ($studs && !empty($studs["user_image"])) {
-    $userImage = htmlspecialchars($studs["user_image"]);
+  if ($studs) {
+    $userid = $studs['user_id'];
+
+    $statementUser = $conn->prepare("SELECT user_image FROM tbl_users WHERE user_id = :userid");
+    $statementUser->bindParam(':userid', $userid, PDO::PARAM_INT);
+    $statementUser->execute();
+    $user = $statementUser->fetch(PDO::FETCH_ASSOC);
+
+    if ($user && !empty($user["user_image"])) {
+      $userImage = htmlspecialchars($user["user_image"]);
+    } else {
+      $userImage = "default.jpg";
+    }
   } else {
-    $userImage = "default.jpg";
+    exit('Student not found');
   }
 } catch (PDOException $e) {
   echo 'Query failed: ' . $e->getMessage();
   exit;
 }
+
 ?>
+
 
 <main id="main" class="main">
 
@@ -141,7 +155,6 @@ try {
                         die("Connection failed: " . $conn->connect_error);
                       }
 
-                      // Query to fetch students with their payment status for the selected studentID
                       $sql = 'SELECT s.*, p.*
                           FROM tbl_students s 
                           LEFT JOIN tbl_payments p ON s.studentID = p.studentID
@@ -184,7 +197,7 @@ try {
 
                 <div class="profile-section">
                   <div class="profile-img">
-                    <img src="upload-files/<?php echo $userImage; ?>" alt="Profile Image" class="rounded-circle">
+                    <img src="upload-files/<?php echo htmlspecialchars($user["user_image"]); ?>" alt="Profile Image" class="rounded-circle">
                   </div>
                   <div class="profile-info">
                     <h5><?php echo htmlspecialchars($studs["lname"]); ?> <?php echo htmlspecialchars($studs["fname"]); ?> <?php echo htmlspecialchars($studs["middleInitial"]); ?> <?php echo htmlspecialchars($studs["Suffix"]); ?></h5>

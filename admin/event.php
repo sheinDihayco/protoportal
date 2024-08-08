@@ -44,7 +44,7 @@ if (isset($_SESSION['event_created']) && $_SESSION['event_created']) {
     echo "
         <div class='alert'>
             <span class='closebtn' onclick='this.parentElement.style.display=\"none\";'>&times;</span>
-            New employee successfully added!
+            Event created successfully!
         </div>
         <script>
             document.addEventListener('DOMContentLoaded', function() {

@@ -61,10 +61,10 @@ if ($user) {
   <link href="../assets/vendor/simple-datatables/style.css" rel="stylesheet">
   <!-- Template Main CSS File -->
   <link href="../assets/css/style.css" rel="stylesheet">
-
 </head>
 
 <body>
+
   <?php
   if (isset($_SESSION['login_success']) && $_SESSION['login_success']) {
     echo "
@@ -73,7 +73,7 @@ if ($user) {
             Successfully logged in!
         </div>
         <script>
-            // Automatically close the alert after 5 seconds
+           // Automatically close the alert after 5 seconds
             setTimeout(function() {
                 document.querySelector('.alert').style.opacity = '0';
                 setTimeout(function() {
@@ -84,9 +84,9 @@ if ($user) {
     unset($_SESSION['login_success']);
   }
   ?>
+
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
-
     <div class="d-flex align-items-center justify-content-between">
       <a href="../admin/index3.php" class="logo d-flex align-items-center">
         <img src="../assets/img/miit.png" alt="">
@@ -332,29 +332,56 @@ if ($user) {
 
 
   <style>
-    /* Inline styles for quick adjustments */
     .profile-section {
       display: flex;
       flex-direction: column;
       align-items: center;
-      /* Center horizontally */
       padding: 1rem;
       border-bottom: 1px solid #ddd;
     }
 
     .profile-img img {
       width: 80px;
-      /* Adjust size as needed */
       height: 80px;
       border-radius: 50%;
       object-fit: cover;
       margin-bottom: 10px;
-      /* Space between image and text */
     }
 
     .profile-info h5 {
       margin: 0;
       font-size: 1.1rem;
       text-align: center;
+    }
+
+    .alert {
+      max-width: 300px;
+      width: 100%;
+      padding: 20px;
+      background-color: #4CAF50;
+      color: white;
+      opacity: 1;
+      transition: opacity 0.6s;
+      margin-bottom: 15px;
+      border-radius: 4px;
+      position: fixed;
+      top: 20px;
+      left: 80%;
+      z-index: 5000;
+    }
+
+    .closebtn {
+      margin-left: 15px;
+      color: white;
+      font-weight: bold;
+      float: right;
+      font-size: 22px;
+      line-height: 20px;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .closebtn:hover {
+      color: black;
     }
   </style>

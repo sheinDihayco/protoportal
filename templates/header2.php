@@ -55,11 +55,6 @@ $image = $user['user_image'];
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.1.3/bootstrap-growl.min.js"></script>
 
-  <script>
-    function showLoginAlert() {
-      alert("Successfully logged in!");
-    }
-  </script>
 
 </head>
 
