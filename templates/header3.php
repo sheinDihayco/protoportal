@@ -176,10 +176,7 @@ if ($user) {
 
   </header><!-- End Header -->
 
-  <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
-
-
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <div class="profile-section">
@@ -205,17 +202,6 @@ if ($user) {
           </div>
         </form>
       </div>
-      <script>
-        function showSaveButton() {
-          var fileInput = document.getElementById('fileInput');
-          var saveButton = document.getElementById('saveButton');
-          if (fileInput.files.length > 0) {
-            saveButton.style.display = 'block';
-          } else {
-            saveButton.style.display = 'none';
-          }
-        }
-      </script>
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="../admin/index3.php">
@@ -255,53 +241,51 @@ if ($user) {
             switch (strtoupper(trim($course))) {
               case 'BSIT':
                 echo '<li>
-              <a href="../admin/bsit-prospectus.php">
-                <i class="bi bi-circle"></i><span>BSIT</span>
-              </a>
-            </li>';
+            <a href="../admin/bsit-prospectus.php">
+              <i class="bi bi-circle"></i><span>BSIT</span>
+            </a>
+          </li>';
                 break;
               case 'BSBA':
                 echo '<li>
-              <a href="../admin/bsba-prospectus.php">
-                <i class="bi bi-circle"></i><span>BSBA</span>
-              </a>
-            </li>';
+            <a href="../admin/bsba-prospectus.php">
+              <i class="bi bi-circle"></i><span>BSBA</span>
+            </a>
+          </li>';
                 break;
               case 'BSOA':
                 echo '<li>
-              <a href="../admin/bsoa-prospectus.php">
-                <i class="bi bi-circle"></i><span>BSOA</span>
-              </a>
-            </li>';
+            <a href="../admin/bsoa-prospectus.php">
+              <i class="bi bi-circle"></i><span>BSOA</span>
+            </a>
+          </li>';
                 break;
               case 'GRADE11':
                 echo '<li>
-              <a href="../admin/grade11-prospectus.php">
-                <i class="bi bi-circle"></i><span>Grade 11 Subjects</span>
-              </a>
-            </li>';
+            <a href="../admin/grade11-prospectus.php">
+              <i class="bi bi-circle"></i><span>Grade 11 Subjects</span>
+            </a>
+          </li>';
                 break;
               case 'GRADE12':
                 echo '<li>
-              <a href="../admin/grade12-prospectus.php">
-                <i class="bi bi-circle"></i><span>Grade 12 Subjects</span>
-              </a>
-            </li>';
+            <a href="../admin/grade12-prospectus.php">
+              <i class="bi bi-circle"></i><span>Grade 12 Subjects</span>
+            </a>
+          </li>';
                 break;
               default:
-                // Optionally handle the case where $course does not match any known values
                 echo '<li>
-              <a href="#">
-                <i class="bi bi-circle"></i><span>No Prospectus Available</span>
-              </a>
-            </li>';
+            <a href="#">
+              <i class="bi bi-circle"></i><span>No Prospectus Available</span>
+            </a>
+          </li>';
                 break;
             }
             ?>
           </li>
         </ul>
       </li>
-
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="">
@@ -326,8 +310,39 @@ if ($user) {
     </ul>
   </aside><!-- End Sidebar -->
 
+  <script>
+    document.querySelectorAll('.sidebar .nav-link').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        if (this.hash !== "") {
+          e.preventDefault();
+
+          const target = document.querySelector(this.hash);
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth'
+            });
+          }
+        }
+      });
+    });
+  </script>
 
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .sidebar .nav-link {
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .sidebar .nav-link:hover {
+      background-color: #f0f0f0;
+      /* Adjust color as needed */
+      color: #333;
+      /* Adjust color as needed */
+    }
+
     .profile-section {
       display: flex;
       flex-direction: column;

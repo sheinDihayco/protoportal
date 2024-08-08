@@ -494,25 +494,51 @@ $image = $user['user_image'];
     </ul>
   </aside><!-- End Sidebar-->
 
+  <script>
+    document.querySelectorAll('.sidebar .nav-link').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        if (this.hash !== "") {
+          e.preventDefault();
+
+          const target = document.querySelector(this.hash);
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth'
+            });
+          }
+        }
+      });
+    });
+  </script>
+
   <style>
-    /* Inline styles for quick adjustments */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .sidebar .nav-link {
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .sidebar .nav-link:hover {
+      background-color: #f0f0f0;
+      color: #333;
+    }
+
     .profile-section {
       display: flex;
       flex-direction: column;
       align-items: center;
-      /* Center horizontally */
       padding: 1rem;
       border-bottom: 1px solid #ddd;
     }
 
     .profile-img img {
       width: 80px;
-      /* Adjust size as needed */
       height: 80px;
       border-radius: 50%;
       object-fit: cover;
       margin-bottom: 10px;
-      /* Space between image and text */
     }
 
     .profile-info h5 {
@@ -521,25 +547,20 @@ $image = $user['user_image'];
       text-align: center;
     }
 
-    /* Style for the alert box */
     .alert {
       padding: 20px;
       background-color: #4CAF50;
-      /* Green */
       color: white;
       opacity: 1;
       transition: opacity 0.6s;
-      /* Fade out effect */
       margin-bottom: 15px;
       border-radius: 4px;
       position: fixed;
       top: 20px;
       right: 20px;
       z-index: 1000;
-      /* Ensure it's on top of other elements */
     }
 
-    /* Close button */
     .closebtn {
       margin-left: 15px;
       color: white;
