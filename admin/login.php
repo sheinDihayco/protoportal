@@ -80,7 +80,7 @@
           <div class="ml-auto w-25">
             <nav class="site-navigation position-relative text-right" role="navigation">
               <ul class="site-menu main-menu site-menu-dark js-clone-nav mr-auto d-none d-lg-block m-0 p-0">
-                <li class="cta"><a href="login.php" class="nav-link" style="color: green;"><span>Log In</span></a></li>
+                <li class="cta"><a href="login.php" class="nav-link" style="display:none"><span>Log In</span></a></li>
               </ul>
             </nav>
             <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right"><span class="icon-menu h3"></span></a>
@@ -131,7 +131,7 @@
                           </div>
                         </div>
                         <div class="col-12">
-                          <button class="btn btn-primary w-100" type="submit" name="login" onclick="loginAlert()">Login</button>
+                          <button class="btn btn-primary w-100" style="background-color: green;" type="submit" name="login" onclick="loginAlert()">Login</button>
                         </div>
                       </form>
                     </div>

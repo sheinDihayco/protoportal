@@ -91,7 +91,7 @@ if (isset($_SESSION['initial_update_error'])) {
                       foreach ($db->query($sql) as $row) {
                     ?>
                         <tr>
-                          <th scope="row"><a href="#"><?php echo htmlspecialchars($row["studentID"]); ?></a></th>
+                          <th scope="row"><a href="student_profile.php?studentID=<?php echo htmlspecialchars($studs["studentID"]); ?>"><?php echo htmlspecialchars($row["studentID"]); ?></a></th>
                           <td><?php echo htmlspecialchars($row["lname"]) . ", " . htmlspecialchars($row["fname"]); ?></td>
                           <td><?php echo htmlspecialchars($row["course"]) . " - " . htmlspecialchars($row["year"]); ?></td>
                           <td>

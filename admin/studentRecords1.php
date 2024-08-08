@@ -46,10 +46,10 @@
               <table class="table table-borderless datatable">
                 <thead>
                   <tr>
-                    <th scope="col">User ID</th>
+                    <th scope="col">Username</th>
                     <th scope="col">Full Name</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Username</th>
+                    <th scope="col">User ID</th>
                     <th scope="col">Role</th>
                     <th scope="col">Action</th>
                   </tr>
@@ -64,15 +64,15 @@
                     foreach ($db->query($sql) as $row) {
                   ?>
                       <tr>
-                        <th scope="row"><a href="#"><?php echo $row["user_id"] ?></a></th>
+                        <th scope="row"><a href="../admin/payment.php"><?php echo $row["user_name"] ?></a></th>
                         <td><?php echo $row["user_fname"] ?>, <?php echo $row["user_lname"] ?></td>
                         <td><?php echo $row["user_email"] ?></td>
-                        <td><?php echo $row["user_name"] ?></td>
+                        <td><?php echo $row["user_id"] ?></td>
                         <td><?php echo $row["user_role"] ?></td>
                         <td>
                           <button type="button" class="btn btn-sm btn-warning ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editStudent<?php echo $row["user_id"] ?>"></button>
 
-                          <form method="POST" action="../admin/upload/delete-user.php" onsubmit="return confirm('Are you sure you want to delete this user?');" style="display:inline;">
+                          <form method="POST" action="../admin/upload/delete-student.php" onsubmit="return confirm('Are you sure you want to delete this user?');" style="display:inline;">
                             <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($row["user_id"]); ?>">
                             <button type="submit" class="btn btn-sm btn-danger ri-delete-bin-6-line"></button>
                           </form>

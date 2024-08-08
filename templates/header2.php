@@ -311,7 +311,7 @@ $image = $user['user_image'];
         </div>
         <div class="settings-icon">
           <a href="javascript:void(0);" onclick="document.getElementById('fileInput').click();">
-            <i class="ri-upload-fill"></i> <!-- Upload icon -->
+            <i class="ri-image-add-line"></i> <!-- Upload icon -->
           </a>
         </div>
 
