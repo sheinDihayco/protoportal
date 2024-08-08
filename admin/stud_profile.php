@@ -25,9 +25,7 @@ try {
 
 $image = $user['user_image'];
 ?>
-
 <main id="main" class="main">
-
   <div class="pagetitle">
     <?php if ($studs) : ?>
       <h1><?php echo htmlspecialchars($studs["lname"]); ?>, <?php echo htmlspecialchars($studs["fname"]); ?></h1>

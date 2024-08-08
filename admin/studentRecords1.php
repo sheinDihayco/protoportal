@@ -70,7 +70,7 @@
                         <td><?php echo $row["user_id"] ?></td>
                         <td><?php echo $row["user_role"] ?></td>
                         <td>
-                          <button type="button" class="btn btn-sm btn-warning ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editStudent<?php echo $row["user_id"] ?>"></button>
+                          <button type="button" class="btn btn-sm btn-warning ri-add-box-fill" data-bs-toggle="modal" data-bs-target="#editStudent<?php echo $row["user_id"] ?>"></button>
 
                           <form method="POST" action="../admin/upload/delete-student.php" onsubmit="return confirm('Are you sure you want to delete this user?');" style="display:inline;">
                             <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($row["user_id"]); ?>">

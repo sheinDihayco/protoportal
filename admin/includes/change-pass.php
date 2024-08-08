@@ -62,6 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $updateStmt->bind_param("ss", $newHashedPassword, $userid);
 
                     if ($updateStmt->execute()) {
+                        $_SESSION['change-pass'] = true;
                         header("Location: ../payment1.php?changepass=success");
                         exit();
                     } else {

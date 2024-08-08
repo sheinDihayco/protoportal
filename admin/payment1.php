@@ -15,7 +15,25 @@ $lname = $user['user_lname'];
 ?>
 
 <main id="main" class="main">
-
+    <?php
+    if (isset($_SESSION['change-pass']) && $_SESSION['change-pass']) {
+        echo "
+        <div class='alert'>
+            <span class='closebtn' onclick='this.parentElement.style.display=\"none\";'>&times;</span>
+           Password successfully changed!
+        </div>
+        <script>
+            // Automatically close the alert after 5 seconds
+            setTimeout(function() {
+                document.querySelector('.alert').style.opacity = '0';
+                setTimeout(function() {
+                    document.querySelector('.alert').style.display = 'none';
+                }, 600);
+            }, 5000);
+        </script>";
+        unset($_SESSION['change-pass']);
+    }
+    ?>
     <div class="pagetitle">
         <h1>Student Records</h1>
         <nav>
@@ -108,3 +126,34 @@ $lname = $user['user_lname'];
 <?php
 include_once "../templates/footer.php";
 ?>
+
+<style>
+    .alert {
+        padding: 20px;
+        background-color: #4CAF50;
+        color: white;
+        opacity: 1;
+        transition: opacity 0.6s;
+        margin-bottom: 15px;
+        border-radius: 4px;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+    }
+
+    .closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .closebtn:hover {
+        color: black;
+    }
+</style>
