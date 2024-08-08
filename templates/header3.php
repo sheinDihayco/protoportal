@@ -246,63 +246,59 @@ if ($user) {
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="Subjects">
-          <i class="ri-calendar-2-fill"></i>
-          <span>Prospectus</span>
-          <i class="bi bi-chevron-down ms-auto"></i>
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="ri ri-group-line"></i><span>Prospectus</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="components-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-          <?php
-          // Debugging: Output the course value
-          // echo '<li><a href="#"><i class="bi bi-circle"></i><span>Course: ' . htmlspecialchars($course) . '</span></a></li>';
-
-          // Display prospectus links based on the course
-          switch (strtoupper(trim($course))) {
-            case 'BSIT':
-              echo '<li>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <?php
+            switch (strtoupper(trim($course))) {
+              case 'BSIT':
+                echo '<li>
               <a href="../admin/bsit-prospectus.php">
                 <i class="bi bi-circle"></i><span>BSIT</span>
               </a>
             </li>';
-              break;
-            case 'BSBA':
-              echo '<li>
+                break;
+              case 'BSBA':
+                echo '<li>
               <a href="../admin/bsba-prospectus.php">
                 <i class="bi bi-circle"></i><span>BSBA</span>
               </a>
             </li>';
-              break;
-            case 'BSOA':
-              echo '<li>
+                break;
+              case 'BSOA':
+                echo '<li>
               <a href="../admin/bsoa-prospectus.php">
                 <i class="bi bi-circle"></i><span>BSOA</span>
               </a>
             </li>';
-              break;
-            case 'GRADE11':
-              echo '<li>
+                break;
+              case 'GRADE11':
+                echo '<li>
               <a href="../admin/grade11-prospectus.php">
                 <i class="bi bi-circle"></i><span>Grade 11 Subjects</span>
               </a>
             </li>';
-              break;
-            case 'GRADE12':
-              echo '<li>
+                break;
+              case 'GRADE12':
+                echo '<li>
               <a href="../admin/grade12-prospectus.php">
                 <i class="bi bi-circle"></i><span>Grade 12 Subjects</span>
               </a>
             </li>';
-              break;
-            default:
-              // Optionally handle the case where $course does not match any known values
-              echo '<li>
+                break;
+              default:
+                // Optionally handle the case where $course does not match any known values
+                echo '<li>
               <a href="#">
                 <i class="bi bi-circle"></i><span>No Prospectus Available</span>
               </a>
             </li>';
-              break;
-          }
-          ?>
+                break;
+            }
+            ?>
+          </li>
         </ul>
       </li>
 
