@@ -81,10 +81,6 @@
             <div class="col-12">
               <button class="btn btn-primary w-100" type="submit" name="register">Register</button>
             </div>
-
-            <div class="col-12">
-              <button class="btn btn-primary w-100" type="submit" name="register">Register</button>
-            </div>
         </div>
         </form>
       </div>
@@ -132,7 +128,7 @@
                     $db = $database->open();
 
                     try {
-                      $sql = "SELECT * FROM tbl_users WHERE user_role = 'admin'
+                      $sql = "SELECT * FROM tbl_users WHERE user_role = 'admin' OR user_role = 'teacher'
                                 ORDER BY user_id ASC";
 
                       foreach ($db->query($sql) as $row) {

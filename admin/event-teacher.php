@@ -72,20 +72,7 @@ if (isset($_SESSION['event_created']) && $_SESSION['event_created']) {
             </ol>
         </nav>
     </div><!-- End Page Title -->
-    <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="eventModalTitle"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p id="eventModalDate"></p>
-                    <p id="eventModalDescription"></p>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <section class="section calendar">
 
 
@@ -238,57 +225,6 @@ if (isset($_SESSION['event_created']) && $_SESSION['event_created']) {
     .closebtn:hover {
         color: black;
     }
-
-
-    .modal-content {
-        border-radius: 8px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        background-color: #f8f9fa;
-    }
-
-    .modal-header {
-        background-color: #007bff;
-        color: white;
-        border-bottom: none;
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
-    }
-
-    .modal-title {
-        font-size: 1rem;
-        font-weight: bold;
-    }
-
-    .btn-close {
-        filter: invert(1);
-    }
-
-    .modal-body {
-        color: #333;
-        padding: 20px;
-        font-size: 1rem;
-    }
-
-    #eventModalDate {
-        font-size: 1rem;
-        color: #6c757d;
-        margin-bottom: 10px;
-    }
-
-    #eventModalDescription {
-        font-size: 1rem;
-        line-height: 1.5;
-        word-wrap: break-word;
-    }
-
-    .modal-footer {
-        background-color: #f1f1f1;
-        border-top: none;
-        padding: 10px 20px;
-        border-bottom-left-radius: 8px;
-        border-bottom-right-radius: 8px;
-        text-align: right;
-    }
 </style>
 <!-- Add required JS -->
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
@@ -318,26 +254,17 @@ if (isset($_SESSION['event_created']) && $_SESSION['event_created']) {
             },
             events: [
                 <?php foreach ($events as $event) : ?> {
-                        title: '<?php echo addslashes($event['title']); ?>',
+                        title: '<?php echo $event['title']; ?>',
                         start: '<?php echo $event['date']; ?>',
-                        description: '<?php echo json_encode($event['description']); ?>',
-
-                        color: ''
+                        description: '<?php echo $event['description']; ?>',
+                        color: 'your_custom_color'
                     },
                 <?php endforeach; ?>
             ],
             eventClick: function(info) {
-                // Set the content of the modal
-                $('#eventModalTitle').text(info.event.title);
-                $('#eventModalDate').text(info.event.start.toLocaleDateString());
-                $('#eventModalDescription').text(info.event.extendedProps.description);
-
-                // Show the modal
-                $('#eventModal').modal('show');
+                alert(info.event.title + "\n" + info.event.start.toLocaleDateString() + "\n" + info.event.extendedProps.description);
             }
-
         });
-
         calendar.render();
 
         // Initialize date picker
@@ -351,6 +278,7 @@ if (isset($_SESSION['event_created']) && $_SESSION['event_created']) {
         });
     });
 </script>
+
 <!-- Date Picker Modal -->
 <div class="modal fade" id="datePickerModal" tabindex="-1" aria-labelledby="datePickerModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">

@@ -42,21 +42,30 @@ $connection->close();
 <main id="main" class="main">
 
     <section class="section dashboard">
-
         <div class="row">
-            <div class="col-lg-12">
-                <div id="message" class="card shadow-sm border-0 rounded-lg">
-                    <div class="card-header bg-primary text-white d-flex align-items-center">
-                        <span style="font-size: 3rem; margin-right: 0.5rem; margin-left: 2rem">👋</span>
-                        <h5 class="card-title mb-0" style="border-radius: 3px; font-size: 1.75rem; color: white">Welcome, <?php echo htmlspecialchars($fname); ?>!</h5>
+
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Event <span class="badge bg-success" style="color: white;">Today's Event</span></h5>
+                        <ul class="list-group">
+                            <?php if ($showTodayEvent && $todaysEvent) : ?>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div style="flex-grow: 1;">
+                                        <h6 class="card-title"><?php echo htmlspecialchars($todaysEvent['title']); ?></h6>
+                                        <p><?php echo htmlspecialchars($todaysEvent['date']); ?></p>
+                                        <p><?php echo htmlspecialchars($todaysEvent['description']); ?></p>
+                                    </div>
+
+                                </li>
+                            <?php else : ?>
+                                <li class="list-group-item">No events today.</li>
+                            <?php endif; ?>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </div>
-
-
-        <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Event <span class="badge bg-success" style="color: white;">Today's Event</span></h5>

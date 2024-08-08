@@ -65,7 +65,25 @@ if ($user) {
 </head>
 
 <body>
-
+  <?php
+  if (isset($_SESSION['login_success']) && $_SESSION['login_success']) {
+    echo "
+        <div class='alert'>
+            <span class='closebtn' onclick='this.parentElement.style.display=\"none\";'>&times;</span>
+            Successfully logged in!
+        </div>
+        <script>
+            // Automatically close the alert after 5 seconds
+            setTimeout(function() {
+                document.querySelector('.alert').style.opacity = '0';
+                setTimeout(function() {
+                    document.querySelector('.alert').style.display = 'none';
+                }, 600);
+            }, 5000);
+        </script>";
+    unset($_SESSION['login_success']);
+  }
+  ?>
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -224,13 +242,6 @@ if ($user) {
         <a class="nav-link collapsed" href="#">
           <i class="bx bx-book"></i>
           <span>Grades</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
-          <i class="bx bx-book"></i>
-          <span>Subjects</span>
         </a>
       </li>
 

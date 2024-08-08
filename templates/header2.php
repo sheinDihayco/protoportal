@@ -11,15 +11,13 @@ if (!isset($_SESSION["login"])) {
 $userid = $_SESSION["login"];
 
 // Fetch user information from the database
-$statements = $conn->prepare("SELECT user_fname, user_lname, image FROM tbl_users WHERE user_id = ?");
+$statements = $conn->prepare("SELECT user_fname, user_lname, user_image FROM tbl_users WHERE user_id = ?");
 $statements->execute([$userid]);
 $user = $statements->fetch(PDO::FETCH_ASSOC);
 
 $fname = $user['user_fname'];
 $lname = $user['user_lname'];
 $image = $user['user_image'];
-
-
 ?>
 
 <!DOCTYPE html>
@@ -29,12 +27,12 @@ $image = $user['user_image'];
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Pay-App</title>
+  <title>MicroTech</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="../assets/img/favicon.png" rel="icon">
+  <link href="../assets/img/miit.png" rel="icon">
   <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
@@ -49,22 +47,43 @@ $image = $user['user_image'];
   <link href="../assets/vendor/quill/quill.bubble.css" rel="stylesheet">
   <link href="../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="../assets/vendor/simple-datatables/style.css" rel="stylesheet">
-
   <!-- Template Main CSS File -->
   <link href="../assets/css/style.css" rel="stylesheet">
 
 
-  <!-- =======================================================
-  * Template Name: NiceAdmin
-  * Updated: Mar 09 2023 with Bootstrap v5.2.3
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.1.3/bootstrap-growl.min.js"></script>
+
+  <script>
+    function showLoginAlert() {
+      alert("Successfully logged in!");
+    }
+  </script>
+
 </head>
 
 <body>
 
+  <?php
+  if (isset($_SESSION['login_success']) && $_SESSION['login_success']) {
+    echo "
+        <div class='alert'>
+            <span class='closebtn' onclick='this.parentElement.style.display=\"none\";'>&times;</span>
+            Successfully logged in!
+        </div>
+        <script>
+            // Automatically close the alert after 5 seconds
+            setTimeout(function() {
+                document.querySelector('.alert').style.opacity = '0';
+                setTimeout(function() {
+                    document.querySelector('.alert').style.display = 'none';
+                }, 600);
+            }, 5000);
+        </script>";
+    unset($_SESSION['login_success']);
+  }
+  ?>
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -80,8 +99,9 @@ $image = $user['user_image'];
       <form class="search-form d-flex align-items-center" method="POST" action="#">
         <input type="text" name="query" placeholder="Search" title="Enter search keyword">
         <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-      </form> -->
-    </div><!-- End Search Bar -->
+      </form>
+    </div> -->
+    <!-- End Search Ba -->
 
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
@@ -233,70 +253,69 @@ $image = $user['user_image'];
 
         </li><!-- End Messages Nav -->
 
-        <li class="nav-item dropdown pe-3">
+        <!--<li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="../assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $user_fname ?></span>
-          </a><!-- End Profile Iamge Icon -->
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $lname ?></span>
+          </a>End Profile Iamge Icon -->
 
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">
+        <!--<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+          <li class="dropdown-header">
+            <h6>
               <h6>
-                <h6>
-                  <?php echo $lname ?><?php echo $fname ?>
-                </h6>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+                <?php echo $lname ?>, <?php echo $fname ?>
+              </h6>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
 
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.php">
-                <i class="bi bi-person"></i>
-                <span>My Profile</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="users-profile.php">
+              <i class="bi bi-person"></i>
+              <span>My Profile</span>
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
 
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.php">
-                <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="users-profile.php">
+              <i class="bi bi-gear"></i>
+              <span>Account Settings</span>
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
 
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                <i class="bi bi-question-circle"></i>
-                <span>Need Help?</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+              <i class="bi bi-question-circle"></i>
+              <span>Need Help?</span>
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
 
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="../admin/includes/logout.inc.php">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Log Out</span>
-              </a>
-            </li>
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="../admin/includes/logout.inc.php">
+              <i class="bi bi-box-arrow-right"></i>
+              <span>Sign Out</span>
+            </a>
+          </li>
 
-          </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
+      </ul>End Profile Dropdown Items 
+        </li> End Profile Nav
 
       </ul>
-    </nav><!-- End Icons Navigation -->
+    </nav>End Icons Navigation -->
 
   </header><!-- End Header -->
 
-  <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
@@ -380,8 +399,8 @@ $image = $user['user_image'];
       </li><!-- End Components Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
-          <i class="ri-calendar-check-line"></i>
+        <a class="nav-link collapsed" href="../admin/event2.php">
+          <i class="ri ri-group-line"></i>
           <span>Events</span>
         </a>
       </li>
@@ -415,7 +434,7 @@ $image = $user['user_image'];
             </li>
 -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="">
+        <a class="nav-link collapsed" href="../admin/includes/logout.inc.php">
           <i class="ri-logout-circle-r-line"></i>
           <span>Log out</span>
         </a>
@@ -473,3 +492,65 @@ $image = $user['user_image'];
 
 
   </aside><!-- End Sidebar-->
+
+  <style>
+    /* Inline styles for quick adjustments */
+    .profile-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      /* Center horizontally */
+      padding: 1rem;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .profile-img img {
+      width: 80px;
+      /* Adjust size as needed */
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+      /* Space between image and text */
+    }
+
+    .profile-info h5 {
+      margin: 0;
+      font-size: 1.1rem;
+      text-align: center;
+    }
+
+    /* Style for the alert box */
+    .alert {
+      padding: 20px;
+      background-color: #4CAF50;
+      /* Green */
+      color: white;
+      opacity: 1;
+      transition: opacity 0.6s;
+      /* Fade out effect */
+      margin-bottom: 15px;
+      border-radius: 4px;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      /* Ensure it's on top of other elements */
+    }
+
+    /* Close button */
+    .closebtn {
+      margin-left: 15px;
+      color: white;
+      font-weight: bold;
+      float: right;
+      font-size: 22px;
+      line-height: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .closebtn:hover {
+      color: black;
+    }
+  </style>
