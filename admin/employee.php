@@ -170,7 +170,7 @@ if (isset($_SESSION['employee_created']) && $_SESSION['employee_created']) {
                       foreach ($db->query($sql) as $row) {
                     ?>
                         <tr>
-                          <th scope="row"><a href="#"><?php echo $row["employee_id"] ?></a></th>
+                          <th scope="row"><a href="../admin/compensation.php"><?php echo $row["employee_id"] ?></a></th>
                           <td><?php echo $row["last_name"] ?>, <?php echo $row["first_name"] ?></td>
                           <td><a href="#" class="text-primary"><?php echo $row["job_title"] ?></a></td>
                           <td><?php echo $row["phone_number"] ?></td>
