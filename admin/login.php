@@ -145,8 +145,7 @@
       </div>
     </div>
 
-
-    <div class="site-section courses-title" id="courses-section">
+    <div class="site-section courses-title" id="courses-section" style="background-color: #00b300;">
       <div class="container">
         <div class="row mb-5 justify-content-center">
           <div class="col-lg-7 text-center" data-aos="fade-up" data-aos-delay="">
@@ -155,6 +154,7 @@
         </div>
       </div>
     </div>
+
     <div class="site-section courses-entry-wrap" data-aos="fade-up" data-aos-delay="100">
       <div class="container">
         <div class="row">
@@ -166,7 +166,7 @@
                 <a href="course-single.html"><img src="images/bsoa.jpg" alt="Image" class="img-fluid"></a>
               </figure>
               <div class="course-inner-text py-4 px-4">
-                <span class="course-price">$20</span>
+                <span class="course-price" style="background-color: green;">$20</span>
                 <div class="meta"><span class="icon-clock-o"></span>2 Semester / year</div>
                 <h3><a href="BSOA.html">Bachelor of Science in Office Administration</a></h3>
                 <p> is a four year degree program designed to provide students with knowledge and skills in business management and office processes needed in different workplaces such as general business offices, legal or medical offices.</p>
@@ -182,7 +182,7 @@
                 <a href="course-single.html"><img src="images/bsba.png" alt="Image" class="img-fluid"></a>
               </figure>
               <div class="course-inner-text py-4 px-4">
-                <span class="course-price">$99</span>
+                <span class="course-price" style="background-color: green;">$99</span>
                 <div class="meta"><span class="icon-clock-o"></span>2 Semester / year</div>
                 <h3><a href="BSBA.html">Bachelor of Science in Business Administration</a></h3>
                 <p>Major in Business Economics program (BSBA-BUSEC) is designed to provide students with a strong foundation and an understanding of the world of economics, covering local and global economic conditions as well as the methods and applications of economic analysis. </p>
@@ -198,7 +198,7 @@
                 <a href="BSIT.html"><img src="images/bsit.jpg" alt="Image" class="img-fluid"></a>
               </figure>
               <div class="course-inner-text py-4 px-4">
-                <span class="course-price">$99</span>
+                <span class="course-price" style="background-color: green;">$99</span>
                 <div class="meta"><span class="icon-clock-o"></span>2 Semester / year</div>
                 <h3><a href="BSIT.html">Bachelor of Science in Information Technology</a></h3>
                 <p>A Bachelor of Science in Information Technology degree program typically takes three to four years depending on the country. This degree is primarily focused on subjects such as software, databases, and networking.</p>
@@ -212,13 +212,12 @@
         </div>
         <div class="row justify-content-center">
           <div class="col-7 text-center">
-            <button class="customPrevBtn btn btn-primary m-1">Prev</button>
-            <button class="customNextBtn btn btn-primary m-1">Next</button>
+            <button class="customPrevBtn btn btn-primary m-1" style="background-color: green;">Prev</button>
+            <button class="customNextBtn btn btn-primary m-1" style="background-color: green;">Next</button>
           </div>
         </div>
       </div>
     </div>
-
 
     <div class="site-section" id="programs-section">
       <div class="container">
@@ -565,10 +564,6 @@
         </div>
       </div>
     </div> -->
-
-
-
-
 
     <!--<div class="site-section bg-light" id="contact-section">
       <div class="container">
