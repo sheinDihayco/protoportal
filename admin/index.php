@@ -154,7 +154,7 @@ $studcount = $statements->fetch(PDO::FETCH_ASSOC);
                         <tr>
                           <th scope="row"><a href="#"><?php echo $row["employee_id"] ?></a></th>
                           <td><?php echo $row["last_name"] ?>, <?php echo $row["first_name"] ?></td>
-                          <td><a href="#" class="text-primary"><?php echo $row["job_title"] ?></a></td>
+                          <td><?php echo $row["job_title"] ?></a></td>
                           <td><?php echo $row["phone_number"] ?></td>
                           <td>
                             <form action="profile.php" method="post">

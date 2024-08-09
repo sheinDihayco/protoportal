@@ -172,7 +172,7 @@ if (isset($_SESSION['employee_created']) && $_SESSION['employee_created']) {
                         <tr>
                           <th scope="row"><a href="../admin/compensation.php"><?php echo $row["employee_id"] ?></a></th>
                           <td><?php echo $row["last_name"] ?>, <?php echo $row["first_name"] ?></td>
-                          <td><a href="#" class="text-primary"><?php echo $row["job_title"] ?></a></td>
+                          <td><?php echo $row["job_title"] ?></a></td>
                           <td><?php echo $row["phone_number"] ?></td>
                           <td> <button type="button" class=" btn btn-sm btn-warning ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $row["employee_id"] ?>"></button></td>
                           <?php include('modals/edit-employee.php'); ?>

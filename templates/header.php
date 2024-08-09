@@ -103,21 +103,20 @@ $image = $user['user_image'];
     </div> -->
     <!-- End Search Ba -->
 
-    <nav class="header-nav ms-auto">
+    <!-- <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
 
         <li class="nav-item d-block d-lg-none">
           <a class="nav-link nav-icon search-bar-toggle " href="#">
             <i class="bi bi-search"></i>
           </a>
-        </li><!-- End Search Icon-->
+        </li> End Search Icon
 
         <li class="nav-item dropdown">
-
-          <!-- <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+ <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-bell"></i>
             <span class="badge bg-primary badge-number">4</span>
-          </a>End Notification Icon -->
+          </a>End Notification Icon 
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
             <li class="dropdown-header">
@@ -183,18 +182,18 @@ $image = $user['user_image'];
               <a href="#">Show all notifications</a>
             </li>
 
-          </ul><!-- End Notification Dropdown Items -->
+          </ul> End Notification Dropdown Items
 
-        </li><!-- End Notification Nav -->
+    </li>End Notification Nav -->
 
-        <!-- <li class="nav-item dropdown">
+    <!-- <li class="nav-item dropdown">
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-chat-left-text"></i>
             <span class="badge bg-success badge-number">3</span>
           </a>End Messages Icon -->
 
-        <!-- <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+    <!-- <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
             <li class="dropdown-header">
               You have 3 new messages
               <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
@@ -249,18 +248,18 @@ $image = $user['user_image'];
               <a href="#">Show all messages</a>
             </li>
 
-          </ul>End Messages Dropdown Items -->
+          </ul>End Messages Dropdown Items
 
-        </li><!-- End Messages Nav -->
+    </li>End Messages Nav
 
-        <!--<li class="nav-item dropdown pe-3">
+    <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="../assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $lname ?></span>
           </a>End Profile Iamge Icon -->
 
-        <!--<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+    <!--<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
           <li class="dropdown-header">
             <h6>
               <h6>
@@ -437,7 +436,7 @@ $image = $user['user_image'];
       </li>
 
       <br>
-      <div class="settings-icon">
+      <div class="settings-icon" style="display: none;">
         <a href="../admin/user-form.php">
           <i class="bi bi-gear"></i> <!-- Settings icon -->
         </a>
@@ -492,6 +491,14 @@ $image = $user['user_image'];
       <!-- End Components Nav -->
 
     </ul>
+
+    <div style="margin-top: 5%; position:absolute">
+      <label class="switch">
+        <input type="checkbox" id="darkModeToggle">
+        <span class="slider round"></span>
+      </label>
+    </div>
+
   </aside><!-- End Sidebar-->
 
   <script>
@@ -508,6 +515,40 @@ $image = $user['user_image'];
           }
         }
       });
+    });
+  </script>
+
+
+  <script>
+    // Get the toggle button and the body element
+    const toggleButton = document.getElementById('darkModeToggle');
+    const body = document.body;
+
+    // Check if dark mode is already enabled
+    if (localStorage.getItem('darkMode') === 'enabled') {
+      body.classList.add('dark-mode');
+      toggleButton.checked = true;
+    }
+
+    // Function to enable dark mode
+    const enableDarkMode = () => {
+      body.classList.add('dark-mode');
+      localStorage.setItem('darkMode', 'enabled');
+    };
+
+    // Function to disable dark mode
+    const disableDarkMode = () => {
+      body.classList.remove('dark-mode');
+      localStorage.setItem('darkMode', 'disabled');
+    };
+
+    // Add an event listener to toggle dark mode
+    toggleButton.addEventListener('click', () => {
+      if (toggleButton.checked) {
+        enableDarkMode();
+      } else {
+        disableDarkMode();
+      }
     });
   </script>
 
@@ -574,5 +615,109 @@ $image = $user['user_image'];
 
     .closebtn:hover {
       color: black;
+    }
+
+    /* Universal Dark Mode Styles */
+    .dark-mode {
+      background-color: #222;
+      color: #e0e0e0;
+    }
+
+    /* Header and Sidebar Styling */
+    .dark-mode .header,
+    .dark-mode .sidebar {
+      background-color: #2c2c2c;
+      color: #f0f0f0;
+    }
+
+    /* Text Color for Various Titles and Links */
+    .dark-mode .nav-link,
+    .dark-mode .profile-info h5,
+    .dark-mode .card-title,
+    .dark-mode .pagetitle h1,
+    .dark-mode .title,
+    .dark-mode .nav-item a,
+    .dark-mode .sidebar-nav li,
+    .dark-mode .settings-icon a {
+      color: #d1d1d1;
+    }
+
+    .dark-mode .save-button button {
+      background-color: #555;
+      border: 1px solid #666;
+      color: #f0f0f0;
+    }
+
+    .dark-mode .card,
+    .dark-mode .card-body,
+    .dark-mode .list-group-item,
+    .dark-mode .mb-3 input,
+    .dark-mode .mb-3 textarea,
+    .dark-mode .table th,
+    .dark-mode .modal-content,
+    .dark-mode .modal-content input,
+    .dark-mode .modal-content select {
+      background-color: #3c3c3c;
+      color: #f0f0f0;
+    }
+
+    .dark-mode .card a,
+    .dark-mode .table td,
+    .dark-mode .d-none,
+    .dark-mode .ps-3 h6,
+    .dark-mode .col-md-2 label,
+    .dark-mode .modal-title {
+      color: #ffffff;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 20px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #1a1a1a;
+      transition: .4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 2px;
+      bottom: 2px;
+      background-color: #0088ff;
+      transition: .4s;
+    }
+
+    input:checked+.slider {
+      background-color: #555;
+    }
+
+    input:checked+.slider:before {
+      transform: translateX(20px);
+    }
+
+    .slider.round {
+      border-radius: 20px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
     }
   </style>

@@ -39,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $connection->close();
 ?>
+
 <?php
 if (isset($_SESSION['event_created']) && $_SESSION['event_created']) {
     echo "

@@ -380,7 +380,7 @@ try {
             <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
               <div class="row mb-3">
                 <div class="col-md-2 col-lg-9">
-                  <label for="collegeCompleted" class="col-sm-6 col-form-label">Editing is not permitted on this page.</label>
+                  <label class="col-sm-6 col-form-label">Editing is not permitted on this page.</label>
                 </div>
               </div>
             </div>

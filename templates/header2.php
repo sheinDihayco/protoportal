@@ -394,7 +394,7 @@ $image = $user['user_image'];
       </li><!-- End Components Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="../admin/event2.php">
+        <a class="nav-link collapsed" href="../admin/event-teacher.php">
           <i class="ri ri-group-line"></i>
           <span>Events</span>
         </a>
@@ -485,6 +485,12 @@ $image = $user['user_image'];
 
     </ul>
 
+    <div style="margin-top: 70%; position:absolute">
+      <label class="switch">
+        <input type="checkbox" id="darkModeToggle">
+        <span class="slider round"></span>
+      </label>
+    </div>
 
   </aside><!-- End Sidebar-->
 
@@ -505,6 +511,39 @@ $image = $user['user_image'];
     });
   </script>
 
+  <script>
+    // Get the toggle button and the body element
+    const toggleButton = document.getElementById('darkModeToggle');
+    const body = document.body;
+
+    // Check if dark mode is already enabled
+    if (localStorage.getItem('darkMode') === 'enabled') {
+      body.classList.add('dark-mode');
+      toggleButton.checked = true;
+    }
+
+    // Function to enable dark mode
+    const enableDarkMode = () => {
+      body.classList.add('dark-mode');
+      localStorage.setItem('darkMode', 'enabled');
+    };
+
+    // Function to disable dark mode
+    const disableDarkMode = () => {
+      body.classList.remove('dark-mode');
+      localStorage.setItem('darkMode', 'disabled');
+    };
+
+    // Add an event listener to toggle dark mode
+    toggleButton.addEventListener('click', () => {
+      if (toggleButton.checked) {
+        enableDarkMode();
+      } else {
+        disableDarkMode();
+      }
+    });
+  </script>
+
   <style>
     html {
       scroll-behavior: smooth;
@@ -516,7 +555,9 @@ $image = $user['user_image'];
 
     .sidebar .nav-link:hover {
       background-color: #f0f0f0;
+      /* Adjust color as needed */
       color: #333;
+      /* Adjust color as needed */
     }
 
     .profile-section {
@@ -542,6 +583,8 @@ $image = $user['user_image'];
     }
 
     .alert {
+      max-width: 300px;
+      width: 100%;
       padding: 20px;
       background-color: #4CAF50;
       color: white;
@@ -551,8 +594,8 @@ $image = $user['user_image'];
       border-radius: 4px;
       position: fixed;
       top: 20px;
-      right: 20px;
-      z-index: 1000;
+      left: 80%;
+      z-index: 5000;
     }
 
     .closebtn {
@@ -563,10 +606,114 @@ $image = $user['user_image'];
       font-size: 22px;
       line-height: 20px;
       cursor: pointer;
-      transition: 0.3s;
+      transition: color 0.3s;
     }
 
     .closebtn:hover {
       color: black;
+    }
+
+    /* Universal Dark Mode Styles */
+    .dark-mode {
+      background-color: #222;
+      color: #e0e0e0;
+    }
+
+    /* Header and Sidebar Styling */
+    .dark-mode .header,
+    .dark-mode .sidebar {
+      background-color: #2c2c2c;
+      color: #f0f0f0;
+    }
+
+    /* Text Color for Various Titles and Links */
+    .dark-mode .nav-link,
+    .dark-mode .profile-info h5,
+    .dark-mode .card-title,
+    .dark-mode .pagetitle h1,
+    .dark-mode .title,
+    .dark-mode .nav-item a,
+    .dark-mode .sidebar-nav li,
+    .dark-mode .settings-icon a {
+      color: #d1d1d1;
+    }
+
+    .dark-mode .save-button button {
+      background-color: #555;
+      border: 1px solid #666;
+      color: #f0f0f0;
+    }
+
+    .dark-mode .card,
+    .dark-mode .card-body,
+    .dark-mode .list-group-item,
+    .dark-mode .mb-3 input,
+    .dark-mode .mb-3 textarea,
+    .dark-mode .table th,
+    .dark-mode .modal-content,
+    .dark-mode .modal-content input,
+    .dark-mode .modal-content select {
+      background-color: #3c3c3c;
+      color: #f0f0f0;
+    }
+
+    .dark-mode .card a,
+    .dark-mode .table td,
+    .dark-mode .d-none,
+    .dark-mode .ps-3 h6,
+    .dark-mode .col-md-2 label,
+    .dark-mode .modal-title {
+      color: #ffffff;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 20px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #1a1a1a;
+      transition: .4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 2px;
+      bottom: 2px;
+      background-color: #0088ff;
+      transition: .4s;
+    }
+
+    input:checked+.slider {
+      background-color: #555;
+    }
+
+    input:checked+.slider:before {
+      transform: translateX(20px);
+    }
+
+    .slider.round {
+      border-radius: 20px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
     }
   </style>

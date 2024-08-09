@@ -148,7 +148,7 @@
             <div class="card-body">
               <h5 class="card-title">Course <span>| BSIT - 1 </span></h5>
 
-              <table class="table table-striped datatable">
+              <table class="table datatable">
                 <thead>
                   <tr>
                     <th scope="col">Semester</th>
@@ -228,7 +228,7 @@
             <div class="card-body">
               <h5 class="card-title">Subject <span>| BSOA - 1</span></h5>
 
-              <table class="table table-striped datatable">
+              <table class="table datatable">
                 <thead>
                   <tr>
                     <th scope="col">Semester</th>
@@ -309,7 +309,7 @@
             <div class="card-body">
               <h5 class="card-title">Subject <span>| BSBA - 1 </span></h5>
 
-              <table class="table table-striped datatable">
+              <table class="table datatable">
                 <thead>
                   <tr>
                     <th scope="col">Semester</th>
@@ -389,7 +389,7 @@
             <div class="card-body">
               <h5 class="card-title">Subject <span>| Grade 11 </span></h5>
 
-              <table class="table table-striped datatable">
+              <table class="table datatable">
                 <thead>
                   <tr>
                     <th scope="col">Semester</th>
@@ -469,7 +469,7 @@
             <div class="card-body">
               <h5 class="card-title">Subject <span>| Grade 12 </span></h5>
 
-              <table class="table table-striped datatable">
+              <table class="table datatable">
                 <thead>
                   <tr>
                     <th scope="col">Semester</th>
