@@ -54,16 +54,16 @@ $connection->close();
         <div class="row">
 
 
-            <div class="col-lg-4">
+            <div class="col-lg-8">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Event <span class="badge bg-success" style="color: white;">Today's Event</span></h5>
+                        <h5 class="card-title"><span class="badge bg-success" style="color: white;">Today's Event</span></h5>
                         <ul class="list-group">
                             <?php if ($showTodayEvent && $todaysEvent) : ?>
                                 <li class="list-group-item d-flex justify-content-between align-items-start">
                                     <div style="flex-grow: 1;">
                                         <h6 class="card-title"><?php echo htmlspecialchars($todaysEvent['title']); ?></h6>
-                                        <p><?php echo htmlspecialchars($todaysEvent['date']); ?></p>
+                                        <p> <?php echo htmlspecialchars($todaysEvent['date']); ?></p>
                                         <p><?php echo htmlspecialchars($todaysEvent['description']); ?></p>
                                     </div>
 

@@ -324,7 +324,7 @@ if ($user) {
 
     </ul>
 
-    <div style="margin-top: 35%; position:absolute">
+    <div style="margin-top: 35%; position:sticky">
       <label class="switch">
         <input type="checkbox" id="darkModeToggle">
         <span class="slider round"></span>

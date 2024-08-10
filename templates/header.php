@@ -499,7 +499,7 @@ $image = $user['user_image'];
 
     </ul>
 
-    <div style="margin-top: 5%; position:absolute">
+    <div style="margin-top: -5.5%; position:sticky">
       <label class="switch">
         <input type="checkbox" id="darkModeToggle">
         <span class="slider round"></span>
