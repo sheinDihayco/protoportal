@@ -19,8 +19,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $user_id = $conn->real_escape_string($_POST['user_id']);
     $fname = $conn->real_escape_string($_POST['fname']);
     $lname = $conn->real_escape_string($_POST['lname']);
-    $middleInitial = $conn->real_escape_string($_POST['middleInitial']);
-    $Suffix = $conn->real_escape_string($_POST['Suffix']);
     $studentID = $conn->real_escape_string($_POST['studentID']);
     $course = $conn->real_escape_string($_POST['course']);
     $year = $conn->real_escape_string($_POST['year']);
@@ -35,8 +33,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         header("Location: ../admin/insert-initial-data.php");
     } else {
         // SQL insert statement
-        $sql = "INSERT INTO tbl_students (user_id, fname, lname, middleInitial, Suffix, studentID, course, year)
-                VALUES ('$user_id', '$fname', '$lname', '$middleInitial', '$Suffix', '$studentID', '$course', '$year')";
+        $sql = "INSERT INTO tbl_students (user_id, fname, lname, studentID, course, year)
+                VALUES ('$user_id', '$fname', '$lname','$studentID', '$course', '$year')";
 
         if ($conn->query($sql) === TRUE) {
             $_SESSION['initial_update'] = true;

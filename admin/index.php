@@ -116,66 +116,6 @@ $studcount = $statements->fetch(PDO::FETCH_ASSOC);
             </div>
           </div><!-- End Revenue Card -->
 
-          <!-- Recent Sales -->
-          <div class="col-12">
-            <div class="card recent-sales overflow-auto">
-              <div class="filter">
-                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                  <li class="dropdown-header text-start">
-                    <h6>Filter</h6>
-                  </li>
-                  <li><a class="dropdown-item" href="#">Today</a></li>
-                  <li><a class="dropdown-item" href="#">This Month</a></li>
-                  <li><a class="dropdown-item" href="#">This Year</a></li>
-                </ul>
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Employee <span>| Hired</span></h5>
-                <table class="table table-borderless datatable">
-                  <thead>
-                    <tr>
-                      <th scope="col">Employee ID</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Job Title</th>
-                      <th scope="col">Contact</th>
-                      <th scope="col">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php
-                    $database = new Connection();
-                    $db = $database->open();
-
-                    try {
-                      $sql = 'SELECT * FROM tbl_employee ORDER BY tbl_employee.last_name ASC';
-                      foreach ($db->query($sql) as $row) {
-                    ?>
-                        <tr>
-                          <th scope="row"><a href="#"><?php echo $row["employee_id"] ?></a></th>
-                          <td><?php echo $row["last_name"] ?>, <?php echo $row["first_name"] ?></td>
-                          <td><?php echo $row["job_title"] ?></a></td>
-                          <td><?php echo $row["phone_number"] ?></td>
-                          <td>
-                            <form action="profile.php" method="post">
-                              <input type="hidden" name="emps_id" value="<?php echo $row['employee_id']; ?>">
-                              <button type="submit" class="btn btn-sm btn-success" name="submit"><i class="ri-arrow-right-circle-fill"></i></button>
-                            </form>
-                          </td>
-                        </tr>
-                    <?php
-                      }
-                    } catch (PDOException $e) {
-                      echo "There is some problem in connection: " . $e->getMessage();
-                    }
-                    $database->close();
-                    ?>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div><!-- End Recent Sales -->
-
           <!-- Students Enrolled -->
           <div class="col-12">
             <div class="card recent-sales overflow-auto">
@@ -233,6 +173,65 @@ $studcount = $statements->fetch(PDO::FETCH_ASSOC);
               </div>
             </div>
           </div><!-- End Students Enrolled -->
+          <!-- Employee -->
+          <div class="col-12">
+            <div class="card recent-sales overflow-auto">
+              <div class="filter">
+                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                  <li class="dropdown-header text-start">
+                    <h6>Filter</h6>
+                  </li>
+                  <li><a class="dropdown-item" href="#">Today</a></li>
+                  <li><a class="dropdown-item" href="#">This Month</a></li>
+                  <li><a class="dropdown-item" href="#">This Year</a></li>
+                </ul>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Employee <span>| Hired</span></h5>
+                <table class="table table-borderless datatable">
+                  <thead>
+                    <tr>
+                      <th scope="col">Employee ID</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Job Title</th>
+                      <th scope="col">Contact</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    $database = new Connection();
+                    $db = $database->open();
+
+                    try {
+                      $sql = 'SELECT * FROM tbl_employee ORDER BY tbl_employee.last_name ASC';
+                      foreach ($db->query($sql) as $row) {
+                    ?>
+                        <tr>
+                          <th scope="row"><a href="#"><?php echo $row["employee_id"] ?></a></th>
+                          <td><?php echo $row["last_name"] ?>, <?php echo $row["first_name"] ?></td>
+                          <td><?php echo $row["job_title"] ?></a></td>
+                          <td><?php echo $row["phone_number"] ?></td>
+                          <td>
+                            <form action="profile.php" method="post">
+                              <input type="hidden" name="emps_id" value="<?php echo $row['employee_id']; ?>">
+                              <button type="submit" class="btn btn-sm btn-success" name="submit"><i class="ri-arrow-right-circle-fill"></i></button>
+                            </form>
+                          </td>
+                        </tr>
+                    <?php
+                      }
+                    } catch (PDOException $e) {
+                      echo "There is some problem in connection: " . $e->getMessage();
+                    }
+                    $database->close();
+                    ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div><!-- End Employee-->
 
         </div>
       </div>

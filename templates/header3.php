@@ -181,15 +181,16 @@ if ($user) {
 
       <div class="profile-section">
         <div class="profile-img">
-          <img src="upload-files/<?php echo htmlspecialchars($image); ?>" alt="Profile Image" class="rounded-circle">
+          <img src="upload-files/<?php echo htmlspecialchars($image); ?>" id="currentPhoto" onerror="this.src='images/default.jpg'" alt="Profile Image" class="rounded-circle">
         </div>
 
         <div class="profile-info">
           <h5><?php echo htmlspecialchars($lname) . ', ' . htmlspecialchars($fname); ?></h5>
         </div>
+
         <div class="settings-icon">
           <a href="javascript:void(0);" onclick="document.getElementById('fileInput').click();">
-            <i class="ri-image-add-line"></i> <!-- Upload icon -->
+            <i class="ri-image-add-line"></i>
           </a>
         </div>
 
@@ -198,10 +199,23 @@ if ($user) {
 
           <!-- Save Button -->
           <div class="save-button" id="saveButton" style="display: none;">
-            <button type="submit" class="btn btn-primary btn-sm" name="save">Save</button>
+            <button type="submit" class="btn btn-primary" name="save">Save</button>
           </div>
         </form>
       </div>
+
+      <script>
+        function showSaveButton() {
+          var fileInput = document.getElementById('fileInput');
+          var saveButton = document.getElementById('saveButton');
+          if (fileInput.files.length > 0) {
+            saveButton.style.display = 'block';
+          } else {
+            saveButton.style.display = 'none';
+          }
+        }
+      </script>
+
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="../admin/index3.php">
@@ -225,7 +239,7 @@ if ($user) {
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+        <a class="nav-link collapsed" href="../admin/Grade.php">
           <i class="bx bx-book"></i>
           <span>Grades</span>
         </a>

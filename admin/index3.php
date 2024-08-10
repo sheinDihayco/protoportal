@@ -41,6 +41,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+$statements = $conn->prepare("SELECT COUNT(studentID) AS count_stud FROM tbl_students");
+$statements->execute();
+$studcount = $statements->fetch(PDO::FETCH_ASSOC);
+
 $connection->close();
 ?>
 
@@ -49,7 +53,8 @@ $connection->close();
     <section class="section dashboard">
         <div class="row">
 
-            <div class="col-lg-8">
+
+            <div class="col-lg-4">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Event <span class="badge bg-success" style="color: white;">Today's Event</span></h5>
@@ -70,10 +75,80 @@ $connection->close();
                     </div>
                 </div>
             </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card recent-sales overflow-auto">
+                    <div class="filter">
+                        <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                            <li class="dropdown-header text-start">
+                                <h6>Filter</h6>
+                            </li>
+                            <li><a class="dropdown-item" href="../admin/bsit-payment.php">BSIT</a></li>
+                            <li><a class="dropdown-item" href="../admin/bsba-payment.php">BSBA</a></li>
+                            <li><a class="dropdown-item" href="../admin/bsoa-payment.php">BSOA</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title">Payment <span>| Status</span></h5>
+
+                        <table class="table table-borderless datatable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Student ID</th>
+                                    <th scope="col">Full Name</th>
+                                    <th scope="col">Course</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $database = new Connection();
+                                $db = $database->open();
+
+                                try {
+                                    $sql = 'SELECT * FROM tbl_students WHERE user_id = :user_id ORDER BY lname ASC';
+
+                                    $stmt = $db->prepare($sql);
+                                    $stmt->bindParam(':user_id', $userid, PDO::PARAM_INT);
+                                    $stmt->execute();
+
+                                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                ?>
+                                        <tr>
+                                            <th scope="row"><a href="#"><?php echo htmlspecialchars($row["studentID"]); ?></a></th>
+                                            <td><?php echo htmlspecialchars($row["lname"]); ?>, <?php echo htmlspecialchars($row["fname"]); ?></td>
+                                            <td><?php echo htmlspecialchars($row["course"]); ?> - <?php echo htmlspecialchars($row["year"]); ?></td>
+                                            <td>
+                                                <form action="stud_profile.php" method="post">
+                                                    <input type="hidden" name="stud_id" value="<?php echo htmlspecialchars($row['studentID']); ?>">
+                                                    <button type="submit" class="btn btn-sm btn-success" name="submit"><i class="ri-arrow-right-circle-fill"></i></button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                <?php
+                                    }
+                                } catch (PDOException $e) {
+                                    echo "There is some problem in connection: " . $e->getMessage();
+                                }
+
+                                $database->close();
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div><!-- End Recent Sales -->
+
             <div class="col-lg-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title"> Events <span class="badge bg-success" style="color: white;">This month</span></h5>
+                        <h5 class="card-title"> Event List <span class="badge bg-success" style="color: white;">This month</span></h5>
                         <ul class="list-group">
                             <?php if (!empty($filteredEvents)) : ?>
                                 <?php foreach ($filteredEvents as $event) : ?>
@@ -89,7 +164,6 @@ $connection->close();
                     </div>
                 </div>
             </div>
-
         </div>
     </section>
 

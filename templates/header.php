@@ -394,8 +394,15 @@ $image = $user['user_image'];
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="../admin/subject.php">
-          <i class="ri-calendar-2-fill"></i>
+          <i class="ri-book-3-line"></i>
           <span>Prospectus</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="../admin/Grade.php">
+          <i class="ri-book-3-line"></i>
+          <span>Grades</span>
         </a>
       </li>
 
@@ -408,7 +415,7 @@ $image = $user['user_image'];
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="../admin/compensation.php">
-          <i class="bi bi-layout-text-window-reverse"></i>
+          <i class="bx bx-wallet"></i>
           <span>Compensation</span>
         </a>
       </li>

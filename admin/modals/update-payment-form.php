@@ -30,6 +30,17 @@
             </div>
 
             <div class="col-md-6">
+              <label for="paymentPeriod" class="form-label">Payment Period</label>
+              <select class="form-select" id="paymentPeriod" name="paymentPeriod" required>
+                <option value="">Choose...</option>
+                <option value="Prelim" <?php if ($row["paymentPeriod"] == "Prelim") echo "selected"; ?>>Prelim</option>
+                <option value="Midterm" <?php if ($row["paymentPeriod"] == "Midterm") echo "selected"; ?>>Midterm</option>
+                <option value="Pre-final" <?php if ($row["paymentPeriod"] == "Pre-final") echo "selected"; ?>>Pre-final</option>
+                <option value="Final" <?php if ($row["paymentPeriod"] == "Final") echo "selected"; ?>>Final</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
               <label for="payment_status" class="form-label">Status</label>
               <select class="form-select" id="payment_status" name="payment_status" required>
                 <option value="">Choose...</option>

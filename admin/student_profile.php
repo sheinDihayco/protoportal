@@ -1,4 +1,5 @@
 <?php
+
 if (isset($_POST['stud_id']) && !empty($_POST['stud_id'])) {
   $_SESSION['stud'] = $_POST['stud_id'];
 }
@@ -33,6 +34,15 @@ try {
     } else {
       $userImage = "default.jpg";
     }
+
+    // Check if the studentID has a record in tbl_payments
+    $paymentStmt = $conn->prepare("SELECT COUNT(*) AS count_payments FROM tbl_payments WHERE studentID = :studentID");
+    $paymentStmt->bindParam(':studentID', $studid, PDO::PARAM_INT);
+    $paymentStmt->execute();
+    $paymentCount = $paymentStmt->fetch(PDO::FETCH_ASSOC);
+
+    // Determine if the button should be displayed
+    $showButton = ($paymentCount['count_payments'] == 0);
   } else {
     exit('Student not found');
   }
@@ -40,17 +50,19 @@ try {
   echo 'Query failed: ' . $e->getMessage();
   exit;
 }
-
 ?>
 
 
 <main id="main" class="main">
-
   <div class="pagetitle">
     <?php if ($studs) : ?>
       <h1><?php echo htmlspecialchars($studs["lname"]); ?>, <?php echo htmlspecialchars($studs["fname"]); ?></h1>
-      <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#insertStudent">
-      </button>
+
+      <?php if ($showButton): ?>
+        <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#insertStudent">
+        </button>
+      <?php endif; ?>
+
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><?php echo htmlspecialchars($studs["course"]); ?></li>
@@ -87,6 +99,21 @@ try {
                 Please select a valid semester.
               </div>
             </div>
+
+            <div class="col-md-6">
+              <label for="paymentPeriod" class="form-label">Payment Period</label>
+              <select class="form-select" id="paymentPeriod" name="paymentPeriod" required>
+                <option value="">Choose...</option>
+                <option value="Prelim">Prelim</option>
+                <option value="Midterm">Midterm</option>
+                <option value="Pre-final">Pre-final</option>
+                <option value="Final">Final</option>
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid semester.
+              </div>
+            </div>
+
             <div class="col-md-6">
               <label for="payment_status" class="form-label">Status</label>
               <select class="form-select" id="payment_status" name="payment_status" required>
@@ -114,8 +141,19 @@ try {
           <div class="card-body pt-3">
             <!-- Bordered Tabs -->
             <ul class="nav nav-tabs nav-tabs-bordered">
+
+              <button type="button" class="icon-button">
+                <a href="../admin/payment.php" class="icon-link">
+                  <i class="ri-arrow-go-back-line"></i>
+                </a>
+              </button>
+
+
               <li class="nav-item">
                 <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#payment-status">Payment Status</button>
+              </li>
+              <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-grades">Grades</button>
               </li>
               <li class="nav-item">
                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
@@ -136,6 +174,7 @@ try {
                       <tr>
                         <th scope="col">Student ID</th>
                         <th scope="col">Semester</th>
+                        <th scope="col">Payment Period</th>
                         <th scope="col">Payment Status</th>
                         <th scope="col">Action</th>
                       </tr>
@@ -172,6 +211,8 @@ try {
 
                             <td><?php echo htmlspecialchars($row["semester"]) ? htmlspecialchars($row["semester"]) : 'Choose semester'; ?></td>
 
+                            <td><?php echo htmlspecialchars($row["paymentPeriod"]) ? htmlspecialchars($row["paymentPeriod"]) : 'Choose payment period'; ?></td>
+
                             <td><?php echo htmlspecialchars($row["payment_status"]) ? htmlspecialchars($row["payment_status"]) : 'Not Available'; ?></td>
 
                             <td><button type="button" class="ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#updatePaymentStatus<?php echo $row["studentID"]; ?>"></button></td>
@@ -190,6 +231,10 @@ try {
                     </tbody>
                   </table>
                 </div>
+              </div>
+
+              <div class="tab-pane fade" id="profile-grades">
+
               </div>
 
               <div class="tab-pane fade" id="profile-overview">
@@ -395,3 +440,25 @@ try {
 <?php
 include_once "../templates/footer.php";
 ?>
+
+<style>
+  .icon-button {
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+
+  .icon-link {
+    color: black;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+
+  .icon-button i {
+    font-size: 20px;
+  }
+</style>

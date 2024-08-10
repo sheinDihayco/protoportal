@@ -2,6 +2,7 @@
 include_once "../templates/header.php"; // Corrected PHP include tag
 ?>
 <?php
+
 if (isset($_SESSION['initial_update']) && $_SESSION['initial_update']) {
   echo "
         <div class='alert'>
@@ -37,10 +38,9 @@ if (isset($_SESSION['initial_update_error'])) {
 }
 ?>
 
-
 <main id="main" class="main">
   <div class="pagetitle">
-    <h1>Student Records</h1>
+    <h1>Payment Records</h1>
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.php">Home</a></li>

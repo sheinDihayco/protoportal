@@ -325,19 +325,20 @@ $image = $user['user_image'];
         </div>
         <div class="settings-icon">
           <a href="javascript:void(0);" onclick="document.getElementById('fileInput').click();">
-            <i class="ri-image-add-line"></i> <!-- Upload icon -->
+            <i class="ri-image-add-line"></i>
           </a>
         </div>
 
-        <form action="upload/upload-image2.php" method="post" enctype="multipart/form-data">
+        <form action="upload/upload-image1.php" method="post" enctype="multipart/form-data">
           <input type="file" id="fileInput" name="file" style="display: none;" onchange="showSaveButton();" />
 
           <!-- Save Button -->
           <div class="save-button" id="saveButton" style="display: none;">
-            <button type="submit" class="btn btn-primary btn-sm" name="save">Save</button>
+            <button type="submit" class="btn btn-primary" name="save">Save</button>
           </div>
         </form>
       </div>
+
       <script>
         function showSaveButton() {
           var fileInput = document.getElementById('fileInput');

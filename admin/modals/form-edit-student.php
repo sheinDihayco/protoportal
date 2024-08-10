@@ -38,7 +38,7 @@
               </div>
             </div>
 
-            <div class="row mb-3">
+            <!-- <div class="row mb-3">
               <div class="col-md-4">
                 <label for="middleInitial" class="form-label">Middle Initial</label>
                 <input type="text" class="form-control" id="middleInitial" name="middleInitial" value="" required>
@@ -50,7 +50,7 @@
                 <label for="Suffix" class="form-label">Suffix</label>
                 <input type="text" class="form-control" id="Suffix" name="Suffix" name="middleInitial" value="" required>
               </div>
-            </div>
+            </div>-->
 
             <div class="row mb-3">
               <div class="col-md-6">

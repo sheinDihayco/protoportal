@@ -18,6 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $studentID = $conn->real_escape_string($_POST['studentID']);
     $status = $conn->real_escape_string($_POST['payment_status']);
     $semester = $conn->real_escape_string($_POST['semester']);
+    $paymentPeriod = $conn->real_escape_string($_POST['paymentPeriod']);
 
     // Check if studentID exists in tbl_students
     $checkStudentQuery = "SELECT studentID FROM tbl_students WHERE studentID = ?";
@@ -39,9 +40,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
             echo "Error: Payment record already exists for this student.";
         } else {
             // Prepare an insert statement
-            $insertQuery = "INSERT INTO tbl_payments (studentID, payment_status,semester) VALUES (?, ?,?)";
+            $insertQuery = "INSERT INTO tbl_payments (studentID, payment_status,semester,paymentPeriod) VALUES (?, ?, ?, ?)";
             $stmt = $conn->prepare($insertQuery);
-            $stmt->bind_param("sss", $studentID, $status, $semester);
+            $stmt->bind_param("ssss", $studentID, $status, $semester, $paymentPeriod);
 
             if ($stmt->execute()) {
                 // Redirect to payment.php after successful insertion

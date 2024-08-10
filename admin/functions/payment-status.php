@@ -16,15 +16,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $studentID = $_POST['studentID'];
     $status = $_POST['payment_status'];
     $semester = $_POST['semester'];
+    $paymentPeriod = $_POST['paymentPeriod'];
 
-    $sql = "UPDATE tbl_payments SET semester = ?, payment_status = ? WHERE studentID = ?";
+    $sql = "UPDATE tbl_payments SET semester = ?, paymentPeriod = ?, payment_status = ? WHERE studentID = ?";
 
     if ($stmt = $conn->prepare($sql)) {
         $stmt->bind_param(
-            "sss",
-            $semester, // Correct order for binding parameters
+            "ssss",
+            $semester,
+            $paymentPeriod,
             $status,
             $studentID
+
         );
 
         if ($stmt->execute()) {
