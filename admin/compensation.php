@@ -9,8 +9,7 @@ include_once "../templates/header.php";
 
   <div class="pagetitle">
     <h1>Employee</h1>
-    <button type="button" class="btn btn-primary btn-sm tablebutton" data-bs-toggle="modal" data-bs-target="#verticalycentered">
-      Add Employee
+    <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#verticalycentered">
     </button>
     <nav>
       <ol class="breadcrumb">
