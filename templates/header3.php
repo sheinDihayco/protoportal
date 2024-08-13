@@ -181,7 +181,7 @@ if ($user) {
 
       <div class="profile-section">
         <div class="profile-img">
-          <img src="upload-files/<?php echo htmlspecialchars($image); ?>" id="currentPhoto" onerror="this.src='images/default.jpg'" alt="Profile Image" class="rounded-circle">
+          <img src="upload-files/<?php echo htmlspecialchars($image); ?>" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image" class="rounded-circle">
         </div>
 
         <div class="profile-info">
@@ -238,15 +238,9 @@ if ($user) {
         </a>
       </li>
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="../admin/Grade.php">
-          <i class="bx bx-book"></i>
-          <span>Grades</span>
-        </a>
-      </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse">
           <i class="ri ri-group-line"></i><span>Prospectus</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">

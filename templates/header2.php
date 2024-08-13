@@ -50,12 +50,7 @@ $image = $user['user_image'];
   <!-- Template Main CSS File -->
   <link href="../assets/css/style.css" rel="stylesheet">
 
-
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.1.3/bootstrap-growl.min.js"></script>
-
-
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -317,7 +312,7 @@ $image = $user['user_image'];
 
       <div class="profile-section">
         <div class="profile-img">
-          <img src="upload-files/<?php echo htmlspecialchars($image); ?>" alt="Profile Image" class="rounded-circle">
+          <img src="upload-files/<?php echo htmlspecialchars($image); ?>" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image" class="rounded-circle">
         </div>
 
         <div class="profile-info">
@@ -329,7 +324,7 @@ $image = $user['user_image'];
           </a>
         </div>
 
-        <form action="upload/upload-image1.php" method="post" enctype="multipart/form-data">
+        <form action="upload/upload-image2.php" method="post" enctype="multipart/form-data">
           <input type="file" id="fileInput" name="file" style="display: none;" onchange="showSaveButton();" />
 
           <!-- Save Button -->
@@ -380,7 +375,7 @@ $image = $user['user_image'];
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <!-- LIST OF ALL STUDENT UNDER-->
-            <a href="#">
+            <a href="../admin/studentRecords.php">
               <i class="ri-booklet-fill"></i><span>Students</span>
             </a>
           </li>
@@ -407,28 +402,7 @@ $image = $user['user_image'];
           <span>Announcements</span>
         </a>
       </li>
-      <!--
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
-                    <i class="bx bx-wallet"></i>
-                    <span>Payment</span>
-                </a>
-            </li>
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
-                    <i class="ri-user-fill"></i>
-                    <span>Users</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="../admin/compensation.php">
-                    <i class="bi bi-layout-text-window-reverse"></i>
-                    <span>Compensation</span>
-                </a>
-            </li>
--->
       <li class="nav-item">
         <a class="nav-link collapsed" href="../admin/includes/logout.inc.php">
           <i class="ri-logout-circle-r-line"></i>
@@ -486,7 +460,7 @@ $image = $user['user_image'];
 
     </ul>
 
-    <div style="margin-top: 5%; position:fixed">
+    <div style="margin-top: 13%; position:fixed">
       <label class="switch">
         <input type="checkbox" id="darkModeToggle">
         <span class="slider round"></span>

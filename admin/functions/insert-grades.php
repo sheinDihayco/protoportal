@@ -1,0 +1,45 @@
+<?php
+include("../includes/connect.php");
+include("../includes/connection.php");
+
+if (isset($_POST['register'])) {
+    $database = new Connection();
+    $db = $database->open();
+
+    // Retrieve the data from the form
+    $user_id = $_POST['user_id'] ?? null;
+    $studentID = $_POST['studentID'] ?? null;
+    $id = $_POST['subject'] ?? null;
+    $term = $_POST['term'] ?? null;
+    $grade = $_POST['grade'] ?? null;
+
+    // Ensure none of the required fields are missing
+    if ($user_id && $studentID && $id && $term && $grade) {
+        // Prepare and execute the insert query
+        try {
+            $sql = "INSERT INTO tbl_grades (user_id, term, grade, id, studentID) VALUES (:user_id, :term, :grade, :id, :studentID)";
+            $stmt = $db->prepare($sql);
+
+            // Bind the parameters
+            $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+            $stmt->bindParam(':term', $term, PDO::PARAM_STR);
+            $stmt->bindParam(':grade', $grade, PDO::PARAM_STR);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->bindParam(':studentID', $studentID, PDO::PARAM_STR);
+
+            // Execute the query
+            if ($stmt->execute()) {
+                header("Location:../studentRecords.php");
+                exit();
+            } else {
+                echo "<script>alert('Failed to add grade');</script>";
+            }
+        } catch (PDOException $e) {
+            echo "There was an error: " . $e->getMessage();
+        }
+    } else {
+        echo "<script>alert('Please fill in all required fields.');</script>";
+    }
+
+    $database->close();
+}

@@ -322,7 +322,7 @@ $image = $user['user_image'];
 
       <div class="profile-section">
         <div class="profile-img">
-          <img src="upload-files/<?php echo htmlspecialchars($image); ?>" alt="Profile Image" class="rounded-circle">
+          <img src="upload-files/<?php echo htmlspecialchars($image); ?>" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image" class="rounded-circle">
         </div>
 
         <div class="profile-info">
@@ -386,11 +386,29 @@ $image = $user['user_image'];
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="../admin/schedule.php">
+        <a class="nav-link collapsed" href="../admin/course.php">
           <i class="ri-calendar-2-fill"></i>
-          <span>Schedule</span>
+          <span>Courses</span>
         </a>
       </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-journal-text"></i><span>Schedule</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="../admin/set-schedule.php">
+              <i class="bi bi-circle" class="active"></i><span>Set Schedule</span>
+            </a>
+          </li>
+          <li>
+            <a href="../admin/set-slots.php">
+              <i class="bi bi-circle" class="active"></i><span>Time Slot</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Forms Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="../admin/subject.php">
@@ -400,7 +418,7 @@ $image = $user['user_image'];
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="../admin/Grade.php">
+        <a class="nav-link collapsed" href="../admin/grade.php">
           <i class="ri-book-3-line"></i>
           <span>Grades</span>
         </a>

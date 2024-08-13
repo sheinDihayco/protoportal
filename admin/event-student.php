@@ -75,7 +75,7 @@ $connection->close();
     <section class="section calendar">
 
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-5">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Saved Events</h5>
@@ -107,7 +107,7 @@ $connection->close();
                 </div>
             </div>
 
-            <div class="col-lg-6">
+            <div class="col-lg-7">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title"> Event</h5>
@@ -119,14 +119,14 @@ $connection->close();
                                         <p><?php echo htmlspecialchars($todaysEvent['date']); ?></p>
                                         <p><?php echo htmlspecialchars($todaysEvent['description']); ?></p>
                                     </div>
-                                    <div style="display: flex; align-items: flex-start;">
+                                    <!-- <div style="display: flex; align-items: flex-start;">
                                         <a href="../admin/edit-event.php?id=<?php echo $todaysEvent['id']; ?>" class="btn btn-sm btn-warning" style="margin-right: 5px;">
                                             <i class="bi bi-pencil"></i>
                                         </a>
                                         <a href="../admin/upload/delete_event.php?id=<?php echo $todaysEvent['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this event?');">
                                             <i class="bi bi-trash"></i>
                                         </a>
-                                    </div>
+                                    </div>-->
                                 </li>
                             <?php elseif (!$showTodayEvent && count($filteredEvents) > 0) : ?>
                                 <?php foreach ($filteredEvents as $event) : ?>
@@ -139,7 +139,7 @@ $connection->close();
                                     </li>
                                 <?php endforeach; ?>
                             <?php else : ?>
-                                <li class="list-group-item">No events found.</li>
+                                <img onerror=" this.src='images/no-event.jpg'" alt="">
                             <?php endif; ?>
                         </ul>
                     </div>

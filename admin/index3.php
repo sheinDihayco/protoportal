@@ -79,7 +79,7 @@ $connection->close();
         </div>
 
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-12">
                 <div class="card recent-sales overflow-auto">
                     <div class="filter">
                         <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
@@ -94,7 +94,7 @@ $connection->close();
                     </div>
 
                     <div class="card-body">
-                        <h5 class="card-title">Payment <span>| Status</span></h5>
+                        <h5 class="card-title">Profile <span>| viewing</span></h5>
 
                         <table class="table table-borderless datatable">
                             <thead>
@@ -144,27 +144,27 @@ $connection->close();
 
                 </div>
             </div><!-- End Recent Sales -->
-
-            <div class="col-lg-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title"> Event List <span class="badge bg-success" style="color: white;">This month</span></h5>
-                        <ul class="list-group">
-                            <?php if (!empty($filteredEvents)) : ?>
-                                <?php foreach ($filteredEvents as $event) : ?>
-                                    <li class="list-group-item">
-                                        <h6 class="card-title"><?php echo htmlspecialchars($event['title']); ?> <span>
-                                                <?php echo htmlspecialchars($event['date']); ?></span></h6>
-                                    </li>
-                                <?php endforeach; ?>
-                            <?php else : ?>
-                                <li class="list-group-item">No events found for the current month.</li>
-                            <?php endif; ?>
-                        </ul>
-                    </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"> Event List <span class="badge bg-success" style="color: white;">This month</span></h5>
+                    <ul class="list-group">
+                        <?php if (!empty($filteredEvents)) : ?>
+                            <?php foreach ($filteredEvents as $event) : ?>
+                                <li class="list-group-item">
+                                    <h6 class="card-title"><?php echo htmlspecialchars($event['title']); ?> <span>
+                                            <?php echo htmlspecialchars($event['date']); ?></span></h6>
+                                </li>
+                            <?php endforeach; ?>
+                        <?php else : ?>
+                            <li class="list-group-item">No events found for the current month.</li>
+                        <?php endif; ?>
+                    </ul>
                 </div>
             </div>
         </div>
+
     </section>
 
 </main><!-- End #main -->
@@ -202,6 +202,21 @@ $connection->close();
 
     .navbar-brand {
         text-decoration: none !important;
+    }
+
+    .alert {
+        padding: 20px;
+        background-color: #4CAF50;
+        color: white;
+        opacity: 1;
+        transition: opacity 0.6s;
+        margin-bottom: 15px;
+        border-radius: 4px;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 5000;
+        width: 300px;
     }
 </style>
 

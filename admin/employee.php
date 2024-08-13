@@ -125,11 +125,8 @@ if (isset($_SESSION['employee_created']) && $_SESSION['employee_created']) {
 
   <section class="section dashboard">
     <div class="row">
-
-      <!-- Left side columns -->
       <div class="col-lg-12">
         <div class="row">
-          <!-- Recent Sales -->
           <div class="col-12">
             <div class="card recent-sales overflow-auto">
 

@@ -1,4 +1,5 @@
 <?php
+
 if (isset($_POST['stud_id']) && !empty($_POST['stud_id'])) {
   $_SESSION['stud'] = $_POST['stud_id'];
 }
@@ -14,17 +15,39 @@ include_once "includes/connect.php";
 include_once 'includes/connection.php';
 
 try {
-  $statement = $conn->prepare("SELECT * FROM tbl_students WHERE studentID = :sid ");
-
-  $statement->bindParam(':sid', $studid, PDO::PARAM_INT);
+  // Fetch student details
+  $statement = $conn->prepare("SELECT * FROM tbl_students WHERE studentID = :sid");
+  $statement->bindParam(':sid', $studid, PDO::PARAM_STR);
   $statement->execute();
   $studs = $statement->fetch(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
   echo 'Query failed: ' . $e->getMessage();
 }
 
-$image = $user['user_image'];
+// Connection to the database for fetching grades
+$database = new Connection();
+$db = $database->open();
+
+$grades = []; // Initialize as an empty array
+
+try {
+  // Query to fetch grades with description and code
+  $sql = "SELECT g.grade, g.term, s.code AS subject_code, s.description
+        FROM tbl_grades g
+        LEFT JOIN tbl_subjects s ON g.id = s.id
+        WHERE g.studentID = :sid
+        ORDER BY s.code ASC";
+
+  $stmt = $db->prepare($sql);
+  $stmt->bindParam(':sid', $studid, PDO::PARAM_STR);
+  $stmt->execute();
+  $grades = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+  echo "There was an error fetching grades: " . $e->getMessage();
+}
+$database->close();
 ?>
+
 <main id="main" class="main">
   <div class="pagetitle">
     <?php if ($studs) : ?>
@@ -51,6 +74,9 @@ $image = $user['user_image'];
             <ul class="nav nav-tabs nav-tabs-bordered">
               <li class="nav-item">
                 <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#payment-status">Payment Status</button>
+              </li>
+              <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-grades">Grades</button>
               </li>
               <li class="nav-item">
                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
@@ -134,15 +160,13 @@ $image = $user['user_image'];
               </div>
 
               <div class="tab-pane fade" id="profile-overview" style="padding: 50px;">
-                <h5 class="card-title">Student Profile Details</h5>
-
 
                 <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
                   <img src="upload-files/<?php echo htmlspecialchars($image); ?>" alt="Profile Image" class="rounded-circle">
                   <h2><?php echo $fname . ' ' . $lname; ?></h2>
                   <h3><?php echo htmlspecialchars($studs["course"]); ?></h3>
-                  <div class="dropdown">
+                  <!-- <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                       Profile Options
                     </button>
@@ -151,7 +175,7 @@ $image = $user['user_image'];
                       <li><a class="dropdown-item" href="#">Another action</a></li>
                       <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
-                  </div>
+                  </div>-->
 
                 </div>
 
@@ -325,6 +349,77 @@ $image = $user['user_image'];
                   <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["collegeCompleted"]); ?></div>
                 </div>
 
+              </div>
+
+              <div class="tab-pane fade" id="profile-grades">
+                <div class="card-body">
+                  <table class="table table-striped datatable">
+                    <thead>
+                      <tr>
+                        <th scope="col">Subject Code</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Prelim</th>
+                        <th scope="col">Midterm</th>
+                        <th scope="col">Pre-final</th>
+                        <th scope="col">Final</th>
+                        <th scope="col">Remarks</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php
+                      if (is_array($grades) && count($grades) > 0):
+                        $grades_by_subject = [];
+
+                        // Organize grades by subject and term
+                        foreach ($grades as $row) {
+                          if (isset($row['term']) && isset($row['grade'])) {
+                            $grades_by_subject[$row['subject_code']][$row['term']] = $row['grade'];
+                          }
+                          if (isset($row['description'])) {
+                            $grades_by_subject[$row['subject_code']]['description'] = $row['description'];
+                          }
+                        }
+
+
+                        // Display the organized grades
+                        foreach ($grades_by_subject as $subject_code => $subject_grades): ?>
+                          <tr>
+                            <td><?php echo htmlspecialchars($subject_code); ?></td>
+                            <td><?php echo htmlspecialchars($subject_grades['description']); ?></td>
+                            <td><?php echo isset($subject_grades['Prelim']) ? htmlspecialchars($subject_grades['Prelim']) : '-'; ?></td>
+                            <td><?php echo isset($subject_grades['Midterm']) ? htmlspecialchars($subject_grades['Midterm']) : '-'; ?></td>
+                            <td><?php echo isset($subject_grades['Pre-final']) ? htmlspecialchars($subject_grades['Pre-final']) : '-'; ?></td>
+                            <td><?php echo isset($subject_grades['Final']) ? htmlspecialchars($subject_grades['Final']) : '-'; ?></td>
+                            <td>
+                              <?php
+                              $total_grade = 0;
+                              $grade_count = 0;
+
+                              foreach (['Prelim', 'Midterm', 'Pre-final', 'Final'] as $term) {
+                                if (isset($subject_grades[$term])) {
+                                  $total_grade += $subject_grades[$term];
+                                  $grade_count++;
+                                }
+                              }
+
+                              if ($grade_count > 0) {
+                                $final_grade = $total_grade / $grade_count;
+                                echo $final_grade <= 3.0 ? 'PASSED' : 'FAILED';
+                              } else {
+                                echo 'N/A';
+                              }
+                              ?>
+                            </td>
+                          </tr>
+                        <?php endforeach;
+                      else: ?>
+                        <tr>
+                          <td colspan="7">No grades found.</td>
+                        </tr>
+                      <?php endif; ?>
+                    </tbody>
+                  </table>
+                </div>
               </div>
 
 
@@ -713,8 +808,6 @@ $image = $user['user_image'];
                 </form>
                 <!-- End Change Password Form -->
               </div>
-
-
 
             </div>
           </div><!-- End Bordered Tabs -->

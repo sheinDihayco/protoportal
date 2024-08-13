@@ -145,7 +145,7 @@
             <div class="card-body">
               <h5 class="card-title">Course <span>| BSIT - 3 </span></h5>
 
-              <table class="table table-striped datatable">
+              <table id="bsit3-table" class="table table-striped datatable">
                 <thead>
                   <tr>
                     <th scope="col">Semester</th>
@@ -156,7 +156,6 @@
                     <th scope="col">Units</th>
                     <th scope="col">Pre-requisite</th>
                     <th scope="col">Total Hours</th>
-                    <th scope="col">Course</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
@@ -178,7 +177,6 @@
                         <td><?php echo htmlspecialchars($subject['unit']); ?></td>
                         <td><?php echo htmlspecialchars($subject['pre_req']); ?></td>
                         <td><?php echo htmlspecialchars($subject['total']); ?></td>
-                        <td><?php echo htmlspecialchars($subject['course']); ?></td>
                         <td>
                           <button type="button" class="btn btn-sm btn-warning ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editStudent<?php echo $subject['id']; ?>"></button>
                           <form method="POST" action="../admin/upload/delete_subject.php" onsubmit="return confirm('Are you sure you want to delete this subject?');" style="display:inline;">
@@ -198,6 +196,7 @@
                   ?>
                 </tbody>
               </table>
+              <button type="button" class="btn btn-sm btn-primary ri-printer-line" onclick="printTableBSIT3();"></button>
             </div>
 
           </div>
@@ -225,7 +224,7 @@
             <div class="card-body">
               <h5 class="card-title">Subject <span>| BSOA - 3 </span></h5>
 
-              <table class="table table-striped datatable">
+              <table id="bsoa3-table" class="table table-striped datatable">
                 <thead>
                   <tr>
                     <th scope="col">Semester</th>
@@ -236,7 +235,6 @@
                     <th scope="col">Units</th>
                     <th scope="col">Pre-requisite</th>
                     <th scope="col">Total Hours</th>
-                    <th scope="col">Course</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
@@ -258,7 +256,6 @@
                         <td><?php echo htmlspecialchars($subject['unit']); ?></td>
                         <td><?php echo htmlspecialchars($subject['pre_req']); ?></td>
                         <td><?php echo htmlspecialchars($subject['total']); ?></td>
-                        <td><?php echo htmlspecialchars($subject['course']); ?></td>
                         <td>
                           <button type="button" class="btn btn-sm btn-warning ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editStudent<?php echo $subject['id']; ?>"></button>
                           <form method="POST" action="../admin/upload/delete_subject.php" onsubmit="return confirm('Are you sure you want to delete this subject?');" style="display:inline;">
@@ -278,6 +275,7 @@
                   ?>
                 </tbody>
               </table>
+              <button type="button" class="btn btn-sm btn-primary ri-printer-line" onclick="printTableBSOA3();"></button>
             </div>
 
           </div>
@@ -305,7 +303,7 @@
             <div class="card-body">
               <h5 class="card-title">Subject <span>| BSBA - 3 </span></h5>
 
-              <table class="table table-striped datatable">
+              <table id="bsba3-table" class="table table-striped datatable">
                 <thead>
                   <tr>
                     <th scope="col">Semester</th>
@@ -316,7 +314,6 @@
                     <th scope="col">Units</th>
                     <th scope="col">Pre-requisite</th>
                     <th scope="col">Total Hours</th>
-                    <th scope="col">Course</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
@@ -338,7 +335,6 @@
                         <td><?php echo htmlspecialchars($subject['unit']); ?></td>
                         <td><?php echo htmlspecialchars($subject['pre_req']); ?></td>
                         <td><?php echo htmlspecialchars($subject['total']); ?></td>
-                        <td><?php echo htmlspecialchars($subject['course']); ?></td>
                         <td>
                           <button type="button" class="btn btn-sm btn-warning ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editStudent<?php echo $subject['id']; ?>"></button>
                           <form method="POST" action="../admin/upload/delete_subject.php" onsubmit="return confirm('Are you sure you want to delete this subject?');" style="display:inline;">
@@ -358,6 +354,7 @@
                   ?>
                 </tbody>
               </table>
+              <button type="button" class="btn btn-sm btn-primary ri-printer-line" onclick="printTableBSBA3();"></button>
             </div>
 
           </div>
@@ -370,3 +367,278 @@
 </main>
 
 <?php include_once "../templates/footer.php"; ?>
+
+<!--BSIT-->
+<script>
+  function printTableBSIT3() {
+    // Open a new window for printing
+    var printWindow = window.open('', '', 'height=600,width=800');
+
+    // Select the HUMSS11 table specifically by its ID
+    var table = document.querySelector('#bsit3-table');
+
+    // Clone the table
+    var tableClone = table.cloneNode(true);
+
+    // Find the index of the "Semester" and "Action" columns
+    var headerCells = tableClone.querySelectorAll('thead th');
+    var semesterIndex = Array.from(headerCells).findIndex(cell => cell.textContent.trim().toLowerCase() === 'semester');
+    var actionIndex = Array.from(headerCells).findIndex(cell => cell.textContent.trim().toLowerCase() === 'action');
+
+    // Remove "Semester" column header if it exists
+    if (semesterIndex !== -1) {
+      headerCells[semesterIndex].parentElement.removeChild(headerCells[semesterIndex]);
+    }
+
+    // Remove "Action" column header if it exists
+    if (actionIndex !== -1) {
+      headerCells[actionIndex].parentElement.removeChild(headerCells[actionIndex]);
+    }
+
+    // Group rows by semester
+    var rows = Array.from(tableClone.querySelectorAll('tbody tr'));
+    var semesters = {};
+
+    rows.forEach(function(row) {
+      var cells = row.querySelectorAll('td');
+      var semester = cells[semesterIndex].textContent.trim();
+
+      // Remove the "Semester" cell from the row
+      if (semesterIndex !== -1) {
+        cells[semesterIndex].parentElement.removeChild(cells[semesterIndex]);
+      }
+
+      // Remove the "Action" cell from the row, if it exists
+      if (actionIndex !== -1 && cells[actionIndex]) {
+        cells[actionIndex].parentElement.removeChild(cells[actionIndex]);
+      }
+
+      // Group rows by semester
+      if (!semesters[semester]) {
+        semesters[semester] = [];
+      }
+      semesters[semester].push(row);
+    });
+
+    // Create a new document for printing
+    var printDocument = printWindow.document;
+
+    printDocument.open();
+    printDocument.write('<html><head><title>Prospectus</title>');
+    printDocument.write('<style>table { width: 100%; border-collapse: collapse; } th, td { border: 1px solid black; padding: 2px; text-align: center; font-size: 12px; } h4 { text-align: center; margin: 10px 2px 2px 20px; } p { text-align: center; margin: 2px 2px 2px 20px; } h3 { text-align: left; margin-left: 20px; } img { position: absolute; top: 15px; left: 30px; max-width: 10%; }</style>');
+    printDocument.write('</head><body>');
+
+    // Add header information similar to the image
+    printDocument.write('<img src="../assets/img/miit.png" alt="Logo">');
+    printDocument.write('<h4>Microsystems International Institute of Technology, Inc.</h4><p>(Inayagan, City of Naga, Cebu)</p><p>(Tel. NO.: (032) 4273630)</p>');
+    printDocument.write('<h4>Bachelor of Science in Information Technology</h4> <p>(CMO 25 S. 2015)</p> <p>(S.Y. 2021-2022)</p>');
+
+    // Iterate over semesters and create a table for each
+    Object.keys(semesters).forEach(function(semester) {
+      // Print the semester header based on the semester value
+      var semesterName = '';
+      if (semester === '1') {
+        semesterName = 'First Semester';
+      } else if (semester === '2') {
+        semesterName = 'Second Semester';
+      } else if (semester === '0') {
+        semesterName = 'SUMMER';
+      }
+
+      printDocument.write('<h3>BSIT 3 - ' + semesterName + '</h3>');
+
+      // Create a new table for the semester
+      var semesterTable = document.createElement('table');
+      semesterTable.innerHTML = '<thead>' + tableClone.querySelector('thead').innerHTML + '</thead><tbody></tbody>';
+      var semesterTbody = semesterTable.querySelector('tbody');
+
+      semesters[semester].forEach(function(row) {
+        semesterTbody.appendChild(row);
+      });
+
+      // Append the semester table to the print document
+      printDocument.write(semesterTable.outerHTML);
+    });
+
+
+    printDocument.write('</body></html>');
+    printDocument.close();
+    printWindow.print();
+  }
+</script>
+
+<!--BSOA-->
+<script>
+  function printTableBSOA3() {
+    // Open a new window for printing
+    var printWindow = window.open('', '', 'height=600,width=800');
+
+    // Select the HUMSS11 table specifically by its ID
+    var table = document.querySelector('#bsoa3-table');
+
+    // Clone the table
+    var tableClone = table.cloneNode(true);
+
+    // Find the index of the "Semester" and "Action" columns
+    var headerCells = tableClone.querySelectorAll('thead th');
+    var semesterIndex = Array.from(headerCells).findIndex(cell => cell.textContent.trim().toLowerCase() === 'semester');
+    var actionIndex = Array.from(headerCells).findIndex(cell => cell.textContent.trim().toLowerCase() === 'action');
+
+    // Remove "Semester" column header if it exists
+    if (semesterIndex !== -1) {
+      headerCells[semesterIndex].parentElement.removeChild(headerCells[semesterIndex]);
+    }
+
+    // Remove "Action" column header if it exists
+    if (actionIndex !== -1) {
+      headerCells[actionIndex].parentElement.removeChild(headerCells[actionIndex]);
+    }
+
+    // Group rows by semester
+    var rows = Array.from(tableClone.querySelectorAll('tbody tr'));
+    var semesters = {};
+
+    rows.forEach(function(row) {
+      var cells = row.querySelectorAll('td');
+      var semester = cells[semesterIndex].textContent.trim();
+
+      // Remove the "Semester" cell from the row
+      if (semesterIndex !== -1) {
+        cells[semesterIndex].parentElement.removeChild(cells[semesterIndex]);
+      }
+
+      // Remove the "Action" cell from the row, if it exists
+      if (actionIndex !== -1 && cells[actionIndex]) {
+        cells[actionIndex].parentElement.removeChild(cells[actionIndex]);
+      }
+
+      // Group rows by semester
+      if (!semesters[semester]) {
+        semesters[semester] = [];
+      }
+      semesters[semester].push(row);
+    });
+
+    // Create a new document for printing
+    var printDocument = printWindow.document;
+
+    printDocument.open();
+    printDocument.write('<html><head><title>Prospectus</title>');
+    printDocument.write('<style>table { width: 100%; border-collapse: collapse; } th, td { border: 1px solid black; padding: 2px; text-align: center; font-size: 12px; } h4 { text-align: center; margin: 10px 2px 2px 20px; } p { text-align: center; margin: 2px 2px 2px 20px; } h3 { text-align: left; margin-left: 20px; } img { position: absolute; top: 15px; left: 30px; max-width: 10%; }</style>');
+    printDocument.write('</head><body>');
+
+    // Add header information similar to the image
+    printDocument.write('<img src="../assets/img/miit.png" alt="Logo">');
+    printDocument.write('<h4>Microsystems International Institute of Technology, Inc.</h4><p>(Inayagan, City of Naga, Cebu)</p><p>(Tel. NO.: (032) 4273630)</p>');
+    printDocument.write('<h4>Bachelor of Science in Office Administration</h4> <p>(CMO 17 S. 2017)</p> <p>(S.Y. 2023-2024)</p>');
+
+    // Iterate over semesters and create a table for each
+    Object.keys(semesters).forEach(function(semester) {
+      printDocument.write('<h3> BSOA 3 - ' + (semester === '1' ? 'First Semester' : 'Second Semester') + '</h3>');
+
+      // Create a new table for the semester
+      var semesterTable = document.createElement('table');
+      semesterTable.innerHTML = '<thead>' + tableClone.querySelector('thead').innerHTML + '</thead><tbody></tbody>';
+      var semesterTbody = semesterTable.querySelector('tbody');
+
+      semesters[semester].forEach(function(row) {
+        semesterTbody.appendChild(row);
+      });
+
+      // Append the semester table to the print document
+      printDocument.write(semesterTable.outerHTML);
+    });
+
+    printDocument.write('</body></html>');
+    printDocument.close();
+    printWindow.print();
+  }
+</script>
+
+<!--BSBA-->
+<script>
+  function printTableBSBA3() {
+    // Open a new window for printing
+    var printWindow = window.open('', '', 'height=600,width=800');
+
+    // Select the HUMSS11 table specifically by its ID
+    var table = document.querySelector('#bsba3-table');
+
+    // Clone the table
+    var tableClone = table.cloneNode(true);
+
+    // Find the index of the "Semester" and "Action" columns
+    var headerCells = tableClone.querySelectorAll('thead th');
+    var semesterIndex = Array.from(headerCells).findIndex(cell => cell.textContent.trim().toLowerCase() === 'semester');
+    var actionIndex = Array.from(headerCells).findIndex(cell => cell.textContent.trim().toLowerCase() === 'action');
+
+    // Remove "Semester" column header if it exists
+    if (semesterIndex !== -1) {
+      headerCells[semesterIndex].parentElement.removeChild(headerCells[semesterIndex]);
+    }
+
+    // Remove "Action" column header if it exists
+    if (actionIndex !== -1) {
+      headerCells[actionIndex].parentElement.removeChild(headerCells[actionIndex]);
+    }
+
+    // Group rows by semester
+    var rows = Array.from(tableClone.querySelectorAll('tbody tr'));
+    var semesters = {};
+
+    rows.forEach(function(row) {
+      var cells = row.querySelectorAll('td');
+      var semester = cells[semesterIndex].textContent.trim();
+
+      // Remove the "Semester" cell from the row
+      if (semesterIndex !== -1) {
+        cells[semesterIndex].parentElement.removeChild(cells[semesterIndex]);
+      }
+
+      // Remove the "Action" cell from the row, if it exists
+      if (actionIndex !== -1 && cells[actionIndex]) {
+        cells[actionIndex].parentElement.removeChild(cells[actionIndex]);
+      }
+
+      // Group rows by semester
+      if (!semesters[semester]) {
+        semesters[semester] = [];
+      }
+      semesters[semester].push(row);
+    });
+
+    // Create a new document for printing
+    var printDocument = printWindow.document;
+
+    printDocument.open();
+    printDocument.write('<html><head><title>Prospectus</title>');
+    printDocument.write('<style>table { width: 100%; border-collapse: collapse; } th, td { border: 1px solid black; padding: 2px; text-align: center; font-size: 12px; } h4 { text-align: center; margin: 10px 2px 2px 20px; } p { text-align: center; margin: 2px 2px 2px 20px; } h3 { text-align: left; margin-left: 20px; } img { position: absolute; top: 15px; left: 30px; max-width: 10%; }</style>');
+    printDocument.write('</head><body>');
+
+    // Add header information similar to the image
+    printDocument.write('<img src="../assets/img/miit.png" alt="Logo">');
+    printDocument.write('<h4>Microsystems International Institute of Technology, Inc.</h4><p>(Inayagan, City of Naga, Cebu)</p><p>(Tel. NO.: (032) 4273630)</p>');
+    printDocument.write('<h4>Bachelor of Science in Business Administration</h4> <p>(CMO 17 S. 2017)</p> <p>(S.Y. 2021-2022)</p>');
+
+    // Iterate over semesters and create a table for each
+    Object.keys(semesters).forEach(function(semester) {
+      printDocument.write('<h3> BSBA 3 - ' + (semester === '1' ? 'First Semester' : 'Second Semester') + '</h3>');
+
+      // Create a new table for the semester
+      var semesterTable = document.createElement('table');
+      semesterTable.innerHTML = '<thead>' + tableClone.querySelector('thead').innerHTML + '</thead><tbody></tbody>';
+      var semesterTbody = semesterTable.querySelector('tbody');
+
+      semesters[semester].forEach(function(row) {
+        semesterTbody.appendChild(row);
+      });
+
+      // Append the semester table to the print document
+      printDocument.write(semesterTable.outerHTML);
+    });
+
+    printDocument.write('</body></html>');
+    printDocument.close();
+    printWindow.print();
+  }
+</script>
