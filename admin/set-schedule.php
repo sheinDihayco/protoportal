@@ -120,7 +120,7 @@ $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", en
                                 </tr>
                             </thead>
                             <tbody>
-
+                                <!-- Data will be loaded here by JavaScript -->
                             </tbody>
                         </table>
                     </div>
