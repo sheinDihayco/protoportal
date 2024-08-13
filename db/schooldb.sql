@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 06, 2024 at 10:42 AM
+-- Generation Time: Aug 13, 2024 at 03:29 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -85,6 +85,25 @@ INSERT INTO `tbl_compensation` (`comp_id`, `employee_id`, `basic_pay`, `sss`, `p
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_course`
+--
+
+CREATE TABLE `tbl_course` (
+  `course_id` int(11) NOT NULL,
+  `course_description` varchar(100) DEFAULT NULL,
+  `course_year` tinyint(1) UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_course`
+--
+
+INSERT INTO `tbl_course` (`course_id`, `course_description`, `course_year`) VALUES
+(12, 'BSIT', 4);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_employee`
 --
 
@@ -107,7 +126,8 @@ CREATE TABLE `tbl_employee` (
 
 INSERT INTO `tbl_employee` (`employee_id`, `first_name`, `last_name`, `date_of_birth`, `gender`, `hire_date`, `job_title`, `department`, `phone_number`, `address`) VALUES
 (12404, 'Michael John', 'Bustamante', '1997-12-17', 'Male', '2024-01-24', 'Instructor', 'IT', '094582311', 'Linao-Lipata, Minglanilla, Cebu'),
-(12405, 'Jessamae', 'Carzano', '1996-01-01', 'Female', '0004-01-01', 'Accounting', 'Accounting Dept.', '099999999999', 'Inayagan, City of Naga');
+(12405, 'Jessamae', 'Carzano', '1996-01-01', 'Female', '0004-01-01', 'Accounting', 'Accounting Dept.', '099999999999', 'Inayagan, City of Naga'),
+(12409, 'Rene', 'Ababan', '1989-11-11', 'Male', '2010-11-11', 'Instructor', 'IT', '0999999999', 'Inayagan');
 
 -- --------------------------------------------------------
 
@@ -127,7 +147,66 @@ CREATE TABLE `tbl_events` (
 --
 
 INSERT INTO `tbl_events` (`id`, `title`, `date`, `description`) VALUES
-(26, 'Enrollment Day', '2024-08-05', 'All student must be enrolled on this day, to secure slots for the upcoming event in school. Thank you!');
+(27, 'Start of Classes', '2024-07-29', 'Beginning of the first semester classes.'),
+(28, 'Ninoy Aquino Day', '2024-08-21', 'Commemoration of Ninoy Aquino\'s death.'),
+(29, 'National Heroes Day', '2024-08-26', 'Celebration of National Heroes Day.'),
+(30, 'Prelim Examination', '2024-08-29', 'Preliminary examinations for the first semester.'),
+(31, 'Prelim Examination', '2024-08-30', 'Preliminary examinations for the first semester.'),
+(32, 'Prelim Examination', '2024-08-31', 'Preliminary examinations for the first semester.'),
+(33, 'Osmeña Day', '2024-09-09', 'Celebration of Osmeña Day.'),
+(34, 'SPG/SSG Election', '2024-09-10', 'Student elections for SPG/SSG.'),
+(35, 'SPG/SSG Election', '2024-09-11', 'Student elections for SPG/SSG.'),
+(36, 'SPG/SSG Election', '2024-09-12', 'Student elections for SPG/SSG.'),
+(37, 'SPG/SSG Election', '2024-09-13', 'Student elections for SPG/SSG.'),
+(38, 'SPG/SSG Election', '2024-09-14', 'Student elections for SPG/SSG.'),
+(39, 'Midterm Examination (1st Quarter Examination)', '2024-10-02', 'Midterm examinations for the first quarter.'),
+(40, 'Midterm Examination (1st Quarter Examination)', '2024-10-03', 'Midterm examinations for the first quarter.'),
+(41, 'Midterm Examination (1st Quarter Examination)', '2024-10-04', 'Midterm examinations for the first quarter.'),
+(42, 'Intramurals', '2024-10-28', 'School-wide intramural sports competition.'),
+(43, 'Intramurals', '2024-10-29', 'School-wide intramural sports competition.'),
+(44, 'Intramurals', '2024-10-30', 'School-wide intramural sports competition.'),
+(45, 'All Saints Day', '2024-11-01', 'Observance of All Saints Day.'),
+(46, 'All Souls Day', '2024-11-02', 'Observance of All Souls Day.'),
+(47, 'Pre-Final Examination', '2024-11-07', 'Pre-final examinations for the first semester.'),
+(48, 'Pre-Final Examination', '2024-11-08', 'Pre-final examinations for the first semester.'),
+(49, 'Pre-Final Examination', '2024-11-09', 'Pre-final examinations for the first semester.'),
+(50, 'Bonifacio Day', '2024-11-30', 'Commemoration of Andres Bonifacio\'s birthday.'),
+(51, 'Feast of the Immaculate Conception', '2024-12-08', 'Religious observance of the Feast of the Immaculate Conception.'),
+(52, 'Final Examination (2nd Quarter Examination)', '2024-12-11', 'Final examinations for the second quarter.'),
+(53, 'Final Examination (2nd Quarter Examination)', '2024-12-12', 'Final examinations for the second quarter.'),
+(54, 'Final Examination (2nd Quarter Examination)', '2024-12-13', 'Final examinations for the second quarter.'),
+(55, 'Acquaintance Party / Christmas Party / End of the ', '2024-12-14', 'Acquaintance and Christmas party marking the end of the first semester.'),
+(56, 'Christmas Break', '2024-12-16', 'Start of the Christmas break.'),
+(57, 'Christmas Break', '2024-12-17', 'Start of the Christmas break.'),
+(58, 'Christmas Break', '2024-12-18', 'Start of the Christmas break.'),
+(59, 'Christmas Break', '2024-12-19', 'Start of the Christmas break.'),
+(60, 'Christmas Break', '2024-12-20', 'Start of the Christmas break.'),
+(61, 'Christmas Break', '2024-12-21', 'Start of the Christmas break.'),
+(62, 'Christmas Break', '2024-12-22', 'Start of the Christmas break.'),
+(63, 'Christmas Break', '2024-12-23', 'Start of the Christmas break.'),
+(64, 'Christmas Break', '2024-12-24', 'Start of the Christmas break.'),
+(65, 'Christmas Break', '2024-12-25', 'Start of the Christmas break.'),
+(66, 'Christmas Break', '2024-12-26', 'Start of the Christmas break.'),
+(67, 'Christmas Break', '2024-12-27', 'Start of the Christmas break.'),
+(68, 'Christmas Break', '2024-12-28', 'Start of the Christmas break.'),
+(69, 'Christmas Break', '2024-12-29', 'Start of the Christmas break.'),
+(70, 'Christmas Break', '2024-12-30', 'Start of the Christmas break.'),
+(71, 'Christmas Break', '2024-12-31', 'Start of the Christmas break.');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_grades`
+--
+
+CREATE TABLE `tbl_grades` (
+  `grade_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `id` int(20) NOT NULL,
+  `term` varchar(20) NOT NULL,
+  `grade` decimal(5,2) NOT NULL,
+  `studentID` int(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -190,11 +269,72 @@ CREATE TABLE `tbl_payments` (
   `studentID` int(20) NOT NULL,
   `payment_status` varchar(20) NOT NULL,
   `semester` varchar(20) NOT NULL,
-  `prelim` varchar(20) NOT NULL,
-  `midterm` varchar(20) NOT NULL,
-  `prefinal` varchar(20) NOT NULL,
-  `final` varchar(20) NOT NULL
+  `paymentPeriod` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_rooms`
+--
+
+CREATE TABLE `tbl_rooms` (
+  `room_id` int(11) NOT NULL,
+  `room_name` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_rooms`
+--
+
+INSERT INTO `tbl_rooms` (`room_id`, `room_name`) VALUES
+(4, 'Room 3'),
+(5, 'Room 4'),
+(7, 'Room 1'),
+(8, 'Room 5');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_schedule`
+--
+
+CREATE TABLE `tbl_schedule` (
+  `schedule_id` int(11) NOT NULL,
+  `instructor_id` int(20) NOT NULL,
+  `course_id` int(11) NOT NULL,
+  `subject_id` int(11) NOT NULL,
+  `room_id` int(11) NOT NULL,
+  `time_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_schedule`
+--
+
+INSERT INTO `tbl_schedule` (`schedule_id`, `instructor_id`, `course_id`, `subject_id`, `room_id`, `time_id`) VALUES
+(82, 12404, 12, 62, 4, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_sched_time`
+--
+
+CREATE TABLE `tbl_sched_time` (
+  `time_id` int(11) NOT NULL,
+  `start_time` time DEFAULT NULL,
+  `end_time` time DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_sched_time`
+--
+
+INSERT INTO `tbl_sched_time` (`time_id`, `start_time`, `end_time`) VALUES
+(3, '09:00:00', '11:00:00'),
+(4, '10:00:00', '11:00:00'),
+(9, '10:00:00', '11:00:00');
 
 -- --------------------------------------------------------
 
@@ -252,10 +392,11 @@ CREATE TABLE `tbl_students` (
 --
 
 INSERT INTO `tbl_students` (`studentID`, `user_id`, `lname`, `fname`, `middleInitial`, `Suffix`, `course`, `year`, `contact`, `gender`, `bdate`, `pob`, `email`, `major`, `nationality`, `civilStatus`, `religion`, `modality`, `fb`, `curAddress`, `cityAdd`, `zipcode`, `fatherName`, `fwork`, `motherName`, `mwork`, `primarySchool`, `primaryAddress`, `primaryCompleted`, `entermediateSchool`, `entermediateAddress`, `entermediateCompleted`, `hsSchool`, `hsAddress`, `hsCompleted`, `shSchool`, `shAddress`, `shCompleted`, `collegeSchool`, `collegeAddress`, `collegeCompleted`, `user_image`) VALUES
+(2012900, 32, 'Dela cruz', 'Juan', '', '', 'BSOA', 1, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
 (2021080, 21, 'Lazaga', 'Cherry mae', 'G.', '-', 'BSBA', 3, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
-(2021123, 20, 'Algarme', 'Zean Mariuss', 'C.', '-', ' BSIT', 3, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
-(2021137, 19, 'Dihayco', 'Sheinalie', 'V.', '-', ' BSIT', 3, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
-(2021160, 31, 'Tahanlangit', 'Louie', 'A.', '-', ' BSIT', 3, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+(2021123, 20, 'Algarme', 'Zean Mariuss', '', '', ' BSIT', 4, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(2021124, 25, 'Aguipo', 'Ashielamae', '', '', 'BSBA', 4, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(2021160, 26, 'Tahanlangit', 'Louie', '', '', ' BSIT', 4, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -445,7 +586,141 @@ INSERT INTO `tbl_subjects` (`id`, `year`, `semester`, `code`, `description`, `le
 (171, 4, 1, 'Elective 4', 'Service Marketing', 3, 0, 3, 'None', 18, 'BSBA'),
 (172, 4, 1, 'Elective 5', 'International Marketing', 3, 0, 3, 'None', 18, 'BSBA'),
 (173, 4, 1, 'BA Core 9', 'Thesis or Feasibility Study', 3, 0, 3, 'BA Core 8', 18, 'BSBA'),
-(174, 4, 2, 'Internship', 'Practicum/Work Integrated Learning', 0, 6, 6, 'None', 6, 'BSBA');
+(174, 4, 2, 'Internship', 'Practicum/Work Integrated Learning', 0, 6, 6, 'None', 6, 'BSBA'),
+(175, 11, 1, 'English 111', 'Oral Communication in Context', 0, 0, 0, '', 80, 'HUMSS'),
+(176, 11, 1, 'Filipino 111', 'Komunikasyon at Pananaliksik sa Wika at Kulturang ', 0, 0, 0, '', 80, 'HUMSS'),
+(177, 11, 1, 'Mathematics 111', 'General Mathematics', 0, 0, 0, '', 80, 'HUMSS'),
+(178, 11, 1, 'Pol Sci 111', 'Understanding Culture, Society, and Politics', 0, 0, 0, '', 80, 'HUMSS'),
+(179, 11, 1, 'P.E.H 111', 'Physical Education and Health', 0, 0, 0, '', 20, 'HUMSS'),
+(180, 11, 1, 'English 211', 'English for Academic and Professional Purposes', 0, 0, 0, '', 80, 'HUMSS'),
+(181, 11, 1, 'Filipino 211', 'Pagbasa at Pagsusuri ng Iba\'t Ibang Teksto Tungo s', 0, 0, 0, '', 80, 'HUMSS'),
+(182, 11, 1, 'Pol Sci 211', 'Philippine Politics & Governance', 0, 0, 0, '', 80, 'HUMSS'),
+(183, 11, 1, 'Elective 1', 'Creative Writing/Malikhaing Pagsulat', 0, 0, 0, '', 80, 'HUMSS'),
+(184, 11, 2, 'English 311', 'Reading and Writing Skill', 0, 0, 0, 'English for Academic and Professional Purposes', 80, 'HUMSS'),
+(185, 11, 2, 'Filipino 311', 'Pagbasa at Pagsusuri sa Iba\'t Ibang Teksto Tungo s', 0, 0, 0, 'Pagbasa at Pagsusuri ng Iba\'t Ibang Teksto sa Lara', 80, 'HUMSS'),
+(186, 11, 2, 'Mathematics 211', 'Statistics and Probability', 0, 0, 0, 'General Mathematics', 80, 'HUMSS'),
+(187, 11, 2, 'Humanities 111', 'Introduction to the Philosophy of the Human Person', 0, 0, 0, '', 80, 'HUMSS'),
+(188, 11, 2, 'P.E.H 211', 'Physical Education and Health', 0, 0, 0, 'P.E.H 111', 20, 'HUMSS'),
+(189, 11, 2, 'Res 111', 'Practical Research 1', 0, 0, 0, '', 80, 'HUMSS'),
+(190, 11, 2, 'B-Tech 111', 'Empowerment Technologies (E-Tech): ICT for Profess', 0, 0, 0, '', 80, 'HUMSS'),
+(191, 11, 2, 'Humanities 211', 'Introduction to World Religions and Belief Systems', 0, 0, 0, '', 80, 'HUMSS'),
+(192, 11, 2, 'English 411', 'Creative Non-Fiction: Literary Essay', 0, 0, 0, 'Creative Writing/Malikhaing Pagsulat', 80, 'HUMSS'),
+(193, 12, 1, 'Humanities 312', 'Contemporary Philippine Arts from the Regions', 0, 0, 0, '', 80, 'HUMSS'),
+(194, 12, 1, 'Science 112', 'Earth and Life Science', 0, 0, 0, '', 80, 'HUMSS'),
+(195, 12, 1, 'P.E.H 312', 'Physical Education and Health', 0, 0, 0, 'P.E.H 211', 20, 'HUMSS'),
+(196, 12, 1, 'Humanities 412', 'Personal Development/Pansariling Kaunlaran', 0, 0, 0, 'Statistics and Probability, Practical Research 1', 80, 'HUMSS'),
+(197, 12, 1, 'Res 212', 'Practical Research 2', 0, 0, 0, '', 80, 'HUMSS'),
+(198, 12, 1, 'Entrep 112', 'Entrepreneurship', 0, 0, 0, '', 80, 'HUMSS'),
+(199, 12, 1, 'Social Science 112', 'Disciplines and Ideas in the Social Sciences', 0, 0, 0, '', 80, 'HUMSS'),
+(200, 12, 1, 'Social Science 212', 'Community Engagement, Solidarity, and Citizenship', 0, 0, 0, 'Understanding Culture, Society, and Politics', 80, 'HUMSS'),
+(201, 12, 2, 'Literature 112', '21st Century Literature from the Philippines and t', 0, 0, 0, 'Empowerment Technologies (E-Tech): ICT for Profess', 80, 'HUMSS'),
+(202, 12, 2, 'Comp 112', 'Media and Information Literacy', 0, 0, 0, '', 80, 'HUMSS'),
+(203, 12, 2, 'Science 212', 'Physical Science', 0, 0, 0, 'Earth and Life Science', 80, 'HUMSS'),
+(204, 12, 2, 'P.E.H 412', 'Physical Education and Health', 0, 0, 0, 'P.E.H 312', 20, 'HUMSS'),
+(205, 12, 2, 'HUMSS-CAP 112', 'Research Project/Culminating Activity', 0, 0, 0, '', 80, 'HUMSS'),
+(206, 12, 2, 'HUMSS-APP 112', 'Work Immersion/Research/Career Advocacy/Culminatin', 0, 0, 0, '', 80, 'HUMSS'),
+(207, 12, 2, 'English 512', 'Trends, Networks, and Critical Thinking in the 21s', 0, 0, 0, '', 80, 'HUMSS'),
+(208, 12, 2, 'Science 312', 'Discipline and Ideas in the Applied Sciences', 0, 0, 0, '', 80, 'HUMSS'),
+(209, 11, 1, 'Eng111', 'Oral Communication in Context', 0, 0, 0, '', 660, 'ABM'),
+(210, 11, 1, 'Fil111', 'Komunikasyon at Pananaliksik sa Wika at Kulturang ', 0, 0, 0, '', 660, 'ABM'),
+(211, 11, 1, 'Math111', 'General Mathematics', 0, 0, 0, '', 660, 'ABM'),
+(212, 11, 1, 'PolSci111', 'Understanding Culture, Society and Politics', 0, 0, 0, '', 660, 'ABM'),
+(213, 11, 1, 'PE111', 'Physical Education and Health', 0, 0, 0, '', 660, 'ABM'),
+(214, 11, 1, 'Eng211', 'English for Academic and Professional Purposes', 0, 0, 0, '', 660, 'ABM'),
+(215, 11, 1, 'Fil211', 'Pagbasa at Pagsusuri ng Iba’t-Ibang Teksto Tungo s', 0, 0, 0, 'Fil111', 660, 'ABM'),
+(216, 11, 1, 'Econ111', 'Applied Economics', 0, 0, 0, '', 660, 'ABM'),
+(217, 11, 1, 'Acctg111', 'Fundamentals of Accountancy, Business and Manageme', 0, 0, 0, '', 660, 'ABM'),
+(218, 11, 2, 'Eng311', 'Reading and Writing Skill', 0, 0, 0, 'Eng111', 660, 'ABM'),
+(219, 11, 2, 'Fil311', 'Pagbasa at Pagsusuri sa Iba’t-ibang Teksto Tungo s', 0, 0, 0, 'Fil211', 660, 'ABM'),
+(220, 11, 2, 'Math311', 'Statistics and Probability', 0, 0, 0, 'Math111', 660, 'ABM'),
+(221, 11, 2, 'Humanities311', 'Introduction to the Philosophy of the Human Person', 0, 0, 0, '', 660, 'ABM'),
+(222, 11, 2, 'PE211', 'Physical Education and Health', 0, 0, 0, 'PE111', 660, 'ABM'),
+(223, 11, 2, 'Res111', 'Practical Research 1', 0, 0, 0, '', 660, 'ABM'),
+(224, 11, 2, 'Entrep111', 'Principles of Marketing', 0, 0, 0, '', 660, 'ABM'),
+(225, 11, 2, 'Acctg211', 'Fundamentals of Accountancy, Business and Manageme', 0, 0, 0, 'Acctg111', 660, 'ABM'),
+(226, 12, 1, 'Humanities312', 'Contemporary Philippine Arts from the Regions', 0, 0, 0, '', 580, 'ABM'),
+(227, 12, 1, 'Science211', 'Earth and Life Science', 0, 0, 0, '', 580, 'ABM'),
+(228, 12, 1, 'PE311', 'Physical Education and Health', 0, 0, 0, 'PE211', 580, 'ABM'),
+(229, 12, 1, 'PracticalRes211', 'Practical Research 2', 0, 0, 0, '', 580, 'ABM'),
+(230, 12, 1, 'Entrep112', 'Entrepreneurship', 0, 0, 0, '', 580, 'ABM'),
+(231, 12, 1, 'Hum411', 'Personal Development', 0, 0, 0, '', 580, 'ABM'),
+(232, 12, 1, 'Math312', 'Business Math', 0, 0, 0, 'Math311', 580, 'ABM'),
+(233, 12, 1, 'Mgmt111', 'Organization and Management', 0, 0, 0, 'Entrep111', 580, 'ABM'),
+(234, 12, 2, 'Lit111', '21st Century Literature from the Philippines and t', 0, 0, 0, '', 580, 'ABM'),
+(235, 12, 2, 'Comp112', 'Media and Information Literacy', 0, 0, 0, '', 580, 'ABM'),
+(236, 12, 2, 'Science212', 'Physical Science', 0, 0, 0, 'Science211', 580, 'ABM'),
+(237, 12, 2, 'PE411', 'Physical Education and Health', 0, 0, 0, 'PE311', 580, 'ABM'),
+(238, 12, 2, 'Ethics112', 'Business Ethics and Social Responsibility', 0, 0, 0, '', 580, 'ABM'),
+(239, 12, 2, 'ABM-Cul112', 'Research Project/Culminating Activity', 0, 0, 0, 'Acctg211, Mgmt111', 580, 'ABM'),
+(240, 12, 2, 'Finance112', 'Business Finance', 0, 0, 0, 'Acctg211, Mgmt111', 580, 'ABM'),
+(241, 12, 2, 'ABM-App112', 'Work Immersion/Research/Career Advocacy/Culminatin', 0, 0, 0, 'Acctg211, Mgmt111', 580, 'ABM'),
+(242, 11, 1, 'Eng111', 'Oral Communication in Context', 0, 0, 0, '', 660, 'GAS'),
+(243, 11, 1, 'Fil111', 'Komunikasyon at Pananaliksik sa Wika at Kulturang ', 0, 0, 0, '', 660, 'GAS'),
+(244, 11, 1, 'Math111', 'General Mathematics', 0, 0, 0, '', 660, 'GAS'),
+(245, 11, 1, 'PolSci111', 'Understanding Culture, Society and Politics', 0, 0, 0, '', 660, 'GAS'),
+(246, 11, 1, 'PE111', 'Physical Education and Health', 0, 0, 0, '', 660, 'GAS'),
+(247, 11, 1, 'Eng211', 'English for Academic and Professional Purposes', 0, 0, 0, '', 660, 'GAS'),
+(248, 11, 1, 'Fil211', 'Pagbasa at Filipino sa Piling Larangan (Akademik)', 0, 0, 0, '', 660, 'GAS'),
+(249, 11, 1, 'PolSci211', 'Philippine Politics and Governance', 0, 0, 0, '', 660, 'GAS'),
+(250, 11, 1, 'Elective1', 'Creative Writing/Malikhaing Pagsulat', 0, 0, 0, '', 660, 'GAS'),
+(251, 11, 2, 'Eng311', 'Reading and Writing Skill', 0, 0, 0, 'Eng211', 660, 'GAS'),
+(252, 11, 2, 'Fil311', 'Pagbasa at Pagsusuri sa Iba’t-ibang Teksto Tungo s', 0, 0, 0, 'Fil211', 660, 'GAS'),
+(253, 11, 2, 'Math311', 'Statistics and Probability', 0, 0, 0, 'Math111', 660, 'GAS'),
+(254, 11, 2, 'Humanities111', 'Introduction to the Philosophy of the Human Person', 0, 0, 0, '', 660, 'GAS'),
+(255, 11, 2, 'PE211', 'Physical Education and Health', 0, 0, 0, 'PE111', 660, 'GAS'),
+(256, 11, 2, 'ETech111', 'Empowerment Technologies (E-Tech): ICT for Profess', 0, 0, 0, '', 660, 'GAS'),
+(257, 11, 2, 'Humanities211', 'Introduction to World Religions and Belief Systems', 0, 0, 0, '', 660, 'GAS'),
+(258, 11, 2, 'Elective2', 'Creative Non-Fiction: Literary Essay', 0, 0, 0, 'Elective1', 660, 'GAS'),
+(259, 12, 1, 'Humanities312', 'Contemporary Philippine Arts from the Regions', 0, 0, 0, '', 580, 'GAS'),
+(260, 12, 1, 'Science211', 'Earth and Life Science', 0, 0, 0, '', 580, 'GAS'),
+(261, 12, 1, 'PE311', 'Physical Education and Health', 0, 0, 0, 'PE211', 580, 'GAS'),
+(262, 12, 1, 'Humanities412', 'Personal Development/Pansariling Kaunlaran', 0, 0, 0, 'Math311, PracticalRes211', 580, 'GAS'),
+(263, 12, 1, 'Res212', 'Practical Research 2', 0, 0, 0, '', 580, 'GAS'),
+(264, 12, 1, 'Entrep112', 'Entrepreneurship', 0, 0, 0, '', 580, 'GAS'),
+(265, 12, 1, 'Econ112', 'Applied Economics', 0, 0, 0, '', 580, 'GAS'),
+(266, 12, 1, 'Mgmt111', 'Organization and Management', 0, 0, 0, '', 580, 'GAS'),
+(267, 12, 2, 'Lit112', '21st Century Literature from the Philippines and t', 0, 0, 0, 'ETech111', 580, 'GAS'),
+(268, 12, 2, 'Comp112', 'Media and Information Literacy', 0, 0, 0, '', 580, 'GAS'),
+(269, 12, 2, 'Science212', 'Physical Science', 0, 0, 0, 'Science211', 580, 'GAS'),
+(270, 12, 2, 'PE411', 'Physical Education and Health', 0, 0, 0, 'PE311', 580, 'GAS'),
+(271, 12, 2, 'Ethics112', 'Business Ethics and Social Responsibility', 0, 0, 0, '', 580, 'GAS'),
+(272, 12, 2, 'GAS-Cul112', 'Research Project/Culminating Activity', 0, 0, 0, 'Mgmt111, Entrep112', 580, 'GAS'),
+(273, 12, 2, 'GAS-App112', 'Work Immersion/Research/Career Advocacy/Culminatin', 0, 0, 0, 'Mgmt111, Entrep112', 580, 'GAS'),
+(274, 12, 2, 'Science312', 'Discipline and Ideas in the Applied Social Science', 0, 0, 0, '', 580, 'GAS'),
+(275, 12, 2, 'DRR112', 'Disaster Readiness and Risk Reduction', 0, 0, 0, '', 580, 'GAS'),
+(276, 11, 1, 'Eng111', 'Oral Communication in Context', 0, 0, 0, '', 660, 'ICT'),
+(277, 11, 1, 'Fil111', 'Komunikasyon at Pananaliksik sa Wika at Kulturang ', 0, 0, 0, '', 660, 'ICT'),
+(278, 11, 1, 'Math111', 'General Mathematics', 0, 0, 0, '', 660, 'ICT'),
+(279, 11, 1, 'PolSci111', 'Understanding Culture, Society and Politics', 0, 0, 0, '', 660, 'ICT'),
+(280, 11, 1, 'PE111', 'Physical Education and Health', 0, 0, 0, '', 660, 'ICT'),
+(281, 11, 1, 'Eng211', 'English for Academic and Professional Purposes', 0, 0, 0, '', 660, 'ICT'),
+(282, 11, 1, 'Fil211', 'Paglutas sa Filipino sa Piling Larangan (Tech-Voc)', 0, 0, 0, '', 660, 'ICT'),
+(283, 11, 1, 'CS111', 'Computer System Servicing', 0, 0, 0, '', 660, 'ICT'),
+(284, 11, 1, 'COMP111', 'Computer Programming I', 0, 0, 0, '', 660, 'ICT'),
+(285, 11, 2, 'Eng311', 'Reading and Writing Skill', 0, 0, 0, 'Eng211', 580, 'ICT'),
+(286, 11, 2, 'Fil311', 'Pagbasa at Pagsusuri sa Iba’t-ibang Teksto Tungo s', 0, 0, 0, 'Fil211', 580, 'ICT'),
+(287, 11, 2, 'Math311', 'Statistics and Probability', 0, 0, 0, 'Math111', 580, 'ICT'),
+(288, 11, 2, 'Humanities111', 'Introduction to the Philosophy of the Human Person', 0, 0, 0, '', 580, 'ICT'),
+(289, 11, 2, 'PE211', 'Physical Education and Health', 0, 0, 0, 'PE111', 580, 'ICT'),
+(290, 11, 2, 'Res111', 'Practical Research 1', 0, 0, 0, '', 580, 'ICT'),
+(291, 11, 2, 'ETech111', 'Empowerment Technologies (E-Tech): ICT for Profess', 0, 0, 0, '', 580, 'ICT'),
+(292, 11, 2, 'CS211', 'Computer System Servicing', 0, 0, 0, 'CS111', 580, 'ICT'),
+(293, 11, 2, 'COMP211', 'Computer Programming II', 0, 0, 0, 'COMP111', 580, 'ICT'),
+(294, 12, 1, 'Humanities312', 'Contemporary Philippine Arts from the Regions', 0, 0, 0, '', 580, 'ICT'),
+(295, 12, 1, 'Science112', 'Earth and Life Science', 0, 0, 0, '', 580, 'ICT'),
+(296, 12, 1, 'PE311', 'Physical Education and Health', 0, 0, 0, 'PE211', 580, 'ICT'),
+(297, 12, 1, 'Humanities412', 'Personal Development/Pansariling Kaunlaran', 0, 0, 0, 'Res111', 580, 'ICT'),
+(298, 12, 1, 'Res212', 'Practical Research 2', 0, 0, 0, '', 580, 'ICT'),
+(299, 12, 1, 'Entrep112', 'Entrepreneurship', 0, 0, 0, '', 580, 'ICT'),
+(300, 12, 1, 'CS311', 'Computer System Servicing', 0, 0, 0, 'CS211', 580, 'ICT'),
+(301, 12, 1, 'COMP311', 'Computer Programming III', 0, 0, 0, 'COMP211', 580, 'ICT'),
+(302, 12, 2, 'Lit112', '21st Century Literature from the Philippines and t', 0, 0, 0, 'ETech111', 500, 'ICT'),
+(303, 12, 2, 'Comp112', 'Media and Information Literacy', 0, 0, 0, '', 500, 'ICT'),
+(304, 12, 2, 'Science212', 'Physical Science', 0, 0, 0, 'Science112', 500, 'ICT'),
+(305, 12, 2, 'PE411', 'Physical Education and Health', 0, 0, 0, 'PE311', 500, 'ICT'),
+(306, 12, 2, 'CS412', 'Computer System Servicing', 0, 0, 0, 'CS111, CS211 & CS311', 500, 'ICT'),
+(307, 12, 2, 'COMP412', 'Computer Programming IV', 0, 0, 0, 'COMP111, COMP211 & COMP311', 500, 'ICT'),
+(308, 12, 2, 'TVLApp112', 'Work Immersion/Research/Career Advocacy/Culminatin', 0, 0, 0, '', 500, 'ICT');
 
 -- --------------------------------------------------------
 
@@ -503,10 +778,13 @@ CREATE TABLE `tbl_users` (
 
 INSERT INTO `tbl_users` (`user_id`, `user_fname`, `user_lname`, `user_email`, `user_name`, `user_pass`, `user_role`, `user_image`) VALUES
 (3, 'Jessamae', 'Carzano', 'jessamae@gmail.com', 'Carzano@123', '$2y$10$aDsR8a1Guds2Vf17YchHduBPMu1XnmX.2EwDFlTZtrwni9mTbkITa', 'admin', '../admin/upload/upload-files/maam_jessa.png'),
-(19, 'Sheinalie', 'Dihayco', 'dihayco020903@gmail.com', '2021137', '$2y$10$5O4wC/B6F0ZpAiG/cVi2KO3Dx4AgLp6LZ0ye5dT20N0xT8UN1tNAa', 'student', '../admin/upload/upload-files/me.jpeg'),
 (20, 'Zean Mariuss', 'Algarme', 'zuild@gmail.com', '2021123', '$2y$10$uwQStnHBgbXqbtV/gXgLkuABdFy7brTVbunYPkCS/4zrvs71LYAN6', 'student', '../admin/upload/upload-files/zean.jpg'),
 (21, 'Cherry mae', 'Lazaga', 'cherry@gmail.com', '2021080', '$2y$10$HRCkTAaB7htW.L66Kmc/TOPbOc4SQrAMFAK2SDzYkzXwyJLKPWVnC', 'student', '../admin/upload/upload-files/cherry.jpg'),
-(31, 'Louie', 'Tahanlangit', 'louiethnlngt@gmail.com', '2021160', '$2y$10$cCDEziqQWajqENhgIIiZy.u6ToHgHT2MIKYV2Vx8iZi6KGwV1ni6u', 'student', '');
+(25, 'Ashielamae', 'Aguipo', 'aguipo@gmail.com', '2021124', '$2y$10$UIygZgZETJKcfUjfMUekpeD4B1CQxgbzW7TDcJ1yP5/VGW5w7cU2e', 'student', ''),
+(26, 'Louie', 'Tahanlangit', 'louiethnlngt@gmail.com', '2021160', '$2y$10$DDdYoW4ByrE8RtQN2fu3h.c1ZfrajXJYWFVyvb6xGpgB9pu3kST6C', 'student', ''),
+(27, 'Zuild', 'Zuild', 'zuild@gmail.com', 'zuild', '$2y$10$FU70BRkt6hw/V/m8fg/DQ.5.7ildK2c1xrXvfgNN/j9ee/HNnIGMi', 'admin', '../admin/upload/upload-files/8b2a486b5c8a4627973c4566bfe0e5a8~tplv-dy-lqen-new_1920_1076_q80.jpeg'),
+(28, 'Teacher', 'Teacher', 'Teacher101@gmail.com', 'Teacher101', '$2y$10$hMIB5hzmCk66JrlhKhcpg.Hgs43KIHaI85uxyfkBF.BZqT2RTfF3.', 'teacher', ''),
+(32, 'Juan', 'Dela cruz', 'juan123@gmail.com', '2012900', '$2y$10$BgMUyfctgFICkgcM4oNucOfxvtZMkmkOrH5VUwnOsjbjtiYe2ptoG', 'student', '');
 
 --
 -- Indexes for dumped tables
@@ -534,6 +812,12 @@ ALTER TABLE `tbl_compensation`
   ADD KEY `emp` (`employee_id`);
 
 --
+-- Indexes for table `tbl_course`
+--
+ALTER TABLE `tbl_course`
+  ADD PRIMARY KEY (`course_id`);
+
+--
 -- Indexes for table `tbl_employee`
 --
 ALTER TABLE `tbl_employee`
@@ -544,6 +828,15 @@ ALTER TABLE `tbl_employee`
 --
 ALTER TABLE `tbl_events`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_grades`
+--
+ALTER TABLE `tbl_grades`
+  ADD PRIMARY KEY (`grade_id`),
+  ADD KEY `tbl_grades_ibfk_1` (`user_id`),
+  ADD KEY `grade_id` (`id`),
+  ADD KEY `IDofStudent` (`studentID`);
 
 --
 -- Indexes for table `tbl_image`
@@ -564,6 +857,29 @@ ALTER TABLE `tbl_leave`
 ALTER TABLE `tbl_payments`
   ADD PRIMARY KEY (`payment_id`),
   ADD KEY `payment` (`studentID`);
+
+--
+-- Indexes for table `tbl_rooms`
+--
+ALTER TABLE `tbl_rooms`
+  ADD PRIMARY KEY (`room_id`);
+
+--
+-- Indexes for table `tbl_schedule`
+--
+ALTER TABLE `tbl_schedule`
+  ADD PRIMARY KEY (`schedule_id`),
+  ADD KEY `instructor_id` (`instructor_id`),
+  ADD KEY `course_id` (`course_id`),
+  ADD KEY `subject_id` (`subject_id`),
+  ADD KEY `room_id` (`room_id`),
+  ADD KEY `time_id` (`time_id`);
+
+--
+-- Indexes for table `tbl_sched_time`
+--
+ALTER TABLE `tbl_sched_time`
+  ADD PRIMARY KEY (`time_id`);
 
 --
 -- Indexes for table `tbl_students`
@@ -614,16 +930,28 @@ ALTER TABLE `tbl_compensation`
   MODIFY `comp_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10130;
 
 --
+-- AUTO_INCREMENT for table `tbl_course`
+--
+ALTER TABLE `tbl_course`
+  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
 -- AUTO_INCREMENT for table `tbl_employee`
 --
 ALTER TABLE `tbl_employee`
-  MODIFY `employee_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12409;
+  MODIFY `employee_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12410;
 
 --
 -- AUTO_INCREMENT for table `tbl_events`
 --
 ALTER TABLE `tbl_events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+
+--
+-- AUTO_INCREMENT for table `tbl_grades`
+--
+ALTER TABLE `tbl_grades`
+  MODIFY `grade_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_image`
@@ -641,13 +969,31 @@ ALTER TABLE `tbl_leave`
 -- AUTO_INCREMENT for table `tbl_payments`
 --
 ALTER TABLE `tbl_payments`
-  MODIFY `payment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `payment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `tbl_rooms`
+--
+ALTER TABLE `tbl_rooms`
+  MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `tbl_schedule`
+--
+ALTER TABLE `tbl_schedule`
+  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+
+--
+-- AUTO_INCREMENT for table `tbl_sched_time`
+--
+ALTER TABLE `tbl_sched_time`
+  MODIFY `time_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tbl_subjects`
 --
 ALTER TABLE `tbl_subjects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=175;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=309;
 
 --
 -- AUTO_INCREMENT for table `tbl_transaction`
@@ -659,7 +1005,7 @@ ALTER TABLE `tbl_transaction`
 -- AUTO_INCREMENT for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- Constraints for dumped tables
@@ -684,6 +1030,14 @@ ALTER TABLE `tbl_compensation`
   ADD CONSTRAINT `compensation` FOREIGN KEY (`employee_id`) REFERENCES `tbl_employee` (`employee_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `tbl_grades`
+--
+ALTER TABLE `tbl_grades`
+  ADD CONSTRAINT `IDofStudent` FOREIGN KEY (`studentID`) REFERENCES `tbl_students` (`studentID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `grade_id` FOREIGN KEY (`id`) REFERENCES `tbl_subjects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_grades_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `tbl_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `tbl_leave`
 --
 ALTER TABLE `tbl_leave`
@@ -694,6 +1048,16 @@ ALTER TABLE `tbl_leave`
 --
 ALTER TABLE `tbl_payments`
   ADD CONSTRAINT `payment` FOREIGN KEY (`studentID`) REFERENCES `tbl_students` (`studentID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tbl_schedule`
+--
+ALTER TABLE `tbl_schedule`
+  ADD CONSTRAINT `tbl_schedule_ibfk_1` FOREIGN KEY (`instructor_id`) REFERENCES `tbl_employee` (`employee_id`),
+  ADD CONSTRAINT `tbl_schedule_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `tbl_course` (`course_id`),
+  ADD CONSTRAINT `tbl_schedule_ibfk_3` FOREIGN KEY (`subject_id`) REFERENCES `tbl_subjects` (`id`),
+  ADD CONSTRAINT `tbl_schedule_ibfk_4` FOREIGN KEY (`room_id`) REFERENCES `tbl_rooms` (`room_id`),
+  ADD CONSTRAINT `tbl_schedule_ibfk_5` FOREIGN KEY (`time_id`) REFERENCES `tbl_sched_time` (`time_id`);
 
 --
 -- Constraints for table `tbl_students`
