@@ -1,12 +1,14 @@
 <?php
-include_once "includes/connect.php";
-include_once "includes/connection.php";
+include_once "includes/connection.php"; // Use connection.php for database connection
 
 session_start();
 if (!isset($_SESSION["login"])) {
   header("location:login.php?error=loginfirst");
   exit;
 }
+
+$database = new Connection();
+$conn = $database->open();
 
 $userid = $_SESSION["login"];
 
@@ -18,7 +20,11 @@ $user = $statements->fetch(PDO::FETCH_ASSOC);
 $fname = $user['user_fname'];
 $lname = $user['user_lname'];
 $image = $user['user_image'];
+
+// Close the connection when done
+$database->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

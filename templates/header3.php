@@ -1,12 +1,14 @@
 <?php
-include_once "includes/connect.php";
-include_once "includes/connection.php";
+include_once "includes/connection.php"; // Only include connection.php
 
 session_start();
 if (!isset($_SESSION["login"])) {
   header("location:login.php?error=loginfirst");
   exit;
 }
+
+$database = new Connection();
+$conn = $database->open();
 
 $userid = $_SESSION["login"];
 
@@ -30,7 +32,11 @@ if ($user) {
   echo "User or student information not found.";
   exit;
 }
+
+// Close the connection
+$database->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
