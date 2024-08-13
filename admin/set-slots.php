@@ -287,7 +287,7 @@ $connection->close();
             const id = $(this).data('id');
             if (confirm('Are you sure you want to delete this time slot?')) {
                 $.ajax({
-                    url: 'upload/delete-time.php',
+                    url: 'includes/delete-time.php',
                     type: 'POST',
                     data: {
                         time_id: id
@@ -297,6 +297,7 @@ $connection->close();
                         if (data.status === 'success') {
                             loadTimes(); // Refresh the time slots table
                             alert(data.message);
+                            window.location.href = '../admin/set-slots.php';
                         } else {
                             alert(data.message);
                         }
@@ -318,7 +319,7 @@ $connection->close();
             const id = $(this).data('id');
             if (confirm('Are you sure you want to delete this room?')) {
                 $.ajax({
-                    url: 'upload/delete-room.php',
+                    url: 'includes/delete-room.php',
                     type: 'POST',
                     data: {
                         room_id: id
@@ -328,6 +329,7 @@ $connection->close();
                         if (data.status === 'success') {
                             loadRooms(); // Refresh the rooms table
                             alert(data.message);
+                            window.location.href = '../admin/set-slots.php';
                         } else {
                             alert(data.message);
                         }

@@ -41,26 +41,6 @@ $connection->close();
                         <div class="card-body">
                             <h5 class="card-title">Courses <span>| Available </span></h5>
 
-                            <!-- Custom alert for new student creation -->
-                            <?php
-                            if (isset($_SESSION['student_created']) && $_SESSION['student_created']) {
-                                echo "
-                  <div class='alert'>
-                      <span class='closebtn' onclick='this.parentElement.style.display=\"none\";'>&times;</span>
-                      New student successfully created!
-                  </div>
-                  <script>
-                      // Automatically close the alert after 5 seconds
-                      setTimeout(function() {
-                          document.querySelector('.alert').style.opacity = '0';
-                          setTimeout(function() {
-                              document.querySelector('.alert').style.display = 'none';
-                          }, 600);
-                      }, 5000);
-                  </script>";
-                                unset($_SESSION['student_created']); // Unset session variable to prevent repeated alerts
-                            }
-                            ?>
                             <table class="table table-borderless datatable">
                                 <thead>
                                     <tr>
@@ -75,10 +55,18 @@ $connection->close();
                                             <td><?php echo htmlspecialchars($course['course_description']); ?></td>
                                             <td><?php echo htmlspecialchars($course['course_year']); ?></td>
                                             <td>
-                                                <button class="btn btn-sm btn-warning ri-edit-2-fill edit-course" data-id="<?php echo $course['course_id']; ?>" data-description="<?php echo htmlspecialchars($course['course_description']); ?>" data-year="<?php echo htmlspecialchars($course['course_year']); ?>"></button>
+                                                <button class="btn btn-sm btn-warning ri-edit-2-fill edit-course"
+                                                    data-id="<?php echo $course['course_id']; ?>"
+                                                    data-description="<?php echo htmlspecialchars($course['course_description']); ?>"
+                                                    data-year="<?php echo htmlspecialchars($course['course_year']); ?>"></button>
 
-                                                <button class="btn btn-sm btn-danger ri-delete-bin-6-line delete-course" data-id="<?php echo $course['course_id']; ?>"></button>
+                                                <button class="btn btn-sm btn-danger ri-delete-bin-6-line delete-course"
+                                                    data-id="<?php echo htmlspecialchars($course['course_id'], ENT_QUOTES, 'UTF-8'); ?>">
+
+                                                </button>
+
                                             </td>
+
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -105,7 +93,7 @@ $connection->close();
                             </div>
                             <div class="mb-3">
                                 <label for="course_year" class="form-label">Course Year</label>
-                                <input type="number" class="form-control" id="course_year" name="course_year" min="2" max="12" required>
+                                <input type="number" class="form-control" id="course_year" name="course_year" min="1" max="12" required>
                             </div>
                             <button type="submit" class="btn btn-primary">Save</button>
                         </form>
@@ -194,6 +182,7 @@ $connection->close();
                         if (data.status === 'success') {
                             loadCourses(); // Refresh the courses table
                             alert(data.message);
+                            window.location.href = '../admin/course.php';
                         } else {
                             alert(data.message);
                         }

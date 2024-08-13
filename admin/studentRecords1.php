@@ -1,4 +1,21 @@
-<?php include_once "../templates/header.php"; ?>
+<?php include_once "../templates/header.php";
+include_once "includes/connect.php";
+include_once 'includes/connection.php';
+
+$statements = $conn->prepare("SELECT COUNT(studentID) AS count_stud FROM tbl_students WHERE course = 'BSBA'");
+$statements->execute();
+$studcount = $statements->fetch(PDO::FETCH_ASSOC);
+
+$statements = $conn->prepare("SELECT COUNT(studentID) AS count_stud_bsit FROM tbl_students WHERE course = 'BSIT'");
+$statements->execute();
+$studcountbsit = $statements->fetch(PDO::FETCH_ASSOC);
+
+$statements = $conn->prepare("SELECT COUNT(studentID) AS count_stud_bsoa FROM tbl_students WHERE course = 'BSOA'");
+$statements->execute();
+$studcountbsoa = $statements->fetch(PDO::FETCH_ASSOC);
+
+?>
+
 <main id="main" class="main">
 
   <div class="pagetitle">
@@ -84,6 +101,95 @@
     </div>
   </div>
   <section class="section dashboard">
+
+    <div class="row">
+      <!-- Student Count Card -->
+      <div class="col-xxl-4 col-md-6">
+        <div class="card info-card sales-card">
+          <div class="filter">
+            <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+              <li class="dropdown-header text-start">
+                <h6>Filter</h6>
+              </li>
+              <li><a class="dropdown-item" href="#">Today</a></li>
+              <li><a class="dropdown-item" href="#">This Month</a></li>
+              <li><a class="dropdown-item" href="#">This Year</a></li>
+            </ul>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">BSBA <span>| students </span></h5>
+            <div class="d-flex align-items-center">
+              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                <i class="bi bi-people"></i>
+              </div>
+              <div class="ps-3">
+                <h6><?php echo $studcount['count_stud']; ?></h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- End Student Count Card -->
+
+      <!-- Student Count Card -->
+      <div class="col-xxl-4 col-md-6">
+        <div class="card info-card sales-card">
+          <div class="filter">
+            <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+              <li class="dropdown-header text-start">
+                <h6>Filter</h6>
+              </li>
+              <li><a class="dropdown-item" href="#">Today</a></li>
+              <li><a class="dropdown-item" href="#">This Month</a></li>
+              <li><a class="dropdown-item" href="#">This Year</a></li>
+            </ul>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">BSIT <span>| students</span></h5>
+            <div class="d-flex align-items-center">
+              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                <i class="bi bi-people"></i>
+              </div>
+              <div class="ps-3">
+                <h6><?php echo $studcountbsit['count_stud_bsit']; ?></h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- End Student Count Card -->
+
+      <!-- Student Count Card -->
+      <div class="col-xxl-4 col-md-6">
+        <div class="card info-card sales-card">
+          <div class="filter">
+            <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+              <li class="dropdown-header text-start">
+                <h6>Filter</h6>
+              </li>
+              <li><a class="dropdown-item" href="#">Today</a></li>
+              <li><a class="dropdown-item" href="#">This Month</a></li>
+              <li><a class="dropdown-item" href="#">This Year</a></li>
+            </ul>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">BSOA <span>| students</span></h5>
+            <div class="d-flex align-items-center">
+              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                <i class="bi bi-people"></i>
+              </div>
+              <div class="ps-3">
+                <h6><?php echo $studcountbsoa['count_stud_bsoa']; ?></h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- End Student Count Card -->
+
+    </div>
+
+
     <div class="col-lg-12">
       <div class="row">
         <div class="col-12">

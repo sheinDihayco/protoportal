@@ -29,4 +29,3 @@ if (isset($_POST['course_id'])) {
 }
 
 echo json_encode($response);
-?>
