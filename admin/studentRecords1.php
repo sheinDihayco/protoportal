@@ -14,6 +14,7 @@ $statements = $conn->prepare("SELECT COUNT(studentID) AS count_stud_bsoa FROM tb
 $statements->execute();
 $studcountbsoa = $statements->fetch(PDO::FETCH_ASSOC);
 
+
 ?>
 
 <main id="main" class="main">
@@ -234,7 +235,12 @@ $studcountbsoa = $statements->fetch(PDO::FETCH_ASSOC);
                   $db = $database->open();
 
                   try {
-                    $sql = "SELECT * FROM tbl_users WHERE user_role = 'student' ORDER BY user_id ASC";
+                    $sql = "SELECT u.*, s.course, s.year, s.studentID 
+                    FROM tbl_users u
+                    LEFT JOIN tbl_students s ON u.user_id = s.user_id 
+                    WHERE u.user_role = 'student' 
+                    ORDER BY u.user_id ASC";
+
                     foreach ($db->query($sql) as $row) {
                   ?>
                       <tr>
@@ -244,13 +250,20 @@ $studcountbsoa = $statements->fetch(PDO::FETCH_ASSOC);
                         <td><?php echo $row["user_id"] ?></td>
                         <td><?php echo $row["user_role"] ?></td>
                         <td>
-                          <button type="button" class="btn btn-sm btn-warning ri-add-box-fill" data-bs-toggle="modal" data-bs-target="#editStudent<?php echo $row["user_id"] ?>"></button>
+                          <?php if (is_null($row['studentID'])) { ?>
+                            <!-- Add Button -->
+                            <button type="button" class="btn btn-sm btn-primary ri-add-box-fill" data-bs-toggle="modal" data-bs-target="#insertInitial<?php echo $row["user_id"] ?>"></button>
+                          <?php } else { ?>
+                            <!-- Edit Button -->
+                            <button type="button" class="btn btn-sm btn-warning ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editStudent<?php echo $row["user_id"] ?>"></button>
+                          <?php } ?>
 
                           <form method="POST" action="../admin/upload/delete-student.php" onsubmit="return confirm('Are you sure you want to delete this user?');" style="display:inline;">
                             <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($row["user_id"]); ?>">
                             <button type="submit" class="btn btn-sm btn-danger ri-delete-bin-6-line"></button>
                           </form>
                         </td>
+                        <?php include('modals/form-insert-data.php'); ?>
                         <?php include('modals/form-edit-Student.php'); ?>
                       </tr>
                   <?php
@@ -260,6 +273,7 @@ $studcountbsoa = $statements->fetch(PDO::FETCH_ASSOC);
                   }
                   $database->close();
                   ?>
+
                 </tbody>
               </table>
             </div>

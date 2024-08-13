@@ -332,24 +332,17 @@ try {
               <div class="tab-pane fade" id="profile-overview">
                 <h5 class="card-title">Student Profile Details</h5>
 
-                <div class="profile-section">
-                  <div class="profile-img">
-                    <img src="upload-files/<?php echo htmlspecialchars($user["user_image"]); ?>" alt="Profile Image" class="rounded-circle">
-                  </div>
-                  <div class="profile-info">
-                    <h5><?php echo htmlspecialchars($studs["lname"]); ?> <?php echo htmlspecialchars($studs["fname"]); ?> <?php echo htmlspecialchars($studs["middleInitial"]); ?> <?php echo htmlspecialchars($studs["Suffix"]); ?></h5>
-                  </div>
+                <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+
+                  <img src="upload-files/<?php echo htmlspecialchars($user["user_image"]); ?>" onerror="this.src='images/default.png'" alt="Profile Image" class="rounded-circle">
+
+
+                  <h2><?php echo htmlspecialchars($studs["lname"]); ?> <?php echo htmlspecialchars($studs["fname"]); ?> <?php echo htmlspecialchars($studs["middleInitial"]); ?> <?php echo htmlspecialchars($studs["Suffix"]); ?></h2>
+                  <h3><?php echo htmlspecialchars($studs["course"]); ?> - <?php echo htmlspecialchars($studs["year"]); ?> <?php echo htmlspecialchars($studs["major"]); ?></h3>
+
                 </div>
 
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Course <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["course"]); ?> - <?php echo htmlspecialchars($studs["year"]); ?></div>
-                </div>
 
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Major <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["major"]); ?></div>
-                </div>
 
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label">Address <span> : </span></div>

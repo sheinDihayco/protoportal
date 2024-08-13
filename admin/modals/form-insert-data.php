@@ -1,8 +1,8 @@
-<div class="modal fade" id="editStudent<?php echo $row["user_id"] ?>" tabindex="-1">
+<div class="modal fade" id="insertInitial<?php echo $row["user_id"] ?>" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="card-title">Update Initial Data of Student</h5>
+        <h5 class="card-title">Insert Initial Data of Student</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="card">
@@ -38,17 +38,31 @@
               </div>
             </div>
 
+            <!-- <div class="row mb-3">
+              <div class="col-md-4">
+                <label for="middleInitial" class="form-label">Middle Initial</label>
+                <input type="text" class="form-control" id="middleInitial" name="middleInitial" value="" required>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-4">
+                <label for="Suffix" class="form-label">Suffix</label>
+                <input type="text" class="form-control" id="Suffix" name="Suffix" name="middleInitial" value="" required>
+              </div>
+            </div>-->
+
             <div class="row mb-3">
               <div class="col-md-6">
                 <label for="course" class="form-label">Course</label>
-                <input type="text" class="form-control" id="course" name="course" value="<?php echo htmlspecialchars($row["course"]) ?>" required>
+                <input type="text" class="form-control" id="course" name="course" value="" required>
               </div>
             </div>
 
             <div class=" row mb-3">
               <div class="col-md-4">
                 <label for="year" class="form-label">Year</label>
-                <input type="text" class="form-control" id="year" name="year" value="<?php echo htmlspecialchars($row["year"]); ?>" required>
+                <input type="text" class="form-control" id="year" name="year" value="" required>
               </div>
             </div>
 

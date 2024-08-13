@@ -28,21 +28,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $result = $conn->query($checkQuery);
 
     if ($result->num_rows > 0) {
-        // Student ID already exists
-        $_SESSION['initial_update_error'] = "Error: A record with the student ID $studentID already exists.";
-        header("Location: ../admin/insert-initial-data.php");
-    } else {
-        // SQL insert statement
-        $sql = "INSERT INTO tbl_students (user_id, fname, lname, studentID, course, year)
-                VALUES ('$user_id', '$fname', '$lname','$studentID', '$course', '$year')";
+        // Student ID already exists, perform update
+        $updateQuery = "UPDATE tbl_students 
+                        SET fname = '$fname', lname = '$lname', course = '$course', year = '$year'
+                        WHERE studentID = '$studentID' AND user_id = '$user_id'";
 
-        if ($conn->query($sql) === TRUE) {
-            $_SESSION['initial_update'] = true;
-            header("location:../payment.php?register=success?register=success");
+        if ($conn->query($updateQuery) === TRUE) {
+            $_SESSION['initial_update'] = "Record updated successfully.";
         } else {
-            $_SESSION['initial_update_error'] = "Error: " . $sql . "<br>" . $conn->error;
-            header("Location: ../admin/insert-initial-data.php");
+            $_SESSION['initial_update_error'] = "Error updating record: " . $conn->error;
         }
+    } else {
+        // Student ID does not exist, perform insert
+        $insertQuery = "INSERT INTO tbl_students (user_id, fname, lname, studentID, course, year)
+                        VALUES ('$user_id', '$fname', '$lname', '$studentID', '$course', '$year')";
+
+        if ($conn->query($insertQuery) === TRUE) {
+            $_SESSION['initial_update'] = "Record inserted successfully.";
+        } else {
+            $_SESSION['initial_update_error'] = "Error inserting record: " . $conn->error;
+        }
+    }
+
+    // Redirect based on the result of the operation
+    if (isset($_SESSION['initial_update'])) {
+        header("Location: ../payment.php?register=success");
+    } else {
+        header("Location: ../admin/insert-initial-data.php");
     }
 
     // Close connection

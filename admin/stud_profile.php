@@ -163,9 +163,9 @@ $database->close();
 
                 <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-                  <img src="upload-files/<?php echo htmlspecialchars($image); ?>" alt="Profile Image" class="rounded-circle">
+                  <img src="upload-files/<?php echo htmlspecialchars($image); ?>" onerror="this.src='images/default.png'" alt="Profile Image" class="rounded-circle">
                   <h2><?php echo $fname . ' ' . $lname; ?></h2>
-                  <h3><?php echo htmlspecialchars($studs["course"]); ?></h3>
+                  <h3><?php echo htmlspecialchars($studs["course"]); ?> - <?php echo htmlspecialchars($studs["major"]); ?></h3>
                   <!-- <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                       Profile Options
@@ -179,16 +179,6 @@ $database->close();
 
                 </div>
 
-
-                <div class="row" style="margin-top: 5%;">
-                  <div class="col-lg-3 col-md-4 label">Course <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["course"]); ?> - <?php echo htmlspecialchars($studs["year"]); ?></div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Major <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["major"]); ?></div>
-                </div>
 
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label">Address <span> : </span></div>
