@@ -21,36 +21,74 @@ $connection->close();
 ?>
 
 <main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Course Records</h1>
+        <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#courseModal">
+        </button>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                <li class="breadcrumb-item active">Accounts</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
 
+    <section class="section dashboard">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card recent-sales overflow-auto">
+                        <div class="card-body">
+                            <h5 class="card-title">Courses <span>| Available </span></h5>
 
-    <div class="container mt-4">
-        <!-- Add Course Button and Modal -->
-        <h2>Manage Courses</h2>
-        <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#courseModal">Add Course</button>
+                            <!-- Custom alert for new student creation -->
+                            <?php
+                            if (isset($_SESSION['student_created']) && $_SESSION['student_created']) {
+                                echo "
+                  <div class='alert'>
+                      <span class='closebtn' onclick='this.parentElement.style.display=\"none\";'>&times;</span>
+                      New student successfully created!
+                  </div>
+                  <script>
+                      // Automatically close the alert after 5 seconds
+                      setTimeout(function() {
+                          document.querySelector('.alert').style.opacity = '0';
+                          setTimeout(function() {
+                              document.querySelector('.alert').style.display = 'none';
+                          }, 600);
+                      }, 5000);
+                  </script>";
+                                unset($_SESSION['student_created']); // Unset session variable to prevent repeated alerts
+                            }
+                            ?>
+                            <table class="table table-borderless datatable">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Course Description</th>
+                                        <th scope="col">Course Year</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($courses as $course): ?>
+                                        <tr>
+                                            <td><?php echo htmlspecialchars($course['course_description']); ?></td>
+                                            <td><?php echo htmlspecialchars($course['course_year']); ?></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-warning ri-edit-2-fill edit-course" data-id="<?php echo $course['course_id']; ?>" data-description="<?php echo htmlspecialchars($course['course_description']); ?>" data-year="<?php echo htmlspecialchars($course['course_year']); ?>"></button>
 
-        <!-- Courses Table -->
-        <table class="table table-striped" id="coursesTable">
-            <thead>
-                <tr>
-                    <th>Course Description</th>
-                    <th>Course Year</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($courses as $course): ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($course['course_description']); ?></td>
-                        <td><?php echo htmlspecialchars($course['course_year']); ?></td>
-                        <td><button class="btn btn-primary edit-course" data-id="<?php echo $course['course_id']; ?>" data-description="<?php echo htmlspecialchars($course['course_description']); ?>" data-year="<?php echo htmlspecialchars($course['course_year']); ?>">Edit</button></td>
-                        <td><button class="btn btn-danger delete-course" data-id="<?php echo $course['course_id']; ?>">Delete</button></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+                                                <button class="btn btn-sm btn-danger ri-delete-bin-6-line delete-course" data-id="<?php echo $course['course_id']; ?>"></button>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <!-- Course Modal -->
         <div class="modal fade" id="courseModal" tabindex="-1" aria-labelledby="courseModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -67,7 +105,7 @@ $connection->close();
                             </div>
                             <div class="mb-3">
                                 <label for="course_year" class="form-label">Course Year</label>
-                                <input type="number" class="form-control" id="course_year" name="course_year" min="1" max="10" required>
+                                <input type="number" class="form-control" id="course_year" name="course_year" min="2" max="12" required>
                             </div>
                             <button type="submit" class="btn btn-primary">Save</button>
                         </form>
@@ -75,13 +113,14 @@ $connection->close();
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
 </main>
 
 <!-- JavaScript for Handling Form Submissions and Data Display -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 <script>
     $(document).ready(function() {
         // Handle course form submission
@@ -95,8 +134,9 @@ $connection->close();
                     const data = JSON.parse(response);
                     if (data.status === 'success') {
                         $('#courseModal').modal('hide');
-                        loadCourses(); // Refresh the courses table
+                        loadCourses();
                         alert(data.message);
+                        window.location.href = '../admin/course.php';
                     } else {
                         alert(data.message);
                     }

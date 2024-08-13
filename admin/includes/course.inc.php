@@ -40,4 +40,3 @@ if (isset($_POST['course_description']) && isset($_POST['course_year'])) {
 }
 
 echo json_encode($response);
-?>
