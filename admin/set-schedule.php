@@ -110,13 +110,13 @@ $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", en
                         <table id="scheduleTable" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Instructor</th>
-                                    <th>Course</th>
-                                    <th>Subject</th>
-                                    <th>Room</th>
-                                    <th>Time Slot</th>
-                                    <th>Actions</th>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Instructor</th>
+                                    <th scope="col">Course</th>
+                                    <th scope="col">Subject</th>
+                                    <th scope="col">Room</th>
+                                    <th scope="col">Time Slot</th>
+                                    <th scope="col">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
