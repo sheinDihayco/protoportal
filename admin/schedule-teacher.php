@@ -1,4 +1,4 @@
-<?php include_once "../templates/header.php"; ?>
+<?php include_once "../templates/header2.php"; ?>
 <?php
 include_once 'includes/connection.php';
 
@@ -30,7 +30,7 @@ $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", en
 
     <div class="pagetitle">
         <h1>Schedule Records</h1>
-        <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#scheduleModal">
+        <!-- <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#scheduleModal">-->
         </button>
         <nav>
             <ol class="breadcrumb">
@@ -50,13 +50,11 @@ $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", en
                             <table id="scheduleTable" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
-                                        <th scope="col">ID</th>
                                         <th scope="col">Instructor</th>
                                         <th scope="col">Course</th>
                                         <th scope="col">Subject</th>
                                         <th scope="col">Room</th>
                                         <th scope="col">Time Slot</th>
-                                        <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -70,7 +68,7 @@ $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", en
         </div>
 
 
-        <div class="modal fade" id="scheduleModal" tabindex="-1">
+        <!-- <div class="modal fade" id="scheduleModal" tabindex="-1">
             <div class="modal-dialog modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -144,9 +142,9 @@ $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", en
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
-        <!-- Edit Modal -->
+        <!-- Edit Modal
         <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -182,9 +180,9 @@ $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", en
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
-        <!-- Toast Notification -->
+        <!-- Toast Notification
         <div class="toast-container position-fixed top-0 end-0 p-3">
             <div id="statusToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header">
@@ -192,10 +190,10 @@ $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", en
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
                 <div class="toast-body" id="toastBody">
-                    <!-- Message will be loaded here by JavaScript -->
+                   Message will be loaded here by JavaScript 
                 </div>
             </div>
-        </div>
+        </div> -->
     </section>
 </main>
 
@@ -215,16 +213,12 @@ $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", en
                     $.each(response, function(index, schedule) {
                         tbody.append(`
                         <tr>
-                            <td>${schedule.schedule_id}</td>
                             <td>${schedule.instructor_name}</td>
                             <td>${schedule.course_description}</td>
                             <td>${schedule.subject_description}</td>
                             <td>${schedule.room_name}</td>
                             <td>${schedule.time_slot}</td>
-                            <td>
-                                <button class="btn btn-sm btn-warning ri-edit-2-fill edit-btn" data-id="${schedule.schedule_id}"></button>
-                                <button class="btn btn-sm btn-danger ri-delete-bin-6-line delete-btn" data-id="${schedule.schedule_id}"></button>
-                            </td>
+                          
                         </tr>
                     `);
                     });

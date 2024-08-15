@@ -86,7 +86,7 @@ $database->close();
                           </a>
                         </td>
 
-                        <td><?php echo htmlspecialchars($row['studentID']) . ' ' . htmlspecialchars($row['studentID']); ?></td>
+                        <td><?php echo htmlspecialchars($row['studentID']); ?></td>
 
                         <td><?php echo htmlspecialchars($row['user_fname']) . ' ' . htmlspecialchars($row['user_lname']); ?></td>
 

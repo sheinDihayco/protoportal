@@ -223,9 +223,9 @@ $studcountbsoa = $statements->fetch(PDO::FETCH_ASSOC);
                   <tr>
                     <th scope="col">Username</th>
                     <th scope="col">Full Name</th>
+                    <th scope="col">Course</th>
+                    <th scope="col">Year</th>
                     <th scope="col">Email</th>
-                    <th scope="col">User ID</th>
-                    <th scope="col">Role</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
@@ -239,16 +239,17 @@ $studcountbsoa = $statements->fetch(PDO::FETCH_ASSOC);
                     FROM tbl_users u
                     LEFT JOIN tbl_students s ON u.user_id = s.user_id 
                     WHERE u.user_role = 'student' 
-                    ORDER BY u.user_id ASC";
+                    ORDER BY s.year ASC";
 
                     foreach ($db->query($sql) as $row) {
                   ?>
                       <tr>
                         <th scope="row"><a href="../admin/payment.php"><?php echo $row["user_name"] ?></a></th>
                         <td><?php echo $row["user_fname"] ?>, <?php echo $row["user_lname"] ?></td>
+                        <td><?php echo $row["course"] ?></td>
+                        <td><?php echo $row["year"] ?></td>
                         <td><?php echo $row["user_email"] ?></td>
-                        <td><?php echo $row["user_id"] ?></td>
-                        <td><?php echo $row["user_role"] ?></td>
+
                         <td>
                           <?php if (is_null($row['studentID'])) { ?>
                             <!-- Add Button -->

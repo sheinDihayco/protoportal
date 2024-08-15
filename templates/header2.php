@@ -361,7 +361,7 @@ $database->close();
       <!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="">
+        <a class="nav-link collapsed" href="../admin/schedule-teacher.php">
           <i class="ri ri-group-line"></i>
           <span>Schedule</span>
         </a>

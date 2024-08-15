@@ -139,31 +139,30 @@ $connection->close();
 
         <div class="row">
             <div class="col-lg-8">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Schedule </h5>
-                        <table class="table tabl-borderless">
-                            <thead>
-                                <tr>
-                                    <th>Time</th>
-                                    <th>Date</th>
-                                    <th>Room</th>
-                                    <th>Instructor</th>
-                                </tr>
-
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card recent-sales overflow-auto">
+                            <div class="card-body">
+                                <h5 class="card-title">Schedule <span>| set</span></h5>
+                                <table id="scheduleTable" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Instructor</th>
+                                            <th scope="col">Course</th>
+                                            <th scope="col">Subject</th>
+                                            <th scope="col">Room</th>
+                                            <th scope="col">Time Slot</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Data will be loaded here by JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
             <div class="col-lg-4">
                 <div class="card">
                     <div class="card-body">
@@ -192,6 +191,200 @@ $connection->close();
     </section>
 
 </main><!-- End #main -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        function loadSchedules() {
+            $.ajax({
+                url: 'includes/fetch-schedules.php',
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    var tbody = $('#scheduleTable tbody');
+                    tbody.empty();
+                    $.each(response, function(index, schedule) {
+                        tbody.append(`
+                        <tr>
+                            <td>${schedule.instructor_name}</td>
+                            <td>${schedule.course_description}</td>
+                            <td>${schedule.subject_description}</td>
+                            <td>${schedule.room_name}</td>
+                            <td>${schedule.time_slot}</td>
+                          
+                        </tr>
+                    `);
+                    });
+                },
+                error: function() {
+                    $('#statusToast').removeClass('bg-success').addClass('bg-danger');
+                    $('#toastTitle').text('Error');
+                    $('#toastBody').text('Failed to load schedules.');
+                    var toast = new bootstrap.Toast($('#statusToast'));
+                    toast.show();
+                }
+            });
+        }
+
+        function populateDropdowns() {
+            $.ajax({
+                url: 'includes/fetch-options.php',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    // Populate the edit form dropdowns
+                    $('#editInstructor').html(data.instructors.map(instructor =>
+                        `<option value="${instructor.employee_id}">${instructor.name}</option>`).join(''));
+                    $('#editCourse').html(data.courses.map(course =>
+                        `<option value="${course.course_id}">${course.description}</option>`).join(''));
+                    $('#editSubject').html(data.subjects.map(subject =>
+                        `<option value="${subject.id}">${subject.description}</option>`).join(''));
+                    $('#editRoom').html(data.rooms.map(room =>
+                        `<option value="${room.room_id}">${room.room_name}</option>`).join(''));
+                    $('#editTime').html(data.times.map(time =>
+                        `<option value="${time.time_id}">${time.slot}</option>`).join(''));
+                }
+            });
+        }
+
+        $('#scheduleForm').submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function(response) {
+                    $('#statusToast').removeClass('bg-danger').addClass('bg-success');
+                    $('#toastTitle').text('Success');
+                    $('#toastBody').text('Schedule has been added.');
+                    var toast = new bootstrap.Toast($('#statusToast'));
+                    toast.show();
+                    loadSchedules();
+                    $('#scheduleForm')[0].reset();
+                },
+                error: function() {
+                    $('#statusToast').removeClass('bg-success').addClass('bg-danger');
+                    $('#toastTitle').text('Error');
+                    $('#toastBody').text('Failed to add schedule.');
+                    var toast = new bootstrap.Toast($('#statusToast'));
+                    toast.show();
+                }
+            });
+        });
+
+        $(document).on('click', '.edit-btn', function() {
+            var scheduleId = $(this).data('id');
+            $.ajax({
+                url: 'includes/get-schedules.php',
+                type: 'GET',
+                data: {
+                    schedule_id: scheduleId
+                },
+                dataType: 'json',
+                success: function(schedule) {
+                    if (schedule.error) {
+                        $('#statusToast').removeClass('bg-success').addClass('bg-danger');
+                        $('#toastTitle').text('Error');
+                        $('#toastBody').text(schedule.error);
+                        var toast = new bootstrap.Toast($('#statusToast'));
+                        toast.show();
+                    } else {
+                        $('#editScheduleId').val(schedule.schedule_id);
+                        $('#editInstructor').val(schedule.instructor_id);
+                        $('#editCourse').val(schedule.course_id);
+                        $('#editSubject').val(schedule.subject_id);
+                        $('#editRoom').val(schedule.room_id);
+                        $('#editTime').val(schedule.time_id);
+                        $('#editModal').modal('show');
+                    }
+                },
+                error: function() {
+                    $('#statusToast').removeClass('bg-success').addClass('bg-danger');
+                    $('#toastTitle').text('Error');
+                    $('#toastBody').text('Failed to load schedule.');
+                    var toast = new bootstrap.Toast($('#statusToast'));
+                    toast.show();
+                }
+            });
+        });
+
+        $('#editScheduleForm').submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: 'includes/update-schedule.php',
+                type: 'POST',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        $('#statusToast').removeClass('bg-danger').addClass('bg-success');
+                        $('#toastTitle').text('Success');
+                        $('#toastBody').text('Schedule has been updated.');
+                        var toast = new bootstrap.Toast($('#statusToast'));
+                        toast.show();
+                        loadSchedules();
+                        $('#editModal').modal('hide');
+                    } else {
+                        $('#statusToast').removeClass('bg-success').addClass('bg-danger');
+                        $('#toastTitle').text('Error');
+                        $('#toastBody').text(response.message);
+                        var toast = new bootstrap.Toast($('#statusToast'));
+                        toast.show();
+                    }
+                },
+                error: function() {
+                    $('#statusToast').removeClass('bg-success').addClass('bg-danger');
+                    $('#toastTitle').text('Error');
+                    $('#toastBody').text('Failed to update schedule.');
+                    var toast = new bootstrap.Toast($('#statusToast'));
+                    toast.show();
+                }
+            });
+        });
+
+
+        $(document).on('click', '.delete-btn', function() {
+            var scheduleId = $(this).data('id');
+            if (confirm('Are you sure you want to delete this schedule?')) {
+                $.ajax({
+                    url: 'includes/delete-schedule.php',
+                    type: 'POST',
+                    data: {
+                        schedule_id: scheduleId
+                    },
+                    success: function(response) {
+                        if (response === 'Success') {
+                            $('#statusToast').removeClass('bg-danger').addClass('bg-success');
+                            $('#toastTitle').text('Success');
+                            $('#toastBody').text('Schedule has been deleted.');
+                            var toast = new bootstrap.Toast($('#statusToast'));
+                            toast.show();
+                            loadSchedules();
+                        } else {
+                            $('#statusToast').removeClass('bg-success').addClass('bg-danger');
+                            $('#toastTitle').text('Error');
+                            $('#toastBody').text('Failed to delete schedule.');
+                            var toast = new bootstrap.Toast($('#statusToast'));
+                            toast.show();
+                        }
+                    },
+                    error: function() {
+                        $('#statusToast').removeClass('bg-success').addClass('bg-danger');
+                        $('#toastTitle').text('Error');
+                        $('#toastBody').text('Failed to delete schedule.');
+                        var toast = new bootstrap.Toast($('#statusToast'));
+                        toast.show();
+                    }
+                });
+            }
+        });
+
+        // Initial load
+        loadSchedules();
+        populateDropdowns();
+    });
+</script>
 <style>
     a {
         text-decoration: none !important;
