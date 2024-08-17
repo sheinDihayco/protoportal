@@ -32,7 +32,7 @@
               <table class="table table-striped datatable">
                 <thead>
                   <tr>
-                    <th scope="col">Year</th>
+
                     <th scope="col">Semester</th>
                     <th scope="col">Code</th>
                     <th scope="col">Description</th>
@@ -41,8 +41,6 @@
                     <th scope="col">Units</th>
                     <th scope="col">Pre-requisite</th>
                     <th scope="col">Total Hours</th>
-                    <th scope="col">Course</th>
-                    <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -55,7 +53,6 @@
                     foreach ($db->query($sql) as $subject) {
                   ?>
                       <tr>
-                        <td><?php echo htmlspecialchars($subject['year']); ?></td>
                         <td><?php echo htmlspecialchars($subject['semester']); ?></td>
                         <td><?php echo htmlspecialchars($subject['code']); ?></td>
                         <td><?php echo htmlspecialchars($subject['description']); ?></td>
@@ -64,15 +61,15 @@
                         <td><?php echo htmlspecialchars($subject['unit']); ?></td>
                         <td><?php echo htmlspecialchars($subject['pre_req']); ?></td>
                         <td><?php echo htmlspecialchars($subject['total']); ?></td>
-                        <td><?php echo htmlspecialchars($subject['course']); ?></td>
-                        <td>
+
+                        <!-- <td>
                           <button type="button" class="btn btn-sm btn-warning ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editSubject<?php echo $subject['id']; ?>"></button>
                           <form method="POST" action="../admin/upload/delete_subject.php" onsubmit="return confirm('Are you sure you want to delete this subject?');" style="display:inline;">
                             <input type="hidden" name="id" value="<?php echo htmlspecialchars($subject['id']); ?>">
                             <button type="submit" class="btn btn-sm btn-danger ri-delete-bin-6-line"></button>
                           </form>
 
-                        </td>
+                        </td>-->
                         <?php include('modals/form-edit-subjects.php'); ?>
                       </tr>
                   <?php
@@ -90,7 +87,7 @@
               <table class="table table-striped datatable">
                 <thead>
                   <tr>
-                    <th scope="col">Year</th>
+
                     <th scope="col">Semester</th>
                     <th scope="col">Code</th>
                     <th scope="col">Description</th>
@@ -99,8 +96,7 @@
                     <th scope="col">Units</th>
                     <th scope="col">Pre-requisite</th>
                     <th scope="col">Total Hours</th>
-                    <th scope="col">Course</th>
-                    <th scope="col">Action</th>
+
                   </tr>
                 </thead>
                 <tbody>
@@ -113,7 +109,7 @@
                     foreach ($db->query($sql) as $subject) {
                   ?>
                       <tr>
-                        <td><?php echo htmlspecialchars($subject['year']); ?></td>
+
                         <td><?php echo htmlspecialchars($subject['semester']); ?></td>
                         <td><?php echo htmlspecialchars($subject['code']); ?></td>
                         <td><?php echo htmlspecialchars($subject['description']); ?></td>
@@ -122,15 +118,14 @@
                         <td><?php echo htmlspecialchars($subject['unit']); ?></td>
                         <td><?php echo htmlspecialchars($subject['pre_req']); ?></td>
                         <td><?php echo htmlspecialchars($subject['total']); ?></td>
-                        <td><?php echo htmlspecialchars($subject['course']); ?></td>
-                        <td>
+                        <!-- <td>
                           <button type="button" class="btn btn-sm btn-warning ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editSubject<?php echo $subject['id']; ?>"></button>
                           <form method="POST" action="../admin/upload/delete_subject.php" onsubmit="return confirm('Are you sure you want to delete this subject?');" style="display:inline;">
                             <input type="hidden" name="id" value="<?php echo htmlspecialchars($subject['id']); ?>">
                             <button type="submit" class="btn btn-sm btn-danger ri-delete-bin-6-line"></button>
                           </form>
 
-                        </td>
+                        </td>-->
                         <?php include('modals/form-edit-subjects.php'); ?>
                       </tr>
                   <?php
@@ -172,7 +167,7 @@
               <table class="table table-striped datatable">
                 <thead>
                   <tr>
-                    <th scope="col">Year</th>
+
                     <th scope="col">Semester</th>
                     <th scope="col">Code</th>
                     <th scope="col">Description</th>
@@ -181,8 +176,7 @@
                     <th scope="col">Units</th>
                     <th scope="col">Pre-requisite</th>
                     <th scope="col">Total Hours</th>
-                    <th scope="col">Course</th>
-                    <th scope="col">Action</th>
+
                   </tr>
                 </thead>
                 <tbody>
@@ -195,7 +189,7 @@
                     foreach ($db->query($sql) as $subject) {
                   ?>
                       <tr>
-                        <td><?php echo htmlspecialchars($subject['year']); ?></td>
+
                         <td><?php echo htmlspecialchars($subject['semester']); ?></td>
                         <td><?php echo htmlspecialchars($subject['code']); ?></td>
                         <td><?php echo htmlspecialchars($subject['description']); ?></td>
@@ -204,15 +198,15 @@
                         <td><?php echo htmlspecialchars($subject['unit']); ?></td>
                         <td><?php echo htmlspecialchars($subject['pre_req']); ?></td>
                         <td><?php echo htmlspecialchars($subject['total']); ?></td>
-                        <td><?php echo htmlspecialchars($subject['course']); ?></td>
-                        <td>
+
+                        <!-- <td>
                           <button type="button" class="btn btn-sm btn-warning ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editSubject<?php echo $subject['id']; ?>"></button>
                           <form method="POST" action="../admin/upload/delete_subject.php" onsubmit="return confirm('Are you sure you want to delete this subject?');" style="display:inline;">
                             <input type="hidden" name="id" value="<?php echo htmlspecialchars($subject['id']); ?>">
                             <button type="submit" class="btn btn-sm btn-danger ri-delete-bin-6-line"></button>
                           </form>
 
-                        </td>
+                        </td>-->
                         <?php include('modals/form-edit-subjects.php'); ?>
                       </tr>
                   <?php
@@ -230,7 +224,6 @@
               <table class="table table-striped datatable">
                 <thead>
                   <tr>
-                    <th scope="col">Year</th>
                     <th scope="col">Semester</th>
                     <th scope="col">Code</th>
                     <th scope="col">Description</th>
@@ -239,8 +232,7 @@
                     <th scope="col">Units</th>
                     <th scope="col">Pre-requisite</th>
                     <th scope="col">Total Hours</th>
-                    <th scope="col">Course</th>
-                    <th scope="col">Action</th>
+
                   </tr>
                 </thead>
                 <tbody>
@@ -253,7 +245,7 @@
                     foreach ($db->query($sql) as $subject) {
                   ?>
                       <tr>
-                        <td><?php echo htmlspecialchars($subject['year']); ?></td>
+
                         <td><?php echo htmlspecialchars($subject['semester']); ?></td>
                         <td><?php echo htmlspecialchars($subject['code']); ?></td>
                         <td><?php echo htmlspecialchars($subject['description']); ?></td>
@@ -262,15 +254,15 @@
                         <td><?php echo htmlspecialchars($subject['unit']); ?></td>
                         <td><?php echo htmlspecialchars($subject['pre_req']); ?></td>
                         <td><?php echo htmlspecialchars($subject['total']); ?></td>
-                        <td><?php echo htmlspecialchars($subject['course']); ?></td>
-                        <td>
+
+                        <!-- <td>
                           <button type="button" class="btn btn-sm btn-warning ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editSubject<?php echo $subject['id']; ?>"></button>
                           <form method="POST" action="../admin/upload/delete_subject.php" onsubmit="return confirm('Are you sure you want to delete this subject?');" style="display:inline;">
                             <input type="hidden" name="id" value="<?php echo htmlspecialchars($subject['id']); ?>">
                             <button type="submit" class="btn btn-sm btn-danger ri-delete-bin-6-line"></button>
                           </form>
 
-                        </td>
+                        </td>-->
                         <?php include('modals/form-edit-subjects.php'); ?>
                       </tr>
                   <?php
@@ -312,7 +304,7 @@
               <table class="table table-striped datatable">
                 <thead>
                   <tr>
-                    <th scope="col">Year</th>
+
                     <th scope="col">Semester</th>
                     <th scope="col">Code</th>
                     <th scope="col">Description</th>
@@ -321,8 +313,6 @@
                     <th scope="col">Units</th>
                     <th scope="col">Pre-requisite</th>
                     <th scope="col">Total Hours</th>
-                    <th scope="col">Course</th>
-                    <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -335,7 +325,7 @@
                     foreach ($db->query($sql) as $subject) {
                   ?>
                       <tr>
-                        <td><?php echo htmlspecialchars($subject['year']); ?></td>
+
                         <td><?php echo htmlspecialchars($subject['semester']); ?></td>
                         <td><?php echo htmlspecialchars($subject['code']); ?></td>
                         <td><?php echo htmlspecialchars($subject['description']); ?></td>
@@ -344,15 +334,15 @@
                         <td><?php echo htmlspecialchars($subject['unit']); ?></td>
                         <td><?php echo htmlspecialchars($subject['pre_req']); ?></td>
                         <td><?php echo htmlspecialchars($subject['total']); ?></td>
-                        <td><?php echo htmlspecialchars($subject['course']); ?></td>
-                        <td>
+
+                        <!--<td>
                           <button type="button" class="btn btn-sm btn-warning ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editSubject<?php echo $subject['id']; ?>"></button>
                           <form method="POST" action="../admin/upload/delete_subject.php" onsubmit="return confirm('Are you sure you want to delete this subject?');" style="display:inline;">
                             <input type="hidden" name="id" value="<?php echo htmlspecialchars($subject['id']); ?>">
                             <button type="submit" class="btn btn-sm btn-danger ri-delete-bin-6-line"></button>
                           </form>
 
-                        </td>
+                        </td>-->
                         <?php include('modals/form-edit-subjects.php'); ?>
                       </tr>
                   <?php
@@ -371,7 +361,7 @@
               <table class="table table-striped datatable">
                 <thead>
                   <tr>
-                    <th scope="col">Year</th>
+
                     <th scope="col">Semester</th>
                     <th scope="col">Code</th>
                     <th scope="col">Description</th>
@@ -380,8 +370,6 @@
                     <th scope="col">Units</th>
                     <th scope="col">Pre-requisite</th>
                     <th scope="col">Total Hours</th>
-                    <th scope="col">Course</th>
-                    <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -394,7 +382,7 @@
                     foreach ($db->query($sql) as $subject) {
                   ?>
                       <tr>
-                        <td><?php echo htmlspecialchars($subject['year']); ?></td>
+
                         <td><?php echo htmlspecialchars($subject['semester']); ?></td>
                         <td><?php echo htmlspecialchars($subject['code']); ?></td>
                         <td><?php echo htmlspecialchars($subject['description']); ?></td>
@@ -403,15 +391,15 @@
                         <td><?php echo htmlspecialchars($subject['unit']); ?></td>
                         <td><?php echo htmlspecialchars($subject['pre_req']); ?></td>
                         <td><?php echo htmlspecialchars($subject['total']); ?></td>
-                        <td><?php echo htmlspecialchars($subject['course']); ?></td>
-                        <td>
+
+                        <!--   <td>
                           <button type="button" class="btn btn-sm btn-warning ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editSubject<?php echo $subject['id']; ?>"></button>
                           <form method="POST" action="../admin/upload/delete_subject.php" onsubmit="return confirm('Are you sure you want to delete this subject?');" style="display:inline;">
                             <input type="hidden" name="id" value="<?php echo htmlspecialchars($subject['id']); ?>">
                             <button type="submit" class="btn btn-sm btn-danger ri-delete-bin-6-line"></button>
                           </form>
 
-                        </td>
+                        </td>-->
                         <?php include('modals/form-edit-subjects.php'); ?>
                       </tr>
                   <?php
@@ -452,8 +440,7 @@
               <table class="table table-striped datatable">
                 <thead>
                   <tr>
-                    <th scope="col">Year</th>
-                    <th scope="col">Semester</th>
+
                     <th scope="col">Code</th>
                     <th scope="col">Description</th>
                     <th scope="col">Lec</th>
@@ -461,8 +448,7 @@
                     <th scope="col">Units</th>
                     <th scope="col">Pre-requisite</th>
                     <th scope="col">Total Hours</th>
-                    <th scope="col">Course</th>
-                    <th scope="col">Action</th>
+
                   </tr>
                 </thead>
                 <tbody>
@@ -475,8 +461,7 @@
                     foreach ($db->query($sql) as $subject) {
                   ?>
                       <tr>
-                        <td><?php echo htmlspecialchars($subject['year']); ?></td>
-                        <td><?php echo htmlspecialchars($subject['semester']); ?></td>
+
                         <td><?php echo htmlspecialchars($subject['code']); ?></td>
                         <td><?php echo htmlspecialchars($subject['description']); ?></td>
                         <td><?php echo htmlspecialchars($subject['lec']); ?></td>
@@ -484,15 +469,15 @@
                         <td><?php echo htmlspecialchars($subject['unit']); ?></td>
                         <td><?php echo htmlspecialchars($subject['pre_req']); ?></td>
                         <td><?php echo htmlspecialchars($subject['total']); ?></td>
-                        <td><?php echo htmlspecialchars($subject['course']); ?></td>
-                        <td>
+
+                        <!--  <td>
                           <button type="button" class="btn btn-sm btn-warning ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editSubject<?php echo $subject['id']; ?>"></button>
                           <form method="POST" action="../admin/upload/delete_subject.php" onsubmit="return confirm('Are you sure you want to delete this subject?');" style="display:inline;">
                             <input type="hidden" name="id" value="<?php echo htmlspecialchars($subject['id']); ?>">
                             <button type="submit" class="btn btn-sm btn-danger ri-delete-bin-6-line"></button>
                           </form>
 
-                        </td>
+                        </td>-->
                         <?php include('modals/form-edit-subjects.php'); ?>
                       </tr>
                   <?php
@@ -534,7 +519,7 @@
               <table class="table table-striped datatable">
                 <thead>
                   <tr>
-                    <th scope="col">Year</th>
+
                     <th scope="col">Semester</th>
                     <th scope="col">Code</th>
                     <th scope="col">Description</th>
@@ -543,8 +528,7 @@
                     <th scope="col">Units</th>
                     <th scope="col">Pre-requisite</th>
                     <th scope="col">Total Hours</th>
-                    <th scope="col">Course</th>
-                    <th scope="col">Action</th>
+
                   </tr>
                 </thead>
                 <tbody>
@@ -557,7 +541,7 @@
                     foreach ($db->query($sql) as $subject) {
                   ?>
                       <tr>
-                        <td><?php echo htmlspecialchars($subject['year']); ?></td>
+
                         <td><?php echo htmlspecialchars($subject['semester']); ?></td>
                         <td><?php echo htmlspecialchars($subject['code']); ?></td>
                         <td><?php echo htmlspecialchars($subject['description']); ?></td>
@@ -566,15 +550,15 @@
                         <td><?php echo htmlspecialchars($subject['unit']); ?></td>
                         <td><?php echo htmlspecialchars($subject['pre_req']); ?></td>
                         <td><?php echo htmlspecialchars($subject['total']); ?></td>
-                        <td><?php echo htmlspecialchars($subject['course']); ?></td>
-                        <td>
+
+                        <!-- <td>
                           <button type="button" class="btn btn-sm btn-warning ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editSubject<?php echo $subject['id']; ?>"></button>
                           <form method="POST" action="../admin/upload/delete_subject.php" onsubmit="return confirm('Are you sure you want to delete this subject?');" style="display:inline;">
                             <input type="hidden" name="id" value="<?php echo htmlspecialchars($subject['id']); ?>">
                             <button type="submit" class="btn btn-sm btn-danger ri-delete-bin-6-line"></button>
                           </form>
 
-                        </td>
+                        </td>-->
                         <?php include('modals/form-edit-subjects.php'); ?>
                       </tr>
                   <?php
@@ -593,7 +577,7 @@
               <table class="table table-striped datatable">
                 <thead>
                   <tr>
-                    <th scope="col">Year</th>
+
                     <th scope="col">Semester</th>
                     <th scope="col">Code</th>
                     <th scope="col">Description</th>
@@ -602,8 +586,7 @@
                     <th scope="col">Units</th>
                     <th scope="col">Pre-requisite</th>
                     <th scope="col">Total Hours</th>
-                    <th scope="col">Course</th>
-                    <th scope="col">Action</th>
+
                   </tr>
                 </thead>
                 <tbody>
@@ -616,7 +599,7 @@
                     foreach ($db->query($sql) as $subject) {
                   ?>
                       <tr>
-                        <td><?php echo htmlspecialchars($subject['year']); ?></td>
+
                         <td><?php echo htmlspecialchars($subject['semester']); ?></td>
                         <td><?php echo htmlspecialchars($subject['code']); ?></td>
                         <td><?php echo htmlspecialchars($subject['description']); ?></td>
@@ -625,15 +608,14 @@
                         <td><?php echo htmlspecialchars($subject['unit']); ?></td>
                         <td><?php echo htmlspecialchars($subject['pre_req']); ?></td>
                         <td><?php echo htmlspecialchars($subject['total']); ?></td>
-                        <td><?php echo htmlspecialchars($subject['course']); ?></td>
-                        <td>
+                        <!--   <td>
                           <button type="button" class="btn btn-sm btn-warning ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editSubject<?php echo $subject['id']; ?>"></button>
                           <form method="POST" action="../admin/upload/delete_subject.php" onsubmit="return confirm('Are you sure you want to delete this subject?');" style="display:inline;">
                             <input type="hidden" name="id" value="<?php echo htmlspecialchars($subject['id']); ?>">
                             <button type="submit" class="btn btn-sm btn-danger ri-delete-bin-6-line"></button>
                           </form>
 
-                        </td>
+                        </td>-->
                         <?php include('modals/form-edit-subjects.php'); ?>
                       </tr>
                   <?php

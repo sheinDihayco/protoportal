@@ -13,6 +13,21 @@ if (isset($_POST['course_description']) && isset($_POST['course_year'])) {
     $conn = $connection->open();
 
     try {
+        // Check if course already exists
+        if (!$course_id) {
+            $stmt = $conn->prepare("SELECT * FROM tbl_course WHERE course_description = :course_description");
+            $stmt->bindParam(':course_description', $course_description);
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+                $response['status'] = 'error';
+                $response['message'] = 'Course already exists';
+                echo json_encode($response);
+                $connection->close();
+                exit();
+            }
+        }
+
         if ($course_id) {
             // Update existing course
             $stmt = $conn->prepare("UPDATE tbl_course SET course_description = :course_description, course_year = :course_year WHERE course_id = :course_id");

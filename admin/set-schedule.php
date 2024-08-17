@@ -261,29 +261,36 @@ $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", en
         }
 
         $('#scheduleForm').submit(function(e) {
-            e.preventDefault();
-            $.ajax({
-                url: $(this).attr('action'),
-                type: 'POST',
-                data: $(this).serialize(),
-                success: function(response) {
-                    $('#statusToast').removeClass('bg-danger').addClass('bg-success');
-                    $('#toastTitle').text('Success');
-                    $('#toastBody').text('Schedule has been added.');
-                    var toast = new bootstrap.Toast($('#statusToast'));
-                    toast.show();
-                    loadSchedules();
-                    $('#scheduleForm')[0].reset();
-                },
-                error: function() {
-                    $('#statusToast').removeClass('bg-success').addClass('bg-danger');
-                    $('#toastTitle').text('Error');
-                    $('#toastBody').text('Failed to add schedule.');
-                    var toast = new bootstrap.Toast($('#statusToast'));
-                    toast.show();
-                }
-            });
-        });
+    e.preventDefault();
+    $.ajax({
+        url: $(this).attr('action'),
+        type: 'POST',
+        data: $(this).serialize(),
+        dataType: 'json',
+        success: function(response) {
+            if (response.error) {
+                $('#statusToast').removeClass('bg-success').addClass('bg-danger');
+                $('#toastTitle').text('Error');
+                $('#toastBody').text(response.error);
+            } else {
+                $('#statusToast').removeClass('bg-danger').addClass('bg-success');
+                $('#toastTitle').text('Success');
+                $('#toastBody').text(response.success);
+                loadSchedules();
+                $('#scheduleForm')[0].reset();
+            }
+            var toast = new bootstrap.Toast($('#statusToast'));
+            toast.show();
+        },
+        error: function() {
+            $('#statusToast').removeClass('bg-success').addClass('bg-danger');
+            $('#toastTitle').text('Error');
+            $('#toastBody').text('Failed to add schedule.');
+            var toast = new bootstrap.Toast($('#statusToast'));
+            toast.show();
+        }
+    });
+});
 
         $(document).on('click', '.edit-btn', function() {
             var scheduleId = $(this).data('id');
