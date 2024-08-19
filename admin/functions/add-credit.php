@@ -3,7 +3,8 @@
 include("../includes/connect.php");
 include("../includes/connection.php");
 
-function showAlertAndRedirect($message, $formAction, $hiddenInputName, $hiddenInputValue) {
+function showAlertAndRedirect($message, $formAction, $hiddenInputName, $hiddenInputValue)
+{
     echo '<form id="myForm" action="' . $formAction . '" method="post">';
     echo '<input type="hidden" name="' . $hiddenInputName . '" value="' . $hiddenInputValue . '">';
     echo '</form>';
@@ -15,7 +16,7 @@ function showAlertAndRedirect($message, $formAction, $hiddenInputName, $hiddenIn
 }
 
 
-if(isset($_POST["submit"])) {
+if (isset($_POST["submit"])) {
     $amount = $_POST["amount"];
     $stat = $_POST["stat"];
     $date = $_POST["date"];
@@ -48,7 +49,7 @@ if(isset($_POST["submit"])) {
 
         // If the remaining balance is less than the new debit amount, do not proceed
         if ($stat === 'Debit' && $amount > $remainingBalance) {
-            
+
 
             showAlertAndRedirect("Invalid Amount", "../profile.php?error=exceed", "emps_id", $emp_id);
             // header("location: ../compensation.php?error=payment_exceed");
@@ -61,7 +62,7 @@ if(isset($_POST["submit"])) {
 
         $conn->exec($sql);
         showAlertAndRedirect("Created Successfully", "../profile.php?error=success", "emps_id", $emp_id);
-    } catch(PDOException $e) {
+    } catch (PDOException $e) {
         echo $sql . "<br>" . $e->getMessage();
     } finally {
         $conn = null;
@@ -69,4 +70,3 @@ if(isset($_POST["submit"])) {
 } else {
     header("location: ../profile.php?error=error");
 }
-?>

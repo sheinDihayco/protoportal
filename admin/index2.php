@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$statements = $conn->prepare("SELECT COUNT(studentID) AS count_stud FROM tbl_students");
+$statements = $conn->prepare("SELECT COUNT(user_id) AS count_stud FROM tbl_students");
 $statements->execute();
 $studcount = $statements->fetch(PDO::FETCH_ASSOC);
 

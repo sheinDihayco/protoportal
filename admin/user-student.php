@@ -1,10 +1,32 @@
 <?php include_once "../templates/header.php" ?>;
+<?php
+include_once "includes/connect.php";
+include_once 'includes/connection.php';
+$statements = $conn->prepare("SELECT COUNT(user_id) AS count_stud FROM tbl_students WHERE course = 'BSBA'");
+$statements->execute();
+$studcount = $statements->fetch(PDO::FETCH_ASSOC);
 
+$statements = $conn->prepare("SELECT COUNT(user_id) AS count_stud_bsit FROM tbl_students WHERE course = 'BSIT'");
+$statements->execute();
+$studcountbsit = $statements->fetch(PDO::FETCH_ASSOC);
+
+$statements = $conn->prepare("SELECT COUNT(user_id) AS count_stud_bsoa FROM tbl_students WHERE course = 'BSOA'");
+$statements->execute();
+$studcountbsoa = $statements->fetch(PDO::FETCH_ASSOC);
+
+$statements = $conn->prepare("SELECT COUNT(user_id) AS count_stud_sh11 FROM tbl_students WHERE year = '11'");
+$statements->execute();
+$studcount11 = $statements->fetch(PDO::FETCH_ASSOC);
+
+$statements = $conn->prepare("SELECT COUNT(user_id) AS count_stud_sh12 FROM tbl_students WHERE year = '12'");
+$statements->execute();
+$studcount12 = $statements->fetch(PDO::FETCH_ASSOC);
+?>
 
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1> Account Records</h1>
+        <h1>Student Account Records</h1>
         <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#insertStudent">
         </button>
         <nav>
@@ -81,9 +103,6 @@
                         <div class="col-12">
                             <button class="btn btn-primary w-100" type="submit" name="register">Register</button>
                         </div>
-                        <div class="col-12">
-                            <p class="small mb-0">Already have an account? <a href="login.php">Login here</a></p>
-                        </div>
                 </div>
                 </form>
             </div>
@@ -91,85 +110,98 @@
     </div>
 
     <section class="section dashboard">
-        <div class="row">
-            <!-- Left side columns -->
-            <div class="col-lg-12">
-                <div class="row">
-                    <!-- Recent Sales -->
-                    <div class="col-12">
-                        <div class="card recent-sales overflow-auto">
 
-                            <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                    <li class="dropdown-header text-start">
-                                        <h6>Filter</h6>
-                                    </li>
-                                    <li><a class="dropdown-item" href="../admin/user-instructor.php">Instructor</a></li>
-                                    <li><a class="dropdown-item" href="../admin/user-student.php">Student</a></li>
-                                    <li><a class="dropdown-item" href="../admin/user.php">Admin</a></li>
-                                </ul>
-                            </div>
-
-                            <div class="card-body">
-                                <h5 class="card-title">Accounts <span>| Registered</span></h5>
-
-                                <table class="table table-borderless datatable">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">User ID</th>
-                                            <th scope="col">Full Name</th>
-                                            <th scope="col">Email</th>
-                                            <th scope="col">Username</th>
-                                            <th scope="col">Role</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $database = new Connection();
-                                        $db = $database->open();
-
-                                        try {
-                                            $sql = "SELECT * FROM tbl_users WHERE user_role = 'student'
-                                ORDER BY user_id ASC";
-
-                                            foreach ($db->query($sql) as $row) {
-                                        ?>
-                                                <tr>
-                                                    <th scope="row"><a href="#"><?php echo $row["user_id"] ?></a></th>
-                                                    <td><?php echo $row["user_fname"] ?>, <?php echo $row["user_lname"] ?></td>
-                                                    <td><?php echo $row["user_email"] ?>
-                                                    <td><?php echo $row["user_name"] ?></td>
-                                                    <td><?php echo $row["user_role"] ?></td>
-                                                    <td>
-                                                        <form method="POST" action="../admin/upload/delete-user.php" onsubmit="return confirm('Are you sure you want to delete this user?');" style="display:inline;">
-                                                            <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($row["user_id"]); ?>">
-                                                            <button type="submit" class="btn btn-sm btn-danger ri-delete-bin-6-line"></button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                        <?php
-                                            }
-                                        } catch (PDOException $e) {
-                                            echo "There is some problem in connection: " . $e->getMessage();
-                                        }
-                                        $database->close();
-                                        ?>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                        </div>
-                    </div><!-- End Recent Sales -->
+        <div class="col-12">
+            <div class="card recent-sales overflow-auto">
+                <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                        <li class="dropdown-header text-start">
+                            <h6>Filter</h6>
+                        </li>
+                        <li><a class="dropdown-item" href="#">Today</a></li>
+                        <li><a class="dropdown-item" href="#">This Month</a></li>
+                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                    </ul>
                 </div>
-            </div><!-- End Left side columns -->
-        </div>
+                <div class="card-body">
+                    <h5 class="card-title">Students <span>| Enrolled</span></h5>
+                    <table class="table table-borderless datatable">
+                        <thead>
+                            <tr>
+                                <th scope="col">Student ID</th>
+                                <th scope="col">Full Name</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $database = new Connection();
+                            $db = $database->open();
+
+                            try {
+                                $sql = 'SELECT * FROM tbl_students ORDER BY lname ASC';
+                                foreach ($db->query($sql) as $row) {
+                            ?>
+                                    <tr>
+                                        <th scope="row" style="font-size:bold;"><a href=""><?php echo $row["user_name"] ?></a></th>
+                                        <td><?php echo $row["lname"] ?>, <?php echo $row["fname"] ?></td>
+                                        <td><?php echo $row["status"] ?></td>
+                                        <td>
+                                            <?php if (empty($row['user_id'])) { ?>
+                                                <!-- Add Button -->
+                                                <button type="button" class="btn btn-sm btn-primary ri-add-box-fill" data-bs-toggle="modal" data-bs-target="#insertInitial<?php echo htmlspecialchars($row['user_id']); ?>"></button>
+                                            <?php } else { ?>
+                                                <!-- Edit Button -->
+                                                <button type="button" class="btn btn-sm btn-warning ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editStudent<?php echo htmlspecialchars($row['user_id']); ?>"></button>
+                                            <?php } ?>
+
+                                            <form action="student_profile.php" method="post" style="display:inline;">
+                                                <input type="hidden" name="stud_id" value="<?php echo htmlspecialchars($row['user_id']); ?>">
+                                                <button type="submit" class="btn btn-sm btn-success" name="submit">
+                                                    <i class="ri-arrow-right-circle-fill"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+
+                                        <?php include('modals/form-insert-data.php'); ?>
+                                        <?php include('modals/form-edit-Student.php'); ?>
+                                    </tr>
+                            <?php
+                                }
+                            } catch (PDOException $e) {
+                                echo "There is some problem in connection: " . $e->getMessage();
+                            }
+                            $database->close();
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div><!-- End Students Enrolled -->
+
     </section>
 
 
 </main><!-- End #main -->
+<!-- Vendor JS Files -->
+<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+<!-- Template Main JS File -->
+<script src="../assets/js/main.js"></script>
+<script>
+    document.getElementById('role').addEventListener('change', function() {
+        var role = this.value;
+        if (role === 'student') {
+            document.getElementById('usernameDiv').style.display = 'none';
+            document.getElementById('schoolidDiv').style.display = 'block';
+        } else {
+            document.getElementById('usernameDiv').style.display = 'block';
+            document.getElementById('schoolidDiv').style.display = 'none';
+        }
+    });
+</script>
 <?php
 include_once "../templates/footer.php";
 ?>

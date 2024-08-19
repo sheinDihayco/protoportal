@@ -19,19 +19,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $user_id = $conn->real_escape_string($_POST['user_id']);
     $fname = $conn->real_escape_string($_POST['fname']);
     $lname = $conn->real_escape_string($_POST['lname']);
-    $studentID = $conn->real_escape_string($_POST['studentID']);
+    $user_id = $conn->real_escape_string($_POST['user_id']);
     $course = $conn->real_escape_string($_POST['course']);
     $year = $conn->real_escape_string($_POST['year']);
+    $semester = $conn->real_escape_string($_POST['semester']);
+    $status = $conn->real_escape_string($_POST['status']);
 
-    // Check if studentID already exists
-    $checkQuery = "SELECT studentID FROM tbl_students WHERE studentID = '$studentID'";
+    // Check if user_id already exists
+    $checkQuery = "SELECT user_id FROM tbl_students WHERE user_id = '$user_id'";
     $result = $conn->query($checkQuery);
 
     if ($result->num_rows > 0) {
         // Student ID already exists, perform update
         $updateQuery = "UPDATE tbl_students 
-                        SET fname = '$fname', lname = '$lname', course = '$course', year = '$year'
-                        WHERE studentID = '$studentID' AND user_id = '$user_id'";
+                        SET fname = '$fname', lname = '$lname', course = '$course', year = '$year', status = '$status', semester = '$semester'
+                        WHERE user_id = '$user_id'";
 
         if ($conn->query($updateQuery) === TRUE) {
             $_SESSION['initial_update'] = "Record updated successfully.";
@@ -40,8 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         }
     } else {
         // Student ID does not exist, perform insert
-        $insertQuery = "INSERT INTO tbl_students (user_id, fname, lname, studentID, course, year)
-                        VALUES ('$user_id', '$fname', '$lname', '$studentID', '$course', '$year')";
+        $insertQuery = "INSERT INTO tbl_students (user_id, fname, lname, course, year, semster, status)
+                        VALUES ('$user_id', '$fname', '$lname', '$course', '$year', '$semester', '$status')";
 
         if ($conn->query($insertQuery) === TRUE) {
             $_SESSION['initial_update'] = "Record inserted successfully.";
@@ -52,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
     // Redirect based on the result of the operation
     if (isset($_SESSION['initial_update'])) {
-        header("Location: ../payment.php?register=success");
+        header("Location: ../user-student.php?register=success");
     } else {
         header("Location: ../admin/insert-initial-data.php");
     }

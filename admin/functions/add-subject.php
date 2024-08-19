@@ -36,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ]);
 
     // Redirect to subject.php after successful insertion
+    $_SESSION['subject_created'] = true;
     header("Location: ../subject.php?error=upload-success");
     exit();
 }

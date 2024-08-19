@@ -1,26 +1,36 @@
-<?php include_once "../templates/header2.php"; ?>
 <?php
-// Assuming you have a database connection class
+include_once "../templates/header2.php"; // Adjust the path as needed
+include_once "includes/connect.php"; // Ensure to include your database connection file
+
 $database = new Connection();
 $db = $database->open();
 
-$subjects = []; // Initialize as an empty array
+// Initialize variables
+$assignedStudents = [];
+$userid = $_SESSION["login"]; // Get the logged-in instructor's user ID
 
 try {
-  $sql = "SELECT * FROM tbl_subjects ORDER BY code ASC";
-  $subjects = $db->query($sql);
+  // Query to get students assigned to the specific instructor
+  $sql = "SELECT s.user_id, s.lname, s.fname, s.course, s.year, s.status, s.user_name
+            FROM tbl_students s
+            INNER JOIN tbl_student_instructors si ON s.user_id = si.student_id
+            WHERE si.instructor_id = :instructor_id";
+  $stmt = $db->prepare($sql);
+  $stmt->execute([':instructor_id' => $userid]);
+  $assignedStudents = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-  echo "There was an error fetching subjects: " . $e->getMessage();
+  echo "There was an error: " . $e->getMessage();
 }
 
+// Close database connection
 $database->close();
 ?>
 
-
 <main id="main" class="main">
-
   <div class="pagetitle">
-    <h1> Student Records</h1>
+    <h1>Student Account Records</h1>
+    <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#insertStudent">
+    </button>
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
@@ -29,143 +39,114 @@ $database->close();
     </nav>
   </div><!-- End Page Title -->
 
-  <section class="section dashboard">
-    <div class="col-lg-12">
-      <div class="row">
-        <div class="col-12">
-          <div class="card recent-sales overflow-auto">
-            <div class="card-body">
-              <h5 class="card-title">Students <span>| Enrolled</span></h5>
-
-              <!-- Custom alert for new student creation -->
-              <?php
-              if (isset($_SESSION['student_created']) && $_SESSION['student_created']) {
-                echo "
-                        <div class='alert'>
-                            <span class='closebtn' onclick='this.parentElement.style.display=\"none\";'>&times;</span>
-                            New student successfully created!
-                        </div>
-                        <script>
-                            // Automatically close the alert after 5 seconds
-                            setTimeout(function() {
-                                document.querySelector('.alert').style.opacity = '0';
-                                setTimeout(function() {
-                                    document.querySelector('.alert').style.display = 'none';
-                                }, 600);
-                            }, 5000);
-                        </script>";
-                unset($_SESSION['student_created']); // Unset session variable to prevent repeated alerts
-              }
-              ?>
-              <table class="table table-borderless datatable">
-                <thead>
-                  <tr>
-                    <th scope="col">User ID</th>
-                    <th scope="col">School ID</th>
-                    <th scope="col">Full Name</th>
-                    <th scope="col">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  $database = new Connection();
-                  $db = $database->open();
-
-                  try {
-                    $sql = "SELECT s.*, u.studentID
-                            FROM tbl_users s
-                            JOIN tbl_students u ON s.user_id = u.user_id
-                            WHERE s.user_role = 'student'
-                            ORDER BY s.user_id ASC";
-                    foreach ($db->query($sql) as $row) {
-                  ?>
-                      <tr>
-                        <td>
-                          <a href="../admin/payment.php?studentID=<?php echo htmlspecialchars($row['user_id']); ?>">
-                            <?php echo htmlspecialchars($row['user_id']); ?>
-                          </a>
-                        </td>
-
-                        <td><?php echo htmlspecialchars($row['studentID']); ?></td>
-
-                        <td><?php echo htmlspecialchars($row['user_fname']) . ' ' . htmlspecialchars($row['user_lname']); ?></td>
-
-
-                        <td>
-                          <button type="button" class="btn btn-sm btn-warning ri-add-box-fill" data-bs-toggle="modal" data-bs-target="#insertGrade<?php echo $row["user_id"] ?>"></button>
-                          <!-- Form to delete student -->
-                          <form method="POST" action="../admin/upload/delete-student.php" onsubmit="return confirm('Are you sure you want to delete this user?');" style="display:inline;">
-                            <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($row['user_id']); ?>">
-                            <button type="submit" class="btn btn-sm btn-danger ri-delete-bin-6-line"></button>
-                          </form>
-                        </td>
-                        <?php include('modals/insert-grade.php'); ?>
-                      </tr>
-                  <?php
-                    }
-                  } catch (PDOException $e) {
-                    echo "There is some problem in connection: " . $e->getMessage();
-                  }
-                  $database->close();
-                  ?>
-                </tbody>
-              </table>
-
+  <!-- Modal for Registering New Student -->
+  <div class="modal fade" id="insertStudent" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Register Account</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="includes/register.inc.php" method="post" class="row g-3 needs-validation" novalidate style="padding: 20px;">
+            <!-- Form Fields Here -->
+            <div class="col-12">
+              <label for="role" class="form-label">Role</label>
+              <select name="role" id="role" class="form-select" required>
+                <option value="" disabled selected>Select your role</option>
+                <option value="admin">Admin</option>
+                <option value="teacher">Teacher</option>
+                <option value="student">Student</option>
+              </select>
+              <div class="invalid-feedback">Please select a role.</div>
             </div>
-          </div>
+            <!-- Additional Fields -->
+            <div class="col-12">
+              <button class="btn btn-primary w-100" type="submit" name="register">Register</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
+  </div>
 
+  <section class="section dashboard">
+    <div class="col-12">
+      <div class="card recent-sales overflow-auto">
+        <div class="filter">
+          <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+            <li class="dropdown-header text-start">
+              <h6>Filter</h6>
+            </li>
+            <li><a class="dropdown-item" href="#">Today</a></li>
+            <li><a class="dropdown-item" href="#">This Month</a></li>
+            <li><a class="dropdown-item" href="#">This Year</a></li>
+          </ul>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Students <span>| Enrolled</span></h5>
+          <table class="table table-borderless datatable">
+            <thead>
+              <tr>
+                <th scope="col">Student ID</th>
+                <th scope="col">Course & Year</th>
+                <th scope="col">Full Name</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php if (!empty($assignedStudents)): ?>
+                <?php foreach ($assignedStudents as $student): ?>
+                  <tr>
+                    <th scope="row"><?php echo htmlspecialchars($student['user_name']); ?></th>
+                    <td><?php echo htmlspecialchars($student['course']) . ' ' . htmlspecialchars($student['year']); ?></td>
+                    <td><?php echo htmlspecialchars($student['lname']) . ', ' . htmlspecialchars($student['fname']); ?></td>
+                    <td><?php echo htmlspecialchars($student['status']); ?></td>
+                    <td>
+                      <!-- Button to trigger the modal for grade insertion -->
+                      <button type="button" class="btn btn-sm btn-warning ri-add-box-fill" data-bs-toggle="modal" data-bs-target="#insertGrade<?php echo htmlspecialchars($student['user_id']); ?>"></button>
+
+                      <!-- Form to delete the user -->
+                      <form method="POST" action="../admin/upload/delete-user.php" onsubmit="return confirm('Are you sure you want to delete this user?');" style="display:inline;">
+                        <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($student['user_id']); ?>">
+                        <button type="submit" class="btn btn-sm btn-danger ri-delete-bin-6-line"></button>
+                      </form>
+                    </td>
+                    <?php include('modals/insert-grade.php'); ?>
+                  </tr>
+                <?php endforeach; ?>
+              <?php else: ?>
+                <tr>
+                  <td colspan="5">No students assigned to this instructor.</td>
+                </tr>
+              <?php endif; ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div><!-- End Students Enrolled -->
   </section>
-</main>
+</main><!-- End #main -->
+
+<!-- Vendor JS Files -->
+<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Template Main JS File -->
+<script src="../assets/js/main.js"></script>
+
+<script>
+  document.getElementById('role').addEventListener('change', function() {
+    var role = this.value;
+    if (role === 'student') {
+      document.getElementById('usernameDiv').style.display = 'none';
+      document.getElementById('schoolidDiv').style.display = 'block';
+    } else {
+      document.getElementById('usernameDiv').style.display = 'block';
+      document.getElementById('schoolidDiv').style.display = 'none';
+    }
+  });
+</script>
 
 <?php include_once "../templates/footer.php"; ?>
-
-
-<style>
-  .alert {
-    padding: 20px;
-    background-color: #4CAF50;
-    color: white;
-    opacity: 1;
-    transition: opacity 0.6s;
-    margin-bottom: 15px;
-    border-radius: 4px;
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
-  }
-
-  .closebtn {
-    margin-left: 15px;
-    color: white;
-    font-weight: bold;
-    float: right;
-    font-size: 22px;
-    line-height: 20px;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-
-  .closebtn:hover {
-    color: black;
-  }
-
-  .dropdown-container {
-    position: relative;
-    width: 100%;
-  }
-
-  .select2-container--default .select2-selection--single {
-    height: 38px;
-    /* Adjust based on your design */
-    line-height: 36px;
-  }
-
-  .select2-dropdown {
-    z-index: 5000;
-    /* Ensure dropdown appears above other elements */
-  }
-</style>

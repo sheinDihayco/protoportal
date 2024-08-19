@@ -4,7 +4,7 @@
 <main id="main" class="main">
 
   <div class="pagetitle">
-    <h1> Account Records</h1>
+    <h1>Instructor Account Records</h1>
     <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#insertStudent">
     </button>
     <nav>
@@ -114,38 +114,38 @@
                 <table class="table table-borderless datatable">
                   <thead>
                     <tr>
-                      <th scope="col">User ID</th>
+                      <th scope="col">Username</th>
                       <th scope="col">Full Name</th>
                       <th scope="col">Email</th>
-                      <th scope="col">Username</th>
-                      <th scope="col">Role</th>
                       <th scope="col">Action</th>
                     </tr>
                   </thead>
+                  <!--$sql = "SELECT * FROM tbl_users WHERE user_role = 'admin' OR user_role = 'teacher'
+                                ORDER BY user_id ASC";-->
                   <tbody>
                     <?php
                     $database = new Connection();
                     $db = $database->open();
 
                     try {
-                      $sql = "SELECT * FROM tbl_users WHERE user_role = 'admin' OR user_role = 'teacher'
+                      $sql = "SELECT * FROM tbl_users WHERE user_role = 'teacher'
                                 ORDER BY user_id ASC";
 
                       foreach ($db->query($sql) as $row) {
                     ?>
                         <tr>
-                          <th scope="row"><a href="#"><?php echo $row["user_id"] ?></a></th>
+                          <th scope="row"><a href="#"><?php echo $row["user_name"] ?></a></th>
                           <td><?php echo $row["user_fname"] ?>, <?php echo $row["user_lname"] ?></td>
-                          <td><?php echo $row["user_email"] ?>
-                          <td><?php echo $row["user_name"] ?></td>
-                          <td><?php echo $row["user_role"] ?></td>
+                          <td><?php echo $row["user_email"] ?></td>
                           <td>
                             <form method="POST" action="../admin/upload/delete-user.php" onsubmit="return confirm('Are you sure you want to delete this user?');" style="display:inline;">
                               <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($row["user_id"]); ?>">
-                              <button type="submit" class=" btn btn-sm btn-danger ri-delete-bin-6-line"></button>
+                              <button type="submit" class="btn btn-sm btn-danger ri-delete-bin-6-line"></button>
                             </form>
                           </td>
+                          <?php include('modals/insert-student.php'); ?>
                         </tr>
+
                     <?php
                       }
                     } catch (PDOException $e) {

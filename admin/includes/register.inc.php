@@ -27,7 +27,7 @@ if (isset($_POST["register"])) {
     // Prepare SQL statement
     if ($role == 'student') {
         $schoolid = $_POST["schoolid"];
-        $statement = $conn->prepare("INSERT INTO tbl_users (user_fname, user_lname, user_email, user_name, user_pass, user_role) VALUES (:firstName, :lastName, :email, :userName, :password, :role)");
+        $statement = $conn->prepare("INSERT INTO tbl_students (fname, lname, email, user_name, user_pass, user_role) VALUES (:firstName, :lastName, :email, :userName, :password, :role)");
         $statement->bindParam(':userName', $schoolid);
     } else {
         $username = $_POST["username"];
@@ -44,7 +44,7 @@ if (isset($_POST["register"])) {
     // Execute the query
     if ($statement->execute()) {
         $_SESSION['student_created'] = true;
-        header("location:../studentRecords1.php?register=success");
+        header("location:../user-student.php?register=success");
     } else {
         print_r($statement->errorInfo());
         header("location:../register.php?error=sqlerror");

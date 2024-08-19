@@ -8,16 +8,15 @@ if (isset($_POST['register'])) {
 
     // Retrieve the data from the form
     $user_id = $_POST['user_id'] ?? null;
-    $studentID = $_POST['studentID'] ?? null;
     $id = $_POST['subject'] ?? null;
     $term = $_POST['term'] ?? null;
     $grade = $_POST['grade'] ?? null;
 
     // Ensure none of the required fields are missing
-    if ($user_id && $studentID && $id && $term && $grade) {
+    if ($user_id && $id && $term && $grade) {
         // Prepare and execute the insert query
         try {
-            $sql = "INSERT INTO tbl_grades (user_id, term, grade, id, studentID) VALUES (:user_id, :term, :grade, :id, :studentID)";
+            $sql = "INSERT INTO tbl_grades (user_id, term, grade, id) VALUES (:user_id, :term, :grade, :id )";
             $stmt = $db->prepare($sql);
 
             // Bind the parameters
@@ -25,7 +24,6 @@ if (isset($_POST['register'])) {
             $stmt->bindParam(':term', $term, PDO::PARAM_STR);
             $stmt->bindParam(':grade', $grade, PDO::PARAM_STR);
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-            $stmt->bindParam(':studentID', $studentID, PDO::PARAM_STR);
 
             // Execute the query
             if ($stmt->execute()) {

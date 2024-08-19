@@ -369,20 +369,63 @@ $database->close();
       </li>
       <!-- End Dashboard Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="../admin/employee.php">
-          <i class="ri ri-group-line"></i>
-          <span>Employee</span>
-        </a>
-      </li>
 
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link collapsed" href="../admin/studentRecords1.php">
           <i class="ri ri-group-line"></i>
           <span>Student</span>
-        </a>
-      </li>
+        </a
+      </li>-->
 
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-journal-text"></i><span>Academics</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="../admin/set-schedule.php">
+              <i class="bi bi-circle"></i><span>Schedule</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="../admin/grade.php">
+              <i class="bi bi-circle"></i><span>Grades</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="../admin/course.php">
+              <i class="bi bi-circle"></i><span>Courses</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="../admin/assign-student-instructors.php">
+              <i class="bi bi-circle"></i><span>Assign Students</span>
+            </a>
+          </li>
+
+        </ul>
+      </li><!-- End Forms Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#user-nav" data-bs-toggle="collapse" href="#">
+          <i class="ri ri-group-line"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="user-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="../admin/user-student.php">
+              <i class="bi bi-circle-fill"></i><span>Students</span>
+            </a>
+          </li>
+          <li>
+            <a href="../admin/user.php">
+              <i class="bi bi-circle-fill"></i><span>Instructors</span>
+            </a>
+          </li>
+        </ul>
+      </li>
       <li class="nav-item">
         <a class="nav-link collapsed" href="../admin/event.php">
           <i class="ri-calendar-check-line"></i>
@@ -391,41 +434,9 @@ $database->close();
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="../admin/course.php">
-          <i class="ri-calendar-2-fill"></i>
-          <span>Courses</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-journal-text"></i><span>Schedule</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="../admin/set-schedule.php">
-              <i class="bi bi-circle" class="active"></i><span>Set Schedule</span>
-            </a>
-          </li>
-          <li>
-            <a href="../admin/set-slots.php">
-              <i class="bi bi-circle" class="active"></i><span>Time Slot</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Forms Nav -->
-
-      <li class="nav-item">
         <a class="nav-link collapsed" href="../admin/subject.php">
           <i class="ri-book-3-line"></i>
           <span>Prospectus</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="../admin/grade.php">
-          <i class="ri-book-3-line"></i>
-          <span>Grades</span>
         </a>
       </li>
 
@@ -436,12 +447,12 @@ $database->close();
         </a>
       </li>
 
-      <li class="nav-item">
+      <!--<li class="nav-item">
         <a class="nav-link collapsed" href="../admin/compensation.php">
           <i class="bx bx-wallet"></i>
           <span>Compensation</span>
         </a>
-      </li>
+      </li>-->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="">
@@ -452,9 +463,9 @@ $database->close();
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="../admin/user.php">
-          <i class="ri-user-fill"></i>
-          <span>Users</span>
+        <a class="nav-link collapsed" href="../admin/employee.php">
+          <i class="ri ri-group-line"></i>
+          <span>Employee</span>
         </a>
       </li>
 
@@ -471,6 +482,7 @@ $database->close();
           <i class="bi bi-gear"></i> <!-- Settings icon -->
         </a>
       </div>
+
       <!-- <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#user-nav" data-bs-toggle="collapse" href="#">
           <i class="ri ri-group-line"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>

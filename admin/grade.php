@@ -1,164 +1,96 @@
 <?php
-include_once "../templates/header.php"; // Corrected PHP include tag
-?>
-<?php
+include_once "../templates/header2.php"; // Adjust the path as needed
+include_once "includes/connect.php"; // Ensure to include your database connection file
 
-if (isset($_SESSION['initial_update']) && $_SESSION['initial_update']) {
-  echo "
-        <div class='alert'>
-            <span class='closebtn' onclick='this.parentElement.style.display=\"none\";'>&times;</span>
-            Record successfully updated!
-        </div>
-        <script>
-            setTimeout(function() {
-                document.querySelector('.alert').style.opacity = '0';
-                setTimeout(function() {
-                    document.querySelector('.alert').style.display = 'none';
-                }, 600);
-            }, 5000);
-        </script>";
-  unset($_SESSION['initial_update']);
+$database = new Connection();
+$db = $database->open();
+
+// Initialize variables
+$assignedStudents = [];
+$userid = $_SESSION["login"]; // Get the logged-in instructor's user ID
+
+try {
+  // Query to get students assigned to the specific instructor
+  $sql = "SELECT s.user_id, s.lname, s.fname, s.course, s.year, s.status, s.user_name
+            FROM tbl_students s
+            INNER JOIN tbl_student_instructors si ON s.user_id = si.student_id
+            WHERE si.instructor_id = :instructor_id";
+  $stmt = $db->prepare($sql);
+  $stmt->execute([':instructor_id' => $userid]);
+  $assignedStudents = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+  echo "There was an error: " . $e->getMessage();
 }
 
-if (isset($_SESSION['initial_update_error'])) {
-  echo "
-        <div class='alert' style='background-color: #f44336;'>
-            <span class='closebtn' onclick='this.parentElement.style.display=\"none\";'>&times;</span>
-            " . $_SESSION['initial_update_error'] . "
-        </div>
-        <script>
-            setTimeout(function() {
-                document.querySelector('.alert').style.opacity = '0';
-                setTimeout(function() {
-                    document.querySelector('.alert').style.display = 'none';
-                }, 600);
-            }, 5000);
-        </script>";
-  unset($_SESSION['initial_update_error']);
-}
+// Close database connection
+$database->close();
 ?>
 
 <main id="main" class="main">
   <div class="pagetitle">
-    <h1> Grade Records</h1>
+    <h1>Assigned Students</h1>
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-        <li class="breadcrumb-item active">Student</li>
+        <li class="breadcrumb-item active">Assigned Students</li>
       </ol>
     </nav>
   </div><!-- End Page Title -->
+
   <section class="section dashboard">
-    <div class="row">
-      <!-- Left side columns -->
-      <div class="col-lg-12">
-        <div class="row">
-          <!-- Recent Sales -->
-          <div class="col-12">
-            <div class="card recent-sales overflow-auto">
-
-              <div class="filter">
-                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                  <li class="dropdown-header text-start">
-                    <h6>Filter</h6>
-                  </li>
-                  <li><a class="dropdown-item" href="../admin/bsit-payment.php">BSIT</a></li>
-                  <li><a class="dropdown-item" href="../admin/bsba-payment.php">BSBA</a></li>
-                  <li><a class="dropdown-item" href="../admin/bsoa-payment.php">BSOA</a></li>
-                </ul>
-              </div>
-
-              <div class="card-body">
-                <h5 class="card-title">Students <span>| Enrolled</span></h5>
-
-                <table class="table table-borderless datatable">
-                  <thead>
-                    <tr>
-                      <th scope="col">Student ID</th>
-                      <th scope="col">Full Name</th>
-                      <th scope="col">Course</th>
-                      <th scope="col">Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php
-                    $database = new Connection();
-                    $db = $database->open();
-
-                    try {
-                      $sql = 'SELECT * FROM tbl_students ORDER BY lname ASC';
-                      foreach ($db->query($sql) as $row) {
-                    ?>
-                        <tr>
-                          <th scope="row"><a href="student_profile-grade.php?studentID=<?php echo htmlspecialchars($student["studentID"]); ?>"><?php echo htmlspecialchars($row["studentID"]); ?></a></th>
-
-                          <td><?php echo htmlspecialchars($row["lname"]) . ", " . htmlspecialchars($row["fname"]); ?></td>
-                          <td><?php echo htmlspecialchars($row["course"]) . " - " . htmlspecialchars($row["year"]); ?></td>
-                          <td>
-                            <form action="student_profile.php" method="post">
-                              <input type="hidden" name="stud_id" value="<?php echo htmlspecialchars($row['studentID']); ?>">
-                              <button type="submit" class="btn btn-sm btn-success" name="submit"><i class="ri-arrow-right-circle-fill"></i></button>
-                            </form>
-                          </td>
-                        </tr>
-                    <?php
-                      }
-                    } catch (PDOException $e) {
-                      echo "There is some problem in connection: " . htmlspecialchars($e->getMessage());
-                    }
-                    $database->close();
-                    ?>
-                  </tbody>
-                </table>
-              </div>
-
-            </div>
-          </div><!-- End Recent Sales -->
+    <!-- Display Assigned Students Table -->
+    <div class="col-12">
+      <div class="card recent-sales overflow-auto">
+        <div class="filter">
+          <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+            <li class="dropdown-header text-start">
+              <h6>Filter</h6>
+            </li>
+            <li><a class="dropdown-item" href="#">Today</a></li>
+            <li><a class="dropdown-item" href="#">This Month</a></li>
+            <li><a class="dropdown-item" href="#">This Year</a></li>
+          </ul>
         </div>
-      </div><!-- End Left side columns -->
+        <div class="card-body">
+          <h5 class="card-title">Students <span>| Enrolled</span></h5>
+          <table class="table table-borderless datatable">
+            <thead>
+              <tr>
+                <th scope="col">Student ID</th>
+                <th scope="col">Full Name</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php if (!empty($assignedStudents)): ?>
+                <?php foreach ($assignedStudents as $student): ?>
+                  <tr>
+                    <th scope="row"><?php echo htmlspecialchars($student['user_name']); ?></th>
+                    <td><?php echo htmlspecialchars($student['lname']) . ', ' . htmlspecialchars($student['fname']); ?></td>
+                    <td>
+
+                      <!-- Form to view student profile -->
+                      <form action="stud-profile.php" method="post" style="display:inline;">
+                        <input type="hidden" name="stud_id" value="<?php echo htmlspecialchars($student['user_id']); ?>">
+                        <button type="submit" class="btn btn-sm btn-success" name="submit">
+                          <i class="ri-arrow-right-circle-fill"></i>
+                        </button>
+                      </form>
+                    </td>
+
+                  </tr>
+                <?php endforeach; ?>
+              <?php else: ?>
+                <tr>
+                  <td colspan="5">No students assigned to this instructor.</td>
+                </tr>
+              <?php endif; ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
+
   </section>
-
-</main><!-- End #main -->
-
-<?php
-include_once "../templates/footer.php";
-?>
-
-<style>
-  .alert {
-    padding: 20px;
-    background-color: #4CAF50;
-    /* Green background for success */
-    color: white;
-    opacity: 1;
-    transition: opacity 0.6s;
-    margin-bottom: 15px;
-    border-radius: 4px;
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
-  }
-
-  .alert.error {
-    background-color: #f44336;
-    /* Red background for errors */
-  }
-
-  .closebtn {
-    margin-left: 15px;
-    color: white;
-    font-weight: bold;
-    float: right;
-    font-size: 22px;
-    line-height: 20px;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-
-  .closebtn:hover {
-    color: black;
-  }
-</style>
+</main>

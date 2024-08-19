@@ -2,19 +2,27 @@
 include_once "connect.php";
 
 if (isset($_POST["login"])) {
-    $identifier = $_POST["identifier"];
-    $pass = $_POST["password"];
+    $identifier = trim($_POST["identifier"]);
+    $pass = trim($_POST["password"]);
     $remember = isset($_POST["remember"]);
 
-    $column = preg_match('/^[a-zA-Z0-9-]+$/', $identifier) ? 'user_name' : 'user_name';
-
+    // Check in tbl_users
     $statement = $conn->prepare("SELECT * FROM tbl_users WHERE user_name = :identifier");
     $statement->bindParam(':identifier', $identifier);
     $statement->execute();
     $user = $statement->fetch(PDO::FETCH_ASSOC);
 
-    if ($user) {
-        $password = $user["user_pass"];
+    // If not found in tbl_users, check in tbl_students
+    if (!$user) {
+        $statement = $conn->prepare("SELECT * FROM tbl_students WHERE user_name = :identifier");
+        $statement->bindParam(':identifier', $identifier);
+        $statement->execute();
+        $student = $statement->fetch(PDO::FETCH_ASSOC);
+    }
+
+    if ($user || $student) {
+        $account = $user ? $user : $student;
+        $password = $account["user_pass"];
         $checkpass = password_verify($pass, $password);
 
         if ($checkpass === false) {
@@ -22,8 +30,8 @@ if (isset($_POST["login"])) {
             exit;
         } else {
             session_start();
-            $_SESSION['login'] = $user["user_id"];
-            $_SESSION['role'] = $user["user_role"];
+            $_SESSION['login'] = $account["user_id"];
+            $_SESSION['role'] = $account["user_role"];
             $_SESSION['login_success'] = true;
 
             if ($remember) {
@@ -35,11 +43,11 @@ if (isset($_POST["login"])) {
             }
 
             // Redirect based on role
-            if ($user["user_role"] == "admin") {
+            if ($account["user_role"] == "admin") {
                 header("location:../index.php");
-            } elseif ($user["user_role"] == "teacher") {
+            } elseif ($account["user_role"] == "teacher") {
                 header("location:../index2.php");
-            } elseif ($user["user_role"] == "student") {
+            } elseif ($account["user_role"] == "student") {
                 header("location:../index3.php");
             } else {
                 header("location:../login.php?error=unknownrole");

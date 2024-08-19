@@ -56,7 +56,8 @@ $database->close();
   <!-- Template Main CSS File -->
   <link href="../assets/css/style.css" rel="stylesheet">
 
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+
 </head>
 
 <body>
@@ -376,7 +377,7 @@ $database->close();
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="ri ri-group-line"></i><span>Components</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="ri ri-group-line"></i><span>Academics</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
@@ -388,7 +389,7 @@ $database->close();
 
           <li>
             <!-- TO GIVE GRADES-->
-            <a href="#">
+            <a href="../admin/grade.php">
               <i class="ri-booklet-fill"></i><span>Grades</span>
             </a>
           </li>

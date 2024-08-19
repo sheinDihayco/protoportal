@@ -32,6 +32,11 @@ $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", en
         <h1>Schedule Records</h1>
         <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#scheduleModal">
         </button>
+
+        <button type="button" class="ri-time-fil tablebutton" onclick="window.location.href='../admin/set-slots.php';">
+            <i class="ri-time-fill"></i><span></span>
+        </button>
+
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.php">Home</a></li>
@@ -39,6 +44,9 @@ $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", en
             </ol>
         </nav>
     </div><!-- End Page Title -->
+
+
+
 
     <section class="section dashboard">
         <div class="col-lg-12">
@@ -261,36 +269,36 @@ $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", en
         }
 
         $('#scheduleForm').submit(function(e) {
-    e.preventDefault();
-    $.ajax({
-        url: $(this).attr('action'),
-        type: 'POST',
-        data: $(this).serialize(),
-        dataType: 'json',
-        success: function(response) {
-            if (response.error) {
-                $('#statusToast').removeClass('bg-success').addClass('bg-danger');
-                $('#toastTitle').text('Error');
-                $('#toastBody').text(response.error);
-            } else {
-                $('#statusToast').removeClass('bg-danger').addClass('bg-success');
-                $('#toastTitle').text('Success');
-                $('#toastBody').text(response.success);
-                loadSchedules();
-                $('#scheduleForm')[0].reset();
-            }
-            var toast = new bootstrap.Toast($('#statusToast'));
-            toast.show();
-        },
-        error: function() {
-            $('#statusToast').removeClass('bg-success').addClass('bg-danger');
-            $('#toastTitle').text('Error');
-            $('#toastBody').text('Failed to add schedule.');
-            var toast = new bootstrap.Toast($('#statusToast'));
-            toast.show();
-        }
-    });
-});
+            e.preventDefault();
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'POST',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function(response) {
+                    if (response.error) {
+                        $('#statusToast').removeClass('bg-success').addClass('bg-danger');
+                        $('#toastTitle').text('Error');
+                        $('#toastBody').text(response.error);
+                    } else {
+                        $('#statusToast').removeClass('bg-danger').addClass('bg-success');
+                        $('#toastTitle').text('Success');
+                        $('#toastBody').text(response.success);
+                        loadSchedules();
+                        $('#scheduleForm')[0].reset();
+                    }
+                    var toast = new bootstrap.Toast($('#statusToast'));
+                    toast.show();
+                },
+                error: function() {
+                    $('#statusToast').removeClass('bg-success').addClass('bg-danger');
+                    $('#toastTitle').text('Error');
+                    $('#toastBody').text('Failed to add schedule.');
+                    var toast = new bootstrap.Toast($('#statusToast'));
+                    toast.show();
+                }
+            });
+        });
 
         $(document).on('click', '.edit-btn', function() {
             var scheduleId = $(this).data('id');

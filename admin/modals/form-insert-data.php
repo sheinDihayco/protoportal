@@ -2,7 +2,7 @@
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="card-title">Insert Initial Data of Student</h5>
+        <h5 class="card-title">Update Student Status</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="card">
@@ -27,14 +27,14 @@
             <div class="row mb-3">
               <div class="col-md-6">
                 <label for="lname" class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="lname" name="lname" value="<?php echo $row["user_lname"] ?>" readonly>
+                <input type="text" class="form-control" id="lname" name="lname" value="<?php echo $row["lname"] ?>" readonly>
               </div>
             </div>
 
             <div class="row mb-3">
               <div class="col-md-6">
                 <label for="fname" class="form-label">First Name</label>
-                <input type="text" class="form-control" id="fname" name="fname" value="<?php echo $row["user_fname"] ?>" readonly>
+                <input type="text" class="form-control" id="fname" name="fname" value="<?php echo $row["fname"] ?>" readonly>
               </div>
             </div>
 

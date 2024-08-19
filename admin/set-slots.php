@@ -31,6 +31,8 @@ $connection->close();
         <h1> Time Records</h1>
         <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#timeSlotModal">
         </button>
+        <button type="button" class="ri-arrow-go-back-fill tablebutton" onclick="window.location.href='../admin/set-schedule.php';">
+        </button>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.php">Home</a></li>

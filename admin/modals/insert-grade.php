@@ -16,29 +16,29 @@ try {
 $database->close();
 ?>
 
-<div class="modal fade" id="insertGrade<?php echo htmlspecialchars($row['user_id']); ?>" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-m">
+<div class="modal fade" id="insertGrade<?php echo htmlspecialchars($student['user_id']); ?>" tabindex="-1" aria-labelledby="insertGradeLabel<?php echo htmlspecialchars($student['user_id']); ?>" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="card-title">Insert Grade</h5>
+                <h5 class="modal-title" id="insertGradeLabel<?php echo htmlspecialchars($student['user_id']); ?>">Insert Grade</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="../admin/functions/insert-grades.php" method="post" class="row g-3 needs-validation" novalidate style="padding: 20px;">
+                <form action="../admin/functions/insert-grades.php" method="post" class="row g-3 needs-validation" novalidate>
 
                     <div class="col-12">
-                        <label for="user_id" class="col-sm-2 col-form-label">User ID</label>
-                        <input type="text" class="form-control" id="user_id" value="<?php echo htmlspecialchars($row['user_id']); ?>" name="user_id" required>
+                        <label for="user_id<?php echo htmlspecialchars($student['user_id']); ?>" class="form-label">Student ID</label>
+                        <input type="text" class="form-control" id="user_id<?php echo htmlspecialchars($student['user_id']); ?>" value="<?php echo htmlspecialchars($student['user_id']); ?>" name="user_id" required readonly>
                     </div>
 
                     <div class="col-12">
-                        <label for="studentID" class="col-sm-2 col-form-label">Student ID</label>
-                        <input type="text" class="form-control" id="studentID" value="<?php echo htmlspecialchars($row['studentID']); ?>" name="studentID" required>
+                        <label for="user_name<?php echo htmlspecialchars($student['user_id']); ?>" class="form-label">Student Name</label>
+                        <input type="text" class="form-control" id="user_name<?php echo htmlspecialchars($student['user_id']); ?>" value="<?php echo htmlspecialchars($student['user_name']); ?>" name="user_name" required readonly>
                     </div>
 
-                    <div class="col-12 dropdown-container">
-                        <label for="subject" class="form-label">Subject</label>
-                        <select name="subject" class="form-select" id="subject" required>
+                    <div class="col-12">
+                        <label for="subject<?php echo htmlspecialchars($student['user_id']); ?>" class="form-label">Subject</label>
+                        <select name="subject" class="form-select" id="subject<?php echo htmlspecialchars($student['user_id']); ?>" required>
                             <option value="" disabled selected>Select a subject</option>
                             <?php foreach ($subjects as $subject): ?>
                                 <option value="<?php echo htmlspecialchars($subject['id']); ?>"><?php echo htmlspecialchars($subject['code']); ?></option>
@@ -47,21 +47,9 @@ $database->close();
                         <div class="invalid-feedback">Please select a subject.</div>
                     </div>
 
-                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-                    <script>
-                        $(document).ready(function() {
-                            $('#subject').select2({
-                                placeholder: 'Select a subject',
-                                allowClear: true,
-                                width: '100%' // Adjust based on your layout
-                            });
-                        });
-                    </script>
-
                     <div class="col-12">
-                        <label for="term" class="form-label">Term</label>
-                        <select name="term" class="form-select" id="term" required>
+                        <label for="term<?php echo htmlspecialchars($student['user_id']); ?>" class="form-label">Term</label>
+                        <select name="term" class="form-select" id="term<?php echo htmlspecialchars($student['user_id']); ?>" required>
                             <option value="" disabled selected>Select a term</option>
                             <option value="Prelim">Prelim</option>
                             <option value="Midterm">Midterm</option>
@@ -72,12 +60,12 @@ $database->close();
                     </div>
 
                     <div class="col-12">
-                        <label for="grade" class="form-label">Grade</label>
-                        <input type="text" name="grade" class="form-control" id="grade" required>
-                        <div class="invalid-feedback">Please insert grade.</div>
+                        <label for="grade<?php echo htmlspecialchars($student['user_id']); ?>" class="form-label">Grade</label>
+                        <input type="text" name="grade" class="form-control" id="grade<?php echo htmlspecialchars($student['user_id']); ?>" required>
+                        <div class="invalid-feedback">Please insert a grade.</div>
                     </div>
 
-                    <div class="col-12" style="margin-top: 20px;">
+                    <div class="col-12 mt-3">
                         <button class="btn btn-primary w-100" type="submit" name="register">Save</button>
                     </div>
                 </form>

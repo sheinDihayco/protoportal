@@ -16,7 +16,7 @@ include_once "includes/connection.php";
 
 try {
   // Fetching student details from tbl_students
-  $statement = $conn->prepare("SELECT * FROM tbl_students WHERE studentID = :sid");
+  $statement = $conn->prepare("SELECT * FROM tbl_students WHERE user_id = :sid");
   $statement->bindParam(':sid', $studid, PDO::PARAM_INT);
   $statement->execute();
   $studs = $statement->fetch(PDO::FETCH_ASSOC);
@@ -36,8 +36,8 @@ try {
     }
 
     // Check if the studentID has a record in tbl_payments
-    $paymentStmt = $conn->prepare("SELECT COUNT(*) AS count_payments FROM tbl_payments WHERE studentID = :studentID");
-    $paymentStmt->bindParam(':studentID', $studid, PDO::PARAM_INT);
+    $paymentStmt = $conn->prepare("SELECT COUNT(*) AS count_payments FROM tbl_payments WHERE user_id = :user_id");
+    $paymentStmt->bindParam(':user_id', $studid, PDO::PARAM_INT);
     $paymentStmt->execute();
     $paymentCount = $paymentStmt->fetch(PDO::FETCH_ASSOC);
 
@@ -63,7 +63,7 @@ try {
   $sql = "SELECT g.grade, g.term, s.code AS subject_code, s.description
         FROM tbl_grades g
         LEFT JOIN tbl_subjects s ON g.id = s.id
-        WHERE g.studentID = :sid
+        WHERE g.user_id = :sid
         ORDER BY s.code ASC";
 
   $stmt = $db->prepare($sql);
@@ -105,8 +105,8 @@ try {
         <div class="modal-body">
           <form action="../admin/upload/insert-payment-status.php" method="post" class="row g-3 needs-validation" novalidate style="padding: 20px;">
             <div class="col-md-6">
-              <label for="studentID" class="form-label">Student ID</label>
-              <input type="number" class="form-control" id="studentID" name="studentID" value="<?php echo htmlspecialchars($studid); ?>" required readonly>
+              <label for="user_id" class="form-label">Student ID</label>
+              <input type="number" class="form-control" id="user_id" name="user_id" value="<?php echo htmlspecialchars($studid); ?>" required readonly>
               <div class="invalid-feedback">
                 Please enter a valid student ID.
               </div>
@@ -219,8 +219,8 @@ try {
 
                       $sql = 'SELECT s.*, p.*
                           FROM tbl_students s 
-                          LEFT JOIN tbl_payments p ON s.studentID = p.studentID
-                          WHERE s.studentID = ?';
+                          LEFT JOIN tbl_payments p ON s.user_id = p.user_id
+                          WHERE s.user_id = ?';
 
                       if ($stmt = $conn->prepare($sql)) {
                         $stmt->bind_param("s", $studid);
@@ -230,7 +230,7 @@ try {
                         while ($row = $result->fetch_assoc()) {
                       ?>
                           <tr>
-                            <th scope="row"><a href=""><?php echo htmlspecialchars($row["studentID"]); ?></a></th>
+                            <th scope="row"><a href=""><?php echo htmlspecialchars($row["user_id"]); ?></a></th>
 
                             <td><?php echo htmlspecialchars($row["semester"]) ? htmlspecialchars($row["semester"]) : 'Choose semester'; ?></td>
 
@@ -238,7 +238,7 @@ try {
 
                             <td><?php echo htmlspecialchars($row["payment_status"]) ? htmlspecialchars($row["payment_status"]) : 'Not Available'; ?></td>
 
-                            <td><button type="button" class="ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#updatePaymentStatus<?php echo $row["studentID"]; ?>"></button></td>
+                            <td><button type="button" class="btn btn-sm btn-warning ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#updatePaymentStatus<?php echo $row["user_id"]; ?>"></button></td>
                             <?php include('modals/update-payment-form.php'); ?>
                           </tr>
                       <?php

@@ -11,7 +11,7 @@ $statements = $conn->prepare("SELECT COUNT(employee_id) AS count_emp FROM tbl_em
 $statements->execute();
 $empcount = $statements->fetch(PDO::FETCH_ASSOC);
 
-$statements = $conn->prepare("SELECT COUNT(studentID) AS count_stud FROM tbl_students");
+$statements = $conn->prepare("SELECT COUNT(user_id) AS count_stud FROM tbl_students");
 $statements->execute();
 $studcount = $statements->fetch(PDO::FETCH_ASSOC);
 ?>
@@ -137,7 +137,6 @@ $studcount = $statements->fetch(PDO::FETCH_ASSOC);
                     <tr>
                       <th scope="col">Student ID</th>
                       <th scope="col">Full Name</th>
-                      <th scope="col">Course</th>
                       <th scope="col">Action</th>
                     </tr>
                   </thead>
@@ -151,12 +150,11 @@ $studcount = $statements->fetch(PDO::FETCH_ASSOC);
                       foreach ($db->query($sql) as $row) {
                     ?>
                         <tr>
-                          <th scope="row"><a href=""><?php echo $row["studentID"] ?></a></th>
+                          <th scope="row"><a href=""><?php echo $row["user_name"] ?></a></th>
                           <td><?php echo $row["lname"] ?>, <?php echo $row["fname"] ?></td>
-                          <td><?php echo $row["course"] ?> - <?php echo $row["year"] ?></td>
                           <td>
                             <form action="student_profile.php" method="post">
-                              <input type="hidden" name="stud_id" value="<?php echo $row['studentID']; ?>">
+                              <input type="hidden" name="stud_id" value="<?php echo $row['user_id']; ?>">
                               <button type="submit" class="btn btn-sm btn-success" name="submit"><i class="ri-arrow-right-circle-fill"></i></button>
                             </form>
                           </td>
