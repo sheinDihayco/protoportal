@@ -2,57 +2,43 @@
 include("../includes/connect.php");
 include("../includes/connection.php");
 
-if (isset($_POST["submit"])) {
-    $fname = $_POST["fname"];
-    $lname = $_POST["lname"];
-    $bdate = $_POST["bdate"];
-    $gender = $_POST["gend"];
-    $dhire = $_POST["dhire"];
-    $jobt = $_POST["title"];
-    $dept = $_POST["dept"];
-    $cnum = $_POST["cnum"];
-    $add = $_POST["add"];
-    $eid = $_POST["empid"];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $user_id = $_POST['user_id'];
+    $date_of_birth = $_POST['bdate'];
+    $gender = $_POST['gend'];
+    $hire_date = $_POST['dhire'];
+    $department = $_POST['dept'];
+    $phone_number = $_POST['cnum'];
+    $address = $_POST['add'];
+
+    $database = new Connection();
+    $db = $database->open();
 
     try {
-        $database = new Connection();
-        $conn = $database->open();
+        $sql = "UPDATE tbl_users SET
+                date_of_birth = :date_of_birth,
+                gender = :gender,
+                hire_date = :hire_date,
+                department = :department,
+                phone_number = :phone_number,
+                address = :address
+                WHERE user_id = :user_id";
 
-        $sql = "UPDATE `tbl_employee` SET 
-                `first_name` = :fname,
-                `last_name` = :lname,
-                `date_of_birth` = :bdate,
-                `gender` = :gender,
-                `hire_date` = :dhire,
-                `job_title` = :jobt,
-                `department` = :dept,
-                `phone_number` = :cnum,
-                `address` = :add
-                WHERE `employee_id` = :eid";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([
+            ':date_of_birth' => $date_of_birth,
+            ':gender' => $gender,
+            ':hire_date' => $hire_date,
+            ':department' => $department,
+            ':phone_number' => $phone_number,
+            ':address' => $address,
+            ':user_id' => $user_id
+        ]);
 
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':fname', $fname);
-        $stmt->bindParam(':lname', $lname);
-        $stmt->bindParam(':bdate', $bdate);
-        $stmt->bindParam(':gender', $gender);
-        $stmt->bindParam(':dhire', $dhire);
-        $stmt->bindParam(':jobt', $jobt);
-        $stmt->bindParam(':dept', $dept);
-        $stmt->bindParam(':cnum', $cnum);
-        $stmt->bindParam(':add', $add);
-        $stmt->bindParam(':eid', $eid);
-
-        $stmt->execute();
-
-        echo "Record updated successfully";
+        echo "User updated successfully!";
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
-    } finally {
-        $database->close(); // close the database connection
     }
 
-    header("location: ../employee.php?error=update-success");
-} else {
-    header("location: ../employee.php?error=update-error");
+    $database->close();
 }
-?>

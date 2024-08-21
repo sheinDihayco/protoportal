@@ -462,12 +462,12 @@ $database->close();
         </a>
       </li>
 
-      <li class="nav-item">
+      <!--<li class="nav-item">
         <a class="nav-link collapsed" href="../admin/employee.php">
           <i class="ri ri-group-line"></i>
           <span>Employee</span>
         </a>
-      </li>
+      </li>-->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="../admin/includes/logout.inc.php">

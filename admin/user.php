@@ -1,5 +1,4 @@
-<?php include_once "../templates/header.php" ?>;
-
+<?php include_once "../templates/header.php"; ?>
 
 <main id="main" class="main">
 
@@ -14,7 +13,6 @@
       </ol>
     </nav>
   </div><!-- End Page Title -->
-
 
   <div class="modal fade" id="insertStudent" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -81,21 +79,18 @@
             <div class="col-12">
               <button class="btn btn-primary w-100" type="submit" name="register">Register</button>
             </div>
+          </form>
         </div>
-        </form>
       </div>
     </div>
   </div>
 
   <section class="section dashboard">
     <div class="row">
-      <!-- Left side columns -->
       <div class="col-lg-12">
         <div class="row">
-          <!-- Recent Sales -->
           <div class="col-12">
             <div class="card recent-sales overflow-auto">
-
               <div class="filter">
                 <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
@@ -120,69 +115,148 @@
                       <th scope="col">Action</th>
                     </tr>
                   </thead>
-                  <!--$sql = "SELECT * FROM tbl_users WHERE user_role = 'admin' OR user_role = 'teacher'
-                                ORDER BY user_id ASC";-->
                   <tbody>
                     <?php
                     $database = new Connection();
                     $db = $database->open();
 
                     try {
-                      $sql = "SELECT * FROM tbl_users WHERE user_role = 'teacher'
-                                ORDER BY user_id ASC";
-
+                      $sql = "SELECT * FROM tbl_users WHERE user_role = 'teacher' ORDER BY user_id ASC";
                       foreach ($db->query($sql) as $row) {
                     ?>
                         <tr>
-                          <th scope="row"><a href="#"><?php echo $row["user_name"] ?></a></th>
-                          <td><?php echo $row["user_fname"] ?>, <?php echo $row["user_lname"] ?></td>
-                          <td><?php echo $row["user_email"] ?></td>
+                          <th scope="row"><a href="#"><?php echo htmlspecialchars($row["user_name"]); ?></a></th>
+                          <td><?php echo htmlspecialchars($row["user_fname"]) . ' ' . htmlspecialchars($row["user_lname"]); ?></td>
+                          <td><?php echo htmlspecialchars($row["user_email"]); ?></td>
                           <td>
+                            <!-- Edit Button -->
+                            <button type="button" class="btn btn-sm btn-warning ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editModal<?php echo htmlspecialchars($row['user_id']); ?>"></button>
+
+                            <!-- Delete Button -->
                             <form method="POST" action="../admin/upload/delete-user.php" onsubmit="return confirm('Are you sure you want to delete this user?');" style="display:inline;">
                               <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($row["user_id"]); ?>">
                               <button type="submit" class="btn btn-sm btn-danger ri-delete-bin-6-line"></button>
                             </form>
                           </td>
-                          <?php include('modals/insert-student.php'); ?>
                         </tr>
+
+                        <!-- Edit Modal -->
+                        <div class="modal fade" id="editModal<?php echo htmlspecialchars($row['user_id']); ?>" tabindex="-1">
+                          <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title"><?php echo htmlspecialchars($row['user_lname']); ?>, <?php echo htmlspecialchars($row['user_fname']); ?></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+
+                              <div class="modal-body">
+                                <form action="functions/update-employee.php" method="post" novalidate>
+                                  <!-- Hidden field to pass user_id -->
+                                  <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($row['user_id']); ?>">
+
+                                  <div class="mb-3 row">
+                                    <label for="bdate" class="col-sm-2 col-form-label">Date of Birth</label>
+                                    <div class="col-sm-10">
+                                      <input type="date" class="form-control" id="bdate" name="bdate" value="<?php echo htmlspecialchars($row['date_of_birth']); ?>" required>
+                                      <div class="invalid-feedback">
+                                        Please provide a valid date of birth.
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="mb-3 row">
+                                    <label for="gend" class="col-sm-2 col-form-label">Gender</label>
+                                    <div class="col-sm-10">
+                                      <select class="form-select" id="gend" name="gend" required>
+                                        <option disabled value="">Select Gender</option>
+                                        <option value="Male" <?php echo ($row['gender'] == 'Male') ? 'selected' : ''; ?>>Male</option>
+                                        <option value="Female" <?php echo ($row['gender'] == 'Female') ? 'selected' : ''; ?>>Female</option>
+                                      </select>
+                                      <div class="invalid-feedback">
+                                        Please select a valid gender.
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="mb-3 row">
+                                    <label for="dhire" class="col-sm-2 col-form-label">Date Hired</label>
+                                    <div class="col-sm-10">
+                                      <input type="date" class="form-control" id="dhire" name="dhire" value="<?php echo htmlspecialchars($row['hire_date']); ?>" required>
+                                      <div class="invalid-feedback">
+                                        Please provide a valid date hired.
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="mb-3 row">
+                                    <label for="user_role" class="col-sm-2 col-form-label">Job Title</label>
+                                    <div class="col-sm-10">
+                                      <input type="text" class="form-control" id="user_role" name="user_role" value="<?php echo htmlspecialchars($row['user_role']); ?>" required>
+                                      <div class="invalid-feedback">
+                                        Please provide a valid job user_role.
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="mb-3 row">
+                                    <label for="dept" class="col-sm-2 col-form-label">Department</label>
+                                    <div class="col-sm-10">
+                                      <input type="text" class="form-control" id="dept" name="dept" value="<?php echo htmlspecialchars($row['department']); ?>" required>
+                                      <div class="invalid-feedback">
+                                        Please provide a valid department.
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="mb-3 row">
+                                    <label for="cnum" class="col-sm-2 col-form-label">Contact Number</label>
+                                    <div class="col-sm-10">
+                                      <input type="text" class="form-control" id="cnum" name="cnum" value="<?php echo htmlspecialchars($row['phone_number']); ?>" required>
+                                      <div class="invalid-feedback">
+                                        Please provide a valid contact number.
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="mb-3 row">
+                                    <label for="add" class="col-sm-2 col-form-label">Address</label>
+                                    <div class="col-sm-10">
+                                      <input type="text" class="form-control" id="add" name="add" value="<?php echo htmlspecialchars($row['address']); ?>" required>
+                                      <div class="invalid-feedback">
+                                        Please provide a valid address.
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="col-12 d-flex justify-content-end">
+                                    <button class="btn btn-primary btn-sm" type="submit" name="submit">Save Changes</button>
+                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
 
                     <?php
                       }
                     } catch (PDOException $e) {
-                      echo "There is some problem in connection: " . $e->getMessage();
+                      echo "Error: " . $e->getMessage();
                     }
+
                     $database->close();
                     ?>
                   </tbody>
                 </table>
               </div>
-
             </div>
-          </div><!-- End Recent Sales -->
+          </div>
         </div>
-      </div><!-- End Left side columns -->
+      </div>
+
     </div>
   </section>
 
-
 </main><!-- End #main -->
-<!-- Vendor JS Files -->
-<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- Template Main JS File -->
-<script src="../assets/js/main.js"></script>
-<script>
-  document.getElementById('role').addEventListener('change', function() {
-    var role = this.value;
-    if (role === 'student') {
-      document.getElementById('usernameDiv').style.display = 'none';
-      document.getElementById('schoolidDiv').style.display = 'block';
-    } else {
-      document.getElementById('usernameDiv').style.display = 'block';
-      document.getElementById('schoolidDiv').style.display = 'none';
-    }
-  });
-</script>
-<?php
-include_once "../templates/footer.php";
-?>
+<?php include_once "../templates/footer.php"; ?>

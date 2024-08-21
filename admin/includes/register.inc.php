@@ -44,7 +44,13 @@ if (isset($_POST["register"])) {
     // Execute the query
     if ($statement->execute()) {
         $_SESSION['student_created'] = true;
-        header("location:../user-student.php?register=success");
+
+        // Determine redirection based on user role
+        if ($role == 'student') {
+            header("location:../user-student.php?register=success");
+        } else {
+            header("location:../user.php?register=success");
+        }
     } else {
         print_r($statement->errorInfo());
         header("location:../register.php?error=sqlerror");
