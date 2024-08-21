@@ -455,7 +455,7 @@ $database->close();
       </li>-->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="">
+        <a class="nav-link collapsed" href="../admin/enrollment-form.php">
           <i class="bi bi-layout-text-window-reverse"></i>
           <span>Enrollment</span>
           <!--INCLUDING : STUDY LOAD FORM, ENROLLMENT FORM -->

@@ -426,8 +426,8 @@ $database->close();
 
                     <div class="row mb-3">
                       <div class=" col-md-8 col-lg-9">
-                        <label for="studentID" class="col-sm-2 col-form-label">Student ID</label>
-                        <input type="text" class="form-control" id="studentID" name="studentID" value="<?php echo htmlspecialchars($studs["studentID"]); ?>" required>
+                        <label for="user_name" class="col-sm-2 col-form-label">Student ID</label>
+                        <input type="text" class="form-control" id="user_name" name="user_name" value="<?php echo htmlspecialchars($studs["user_name"]); ?>" required>
                       </div>
                     </div>
 
@@ -455,7 +455,7 @@ $database->close();
                     <div class="row mb-3">
                       <div class="col-md-8 col-lg-9">
                         <label for="Suffix" class="form-label">Suffix</label>
-                        <input type="text" class="form-control" id="Suffix" name="Suffix" name="middleInitial" value="<?php echo htmlspecialchars($studs["Suffix"]); ?>" readonly>
+                        <input type="text" class="form-control" id="Suffix" name="Suffix" name="middleInitial" value="<?php echo htmlspecialchars($studs["Suffix"]); ?>" required>
                       </div>
                     </div>
 
