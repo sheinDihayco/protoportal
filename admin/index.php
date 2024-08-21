@@ -4,7 +4,7 @@ include_once "includes/connect.php";
 include_once 'includes/connection.php'; // Assuming this is where $conn is defined
 
 // Prepare and execute SQL queries to count employees and students
-$statements = $conn->prepare("SELECT COUNT(employee_id) AS count_emp FROM tbl_employee");
+$statements = $conn->prepare("SELECT COUNT(user_id) AS count_emp FROM tbl_users");
 $statements->execute();
 $empcount = $statements->fetch(PDO::FETCH_ASSOC);
 

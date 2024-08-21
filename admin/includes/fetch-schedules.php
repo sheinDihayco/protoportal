@@ -9,7 +9,7 @@ $conn = $connClass->open();
 
 $query = "
     SELECT s.schedule_id, 
-           CONCAT(e.first_name, ' ', e.last_name) AS instructor_name, 
+           CONCAT(u.user_fname, ' ', u.user_lname) AS instructor_name, 
            c.course_description, 
            s.course_id, 
            s.subject_id, 
@@ -18,7 +18,7 @@ $query = "
            s.room_id, 
            CONCAT(st.start_time, ' - ', st.end_time) AS time_slot
     FROM tbl_schedule s
-    JOIN tbl_employee e ON s.instructor_id = e.employee_id
+    JOIN tbl_users u ON s.instructor_id = u.user_id
     JOIN tbl_course c ON s.course_id = c.course_id
     JOIN tbl_subjects sb ON s.subject_id = sb.id
     JOIN tbl_rooms r ON s.room_id = r.room_id

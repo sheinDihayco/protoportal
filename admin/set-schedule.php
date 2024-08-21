@@ -19,7 +19,7 @@ function fetchOptions($table, $valueField, $textField)
     return $options;
 }
 
-$instructors = fetchOptions('tbl_employee', 'employee_id', 'CONCAT(first_name, " ", last_name) AS name');
+$instructors = fetchOptions('tbl_users', 'user_id', 'CONCAT(user_fname, " ", user_lname) AS name');
 $courses = fetchOptions('tbl_course', 'course_id', 'CONCAT(course_description, " (Year ", course_year, ")") AS description');
 $subjects = fetchOptions('tbl_subjects', 'id', 'description');
 $rooms = fetchOptions('tbl_rooms', 'room_id', 'room_name');
@@ -32,11 +32,6 @@ $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", en
         <h1>Schedule Records</h1>
         <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#scheduleModal">
         </button>
-
-        <button type="button" class="ri-time-fil tablebutton" onclick="window.location.href='../admin/set-slots.php';">
-            <i class="ri-time-fill"></i><span></span>
-        </button>
-
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.php">Home</a></li>
@@ -44,9 +39,6 @@ $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", en
             </ol>
         </nav>
     </div><!-- End Page Title -->
-
-
-
 
     <section class="section dashboard">
         <div class="col-lg-12">
@@ -92,7 +84,7 @@ $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", en
                                 <select id="instructor" name="instructor" class="form-control" required>
                                     <option value="" disabled selected>Select an Instructor</option>
                                     <?php foreach ($instructors as $instructor): ?>
-                                        <option value="<?= htmlspecialchars($instructor['employee_id']) ?>">
+                                        <option value="<?= htmlspecialchars($instructor['user_id']) ?>">
                                             <?= htmlspecialchars($instructor['name']) ?>
                                         </option>
                                     <?php endforeach; ?>
@@ -255,7 +247,7 @@ $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", en
                 success: function(data) {
                     // Populate the edit form dropdowns
                     $('#editInstructor').html(data.instructors.map(instructor =>
-                        `<option value="${instructor.employee_id}">${instructor.name}</option>`).join(''));
+                        `<option value="${instructor.user_id}">${instructor.name}</option>`).join(''));
                     $('#editCourse').html(data.courses.map(course =>
                         `<option value="${course.course_id}">${course.description}</option>`).join(''));
                     $('#editSubject').html(data.subjects.map(subject =>

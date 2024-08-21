@@ -6,6 +6,7 @@ include_once 'includes/connection.php';
 $connClass = new Connection();
 $conn = $connClass->open();
 
+session_start();
 $userid = $_SESSION["login"];
 
 // Fetch data for dropdowns
@@ -21,23 +22,47 @@ function fetchOptions($table, $valueField, $textField)
     return $options;
 }
 
-$instructors = fetchOptions('tbl_employee', 'employee_id', 'CONCAT(first_name, " ", last_name) AS name');
+$instructors = fetchOptions('tbl_users', 'user_id', 'CONCAT(user_fname, " ", user_lname) AS name');
 $courses = fetchOptions('tbl_course', 'course_id', 'CONCAT(course_description, " (Year ", course_year, ")") AS description');
 $subjects = fetchOptions('tbl_subjects', 'id', 'description');
 $rooms = fetchOptions('tbl_rooms', 'room_id', 'room_name');
 $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", end_time) AS slot');
+
+// Fetch schedules for the logged-in user
+function fetchSchedules($user_id)
+{
+    global $conn;
+    $stmt = $conn->prepare("
+        SELECT s.schedule_id, 
+               CONCAT(u.user_fname, ' ', u.user_lname) AS instructor_name,
+               CONCAT(c.course_description, ' (Year ', c.course_year, ')') AS course_description,
+               sb.description AS subject_description,
+               r.room_name,
+               CONCAT(t.start_time, ' - ', t.end_time) AS time_slot
+        FROM tbl_schedule s
+        JOIN tbl_users u ON s.instructor_id = u.user_id
+        JOIN tbl_course c ON s.course_id = c.course_id
+        JOIN tbl_subjects sb ON s.subject_id = sb.id
+        JOIN tbl_rooms r ON s.room_id = r.room_id
+        JOIN tbl_sched_time t ON s.time_id = t.time_id
+        WHERE s.instructor_id = :userid
+    ");
+    $stmt->bindParam(':userid', $user_id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+$schedules = fetchSchedules($userid);
 ?>
 
 <main id="main" class="main">
-
     <div class="pagetitle">
         <h1>Schedule Records</h1>
-        <!-- <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#scheduleModal">-->
         </button>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                <li class="breadcrumb-item active">Accounts</li>
+                <li class="breadcrumb-item active">Schedules</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -52,6 +77,7 @@ $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", en
                             <table id="scheduleTable" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
+                                        <th scope="col">ID</th>
                                         <th scope="col">Instructor</th>
                                         <th scope="col">Course</th>
                                         <th scope="col">Subject</th>
@@ -60,7 +86,16 @@ $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", en
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- Data will be loaded here by JavaScript -->
+                                    <?php foreach ($schedules as $schedule): ?>
+                                        <tr>
+                                            <td><?= htmlspecialchars($schedule['schedule_id']) ?></td>
+                                            <td><?= htmlspecialchars($schedule['instructor_name']) ?></td>
+                                            <td><?= htmlspecialchars($schedule['course_description']) ?></td>
+                                            <td><?= htmlspecialchars($schedule['subject_description']) ?></td>
+                                            <td><?= htmlspecialchars($schedule['room_name']) ?></td>
+                                            <td><?= htmlspecialchars($schedule['time_slot']) ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -68,18 +103,18 @@ $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", en
                 </div>
             </div>
         </div>
-
     </section>
 </main>
 
+<!-- Optional: AJAX for dynamic updates (if required) -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
     $(document).ready(function() {
+        // Load schedules initially
         function loadSchedules() {
             $.ajax({
-                url: 'includes/fetch-schedules.php',
                 type: 'GET',
                 dataType: 'json',
                 success: function(response) {
@@ -88,12 +123,12 @@ $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", en
                     $.each(response, function(index, schedule) {
                         tbody.append(`
                         <tr>
+                            <td>${schedule.schedule_id}</td>
                             <td>${schedule.instructor_name}</td>
                             <td>${schedule.course_description}</td>
                             <td>${schedule.subject_description}</td>
                             <td>${schedule.room_name}</td>
                             <td>${schedule.time_slot}</td>
-                          
                         </tr>
                     `);
                     });
@@ -108,162 +143,8 @@ $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", en
             });
         }
 
-        function populateDropdowns() {
-            $.ajax({
-                url: 'includes/fetch-options.php',
-                type: 'GET',
-                dataType: 'json',
-                success: function(data) {
-                    // Populate the edit form dropdowns
-                    $('#editInstructor').html(data.instructors.map(instructor =>
-                        `<option value="${instructor.employee_id}">${instructor.name}</option>`).join(''));
-                    $('#editCourse').html(data.courses.map(course =>
-                        `<option value="${course.course_id}">${course.description}</option>`).join(''));
-                    $('#editSubject').html(data.subjects.map(subject =>
-                        `<option value="${subject.id}">${subject.description}</option>`).join(''));
-                    $('#editRoom').html(data.rooms.map(room =>
-                        `<option value="${room.room_id}">${room.room_name}</option>`).join(''));
-                    $('#editTime').html(data.times.map(time =>
-                        `<option value="${time.time_id}">${time.slot}</option>`).join(''));
-                }
-            });
-        }
-
-        $('#scheduleForm').submit(function(e) {
-            e.preventDefault();
-            $.ajax({
-                url: $(this).attr('action'),
-                type: 'POST',
-                data: $(this).serialize(),
-                success: function(response) {
-                    $('#statusToast').removeClass('bg-danger').addClass('bg-success');
-                    $('#toastTitle').text('Success');
-                    $('#toastBody').text('Schedule has been added.');
-                    var toast = new bootstrap.Toast($('#statusToast'));
-                    toast.show();
-                    loadSchedules();
-                    $('#scheduleForm')[0].reset();
-                },
-                error: function() {
-                    $('#statusToast').removeClass('bg-success').addClass('bg-danger');
-                    $('#toastTitle').text('Error');
-                    $('#toastBody').text('Failed to add schedule.');
-                    var toast = new bootstrap.Toast($('#statusToast'));
-                    toast.show();
-                }
-            });
-        });
-
-        $(document).on('click', '.edit-btn', function() {
-            var scheduleId = $(this).data('id');
-            $.ajax({
-                url: 'includes/get-schedules.php',
-                type: 'GET',
-                data: {
-                    schedule_id: scheduleId
-                },
-                dataType: 'json',
-                success: function(schedule) {
-                    if (schedule.error) {
-                        $('#statusToast').removeClass('bg-success').addClass('bg-danger');
-                        $('#toastTitle').text('Error');
-                        $('#toastBody').text(schedule.error);
-                        var toast = new bootstrap.Toast($('#statusToast'));
-                        toast.show();
-                    } else {
-                        $('#editScheduleId').val(schedule.schedule_id);
-                        $('#editInstructor').val(schedule.instructor_id);
-                        $('#editCourse').val(schedule.course_id);
-                        $('#editSubject').val(schedule.subject_id);
-                        $('#editRoom').val(schedule.room_id);
-                        $('#editTime').val(schedule.time_id);
-                        $('#editModal').modal('show');
-                    }
-                },
-                error: function() {
-                    $('#statusToast').removeClass('bg-success').addClass('bg-danger');
-                    $('#toastTitle').text('Error');
-                    $('#toastBody').text('Failed to load schedule.');
-                    var toast = new bootstrap.Toast($('#statusToast'));
-                    toast.show();
-                }
-            });
-        });
-
-        $('#editScheduleForm').submit(function(e) {
-            e.preventDefault();
-            $.ajax({
-                url: 'includes/update-schedule.php',
-                type: 'POST',
-                data: $(this).serialize(),
-                dataType: 'json',
-                success: function(response) {
-                    if (response.status === 'success') {
-                        $('#statusToast').removeClass('bg-danger').addClass('bg-success');
-                        $('#toastTitle').text('Success');
-                        $('#toastBody').text('Schedule has been updated.');
-                        var toast = new bootstrap.Toast($('#statusToast'));
-                        toast.show();
-                        loadSchedules();
-                        $('#editModal').modal('hide');
-                    } else {
-                        $('#statusToast').removeClass('bg-success').addClass('bg-danger');
-                        $('#toastTitle').text('Error');
-                        $('#toastBody').text(response.message);
-                        var toast = new bootstrap.Toast($('#statusToast'));
-                        toast.show();
-                    }
-                },
-                error: function() {
-                    $('#statusToast').removeClass('bg-success').addClass('bg-danger');
-                    $('#toastTitle').text('Error');
-                    $('#toastBody').text('Failed to update schedule.');
-                    var toast = new bootstrap.Toast($('#statusToast'));
-                    toast.show();
-                }
-            });
-        });
-
-
-        $(document).on('click', '.delete-btn', function() {
-            var scheduleId = $(this).data('id');
-            if (confirm('Are you sure you want to delete this schedule?')) {
-                $.ajax({
-                    url: 'includes/delete-schedule.php',
-                    type: 'POST',
-                    data: {
-                        schedule_id: scheduleId
-                    },
-                    success: function(response) {
-                        if (response === 'Success') {
-                            $('#statusToast').removeClass('bg-danger').addClass('bg-success');
-                            $('#toastTitle').text('Success');
-                            $('#toastBody').text('Schedule has been deleted.');
-                            var toast = new bootstrap.Toast($('#statusToast'));
-                            toast.show();
-                            loadSchedules();
-                        } else {
-                            $('#statusToast').removeClass('bg-success').addClass('bg-danger');
-                            $('#toastTitle').text('Error');
-                            $('#toastBody').text('Failed to delete schedule.');
-                            var toast = new bootstrap.Toast($('#statusToast'));
-                            toast.show();
-                        }
-                    },
-                    error: function() {
-                        $('#statusToast').removeClass('bg-success').addClass('bg-danger');
-                        $('#toastTitle').text('Error');
-                        $('#toastBody').text('Failed to delete schedule.');
-                        var toast = new bootstrap.Toast($('#statusToast'));
-                        toast.show();
-                    }
-                });
-            }
-        });
-
-        // Initial load
-        loadSchedules();
-        populateDropdowns();
+        loadSchedules(); // Load schedules when document is ready
     });
 </script>
+
 <?php include_once "../templates/footer.php"; ?>

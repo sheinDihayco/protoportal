@@ -20,7 +20,7 @@ function fetchOptions($table, $valueField, $textField)
 }
 
 $data = [
-    'instructors' => fetchOptions('tbl_employee', 'employee_id', 'CONCAT(first_name, " ", last_name) AS name'),
+    'instructors' => fetchOptions('tbl_users', 'user_id', 'CONCAT(user_fname, " ", user_lname) AS name'),
     'courses' => fetchOptions('tbl_course', 'course_id', 'CONCAT(course_description, " (Year ", course_year, ")") AS description'),
     'subjects' => fetchOptions('tbl_subjects', 'id', 'description'),
     'rooms' => fetchOptions('tbl_rooms', 'room_id', 'room_name'),

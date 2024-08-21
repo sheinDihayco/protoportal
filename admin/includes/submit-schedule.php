@@ -1,6 +1,8 @@
 <?php
 include_once 'connection.php';
 
+header('Content-Type: application/json');
+
 $connClass = new Connection();
 $conn = $connClass->open();
 
@@ -45,8 +47,8 @@ if ($stmt->rowCount() > 0) {
         ':time_id' => $time_id,
     ]);
 
-    echo json_encode(['success' => 'Schedule has been added.']);
+    // Send success response with redirect URL
+    echo json_encode(['success' => 'Schedule has been added.', 'redirect' => 'set-schedule.php']);
 }
 
 $connClass->close();
-?>
