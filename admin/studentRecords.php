@@ -29,7 +29,6 @@ $database->close();
 <main id="main" class="main">
   <div class="pagetitle">
     <h1>Student Account Records</h1>
-    <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#insertStudent">
     </button>
     <nav>
       <ol class="breadcrumb">
@@ -39,36 +38,7 @@ $database->close();
     </nav>
   </div><!-- End Page Title -->
 
-  <!-- Modal for Registering New Student -->
-  <div class="modal fade" id="insertStudent" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Register Account</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form action="includes/register.inc.php" method="post" class="row g-3 needs-validation" novalidate style="padding: 20px;">
-            <!-- Form Fields Here -->
-            <div class="col-12">
-              <label for="role" class="form-label">Role</label>
-              <select name="role" id="role" class="form-select" required>
-                <option value="" disabled selected>Select your role</option>
-                <option value="admin">Admin</option>
-                <option value="teacher">Teacher</option>
-                <option value="student">Student</option>
-              </select>
-              <div class="invalid-feedback">Please select a role.</div>
-            </div>
-            <!-- Additional Fields -->
-            <div class="col-12">
-              <button class="btn btn-primary w-100" type="submit" name="register">Register</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+
 
   <section class="section dashboard">
     <div class="col-12">

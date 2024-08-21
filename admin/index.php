@@ -102,6 +102,7 @@ foreach ($events as $event) {
             </div>
           </div><!-- End Student Count Card -->
 
+          <!-- EVENT -->
           <div class="col-xxl-4 col-md-6">
             <div class="card info-card sales-card">
               <div class="filter">
@@ -137,7 +138,7 @@ foreach ($events as $event) {
                 </div>
               </div>
             </div>
-          </div><!-- End Student Count Card -->
+          </div><!-- End Event -->
 
           <!-- Students Enrolled -->
           <div class="col-12">
