@@ -389,7 +389,7 @@ $database->close();
           </li>
 
           <li>
-            <a href="../admin/grade.php">
+            <a href="#">
               <i class="bi bi-circle"></i><span>Grades</span>
             </a>
           </li>
@@ -427,7 +427,7 @@ $database->close();
         </ul>
       </li>
       <li class="nav-item">
-        <a class="nav-link collapsed" href="../admin/event.php">
+        <a class="nav-link collapsed" href="../admin/event2.php">
           <i class="ri-calendar-check-line"></i>
           <span>Events</span>
         </a>

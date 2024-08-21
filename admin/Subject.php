@@ -423,3 +423,7 @@ if (isset($_SESSION['subject_created']) && $_SESSION['subject_created']) {
     }
   }
 </script>
+
+<?php
+include_once "../templates/footer.php";
+?>

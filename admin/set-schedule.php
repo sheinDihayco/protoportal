@@ -30,7 +30,7 @@ $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", en
 
     <div class="pagetitle">
         <h1>Schedule Records</h1>
-        <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#scheduleModal">
+        <button type="button" class="ri-add-fill tablebutton gap-2" data-bs-toggle="modal" data-bs-target="#scheduleModal">
         </button>
 
         <button type="button" class="ri-time-fil tablebutton" onclick="window.location.href='../admin/set-slots.php';">

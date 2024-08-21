@@ -165,7 +165,6 @@ $studcount12 = $statements->fetch(PDO::FETCH_ASSOC);
                                             </form>
                                         </td>
 
-                                        <?php include('modals/form-insert-data.php'); ?>
                                         <?php include('modals/form-edit-Student.php'); ?>
                                     </tr>
                             <?php

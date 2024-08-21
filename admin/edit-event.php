@@ -72,3 +72,4 @@ ob_end_flush(); // End output buffering and flush the output
         </div>
     </section>
 </main>
+<?php include_once "../templates/footer.php" ?>

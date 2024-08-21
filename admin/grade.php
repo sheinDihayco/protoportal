@@ -94,3 +94,4 @@ $database->close();
 
   </section>
 </main>
+<?php include_once "../templates/footer.php" ?>

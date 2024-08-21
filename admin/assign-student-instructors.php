@@ -167,7 +167,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['assignStudents'])) {
                                                 foreach ($stmt as $student) {
                                                     echo "<tr>";
                                                     echo '<td><input type="checkbox" class="form-check-input student-select" name="student_ids[]" value="' . htmlspecialchars($student['user_id']) . '"></td>';
-                                                    echo "<td>" . htmlspecialchars($student['user_id']) . "</td>";
+                                                    echo "<td>" . htmlspecialchars($student['user_name']) . "</td>";
                                                     echo "<td>" . htmlspecialchars($student['lname']) . " " . htmlspecialchars($student['fname']) . "</td>";
                                                     echo "<td>" . htmlspecialchars($student['course']) . "</td>";
                                                     echo "<td>" . htmlspecialchars($student['year']) . "</td>";
@@ -202,7 +202,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['assignStudents'])) {
 
                                             echo "<tr>";
                                             echo '<td><input type="checkbox" class="form-check-input student-select" name="student_ids[]" value="' . htmlspecialchars($student['user_id']) . '"></td>';
-                                            echo "<td>" . htmlspecialchars($student['user_id']) . "</td>";
+                                            echo "<td>" . htmlspecialchars($student['user_name']) . "</td>";
                                             echo "<td>" . htmlspecialchars($student['lname']) . " " . htmlspecialchars($student['fname']) . "</td>";
                                             echo "<td>" . htmlspecialchars($student['course']) . "</td>";
                                             echo "<td>" . htmlspecialchars($student['year']) . "</td>";

@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $connection->close();
         $_SESSION['event_created'] = true;
-        header('Location: ../event.php?error=success');
+        header('Location: ../event2.php?error=success');
         exit();
     }
 }

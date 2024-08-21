@@ -1,4 +1,4 @@
-<?php include_once "../templates/header2.php" ?>
+<?php include_once "../templates/header.php" ?>
 <?php
 include_once 'includes/connection.php';
 
@@ -112,7 +112,14 @@ $connection->close();
                                             <p><?php echo $event['date']; ?></p>
                                             <p><?php echo $event['description']; ?></p>
                                         </div>
-
+                                        <div style="display: flex; align-items: flex-start;">
+                                            <a href="../admin/edit-event.php?id=<?php echo $event['id']; ?>" class="btn btn-sm btn-warning" style="margin-right: 5px;">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <a href="../admin/upload/delete_event.php?id=<?php echo $event['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this event?');">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
                                     </li>
                                 <?php endforeach; ?>
                             </ul>

@@ -14,9 +14,9 @@ if (isset($_GET['id'])) {
 
     $connection->close();
 
-    header("Location: ../event.php?error=delete-success");
+    header("Location: ../event2.php?error=delete-success");
     exit();
 } else {
-    header("Location: ../event.php?error=not-deleted");
+    header("Location: ../event2.php?error=not-deleted");
     exit();
 }

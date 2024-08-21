@@ -1,9 +1,9 @@
 <?php
 include_once "../templates/header.php";
 include_once "includes/connect.php";
-include_once 'includes/connection.php';
+include_once 'includes/connection.php'; // Assuming this is where $conn is defined
 
-
+// Prepare and execute SQL queries to count employees and students
 $statements = $conn->prepare("SELECT COUNT(employee_id) AS count_emp FROM tbl_employee");
 $statements->execute();
 $empcount = $statements->fetch(PDO::FETCH_ASSOC);
@@ -11,7 +11,24 @@ $empcount = $statements->fetch(PDO::FETCH_ASSOC);
 $statements = $conn->prepare("SELECT COUNT(user_id) AS count_stud FROM tbl_students");
 $statements->execute();
 $studcount = $statements->fetch(PDO::FETCH_ASSOC);
+
+// Fetch all events
+$sql = "SELECT * FROM tbl_events ORDER BY date DESC";
+$stmt = $conn->query($sql); // Use $conn here if $pdo was a typo
+$events = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$today = date('Y-m-d');
+$todaysEvent = null;
+
+// Separate today's event
+foreach ($events as $event) {
+  if ($event['date'] === $today) {
+    $todaysEvent = $event;
+    break;
+  }
+}
 ?>
+
 
 <main id="main" class="main">
   <div class="pagetitle">
@@ -85,6 +102,43 @@ $studcount = $statements->fetch(PDO::FETCH_ASSOC);
             </div>
           </div><!-- End Student Count Card -->
 
+          <div class="col-xxl-4 col-md-6">
+            <div class="card info-card sales-card">
+              <div class="filter">
+                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                  <li class="dropdown-header text-start">
+                    <h6>Filter</h6>
+                  </li>
+                  <li><a class="dropdown-item" href="#">Today</a></li>
+                  <li><a class="dropdown-item" href="#">This Month</a></li>
+                  <li><a class="dropdown-item" href="#">This Year</a></li>
+                </ul>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Today's Event <span>| Details</span></h5>
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-calendar-day"></i>
+                  </div>
+                  <div class="ps-3">
+                    <?php if ($todaysEvent) : ?>
+                      <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div style="flex-grow: 1;">
+                          <h6 class="card-title"><?php echo htmlspecialchars($todaysEvent['title']); ?> <span class="badge bg-success" style="color: white;">Today's Event</span></h6>
+                          <p><?php echo htmlspecialchars($todaysEvent['date']); ?></p>
+                          <!-- <p><?php echo htmlspecialchars($todaysEvent['description']); ?></p>-->
+                        </div>
+                      </li>
+                    <?php else : ?>
+                      <p>No events scheduled for today.</p>
+                    <?php endif; ?>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Student Count Card -->
+
           <!-- Students Enrolled -->
           <div class="col-12">
             <div class="card recent-sales overflow-auto">
@@ -140,6 +194,7 @@ $studcount = $statements->fetch(PDO::FETCH_ASSOC);
               </div>
             </div>
           </div><!-- End Students Enrolled -->
+
           <!-- Employee -->
           <div class="col-12">
             <div class="card recent-sales overflow-auto">
