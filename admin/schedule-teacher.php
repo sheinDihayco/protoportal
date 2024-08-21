@@ -6,6 +6,8 @@ include_once 'includes/connection.php';
 $connClass = new Connection();
 $conn = $connClass->open();
 
+$userid = $_SESSION["login"];
+
 // Fetch data for dropdowns
 function fetchOptions($table, $valueField, $textField)
 {
@@ -67,133 +69,6 @@ $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", en
             </div>
         </div>
 
-
-        <!-- <div class="modal fade" id="scheduleModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Create New Schedule</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" style="padding: 25px;">
-                        <form id="scheduleForm" action="./includes/submit-schedule.php" method="POST">
-                            <div class="form-group">
-                                <label for="instructor">Instructor</label>
-                                <select id="instructor" name="instructor" class="form-control" required>
-                                    <option value="" disabled selected>Select an Instructor</option>
-                                    <?php foreach ($instructors as $instructor): ?>
-                                        <option value="<?= htmlspecialchars($instructor['employee_id']) ?>">
-                                            <?= htmlspecialchars($instructor['name']) ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="course">Course</label>
-                                <select id="course" name="course" class="form-control" required>
-                                    <option value="" disabled selected>Select a Course</option>
-                                    <?php foreach ($courses as $course): ?>
-                                        <option value="<?= htmlspecialchars($course['course_id']) ?>">
-                                            <?= htmlspecialchars($course['description']) ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="subject">Subject</label>
-                                <select id="subject" name="subject" class="form-control" required>
-                                    <option value="" disabled selected>Select a Subject</option>
-                                    <?php foreach ($subjects as $subject): ?>
-                                        <option value="<?= htmlspecialchars($subject['id']) ?>">
-                                            <?= htmlspecialchars($subject['description']) ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="room">Room</label>
-                                <select id="room" name="room" class="form-control" required>
-                                    <option value="" disabled selected>Select a Room</option>
-                                    <?php foreach ($rooms as $room): ?>
-                                        <option value="<?= htmlspecialchars($room['room_id']) ?>">
-                                            <?= htmlspecialchars($room['room_name']) ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="time">Time Slot</label>
-                                <select id="time" name="time" class="form-control" required>
-                                    <option value="" disabled selected>Select a Time Slot</option>
-                                    <?php foreach ($times as $time): ?>
-                                        <option value="<?= htmlspecialchars($time['time_id']) ?>">
-                                            <?= htmlspecialchars($time['slot']) ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary btn-sm btn-block" style="margin-top: 10px;">Submit</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
-        <!-- Edit Modal
-        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editModalLabel">Edit Schedule</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="editScheduleForm">
-                            <input type="hidden" id="editScheduleId" name="schedule_id">
-                            <div class="form-group">
-                                <label for="editInstructor">Instructor</label>
-                                <select id="editInstructor" name="instructor" class="form-control" required></select>
-                            </div>
-                            <div class="form-group">
-                                <label for="editCourse">Course</label>
-                                <select id="editCourse" name="course" class="form-control" required></select>
-                            </div>
-                            <div class="form-group">
-                                <label for="editSubject">Subject</label>
-                                <select id="editSubject" name="subject" class="form-control" required></select>
-                            </div>
-                            <div class="form-group">
-                                <label for="editRoom">Room</label>
-                                <select id="editRoom" name="room" class="form-control" required></select>
-                            </div>
-                            <div class="form-group">
-                                <label for="editTime">Time Slot</label>
-                                <select id="editTime" name="time" class="form-control" required></select>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-sm" style="margin-top: 20px;">Save changes</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
-        <!-- Toast Notification
-        <div class="toast-container position-fixed top-0 end-0 p-3">
-            <div id="statusToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                    <strong id="toastTitle" class="me-auto">Notification</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body" id="toastBody">
-                   Message will be loaded here by JavaScript 
-                </div>
-            </div>
-        </div> -->
     </section>
 </main>
 

@@ -32,4 +32,3 @@ $schedules = $stmt->fetchAll(PDO::FETCH_ASSOC);
 echo json_encode($schedules);
 
 $connClass->close();
-?>

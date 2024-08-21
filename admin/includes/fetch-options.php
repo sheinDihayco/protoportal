@@ -7,7 +7,8 @@ header('Content-Type: application/json');
 $connClass = new Connection();
 $conn = $connClass->open();
 
-function fetchOptions($table, $valueField, $textField) {
+function fetchOptions($table, $valueField, $textField)
+{
     global $conn;
     $options = [];
     $stmt = $conn->prepare("SELECT $valueField, $textField FROM $table");
@@ -27,4 +28,3 @@ $data = [
 ];
 
 echo json_encode($data);
-?>

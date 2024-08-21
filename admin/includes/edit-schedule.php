@@ -40,11 +40,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Failed to update schedule']);
         }
-
     } catch (Exception $e) {
         echo json_encode(['status' => 'error', 'message' => 'An error occurred: ' . $e->getMessage()]);
     } finally {
         $conn = null; // Close connection.
     }
 }
-?>

@@ -196,65 +196,77 @@ foreach ($events as $event) {
           </div><!-- End Students Enrolled -->
 
           <!-- Employee -->
-          <div class="col-12">
-            <div class="card recent-sales overflow-auto">
-              <div class="filter">
-                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                  <li class="dropdown-header text-start">
-                    <h6>Filter</h6>
-                  </li>
-                  <li><a class="dropdown-item" href="#">Today</a></li>
-                  <li><a class="dropdown-item" href="#">This Month</a></li>
-                  <li><a class="dropdown-item" href="#">This Year</a></li>
-                </ul>
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Employee <span>| Hired</span></h5>
-                <table class="table table-borderless datatable">
-                  <thead>
-                    <tr>
-                      <th scope="col">Employee ID</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Job Title</th>
-                      <th scope="col">Contact</th>
-                      <th scope="col">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php
-                    $database = new Connection();
-                    $db = $database->open();
+          <div class="col-lg-12">
+            <div class="row">
+              <!-- Recent Sales -->
+              <div class="col-12">
+                <div class="card recent-sales overflow-auto">
 
-                    try {
-                      $sql = 'SELECT * FROM tbl_employee ORDER BY tbl_employee.last_name ASC';
-                      foreach ($db->query($sql) as $row) {
-                    ?>
+                  <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                      <li class="dropdown-header text-start">
+                        <h6>Filter</h6>
+                      </li>
+                      <li><a class="dropdown-item" href="../admin/user-instructor.php">Instructor</a></li>
+                      <li><a class="dropdown-item" href="../admin/user-student.php">Student</a></li>
+                      <li><a class="dropdown-item" href="../admin/user.php">Admin</a></li>
+                    </ul>
+                  </div>
+
+                  <div class="card-body">
+                    <h5 class="card-title">Instructor <span>| Hired</span></h5>
+
+                    <table class="table table-borderless datatable">
+                      <thead>
                         <tr>
-                          <th scope="row"><a href="#"><?php echo $row["employee_id"] ?></a></th>
-                          <td><?php echo $row["last_name"] ?>, <?php echo $row["first_name"] ?></td>
-                          <td><?php echo $row["job_title"] ?></a></td>
-                          <td><?php echo $row["phone_number"] ?></td>
-                          <td>
-                            <form action="profile.php" method="post">
-                              <input type="hidden" name="emps_id" value="<?php echo $row['employee_id']; ?>">
-                              <button type="submit" class="btn btn-sm btn-success" name="submit"><i class="ri-arrow-right-circle-fill"></i></button>
-                            </form>
-                          </td>
+                          <th scope="col">Username</th>
+                          <th scope="col">Full Name</th>
+                          <th scope="col">Email</th>
+                          <th scope="col">Action</th>
                         </tr>
-                    <?php
-                      }
-                    } catch (PDOException $e) {
-                      echo "There is some problem in connection: " . $e->getMessage();
-                    }
-                    $database->close();
-                    ?>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div><!-- End Employee-->
+                      </thead>
+                      <!--$sql = "SELECT * FROM tbl_users WHERE user_role = 'admin' OR user_role = 'teacher'
+                                ORDER BY user_id ASC";-->
+                      <tbody>
+                        <?php
+                        $database = new Connection();
+                        $db = $database->open();
 
+                        try {
+                          $sql = "SELECT * FROM tbl_users WHERE user_role = 'teacher'
+                                ORDER BY user_id ASC";
+
+                          foreach ($db->query($sql) as $row) {
+                        ?>
+                            <tr>
+                              <th scope="row"><a href="#"><?php echo $row["user_name"] ?></a></th>
+                              <td><?php echo $row["user_fname"] ?>, <?php echo $row["user_lname"] ?></td>
+                              <td><?php echo $row["user_email"] ?></td>
+                              <td>
+                                <form method="POST" action="../admin/upload/delete-user.php" onsubmit="return confirm('Are you sure you want to delete this user?');" style="display:inline;">
+                                  <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($row["user_id"]); ?>">
+                                  <button type="submit" class="btn btn-sm btn-danger ri-delete-bin-6-line"></button>
+                                </form>
+                              </td>
+                              <?php include('modals/insert-student.php'); ?>
+                            </tr>
+
+                        <?php
+                          }
+                        } catch (PDOException $e) {
+                          echo "There is some problem in connection: " . $e->getMessage();
+                        }
+                        $database->close();
+                        ?>
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+              </div><!-- End Recent Sales -->
+            </div>
+          </div><!-- End Left side columns -->
         </div>
       </div>
     </div>
