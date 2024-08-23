@@ -389,7 +389,7 @@ $database->close();
           </li>
 
           <li>
-            <a href="#">
+            <a href="../admin/Grades.php">
               <i class="bi bi-circle"></i><span>Grades</span>
             </a>
           </li>
