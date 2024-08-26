@@ -7,24 +7,30 @@ $connClass = new Connection();
 $conn = $connClass->open();
 
 // Fetch data for dropdowns
-function fetchOptions($table, $valueField, $textField)
+$instructors = fetchOptions('tbl_users', 'user_id', 'CONCAT(user_fname, " ", user_lname) AS name', 'user_role = "teacher"');
+$courses = fetchOptions('tbl_course', 'course_id', 'CONCAT(course_description, " (Year ", course_year, ")") AS description');
+$subjects = fetchOptions('tbl_subjects', 'id', 'description');
+$rooms = fetchOptions('tbl_rooms', 'room_id', 'room_name');
+$times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", end_time) AS slot');
+$days = fetchOptions('tbl_days', 'day_id', 'day_name');
+
+function fetchOptions($table, $valueField, $textField, $where = '')
 {
     global $conn;
     $options = [];
-    $stmt = $conn->prepare("SELECT $valueField, $textField FROM $table");
+    $query = "SELECT $valueField, $textField FROM $table";
+    if ($where) {
+        $query .= " WHERE $where";
+    }
+    $stmt = $conn->prepare($query);
     $stmt->execute();
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $options[] = $row;
     }
     return $options;
 }
-
-$instructors = fetchOptions('tbl_users', 'user_id', 'CONCAT(user_fname, " ", user_lname) AS name');
-$courses = fetchOptions('tbl_course', 'course_id', 'CONCAT(course_description, " (Year ", course_year, ")") AS description');
-$subjects = fetchOptions('tbl_subjects', 'id', 'description');
-$rooms = fetchOptions('tbl_rooms', 'room_id', 'room_name');
-$times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", end_time) AS slot');
 ?>
+
 
 <main id="main" class="main">
 
@@ -50,12 +56,12 @@ $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", en
                             <table id="scheduleTable" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
-                                        <th scope="col">ID</th>
                                         <th scope="col">Instructor</th>
                                         <th scope="col">Course</th>
                                         <th scope="col">Subject</th>
                                         <th scope="col">Room</th>
                                         <th scope="col">Time Slot</th>
+                                        <th scope="col">Day</th>
                                         <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
@@ -139,6 +145,18 @@ $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", en
                                 </select>
                             </div>
 
+                            <div class="form-group">
+                                <label for="day">Day</label>
+                                <select id="day" name="day" class="form-control" required>
+                                    <option value="" disabled selected>Select a Day</option>
+                                    <?php foreach ($days as $day): ?>
+                                        <option value="<?= htmlspecialchars($day['day_id']) ?>">
+                                            <?= htmlspecialchars($day['day_name']) ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+
                             <button type="submit" class="btn btn-primary btn-sm btn-block" style="margin-top: 10px;">Submit</button>
                         </form>
                     </div>
@@ -172,6 +190,10 @@ $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", en
                             <div class="form-group">
                                 <label for="editRoom">Room</label>
                                 <select id="editRoom" name="room" class="form-control" required></select>
+                            </div>
+                            <div class="form-group">
+                                <label for="editDay">Day</label>
+                                <select id="editDay" name="day" class="form-control" required></select>
                             </div>
                             <div class="form-group">
                                 <label for="editTime">Time Slot</label>
@@ -215,12 +237,12 @@ $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", en
                     $.each(response, function(index, schedule) {
                         tbody.append(`
                         <tr>
-                            <td>${schedule.schedule_id}</td>
                             <td>${schedule.instructor_name}</td>
                             <td>${schedule.course_description}</td>
                             <td>${schedule.subject_description}</td>
                             <td>${schedule.room_name}</td>
                             <td>${schedule.time_slot}</td>
+                            <td>${schedule.day_name}</td>
                             <td>
                                 <button class="btn btn-sm btn-warning ri-edit-2-fill edit-btn" data-id="${schedule.schedule_id}"></button>
                                 <button class="btn btn-sm btn-danger ri-delete-bin-6-line delete-btn" data-id="${schedule.schedule_id}"></button>
@@ -256,6 +278,8 @@ $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", en
                         `<option value="${room.room_id}">${room.room_name}</option>`).join(''));
                     $('#editTime').html(data.times.map(time =>
                         `<option value="${time.time_id}">${time.slot}</option>`).join(''));
+                    $('#editDay').html(data.days.map(day =>
+                        `<option value="${day.day_id}">${day.day_name}</option>`).join(''));
                 }
             });
         }
