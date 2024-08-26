@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 26, 2024 at 04:46 AM
+-- Generation Time: Aug 26, 2024 at 08:10 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -45,6 +45,30 @@ INSERT INTO `tbl_course` (`course_id`, `course_description`, `course_year`) VALU
 (18, 'ICT', 11),
 (19, 'GAS', 11),
 (20, 'HUMSS', 11);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_days`
+--
+
+CREATE TABLE `tbl_days` (
+  `day_id` int(11) NOT NULL,
+  `day_name` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_days`
+--
+
+INSERT INTO `tbl_days` (`day_id`, `day_name`) VALUES
+(1, 'Monday'),
+(2, 'Tuesday'),
+(3, 'Wednesday'),
+(4, 'Thursday'),
+(5, 'Friday'),
+(6, 'Saturday'),
+(7, 'Sunday');
 
 -- --------------------------------------------------------
 
@@ -180,17 +204,19 @@ CREATE TABLE `tbl_schedule` (
   `course_id` int(11) NOT NULL,
   `subject_id` int(11) NOT NULL,
   `room_id` int(11) NOT NULL,
-  `time_id` int(11) NOT NULL
+  `time_id` int(11) NOT NULL,
+  `day_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_schedule`
 --
 
-INSERT INTO `tbl_schedule` (`schedule_id`, `instructor_id`, `course_id`, `subject_id`, `room_id`, `time_id`) VALUES
-(92, 39, 12, 9, 4, 4),
-(93, 44, 15, 9, 5, 4),
-(96, 48, 16, 17, 7, 4);
+INSERT INTO `tbl_schedule` (`schedule_id`, `instructor_id`, `course_id`, `subject_id`, `room_id`, `time_id`, `day_id`) VALUES
+(105, 39, 12, 14, 4, 4, 2),
+(106, 44, 18, 23, 5, 4, 4),
+(107, 46, 15, 15, 8, 9, 6),
+(110, 46, 15, 15, 7, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -274,7 +300,8 @@ CREATE TABLE `tbl_students` (
 
 INSERT INTO `tbl_students` (`user_id`, `user_name`, `lname`, `fname`, `middleInitial`, `Suffix`, `course`, `year`, `contact`, `gender`, `bdate`, `pob`, `email`, `major`, `nationality`, `civilStatus`, `religion`, `modality`, `fb`, `curAddress`, `cityAdd`, `zipcode`, `fatherName`, `fwork`, `motherName`, `mwork`, `primarySchool`, `primaryAddress`, `primaryCompleted`, `entermediateSchool`, `entermediateAddress`, `entermediateCompleted`, `hsSchool`, `hsAddress`, `hsCompleted`, `shSchool`, `shAddress`, `shCompleted`, `collegeSchool`, `collegeAddress`, `collegeCompleted`, `user_image`, `user_role`, `user_pass`, `semester`, `status`) VALUES
 (11, 'MIIT-2021-137', 'Dihayco', 'Sheinalie', 'V.', '-', 'BSIT', 4, '09996707038', 'Female', '2003-02-09', 'Mactan, Lapu-Lapu City , Cebu', 'dihayco020903@gmail.com', 'Programming', 'Filipino', 'Single', 'Roman Catholic', 'Face to Face', 'Shien Dihayco', 'Purok Sagay, Kalubihan', 'Tuyan, City of Naga, Cebu', '6037', 'Mechille V. DIhayco', 'N/A', 'Divina V. Dihayco', 'Baby Sitter', 'Punta Engano Elementary School', 'Puntan Engano, Lapu-Lapu City', '2012-2013', 'TCES', 'Tuyan, City of Naga', '2014-2015', 'TNHS', 'Tabtuy, Tuyan, City of Naga, Cebu', '2018-2019 ', 'TUYAN SENIOR HIGH SCHOOL', 'Tabtuy, Tuyan, City of Naga, Cebu', '2020-2021', 'MIIT', 'Inayagan, City of Naga, Cebu', '-', '', 'student', '$2y$10$BM7eCopSmj9S3gert/CseugEt/QB0U9WGwXdnZfzgC8', 1, 'Enrolled'),
-(12, 'MIIT-2021-124', 'Algarme', 'Zean Mariuss', '', '', 'BSIT', 4, '', '', '', '', 'zuild@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$9tOOOKvKC6PmttS.R/qeb.YvEcuyncF3Sm21ae5c5Bx', 1, 'Enrolled');
+(12, 'MIIT-2021-124', 'Algarme', 'Zean Mariuss', '', '', 'BSIT', 4, '', '', '', '', 'zuild@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$9tOOOKvKC6PmttS.R/qeb.YvEcuyncF3Sm21ae5c5Bx', 1, 'Enrolled'),
+(13, 'MIIT-2021-160', 'Tahanlangit', 'Louie', '', '', 'BSIT', 4, '', '', '', '', 'louiethnlngt@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$5dqMr7rctb4AbkuDzhfXGeYvslAQzUyoa63R0AWQMyj', 1, 'Enrolled');
 
 -- --------------------------------------------------------
 
@@ -619,9 +646,7 @@ INSERT INTO `tbl_subjects` (`id`, `year`, `semester`, `code`, `description`, `le
 (305, 12, 2, 'PE411', 'Physical Education and Health', 0, 0, 0, 'PE311', 500, 'ICT'),
 (306, 12, 2, 'CS412', 'Computer System Servicing', 0, 0, 0, 'CS111, CS211 & CS311', 500, 'ICT'),
 (307, 12, 2, 'COMP412', 'Computer Programming IV', 0, 0, 0, 'COMP111, COMP211 & COMP311', 500, 'ICT'),
-(308, 12, 2, 'TVLApp112', 'Work Immersion/Research/Career Advocacy/Culminatin', 0, 0, 0, '', 500, 'ICT'),
-(309, 1, 1, '111222', 'hello', 1, 1, 3, 'None', 3, 'BSIT'),
-(310, 1, 1, '1122', 'hi', 1, 1, 3, 'None', 3, 'BSIT');
+(308, 12, 2, 'TVLApp112', 'Work Immersion/Research/Career Advocacy/Culminatin', 0, 0, 0, '', 500, 'ICT');
 
 -- --------------------------------------------------------
 
@@ -669,6 +694,12 @@ ALTER TABLE `tbl_course`
   ADD PRIMARY KEY (`course_id`);
 
 --
+-- Indexes for table `tbl_days`
+--
+ALTER TABLE `tbl_days`
+  ADD PRIMARY KEY (`day_id`);
+
+--
 -- Indexes for table `tbl_events`
 --
 ALTER TABLE `tbl_events`
@@ -704,7 +735,8 @@ ALTER TABLE `tbl_schedule`
   ADD KEY `course_id` (`course_id`),
   ADD KEY `subject_id` (`subject_id`),
   ADD KEY `room_id` (`room_id`),
-  ADD KEY `time_id` (`time_id`);
+  ADD KEY `time_id` (`time_id`),
+  ADD KEY `tbl_days` (`day_id`);
 
 --
 -- Indexes for table `tbl_sched_time`
@@ -748,6 +780,12 @@ ALTER TABLE `tbl_course`
   MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
+-- AUTO_INCREMENT for table `tbl_days`
+--
+ALTER TABLE `tbl_days`
+  MODIFY `day_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `tbl_events`
 --
 ALTER TABLE `tbl_events`
@@ -775,7 +813,7 @@ ALTER TABLE `tbl_rooms`
 -- AUTO_INCREMENT for table `tbl_schedule`
 --
 ALTER TABLE `tbl_schedule`
-  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 
 --
 -- AUTO_INCREMENT for table `tbl_sched_time`
@@ -787,13 +825,13 @@ ALTER TABLE `tbl_sched_time`
 -- AUTO_INCREMENT for table `tbl_students`
 --
 ALTER TABLE `tbl_students`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tbl_subjects`
 --
 ALTER TABLE `tbl_subjects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=311;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=312;
 
 --
 -- AUTO_INCREMENT for table `tbl_users`
@@ -822,6 +860,7 @@ ALTER TABLE `tbl_payments`
 -- Constraints for table `tbl_schedule`
 --
 ALTER TABLE `tbl_schedule`
+  ADD CONSTRAINT `tbl_days` FOREIGN KEY (`day_id`) REFERENCES `tbl_days` (`day_id`),
   ADD CONSTRAINT `tbl_schedule_ibfk_1` FOREIGN KEY (`instructor_id`) REFERENCES `tbl_users` (`user_id`),
   ADD CONSTRAINT `tbl_schedule_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `tbl_course` (`course_id`),
   ADD CONSTRAINT `tbl_schedule_ibfk_3` FOREIGN KEY (`subject_id`) REFERENCES `tbl_subjects` (`id`),
