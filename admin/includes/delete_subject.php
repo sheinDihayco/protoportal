@@ -1,29 +1,22 @@
 <?php
 include_once "../includes/connect.php";
-include_once "../includes/connection.php";
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $subjectId = isset($_POST['id']) ? intval($_POST['id']) : 0;
+if (isset($_GET['id'])) {
+    $subjectId = $_GET['id'];
 
-    if ($subjectId > 0) {
-        try {
-            $stmt = $database->prepare("DELETE FROM tbl_subjects WHERE id = :id");
-            $stmt->bindParam(':id', $subjectId, PDO::PARAM_INT);
+    // Prepare the SQL statement to delete the subject
+    $sql = "DELETE FROM tbl_subjects WHERE id = :id";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':id', $subjectId, PDO::PARAM_INT);
 
-            if ($stmt->execute()) {
-                echo 'success';
-            } else {
-                echo 'error';
-            }
-        } catch (PDOException $e) {
-            error_log("Delete Subject Error: " . $e->getMessage());
-            echo 'error';
-        }
+    // Execute the statement and set session messages accordingly
+    if ($stmt->execute()) {
+        $_SESSION['subject_deleted'] = true;
     } else {
-        echo 'error';
+        $_SESSION['subject_deleted'] = false;
     }
-} else {
-    echo 'error';
-}
 
-$database = null;
+    // Redirect to the subject page with a success message
+    header("Location:../subject.php?error=delete-success");
+    exit();
+}

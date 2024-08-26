@@ -77,6 +77,7 @@ if (isset($_SESSION['subject_created']) && $_SESSION['subject_created']) {
       <button type="submit" class="btn btn-primary">Search</button>
     </div>
   </form>
+
   <section class="section dashboard">
     <div class="table-responsive mt-4">
       <?php
@@ -213,7 +214,7 @@ if (isset($_SESSION['subject_created']) && $_SESSION['subject_created']) {
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form id="addSubjectForm" action="../add_subject.php" method="POST">
+          <form id="addSubjectForm" action="functions/add-subject.php" method="POST">
             <div class="row g-3">
               <div class="col-md-6">
                 <label for="code" class="form-label">Course Code</label>
@@ -232,17 +233,23 @@ if (isset($_SESSION['subject_created']) && $_SESSION['subject_created']) {
                 <input type="number" class="form-control" id="lab" name="lab" required>
               </div>
               <div class="col-md-6">
-                <label for="units" class="form-label">Units</label>
-                <input type="number" class="form-control" id="units" name="units" step="0.1" required>
+                <label for="unit" class="form-label">Units</label>
+                <input type="number" class="form-control" id="unit" name="unit" step="0.1" required>
               </div>
               <div class="col-md-6">
                 <label for="pre_req" class="form-label">Pre-requisite</label>
                 <input type="text" class="form-control" id="pre_req" name="pre_req">
               </div>
               <div class="col-md-6">
-                <label for="total_hours" class="form-label">Total Hours</label>
-                <input type="number" class="form-control" id="total_hours" name="total_hours" required>
+                <label for="total" class="form-label">Total Hours</label>
+                <input type="number" class="form-control" id="total" name="total" required>
               </div>
+
+              <div class="col-md-6">
+                <label for="course" class="form-label">Course</label>
+                <input type="text" class="form-control" id="course" name="course" placeholder="(BSIT / BSBA / BSOA / ICT / ABM / HUMSS / GAS">
+              </div>
+
               <div class="col-md-6">
                 <label for="year" class="form-label">Year</label>
                 <select class="form-select" id="year" name="year" required>
@@ -271,6 +278,7 @@ if (isset($_SESSION['subject_created']) && $_SESSION['subject_created']) {
     </div>
   </div>
 
+
   <!-- Modal for editing subjects -->
   <div class="modal fade" id="editSubjectModal" tabindex="-1" aria-labelledby="editSubjectModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -280,40 +288,45 @@ if (isset($_SESSION['subject_created']) && $_SESSION['subject_created']) {
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form id="editSubjectForm" action="../edit_subject.php" method="POST">
-            <input type="hidden" id="editSubjectId" name="id">
+          <form id="editSubjectForm" action="includes/update_subject.php" method="POST">
+            <!-- Include a hidden input field to hold the subject ID -->
+            <input type="hidden" id="edit-id" name="id">
             <div class="row g-3">
               <div class="col-md-6">
-                <label for="edit_code" class="form-label">Course Code</label>
-                <input type="text" class="form-control" id="edit_code" name="code" required>
+                <label for="edit-code" class="form-label">Course Code</label>
+                <input type="text" class="form-control" id="edit-code" name="code" required>
               </div>
               <div class="col-md-6">
-                <label for="edit_description" class="form-label">Description</label>
-                <input type="text" class="form-control" id="edit_description" name="description" required>
+                <label for="edit-description" class="form-label">Description</label>
+                <input type="text" class="form-control" id="edit-description" name="description" required>
               </div>
               <div class="col-md-6">
-                <label for="edit_lec" class="form-label">Lecture Hours</label>
-                <input type="number" class="form-control" id="edit_lec" name="lec" required>
+                <label for="edit-lec" class="form-label">Lecture Hours</label>
+                <input type="number" class="form-control" id="edit-lec" name="lec" required>
               </div>
               <div class="col-md-6">
-                <label for="edit_lab" class="form-label">Lab Hours</label>
-                <input type="number" class="form-control" id="edit_lab" name="lab" required>
+                <label for="edit-lab" class="form-label">Lab Hours</label>
+                <input type="number" class="form-control" id="edit-lab" name="lab" required>
               </div>
               <div class="col-md-6">
-                <label for="edit_units" class="form-label">Units</label>
-                <input type="number" class="form-control" id="edit_units" name="units" step="0.1" required>
+                <label for="edit-unit" class="form-label">Units</label>
+                <input type="number" class="form-control" id="edit-unit" name="unit" step="0.1" required>
               </div>
               <div class="col-md-6">
-                <label for="edit_pre_req" class="form-label">Pre-requisite</label>
-                <input type="text" class="form-control" id="edit_pre_req" name="pre_req">
+                <label for="edit-pre_req" class="form-label">Pre-requisite</label>
+                <input type="text" class="form-control" id="edit-pre_req" name="pre_req">
               </div>
               <div class="col-md-6">
-                <label for="edit_total_hours" class="form-label">Total Hours</label>
-                <input type="number" class="form-control" id="edit_total_hours" name="total_hours" required>
+                <label for="edit-total" class="form-label">Total Hours</label>
+                <input type="number" class="form-control" id="edit-total" name="total" required>
               </div>
               <div class="col-md-6">
-                <label for="edit_year" class="form-label">Year</label>
-                <select class="form-select" id="edit_year" name="year" required>
+                <label for="edit-course" class="form-label">Course</label>
+                <input type="text" class="form-control" id="edit-course" name="course" required>
+              </div>
+              <div class="col-md-6">
+                <label for="edit-year" class="form-label">Year</label>
+                <select class="form-select" id="edit-year" name="year" required>
                   <option value="" selected>Select</option>
                   <?php foreach ($years as $yearNumber => $yearTitle): ?>
                     <option value="<?= $yearNumber ?>"><?= $yearTitle ?></option>
@@ -321,94 +334,91 @@ if (isset($_SESSION['subject_created']) && $_SESSION['subject_created']) {
                 </select>
               </div>
               <div class="col-md-6">
-                <label for="edit_semester" class="form-label">Semester</label>
-                <select class="form-select" id="edit_semester" name="semester" required>
+                <label for="edit-semester" class="form-label">Semester</label>
+                <select class="form-select" id="edit-semester" name="semester" required>
                   <option value="" selected>Select</option>
                   <option value="1">1st Semester</option>
                   <option value="2">2nd Semester</option>
                 </select>
               </div>
             </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Update Subject</button>
+            </div>
+          </form>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save Changes</button>
-        </div>
-        </form>
       </div>
     </div>
   </div>
 
-</main>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const editButtons = document.querySelectorAll('.btn-edit');
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+      editButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const subjectId = this.getAttribute('data-id');
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<script>
-  $(document).ready(function() {
-    // Handle Edit button click
-    $('.btn-edit').click(function() {
-      const subjectId = $(this).data('id'); // Get the subject ID from the button's data attribute
-
-      // Fetch subject details
-      $.ajax({
-        url: 'includes/get_subject.php', // Endpoint to get subject details
-        type: 'POST',
-        data: {
-          id: subjectId // Send the subject ID to the server
-        },
-        dataType: 'json',
-        success: function(data) {
-          if (data && !data.error) {
-            // Populate the form fields with the retrieved data
-            $('#editSubjectId').val(data.id);
-            $('#edit_code').val(data.code);
-            $('#edit_description').val(data.description);
-            $('#edit_lec').val(data.lec);
-            $('#edit_lab').val(data.lab);
-            $('#edit_units').val(data.units);
-            $('#edit_pre_req').val(data.pre_req);
-            $('#edit_total_hours').val(data.total_hours);
-            $('#edit_year').val(data.year);
-            $('#edit_semester').val(data.semester);
-          } else {
-            alert(data.error || 'Failed to fetch subject details');
+          if (!subjectId) {
+            console.error('No subject ID found.');
+            return;
           }
-        },
-        error: function() {
-          alert('An error occurred while fetching subject details');
-        }
+
+          // Fetch all subjects via AJAX
+          fetch('includes/get_subject.php')
+            .then(response => response.json())
+            .then(data => {
+              if (data.status === 'success' && data.data) {
+                // Find the subject with the matching ID
+                const subject = data.data.find(subj => subj.id == subjectId);
+
+                if (subject) {
+                  // Populate the modal with the subject data
+                  document.getElementById('edit-id').value = subject.id || '';
+                  document.getElementById('edit-code').value = subject.code || '';
+                  document.getElementById('edit-description').value = subject.description || '';
+                  document.getElementById('edit-lec').value = subject.lec || '';
+                  document.getElementById('edit-lab').value = subject.lab || '';
+                  document.getElementById('edit-unit').value = subject.unit || '';
+                  document.getElementById('edit-pre_req').value = subject.pre_req || '';
+                  document.getElementById('edit-total').value = subject.total || '';
+                  document.getElementById('edit-course').value = subject.course || '';
+                  document.getElementById('edit-year').value = subject.year || '';
+                  document.getElementById('edit-semester').value = subject.semester || '';
+
+                  // Show the modal
+                  $('#editModal').modal('show');
+                } else {
+                  console.error('Subject not found');
+                }
+              } else {
+                console.error('Error:', data.message);
+              }
+            })
+            .catch(error => console.error('Fetch Error:', error));
+        });
       });
     });
+  </script>
 
-    // Handle Delete button click
-    $('.btn-delete').click(function() {
-      const subjectId = $(this).data('id'); // Get the subject ID from the button's data attribute
 
+</main>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  document.querySelectorAll('.btn-delete').forEach(button => {
+    button.addEventListener('click', function() {
+      const subjectId = this.getAttribute('data-id');
       if (confirm('Are you sure you want to delete this subject?')) {
-        $.ajax({
-          url: 'includes/delete_subject.php', // Endpoint to delete the subject
-          type: 'POST',
-          data: {
-            id: subjectId // Send the subject ID to the server
-          },
-          success: function(response) {
-            if (response.trim() === 'success') {
-              location.reload(); // Reload the page if deletion was successful
-            } else {
-              alert('Failed to delete subject');
-            }
-          },
-          error: function() {
-            alert('An error occurred while deleting the subject');
-          }
-        });
+        // Redirect to delete_subject.php with the subject ID
+        window.location.href = `includes/delete_subject.php?id=${subjectId}`;
       }
     });
   });
 </script>
-
 
 <script>
   function enableNextField(nextFieldId) {
@@ -430,6 +440,102 @@ if (isset($_SESSION['subject_created']) && $_SESSION['subject_created']) {
   });
 </script>
 
-</body>
+<style>
+  a {
+    text-decoration: none !important;
+  }
 
-</html>
+  .breadcrumb-item a {
+    text-decoration: none !important;
+  }
+
+  .breadcrumb-item.active {
+    text-decoration: none;
+  }
+
+  .navbar-brand {
+    text-decoration: none !important;
+  }
+
+  .alert {
+    padding: 20px;
+    background-color: #4CAF50;
+    color: white;
+    opacity: 1;
+    transition: opacity 0.6s;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 5000;
+    width: 300px;
+  }
+
+  .closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .closebtn:hover {
+    color: black;
+  }
+
+
+  .modal-content {
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background-color: #f8f9fa;
+  }
+
+  .modal-header {
+    background-color: #007bff;
+    color: white;
+    border-bottom: none;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+
+  .modal-title {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  .btn-close {
+    filter: invert(1);
+  }
+
+  .modal-body {
+    color: #333;
+    padding: 20px;
+    font-size: 1rem;
+  }
+
+  #eventModalDate {
+    font-size: 1rem;
+    color: #6c757d;
+    margin-bottom: 10px;
+  }
+
+  #editSubjectModal {
+    font-size: 1rem;
+    line-height: 1.5;
+    word-wrap: break-word;
+  }
+
+  .modal-footer {
+    background-color: #f1f1f1;
+    border-top: none;
+    padding: 10px 20px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    text-align: right;
+  }
+</style>
+<?php include_once "../templates/header.php"; ?>
