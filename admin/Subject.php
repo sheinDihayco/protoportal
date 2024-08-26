@@ -36,7 +36,8 @@ if (isset($_SESSION['subject_created']) && $_SESSION['subject_created']) {
 
   <div class="pagetitle">
     <h1>Subject Records</h1>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#courseModal">Add Subject</button>
+    <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#courseModal">
+    </button>
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.php">Home</a></li>

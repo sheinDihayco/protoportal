@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 21, 2024 at 03:33 PM
+-- Generation Time: Aug 26, 2024 at 04:46 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -124,6 +124,14 @@ CREATE TABLE `tbl_grades` (
   `term` varchar(20) NOT NULL,
   `grade` decimal(5,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_grades`
+--
+
+INSERT INTO `tbl_grades` (`grade_id`, `user_id`, `id`, `term`, `grade`) VALUES
+(1, 11, 60, 'Final', 1.80),
+(2, 11, 62, 'Final', 1.80);
 
 -- --------------------------------------------------------
 
@@ -749,7 +757,7 @@ ALTER TABLE `tbl_events`
 -- AUTO_INCREMENT for table `tbl_grades`
 --
 ALTER TABLE `tbl_grades`
-  MODIFY `grade_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `grade_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_payments`
