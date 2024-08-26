@@ -201,6 +201,4 @@ $studcount12 = $statements->fetch(PDO::FETCH_ASSOC);
         }
     });
 </script>
-<?php
-include_once "../templates/footer.php";
-?>
+<?php include_once "../templates/footer.php" ?>;

@@ -19,7 +19,10 @@ if (isset($_POST['search']) && isset($_POST['user_name'])) {
             s.lname,
             s.fname,
             s.middleInitial,
-            s.user_id
+            s.user_id,
+            s.year,
+            s.semester,
+            s.course
         FROM 
             tbl_students s
         WHERE 
@@ -37,6 +40,7 @@ if (isset($_POST['search']) && isset($_POST['user_name'])) {
             SELECT 
                 sub.code,
                 sub.description,
+                sub.unit,
                 g.term,
                 g.grade
             FROM 
@@ -54,7 +58,6 @@ if (isset($_POST['search']) && isset($_POST['user_name'])) {
     }
 }
 ?>
-
 
 <head>
     <meta charset="UTF-8">
@@ -115,16 +118,29 @@ if (isset($_POST['search']) && isset($_POST['user_name'])) {
                 </div>
             </div>
 
-
             <?php if ($studentInfo): ?>
                 <div class="card mt-4">
                     <div class="card-body">
-                        <p class="card-title">
-                            <?php echo htmlspecialchars($studentInfo['lname']); ?>,
-                            <?php echo htmlspecialchars($studentInfo['fname']); ?>
-                            <?php echo htmlspecialchars($studentInfo['middleInitial']); ?> <br>
-                            <?php echo htmlspecialchars($studentInfo['user_name']); ?>
+                        <p class="card-title" style="font-size: 16px; line-height: 1.6; color: #333;">
+                            <strong style="margin-right: 200px;">
+                                <?php echo htmlspecialchars($studentInfo['lname']); ?>,
+                                <?php echo htmlspecialchars($studentInfo['fname']); ?>
+                            </strong>
+
+                            <strong style="margin-right: 200px;">
+                                Course & Year: <span><?php echo htmlspecialchars($studentInfo['course']); ?> - <?php echo htmlspecialchars($studentInfo['year']); ?></span>
+                            </strong> <br>
+
+                            <strong style="margin-right: 240px;">
+                                <?php echo htmlspecialchars($studentInfo['user_name']); ?>
+                            </strong>
+
+                            <strong>
+                                Semester: <span><?php echo htmlspecialchars($studentInfo['semester']); ?></span>
+                            </strong>
                         </p>
+
+
 
                         <?php if (!empty($grades)): ?>
                             <table class="table table-striped">
@@ -132,6 +148,7 @@ if (isset($_POST['search']) && isset($_POST['user_name'])) {
                                     <tr>
                                         <th scope="col">Subject Code</th>
                                         <th scope="col">Description</th>
+                                        <th scope="col">Units</th>
                                         <th scope="col">Prelim</th>
                                         <th scope="col">Midterm</th>
                                         <th scope="col">Pre-Final</th>
@@ -148,6 +165,7 @@ if (isset($_POST['search']) && isset($_POST['user_name'])) {
                                         foreach ($grades as $row) {
                                             if (isset($row['term']) && isset($row['grade'])) {
                                                 $grades_by_subject[$row['code']]['description'] = $row['description'];
+                                                $grades_by_subject[$row['code']]['unit'] = $row['unit'];
                                                 $grades_by_subject[$row['code']][$row['term']] = $row['grade'];
                                             }
                                         }
@@ -157,6 +175,7 @@ if (isset($_POST['search']) && isset($_POST['user_name'])) {
                                             <tr>
                                                 <td><?php echo htmlspecialchars($subject_code); ?></td>
                                                 <td><?php echo htmlspecialchars($subject_grades['description']); ?></td>
+                                                <td><?php echo htmlspecialchars($subject_grades['unit']); ?></td>
                                                 <td><?php echo isset($subject_grades['Prelim']) ? htmlspecialchars($subject_grades['Prelim']) : '-'; ?></td>
                                                 <td><?php echo isset($subject_grades['Midterm']) ? htmlspecialchars($subject_grades['Midterm']) : '-'; ?></td>
                                                 <td><?php echo isset($subject_grades['Pre-Final']) ? htmlspecialchars($subject_grades['Pre-Final']) : '-'; ?></td>
@@ -185,7 +204,7 @@ if (isset($_POST['search']) && isset($_POST['user_name'])) {
                                         <?php endforeach;
                                     else: ?>
                                         <tr>
-                                            <td colspan="7" class="no-results">No grades found.</td>
+                                            <td colspan="10" class="no-results">No grades found.</td>
                                         </tr>
                                     <?php endif; ?>
                                 </tbody>
@@ -200,8 +219,23 @@ if (isset($_POST['search']) && isset($_POST['user_name'])) {
             <?php endif; ?>
         </div>
     </main>
+    <!-- Add custom CSS to remove underlines -->
+    <style>
+        a {
+            text-decoration: none !important;
+        }
 
+        .breadcrumb-item a {
+            text-decoration: none !important;
+        }
+
+        .breadcrumb-item.active {
+            text-decoration: none;
+        }
+
+        .navbar-brand {
+            text-decoration: none !important;
+        }
+    </style>
     <?php include_once "../templates/footer.php"; ?>
 </body>
-
-</html>

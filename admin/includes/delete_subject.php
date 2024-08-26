@@ -1,21 +1,29 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "schooldb";
+include_once "../includes/connect.php";
+include_once "../includes/connection.php";
 
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $subjectId = isset($_POST['id']) ? intval($_POST['id']) : 0;
 
-    if (isset($_POST['id'])) {
-        $subjectId = $_POST['id'];
+    if ($subjectId > 0) {
+        try {
+            $stmt = $database->prepare("DELETE FROM tbl_subjects WHERE id = :id");
+            $stmt->bindParam(':id', $subjectId, PDO::PARAM_INT);
 
-        // Prepare and execute the query to delete the subject
-        $query = $pdo->prepare("DELETE FROM subjects WHERE id = :id");
-        $query->bindParam(':id', $subjectId, PDO::PARAM_INT);
-        $query->execute();
-
-        echo json_encode(['status' => 'success']);
+            if ($stmt->execute()) {
+                echo 'success';
+            } else {
+                echo 'error';
+            }
+        } catch (PDOException $e) {
+            error_log("Delete Subject Error: " . $e->getMessage());
+            echo 'error';
+        }
+    } else {
+        echo 'error';
     }
+} else {
+    echo 'error';
 }
+
+$database = null;
