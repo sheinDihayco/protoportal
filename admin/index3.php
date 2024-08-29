@@ -52,8 +52,7 @@ $connection->close();
 <main id="main" class="main">
     <section class="section dashboard">
         <div class="row">
-
-
+            <!-- Start Event -->
             <div class="col-xxl-4 col-md-6">
                 <div class="card info-card sales-card">
                     <div class="filter">
@@ -68,7 +67,7 @@ $connection->close();
                         </ul>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">Today's Event <span>| Details</span></h5>
+                        <h5 class="card-title">Today's Event <span style="margin-left: 10px;"><?php echo htmlspecialchars($todaysEvent['date']); ?></span></h5>
                         <div class="d-flex align-items-center">
                             <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                 <i class="bi bi-calendar-day"></i>
@@ -77,8 +76,7 @@ $connection->close();
                                 <?php if ($todaysEvent) : ?>
                                     <li class="list-group-item d-flex justify-content-between align-items-start">
                                         <div style="flex-grow: 1;">
-                                            <h6 class="card-title"><?php echo htmlspecialchars($todaysEvent['title']); ?> <span class="badge bg-success" style="color: white;">Today's Event</span></h6>
-                                            <p><?php echo htmlspecialchars($todaysEvent['date']); ?></p>
+                                            <h6><?php echo htmlspecialchars($todaysEvent['title']); ?> </h6>
                                             <!-- <p><?php echo htmlspecialchars($todaysEvent['description']); ?></p>-->
                                         </div>
                                     </li>
@@ -89,8 +87,8 @@ $connection->close();
                         </div>
                     </div>
                 </div>
-            </div><!-- End Student Count Card -->
-
+            </div>
+            <!-- End Event -->
         </div>
 
         <div class="row">
