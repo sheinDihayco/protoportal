@@ -16,10 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_id = $conn->real_escape_string($_POST['user_id']);
 
     // Delete record
-    $sql = "DELETE FROM tbl_users WHERE user_id = '$user_id'";
+    $sql = "DELETE FROM tbl_students WHERE user_id = '$user_id'";
 
     if ($conn->query($sql) === TRUE) {
-        header("Location: ../studentRecords1.php?error=delete-success");
+        header("Location: ../user-student.php?error=delete-success");
         exit();
     } else {
         echo "Error: " . $conn->error;

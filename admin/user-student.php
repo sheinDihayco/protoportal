@@ -163,9 +163,13 @@ $studcount12 = $statements->fetch(PDO::FETCH_ASSOC);
                                                     <i class="ri-arrow-right-circle-fill"></i>
                                                 </button>
                                             </form>
-                                        </td>
+                                            <form method="POST" action="../admin/upload/delete-student.php" onsubmit="return confirm('Are you sure you want to delete this student?');" style="display:inline;">
+                                                <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($row["user_id"]); ?>">
+                                                <button type="submit" class="btn btn-sm btn-danger ri-delete-bin-6-line"></button>
+                                            </form>
+                                        <td>
 
-                                        <?php include('modals/form-edit-Student.php'); ?>
+                                            <?php include('modals/form-edit-Student.php'); ?>
                                     </tr>
                             <?php
                                 }
