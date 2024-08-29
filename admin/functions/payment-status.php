@@ -13,12 +13,12 @@ if ($conn->connect_error) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $studentID = $_POST['studentID'];
+    $user_id = $_POST['user_id'];
     $status = $_POST['payment_status'];
     $semester = $_POST['semester'];
     $paymentPeriod = $_POST['paymentPeriod'];
 
-    $sql = "UPDATE tbl_payments SET semester = ?, paymentPeriod = ?, payment_status = ? WHERE studentID = ?";
+    $sql = "UPDATE tbl_payments SET semester = ?, paymentPeriod = ?, payment_status = ? WHERE user_id = ?";
 
     if ($stmt = $conn->prepare($sql)) {
         $stmt->bind_param(
@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $semester,
             $paymentPeriod,
             $status,
-            $studentID
+            $user_id
 
         );
 

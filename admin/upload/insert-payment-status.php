@@ -15,23 +15,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     }
 
     // Collect and sanitize form data
-    $studentID = $conn->real_escape_string($_POST['studentID']);
+    $user_id = $conn->real_escape_string($_POST['user_id']);
     $status = $conn->real_escape_string($_POST['payment_status']);
     $semester = $conn->real_escape_string($_POST['semester']);
     $paymentPeriod = $conn->real_escape_string($_POST['paymentPeriod']);
 
-    // Check if studentID exists in tbl_students
-    $checkStudentQuery = "SELECT studentID FROM tbl_students WHERE studentID = ?";
+    // Check if user_id exists in tbl_students
+    $checkStudentQuery = "SELECT user_id FROM tbl_students WHERE user_id = ?";
     $stmt = $conn->prepare($checkStudentQuery);
-    $stmt->bind_param("s", $studentID);
+    $stmt->bind_param("s", $user_id);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        // Check if studentID already exists in tbl_payments
-        $checkPaymentQuery = "SELECT studentID FROM tbl_payments WHERE studentID = ?";
+        // Check if user_id already exists in tbl_payments
+        $checkPaymentQuery = "SELECT user_id FROM tbl_payments WHERE user_id = ?";
         $stmt = $conn->prepare($checkPaymentQuery);
-        $stmt->bind_param("s", $studentID);
+        $stmt->bind_param("s", $user_id);
         $stmt->execute();
         $paymentResult = $stmt->get_result();
 
@@ -40,9 +40,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
             echo "Error: Payment record already exists for this student.";
         } else {
             // Prepare an insert statement
-            $insertQuery = "INSERT INTO tbl_payments (studentID, payment_status,semester,paymentPeriod) VALUES (?, ?, ?, ?)";
+            $insertQuery = "INSERT INTO tbl_payments (user_id, payment_status,semester,paymentPeriod) VALUES (?, ?, ?, ?)";
             $stmt = $conn->prepare($insertQuery);
-            $stmt->bind_param("ssss", $studentID, $status, $semester, $paymentPeriod);
+            $stmt->bind_param("ssss", $user_id, $status, $semester, $paymentPeriod);
 
             if ($stmt->execute()) {
                 // Redirect to payment.php after successful insertion

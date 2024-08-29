@@ -1,4 +1,4 @@
-<div class="modal fade" id="updatePaymentStatus<?php echo $row["studentID"] ?>" tabindex="-1">
+<div class="modal fade" id="updatePaymentStatus<?php echo $row["user_id"] ?>" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -13,8 +13,8 @@
           <form action="functions/payment-status.php" method="POST" novalidate>
 
             <div class=" col-md-6">
-              <label for="studentID" class="form-label">Student ID</label>
-              <input type="text" class="form-control" id="studentID" name="studentID" value="<?php echo $row["studentID"] ?>" required>
+              <label for="user_id" class="form-label">Student ID</label>
+              <input type="text" class="form-control" id="user_id" name="user_id" value="<?php echo $row["user_id"] ?>" required>
             </div>
 
             <div class="col-md-6">
