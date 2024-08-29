@@ -59,66 +59,41 @@ if (isset($_POST['search']) && isset($_POST['user_name'])) {
 }
 ?>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Search Student Grades</title>
-    <!-- Include Bootstrap CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
+<main id="main" class="main">
 
-        .container {
-            margin-top: 20px;
-        }
+    <!-- Start Page Title -->
+    <div class="pagetitle">
+        <h1>Student Grades Records</h1>
+    </div>
+    <!-- End Page Title -->
 
-        .form-group label {
-            font-weight: bold;
-        }
 
-        .card-body {
-            background-color: #ffffff;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-        }
-
-        table {
-            margin-top: 20px;
-        }
-
-        th,
-        td {
-            text-align: center;
-        }
-
-        .no-results {
-            text-align: center;
-            color: #6c757d;
-            font-style: italic;
-        }
-    </style>
-</head>
-
-<body>
-    <main id="main" class="main">
-        <div class="container">
-            <h2 class="mb-4">Search Student Grades</h2>
-            <div class="card">
-                <div class="card-body">
-                    <form method="POST" action="">
-                        <div class="form-group">
-                            <label for="user_name">Student Name:</label>
-                            <input type="text" name="user_name" id="user_name" class="form-control" placeholder="Enter student name" required
-                                value="<?php echo isset($_POST['user_name']) ? htmlspecialchars($_POST['user_name']) : ''; ?>">
-                        </div>
-                        <button type="submit" name="search" class="btn btn-primary">Search</button>
-                    </form>
-                </div>
+    <div class="container">
+        <!-- Start Search bar -->
+        <div class="card">
+            <div class="card-body">
+                <form method="POST" action="" class="row g-3">
+                    <div class="col-md-10 form-group">
+                        <label for="user_name" class="form-label">Student ID:</label>
+                        <input type="text" name="user_name" id="user_name" class="form-control" placeholder="Format: MIIT-0000-000" required
+                            value="<?php echo isset($_POST['user_name']) ? htmlspecialchars($_POST['user_name']) : ''; ?>">
+                    </div>
+                    <div class="col-md-2 form-group align-self-end">
+                        <button type="submit" name="search" class="btn btn-primary">
+                            <i class="bx bx-search-alt"></i>
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="clearSearchForm()">
+                            <i class="bx bx-eraser"></i>
+                        </button>
+                    </div>
+                </form>
             </div>
+        </div>
+        <!-- End Search bar -->
 
-            <?php if ($studentInfo): ?>
+        <!-- Start display result -->
+        <?php if ($studentInfo): ?>
+            <div class="gradeResult">
                 <div class="card mt-4">
                     <div class="card-body">
                         <p class="card-title" style="font-size: 16px; line-height: 1.6; color: #333;">
@@ -126,21 +101,16 @@ if (isset($_POST['search']) && isset($_POST['user_name'])) {
                                 <?php echo htmlspecialchars($studentInfo['lname']); ?>,
                                 <?php echo htmlspecialchars($studentInfo['fname']); ?>
                             </strong>
-
                             <strong style="margin-right: 200px;">
-                                Course & Year: <span><?php echo htmlspecialchars($studentInfo['course']); ?> - <?php echo htmlspecialchars($studentInfo['year']); ?></span>
+                                <?php echo htmlspecialchars($studentInfo['course']); ?> - <?php echo htmlspecialchars($studentInfo['year']); ?>
                             </strong> <br>
-
                             <strong style="margin-right: 240px;">
                                 <?php echo htmlspecialchars($studentInfo['user_name']); ?>
                             </strong>
-
                             <strong>
                                 Semester: <span><?php echo htmlspecialchars($studentInfo['semester']); ?></span>
                             </strong>
                         </p>
-
-
 
                         <?php if (!empty($grades)): ?>
                             <table class="table table-striped">
@@ -204,7 +174,7 @@ if (isset($_POST['search']) && isset($_POST['user_name'])) {
                                         <?php endforeach;
                                     else: ?>
                                         <tr>
-                                            <td colspan="10" class="no-results">No grades found.</td>
+                                            <td colspan="8" class="no-results">No grades found.</td>
                                         </tr>
                                     <?php endif; ?>
                                 </tbody>
@@ -214,28 +184,87 @@ if (isset($_POST['search']) && isset($_POST['user_name'])) {
                         <?php endif; ?>
                     </div>
                 </div>
-            <?php elseif (isset($_POST['search'])): ?>
-                <p class="no-results">No student found.</p>
-            <?php endif; ?>
-        </div>
-    </main>
-    <!-- Add custom CSS to remove underlines -->
-    <style>
-        a {
-            text-decoration: none !important;
-        }
+            </div>
+        <?php elseif (isset($_POST['search'])): ?>
+            <p class="no-results">No student found.</p>
+        <?php endif; ?>
+        <!-- End display result -->
+    </div>
 
-        .breadcrumb-item a {
-            text-decoration: none !important;
-        }
 
-        .breadcrumb-item.active {
-            text-decoration: none;
-        }
+</main>
 
-        .navbar-brand {
-            text-decoration: none !important;
+<script>
+    function clearSearchForm() {
+        // Clear all input fields in the form
+        document.querySelectorAll('form input, form select').forEach(input => input.value = '');
+
+        // Check if the form is empty, and hide the section if it is
+        const isFormEmpty = Array.from(document.querySelectorAll('form input, form select'))
+            .every(input => input.value === '');
+
+        if (isFormEmpty) {
+            const gradeResult = document.querySelector('.gradeResult');
+            if (gradeResult) {
+                gradeResult.style.display = 'none';
+            }
         }
-    </style>
-    <?php include_once "../templates/footer.php"; ?>
-</body>
+    }
+</script>
+
+<!-- Add custom CSS to remove underlines -->
+<style>
+    a {
+        text-decoration: none !important;
+    }
+
+    .breadcrumb-item a {
+        text-decoration: none !important;
+    }
+
+    .breadcrumb-item.active {
+        text-decoration: none;
+    }
+
+    .navbar-brand {
+        text-decoration: none !important;
+    }
+
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .container {
+        margin-top: 20px;
+    }
+
+    .form-group label {
+        font-weight: bold;
+    }
+
+    .card-body {
+        background-color: #ffffff;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    table {
+        margin-top: 20px;
+    }
+
+    th,
+    td {
+        text-align: center;
+    }
+
+    .no-results {
+        text-align: center;
+        color: #6c757d;
+        font-style: italic;
+    }
+</style>
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<?php include_once "../templates/footer.php"; ?>

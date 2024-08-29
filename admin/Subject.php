@@ -73,7 +73,6 @@ if (isset($_SESSION['subject_created']) && $_SESSION['subject_created']) {
               <i class="bx bx-eraser"></i>
             </button>
           </div>
-
         </form>
       </div>
     </div>
