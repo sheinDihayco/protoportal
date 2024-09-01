@@ -377,6 +377,7 @@ $database->close();
         </a
       </li>-->
 
+      <!-- Start Forms Nav -->
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-journal-text"></i><span>Academics</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -384,31 +385,33 @@ $database->close();
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="../admin/set-schedule.php">
-              <i class="bi bi-circle"></i><span>Schedule</span>
+              <i class="ri-checkbox-blank-circle-fill"></i><span>Schedule</span>
             </a>
           </li>
 
           <li>
             <a href="../admin/Grades.php">
-              <i class="bi bi-circle"></i><span>Grades</span>
+              <i class="ri-checkbox-blank-circle-fill"></i><span>Grades</span>
             </a>
           </li>
 
           <li>
             <a href="../admin/course.php">
-              <i class="bi bi-circle"></i><span>Courses</span>
+              <i class="ri-checkbox-blank-circle-fill"></i><span>Courses</span>
             </a>
           </li>
 
           <li>
             <a href="../admin/assign-student-instructors.php">
-              <i class="bi bi-circle"></i><span>Assign Students</span>
+              <i class="ri-checkbox-blank-circle-fill"></i><span>Assign Students</span>
             </a>
           </li>
 
         </ul>
-      </li><!-- End Forms Nav -->
+      </li>
+      <!-- End Forms Nav -->
 
+      <!-- Start User Nav -->
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#user-nav" data-bs-toggle="collapse" href="#">
           <i class="ri ri-group-line"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -426,6 +429,8 @@ $database->close();
           </li>
         </ul>
       </li>
+      <!-- End User Nav -->
+
       <li class="nav-item">
         <a class="nav-link collapsed" href="../admin/event2.php">
           <i class="ri-calendar-check-line"></i>
@@ -447,20 +452,25 @@ $database->close();
         </a>
       </li>
 
-      <!--<li class="nav-item">
-        <a class="nav-link collapsed" href="../admin/compensation.php">
-          <i class="bx bx-wallet"></i>
-          <span>Compensation</span>
-        </a>
-      </li>-->
-
       <li class="nav-item">
-        <a class="nav-link collapsed" href="../admin/enrollment-form.php">
-          <i class="bi bi-layout-text-window-reverse"></i>
-          <span>Enrollment</span>
-          <!--INCLUDING : STUDY LOAD FORM, ENROLLMENT FORM -->
+        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Form</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-      </li>
+        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="../admin/enrollment-form.php">
+              <i class="ri-checkbox-blank-circle-fill"></i>
+              <span>Enrollment Form</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="#">
+              <i class="ri-checkbox-blank-circle-fill"></i>
+              <span>Permit Form</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Tables Nav -->
 
       <!--<li class="nav-item">
         <a class="nav-link collapsed" href="../admin/employee.php">
