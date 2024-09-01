@@ -101,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['assignStudents'])) {
                     </div>
                     <div class="col-md-3 form-group">
                         <label for="course" class="form-label">Course</label>
-                        <input type="text" class="form-control" id="course" name="course" disabled oninput="enableNextField('year')" required>
+                        <input type="text" class="form-control" id="course" name="course" disabled oninput="enableNextField('year')" placeholder="Enter course" required>
                     </div>
                     <div class="col-md-2 form-group">
                         <label for="year" class="form-label">Year</label>
