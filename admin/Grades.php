@@ -7,10 +7,21 @@ $pdo = new PDO('mysql:host=localhost;dbname=schooldb', 'root', '');
 // Initialize variables
 $grades = [];
 $studentInfo = null;
+$years = [];
+$semesters = [];
+
+// Get distinct years and semesters
+$yearStmt = $pdo->query("SELECT DISTINCT year FROM tbl_grades ORDER BY year");
+$years = $yearStmt->fetchAll(PDO::FETCH_COLUMN);
+
+$semesterStmt = $pdo->query("SELECT DISTINCT semester FROM tbl_grades ORDER BY semester");
+$semesters = $semesterStmt->fetchAll(PDO::FETCH_COLUMN);
 
 // Check if the search form was submitted
 if (isset($_POST['search']) && isset($_POST['user_name'])) {
     $searchTerm = '%' . $_POST['user_name'] . '%';
+    $selectedYear = $_POST['year'] ?? '';
+    $selectedSemester = $_POST['semester'] ?? '';
 
     // Prepare the SQL statement to get student info
     $studentStmt = $pdo->prepare("
@@ -42,15 +53,21 @@ if (isset($_POST['search']) && isset($_POST['user_name'])) {
                 sub.description,
                 sub.unit,
                 g.term,
-                g.grade
+                g.grade,
+                g.year,
+                g.semester
             FROM 
                 tbl_grades g
             JOIN 
                 tbl_subjects sub ON g.id = sub.id
             WHERE 
                 g.user_id = :user_id
+                AND (:selectedYear = '' OR g.year = :selectedYear)
+                AND (:selectedSemester = '' OR g.semester = :selectedSemester)
         ");
         $gradesStmt->bindParam(':user_id', $studentInfo['user_id'], PDO::PARAM_INT);
+        $gradesStmt->bindParam(':selectedYear', $selectedYear, PDO::PARAM_STR);
+        $gradesStmt->bindParam(':selectedSemester', $selectedSemester, PDO::PARAM_STR);
         $gradesStmt->execute();
 
         // Fetch the grades
@@ -73,11 +90,34 @@ if (isset($_POST['search']) && isset($_POST['user_name'])) {
         <div class="card">
             <div class="card-body">
                 <form method="POST" action="" class="row g-3">
-                    <div class="col-md-10 form-group">
+                    <div class="col-md-6 form-group">
                         <label for="user_name" class="form-label">Student ID:</label>
                         <input type="text" name="user_name" id="user_name" class="form-control" placeholder="Format: MIIT-0000-000" required
                             value="<?php echo isset($_POST['user_name']) ? htmlspecialchars($_POST['user_name']) : ''; ?>">
                     </div>
+                    <div class="col-md-2 form-group">
+                        <label for="year" class="form-label">Year:</label>
+                        <select name="year" id="year" class="form-control" disabled>
+                            <option value="">All Years</option>
+                            <?php foreach ($years as $year): ?>
+                                <option value="<?php echo htmlspecialchars($year); ?>" <?php echo isset($_POST['year']) && $_POST['year'] == $year ? 'selected' : ''; ?>>
+                                    <?php echo htmlspecialchars($year); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <label for="semester" class="form-label">Semester:</label>
+                        <select name="semester" id="semester" class="form-control" disabled>
+                            <option value="">All Semesters</option>
+                            <?php foreach ($semesters as $semester): ?>
+                                <option value="<?php echo htmlspecialchars($semester); ?>" <?php echo isset($_POST['semester']) && $_POST['semester'] == $semester ? 'selected' : ''; ?>>
+                                    <?php echo htmlspecialchars($semester); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
                     <div class="col-md-2 form-group align-self-end">
                         <button type="submit" name="search" class="btn btn-primary">
                             <i class="bx bx-search-alt"></i>
@@ -209,6 +249,41 @@ if (isset($_POST['search']) && isset($_POST['user_name'])) {
                 gradeResult.style.display = 'none';
             }
         }
+    }
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const userNameField = document.getElementById('user_name');
+        const yearField = document.getElementById('year');
+        const semesterField = document.getElementById('semester');
+
+        // Function to check the state of the first field
+        function checkFields() {
+            if (userNameField.value.trim() === '') {
+                yearField.disabled = true;
+                semesterField.disabled = true;
+            } else {
+                yearField.disabled = false;
+                semesterField.disabled = false;
+            }
+        }
+
+        // Initial check
+        checkFields();
+
+        // Add event listeners to check the fields when the user types
+        userNameField.addEventListener('input', checkFields);
+    });
+
+    function clearSearchForm() {
+        document.getElementById('user_name').value = '';
+        document.getElementById('year').selectedIndex = 0;
+        document.getElementById('semester').selectedIndex = 0;
+
+        // Disable year and semester fields
+        document.getElementById('year').disabled = true;
+        document.getElementById('semester').disabled = true;
     }
 </script>
 
