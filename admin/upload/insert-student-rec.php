@@ -56,6 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $collegeSchool = $conn->real_escape_string($_POST['collegeSchool']);
     $collegeAddress = $conn->real_escape_string($_POST['collegeAddress']);
     $collegeCompleted = $conn->real_escape_string($_POST['collegeCompleted']);
+    $date = $conn->real_escape_string($_POST['date']);
 
     // Check if the studentID already exists
     $checkSQL = "SELECT user_id FROM tbl_students WHERE user_id = '$user_id'";
@@ -103,7 +104,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                       shCompleted = '$shCompleted',
                       collegeSchool = '$collegeSchool',
                       collegeAddress = '$collegeAddress',
-                      collegeCompleted = '$collegeCompleted'
+                      collegeCompleted = '$collegeCompleted',
+                      date = '$date'
                       WHERE user_id = '$user_id'";
 
         if ($conn->query($updateSQL) === TRUE) {
@@ -114,8 +116,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         }
     } else {
         // studentID does not exist, insert a new record
-        $insertSQL = "INSERT INTO tbl_students (user_name, lname, fname, middleInitial, Suffix, course, year, gender, bdate, pob, email, user_id, major, contact, nationality, civilStatus, religion, modality, fb, curAddress, cityAdd, zipcode, fatherName, fwork, motherName, mwork, primarySchool, primaryAddress, primaryCompleted, entermediateSchool, entermediateAddress, entermediateCompleted, hsSchool, hsAddress, hsCompleted, shSchool, shAddress, shCompleted, collegeSchool, collegeAddress, collegeCompleted)
-                      VALUES ('$user_name', '$lname', '$fname', '$middleInitial', '$Suffix', '$course', '$year', '$gender', '$bdate', '$pob', '$email', '$user_id', '$major', '$contact', '$nationality', '$civilStatus', '$religion', '$modality', '$fb', '$curAddress', '$cityAdd', '$zipcode', '$fatherName', '$fwork', '$motherName', '$mwork', '$primarySchool', '$primaryAddress', '$primaryCompleted', '$entermediateSchool', '$entermediateAddress', '$entermediateCompleted', '$hsSchool', '$hsAddress', '$hsCompleted', '$shSchool', '$shAddress', '$shCompleted', '$collegeSchool', '$collegeAddress', '$collegeCompleted',)";
+        $insertSQL = "INSERT INTO tbl_students (user_name, lname, fname, middleInitial, Suffix, course, year, gender, bdate, pob, email, user_id, major, contact, nationality, civilStatus, religion, modality, fb, curAddress, cityAdd, zipcode, fatherName, fwork, motherName, mwork, primarySchool, primaryAddress, primaryCompleted, entermediateSchool, entermediateAddress, entermediateCompleted, hsSchool, hsAddress, hsCompleted, shSchool, shAddress, shCompleted, collegeSchool, collegeAddress, collegeCompleted,date)
+                      VALUES ('$user_name', '$lname', '$fname', '$middleInitial', '$Suffix', '$course', '$year', '$gender', '$bdate', '$pob', '$email', '$user_id', '$major', '$contact', '$nationality', '$civilStatus', '$religion', '$modality', '$fb', '$curAddress', '$cityAdd', '$zipcode', '$fatherName', '$fwork', '$motherName', '$mwork', '$primarySchool', '$primaryAddress', '$primaryCompleted', '$entermediateSchool', '$entermediateAddress', '$entermediateCompleted', '$hsSchool', '$hsAddress', '$hsCompleted', '$shSchool', '$shAddress', '$shCompleted', '$collegeSchool', '$collegeAddress', '$collegeCompleted', '$date')";
 
         if ($conn->query($insertSQL) === TRUE) {
             $_SESSION['student_updated'] = true;

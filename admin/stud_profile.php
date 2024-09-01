@@ -159,188 +159,231 @@ $database->close();
                 </div>
               </div>
 
-              <div class="tab-pane fade" id="profile-overview" style="padding: 50px;">
+              <!--Start Profile Overview-->
+              <div class="tab-pane fade" id="profile-overview">
+                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+                <div class="container my-5">
+                  <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                      <h2 class="text-center mb-3">MICROSYSTEMS INTERNATIONAL INSTITUTE OF TECHNOLOGY, INC.</h2>
+                      <p class="text-center">National Highway, Inayagan, City of Naga, Cebu</p>
+                      <p class="text-center">Tel. No. (032) 4273630 (Registrar’s Office)</p>
+                      <hr class="mb-4">
 
-                <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                      <h3 class="text-center mb-4">Student Personal Data - Enrollment</h3>
 
-                  <img src="upload-files/<?php echo htmlspecialchars($image); ?>" onerror="this.src='images/default.png'" alt="Profile Image" class="rounded-circle">
-                  <h2><?php echo $fname . ' ' . $lname; ?></h2>
-                  <h3><?php echo htmlspecialchars($studs["course"]); ?> - <?php echo htmlspecialchars($studs["major"]); ?></h3>
-                  <!-- <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                      Profile Options
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                  </div>-->
+                      <form>
+                        <div class="row mb-3">
+                          <div class="col-md-4">
+                            <label for="last-name" class="form-label">Last Name:</label>
+                            <input type="text" id="last-name" name="last-name" class="form-control" value="<?php echo htmlspecialchars($studs["lname"]); ?>" readonly>
+                          </div>
+                          <div class="col-md-4">
+                            <label for="first-name" class="form-label">First Name:</label>
+                            <input type="text" id="first-name" name="first-name" class="form-control" value="<?php echo htmlspecialchars($studs["fname"]); ?>" readonly>
+                          </div>
+                          <div class="col-md-2">
+                            <label for="middleInitial" class="form-label">Middle :</label>
+                            <input type="text" id="middleInitial" name="middleInitial" class="form-control" value="<?php echo htmlspecialchars($studs["middleInitial"]); ?>" readonly>
+                          </div>
+                          <div class="col-md-2">
+                            <label for="Suffix" class="form-label">Suffix:</label>
+                            <input type="text" id="Suffix" name="Suffix" class="form-control" value="<?php echo htmlspecialchars($studs["Suffix"]); ?>" readonly>
+                          </div>
+                        </div>
 
+                        <div class="row mb-3">
+                          <div class="col-md-4">
+                            <label for="user_name" class="form-label">ID Number:</label>
+                            <input type="text" id="user_name" name="user_name" class="form-control" value="<?php echo htmlspecialchars($studs["user_name"]); ?>">
+                          </div>
+                          <div class="col-md-3">
+                            <label for="gender" class="form-label">Gender:</label>
+                            <select id="gender" name="gender" class="form-select">
+                              <option value="M" <?php echo ($studs["gender"] == 'M') ? 'selected' : ''; ?> readonly>M</option>
+                              <option value="F" <?php echo ($studs["gender"] == 'F') ? 'selected' : ''; ?> readonly>F</option>
+                            </select>
+                          </div>
+                          <div class="col-md-4">
+                            <label for="bdate" class="form-label">Date of Birth:</label>
+                            <input type="date" id="bdate" name="bdate" class="form-control" value="<?php echo htmlspecialchars($studs["bdate"]); ?>" readonly>
+                          </div>
+                        </div>
+
+                        <div class="row mb-3">
+                          <div class="col-md-4">
+                            <label for="pob" class="form-label">Place of Birth:</label>
+                            <input type="text" id="pob" name="pob" class="form-control" value="<?php echo htmlspecialchars($studs["pob"]) ?>">
+                          </div>
+                          <div class="col-md-4">
+                            <label for="nationality" class="form-label">Nationality :</label>
+                            <input type="text" id="nationality" name="nationality" class="form-control" value="<?php echo htmlspecialchars($studs["nationality"]); ?>" readonly>
+                          </div>
+                          <div class="col-md-4">
+                            <label for="email" class="form-label">Email Address:</label>
+                            <input type="email" id="email" name="email" class="form-control" value="<?php echo htmlspecialchars($studs["email"]); ?>" readonly>
+                          </div>
+                        </div>
+
+                        <div class="row mb-3">
+                          <div class="col-md-3">
+                            <label for="course" class="form-label">Course:</label>
+                            <input type="text" id="course" name="course" class="form-control" value="<?php echo htmlspecialchars($studs["course"]); ?>">
+                          </div>
+                          <div class="col-md-2">
+                            <label for="year" class="form-label">Year:</label>
+                            <input type="text" id="year" name="year" class="form-control" value="<?php echo htmlspecialchars($studs["year"]); ?>" readonly>
+                          </div>
+                          <div class="col-md-4">
+                            <label for="major" class="form-label">Major :</label>
+                            <input type="text" id="major" name="major" class="form-control" value="<?php echo htmlspecialchars($studs["major"]); ?>" readonly>
+                          </div>
+                          <div class="col-md-3">
+                            <label for="civilStatus" class="form-label">Civil Status :</label>
+                            <input type="text" id="civilStatus" name="civilStatus" class="form-control" value="<?php echo htmlspecialchars($studs["civilStatus"]); ?>" readonly>
+                          </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+                          <div class="col-md-4">
+                            <label for="religion" class="form-label">Religion:</label>
+                            <input type="text" id="religion" name="religion" class="form-control" value="<?php echo htmlspecialchars($studs["religion"]) ?>" readonly>
+                          </div>
+                          <div class="col-md-4">
+                            <label for="modality" class="form-label">Modality :</label>
+                            <input type="text" id="modality" name="modality" class="form-control" value="<?php echo htmlspecialchars($studs["modality"]); ?>" readonly>
+                          </div>
+                          <div class="col-md-4">
+                            <label for="fb" class="form-label">Facebook Account:</label>
+                            <input type="text" id="fb" name="fb" class="form-control" value="<?php echo htmlspecialchars($studs["fb"]); ?>" readonly>
+                          </div>
+                        </div>
+
+                        <div class="row mb-3">
+                          <div class="col-md-4">
+                            <label for="curAddress" class="form-label">Current Address:</label>
+                            <input type="text" id="curAddress" name="curAddress" class="form-control" value="<?php echo htmlspecialchars($studs["curAddress"]) ?>" readonly>
+                          </div>
+                          <div class="col-md-3">
+                            <label for="cityAdd" class="form-label">City :</label>
+                            <input type="text" id="cityAdd" name="cityAdd" class="form-control" value="<?php echo htmlspecialchars($studs["cityAdd"]); ?>" readonly>
+                          </div>
+                          <div class="col-md-3">
+                            <label for="zipcode" class="form-label">Zip Code :</label>
+                            <input type="text" id="zipcode" name="zipcode" class="form-control" value="<?php echo htmlspecialchars($studs["zipcode"]); ?>" readonly>
+                          </div>
+                          <div class="col-md-2">
+                            <label for="contact" class="form-label">Phone Number :</label>
+                            <input type="text" id="contact" name="contact" class="form-control" value="<?php echo htmlspecialchars($studs["contact"]); ?>" readonly>
+                          </div>
+
+                        </div>
+                        <div style="margin-top: 5%;"></div>
+                        <div class="row mb-3">
+                          <div class="col-md-4">
+                            <label for="curAddress" class="form-label">Permanent Address:</label>
+                            <input type="text" id="curAddress" name="curAddress" class="form-control" value="<?php echo htmlspecialchars($studs["curAddress"]) ?>" readonly>
+                          </div>
+                          <div class="col-md-3">
+                            <label for="cityAdd" class="form-label">City :</label>
+                            <input type="text" id="cityAdd" name="cityAdd" class="form-control" value="<?php echo htmlspecialchars($studs["cityAdd"]); ?>" readonly>
+                          </div>
+                          <div class="col-md-3">
+                            <label for="zipcode" class="form-label">Zip Code :</label>
+                            <input type="text" id="zipcode" name="zipcode" class="form-control" value="<?php echo htmlspecialchars($studs["zipcode"]); ?>" readonly>
+                          </div>
+                          <div class="col-md-2">
+                            <label for="contact" class="form-label">Phone Number :</label>
+                            <input type="text" id="contact" name="contact" class="form-control" value="<?php echo htmlspecialchars($studs["contact"]); ?>" readonly>
+                          </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+                          <div class="col-md-6">
+                            <label for="fatherName" class="form-label">Father's Name:</label>
+                            <input type="text" id="fatherName" name="fatherName" class="form-control" value="<?php echo htmlspecialchars($studs["fatherName"]); ?>" readonly>
+                          </div>
+                          <div class="col-md-6">
+                            <label for="fwork" class="form-label">Occupation:</label>
+                            <input type="text" id="fwork" name="fwork" class="form-control" value="<?php echo htmlspecialchars($studs["fwork"]); ?>" readonly>
+                          </div>
+                        </div>
+
+                        <div class="row mb-3">
+                          <div class="col-md-6">
+                            <label for="motherName" class="form-label">Mother's Name:</label>
+                            <input type="text" id="motherName" name="motherName" class="form-control" value="<?php echo htmlspecialchars($studs["motherName"]); ?>" readonly>
+                          </div>
+                          <div class="col-md-6">
+                            <label for="mwork" class="form-label">Occupation:</label>
+                            <input type="text" id="mwork" name="mwork" class="form-control" value="<?php echo htmlspecialchars($studs["mwork"]); ?>" readonly>
+                          </div>
+                        </div>
+
+                        <h3 class="text-center mb-4">Educational Attainment</h3>
+
+                        <table class="table table-bordered" readonly>
+                          <thead>
+                            <tr class="table-secondary">
+                              <th>Level</th>
+                              <th>Name of School</th>
+                              <th>School Address</th>
+                              <th>Year Completed</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>Primary (Grade 1-4)</td>
+                              <td><input type="text" name="primarySchool" class="form-control" value="<?php echo htmlspecialchars($studs["primarySchool"]); ?>" readonly></td>
+                              <td><input type="text" name="primaryAddress" class="form-control" value="<?php echo htmlspecialchars($studs["primaryAddress"]); ?>" readonly></td>
+                              <td><input type="text" name="primaryCompleted" class="form-control" value="<?php echo htmlspecialchars($studs["primaryCompleted"]); ?>" readonly></td>
+                            </tr>
+                            <tr>
+                              <td>Intermediate (Grade 5-6)</td>
+                              <td><input type="text" name="entermediateSchool" class="form-control" value="<?php echo htmlspecialchars($studs["entermediateSchool"]); ?>" readonly></td>
+                              <td><input type="text" name="entermediateAddress" class="form-control" value="<?php echo htmlspecialchars($studs["entermediateAddress"]); ?>" readonly></td>
+                              <td><input type="text" name="entermediateCompleted" class="form-control" value="<?php echo htmlspecialchars($studs["entermediateCompleted"]); ?>" readonly></td>
+                            </tr>
+                            <tr>
+                              <td>High School</td>
+                              <td><input type="text" name="hsSchool" class="form-control" value="<?php echo htmlspecialchars($studs["hsSchool"]); ?>" readonly></td>
+                              <td><input type="text" name="hsAddress" class="form-control" value="<?php echo htmlspecialchars($studs["hsAddress"]); ?>" readonly></td>
+                              <td><input type="text" name="hsCompleted" class="form-control" value="<?php echo htmlspecialchars($studs["hsCompleted"]); ?>" readonly></td>
+                            </tr>
+                            <tr>
+                              <td>K12</td>
+                              <td><input type="text" name="shSchool" class="form-control" value="<?php echo htmlspecialchars($studs["shSchool"]); ?>" readonly></td>
+                              <td><input type="text" name="shAddress" class="form-control" value="<?php echo htmlspecialchars($studs["shAddress"]); ?>" readonly></td>
+                              <td><input type="text" name="shCompleted" class="form-control" value="<?php echo htmlspecialchars($studs["shCompleted"]); ?>" readonly></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <div style="margin-top: 10%"></div>
+                        <h6 class="text-justify mb-4">I hereby certify that all entries herein are true and correct. I certify further that I will read thoroughly the agreement/policy and commit myself to follow its provision.</h6>
+
+                        <div class="row mb-3">
+
+                          <div class="col-md-4">
+                            <label for="date" class="form-label">Date Enrolled: </label>
+                            <input type="date" id="date" name="date" class="form-control" value="<?php echo htmlspecialchars($studs["date"]); ?>">
+                          </div>
+
+
+                        </div>
+
+                        <!-- <div class="d-flex justify-content-end">
+                          <button type="submit" class="btn btn-primary">Update</button>
+                        </div>-->
+                      </form>
+                    </div>
+                  </div>
                 </div>
-
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Address <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["curAddress"]); ?> <?php echo htmlspecialchars($studs["cityAdd"]); ?> <?php echo htmlspecialchars($studs["zipcode"]); ?> </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Phone <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["contact"]); ?></div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Email <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["email"]); ?></div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Gender <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["gender"]); ?></div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Date of Birth <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["bdate"]); ?></div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Place of Birth <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["pob"]); ?></div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Nationality <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["nationality"]); ?></div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Civil Status <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["civilStatus"]); ?></div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Religion <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["religion"]); ?></div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Modality <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["modality"]); ?></div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Facebook Account <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["fb"]); ?></div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Father's Name <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["fatherName"]); ?></div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Father's Occupation <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["fwork"]); ?></div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Mother's Name <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["motherName"]); ?></div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Mother's Occupation <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["mwork"]); ?></div>
-                </div>
-
-                <p class="card-title" style="margin-top: 1%;">Primary (Grade 1 - 4)</p>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Primary School <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["primarySchool"]); ?></div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">School Address <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["primaryAddress"]); ?></div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Year Completed <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["primaryCompleted"]); ?></div>
-                </div>
-
-                <p class="card-title" style="margin-top: 2%;">Intermediate (Grade 5 - 6)</p>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">School Name <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["entermediateSchool"]); ?></div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">School Address <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["entermediateAddress"]); ?></div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Year Completed <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["entermediateCompleted"]); ?></div>
-                </div>
-
-                <p class="card-title" style="margin-top: 2%;">High School</p>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">School Name <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["hsSchool"]); ?></div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">School Address<span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["hsAddress"]); ?></div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Year Completed <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["hsCompleted"]); ?></div>
-                </div>
-
-                <p class="card-title" style="margin-top: 2%;">K12</p>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">School Name <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["shSchool"]); ?></div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Address <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["shAddress"]); ?></div>
-                </div>
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label"> Year Completed <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["shCompleted"]); ?></div>
-                </div>
-
-                <p class="card-title" style="margin-top: 2%;">College</p>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">School Name <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["collegeSchool"]); ?></div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">School Address <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["collegeAddress"]); ?></div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Year Completed <span> : </span></div>
-                  <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs["collegeCompleted"]); ?></div>
-                </div>
-
               </div>
+              <!--End Profile Overview-->
 
+              <!--Start Grades Overview-->
               <div class="tab-pane fade" id="profile-grades">
                 <div class="card-body">
                   <table class="table table-striped datatable">
@@ -411,362 +454,239 @@ $database->close();
                   </table>
                 </div>
               </div>
+              <!--End Grades Overview-->
 
-
+              <!--Start Profile Edit-->
               <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-                <!-- Profile Edit Form -->
-                <form action="upload/insert-student-rec.php" method="post" novalidate>
-
-
-                  <div class="row mb-3">
-                    <div class=" col-md-8">
-                      <label for="user_id" class="col-sm-2 col-form-label">User ID</label>
-                      <input type="text" class="form-control" id="user_id" name="user_id" value="<?php echo htmlspecialchars($studs["user_id"]); ?>" required>
-                    </div>
-
-                    <div class="row mb-3">
-                      <div class=" col-md-8 col-lg-9">
-                        <label for="user_name" class="col-sm-2 col-form-label">Student ID</label>
-                        <input type="text" class="form-control" id="user_name" name="user_name" value="<?php echo htmlspecialchars($studs["user_name"]); ?>" required>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <div class="col-md-8 col-lg-9">
-                        <label for="lname" class="col-sm-2 col-form-label">Last Name</label>
-                        <input type="text" class="form-control" id="lname" name="lname" value="<?php echo htmlspecialchars($studs["lname"]); ?>" required>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <div class="col-md-8 col-lg-9">
-                        <label for="fname" class="col-sm-2 col-form-label">First Name</label>
-                        <input type="text" class="form-control" id="fname" name="fname" value="<?php echo htmlspecialchars($studs["fname"]); ?>" required>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <div class="col-md-8 col-lg-9">
-                        <label for="middleInitial" class="form-label">Middle Initial</label>
-                        <input type="text" class="form-control" id="middleInitial" name="middleInitial" value="<?php echo htmlspecialchars($studs["middleInitial"]); ?>" required>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <div class="col-md-8 col-lg-9">
-                        <label for="Suffix" class="form-label">Suffix</label>
-                        <input type="text" class="form-control" id="Suffix" name="Suffix" name="middleInitial" value="<?php echo htmlspecialchars($studs["Suffix"]); ?>" required>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <div class="col-md-8 col-lg-9">
-                        <label for="course" class="col-sm-2 col-form-label">Course</label>
-                        <input type="text" class="form-control" id="course" name="course" value="<?php echo htmlspecialchars($studs["course"]); ?>" required>
-                      </div>
-                    </div>
-
-                    <div class=" row mb-3">
-                      <div class="col-md-8 col-lg-9">
-                        <label for="year" class="col-sm-2 col-form-label">Year</label>
-                        <input type="text" class="form-control" id="year" name="year" value="<?php echo htmlspecialchars($studs["year"]); ?>" required>
-                      </div>
-                    </div>
-
-                    <div class=" row mb-3">
-                      <div class="col-md-8 col-lg-9">
-                        <label for="gender" class="col-sm-2 col-form-label">Gender</label>
-                        <select class="form-control" id="gender" name="gender" required>
-                          <option disabled value="">Select Gender</option>
-                          <option <?php echo htmlspecialchars($studs["gender"] == "Male") ? 'selected' : ''; ?>>Male</option>
-                          <option <?php echo htmlspecialchars($studs["gender"] == "Female") ? 'selected' : ''; ?>>Female</option>
-                        </select>
-                      </div>
-                    </div>
-
-
-                    <div class="row mb-3">
-                      <div class="col-md-8 col-lg-9">
-                        <label for="bdate" class="col-sm-2 col-form-label">Date of Birth</label>
-                        <input type="date" class="form-control" id="bdate" name="bdate" value="<?php echo htmlspecialchars($studs["bdate"]); ?>" required>
-                      </div>
-                    </div>
-
-
-                    <div class="row mb-3">
-
-                      <div class="col-md-8 col-lg-9">
-                        <label for="pob" class="col-sm-2 col-form-label">Place of Birth</label>
-                        <input type="text" class="form-control" id="pob" name="pob" value="<?php echo htmlspecialchars($studs["pob"]); ?>" required>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-
-                      <div class=" col-md-8 col-lg-9">
-                        <label for="email" class="col-sm-2 col-form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($studs["email"]); ?>" required>
-                      </div>
-                    </div>
-
-
-                    <div class="row mb-3">
-
-                      <div class="col-md-8 col-lg-9">
-                        <label for="major" class="col-sm-2 col-form-label">Major</label>
-                        <input type="text" class="form-control" id="major" name="major" value="<?php echo htmlspecialchars($studs["major"]); ?>" required>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <div class=" col-md-8 col-lg-9">
-                        <label for="nationality" class="col-sm-2 col-form-label">Nationality</label>
-                        <input type="text" class="form-control" id="nationality" name="nationality" value="<?php echo htmlspecialchars($studs["nationality"]); ?>" required>
-                      </div>
-                    </div>
-
-
-                    <div class="row mb-3">
-
-                      <div class="col-md-8 col-lg-9 ">
-                        <label for="civilStatus" class="col-sm-2 col-form-label">Civil Status</label>
-                        <input type="text" class="form-control" id="civilStatus" name="civilStatus" value="<?php echo htmlspecialchars($studs["civilStatus"]); ?>" required>
-                      </div>
-                    </div>
-
-                    <div class=" row mb-3">
-
-                      <div class="col-md-8 col-lg-9">
-                        <label for="religion" class="col-sm-2 col-form-label">Religion</label>
-                        <input type="text" class="form-control" id="religion" name="religion" value="<?php echo htmlspecialchars($studs["religion"]); ?>" required>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-
-                      <div class="col-md-8 col-lg-9">
-                        <label for="modality" class="col-sm-2 col-form-label">Modality</label>
-                        <input type="text" class="form-control" id="modality" name="modality" value="<?php echo htmlspecialchars($studs["modality"]); ?>" required>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-
-                      <div class="col-md-8 col-lg-9">
-                        <label for="fb" class="col-sm-2 col-form-label">Facebook Account</label>
-                        <input type="text" class="form-control" id="fb" name="fb" value="<?php echo htmlspecialchars($studs["fb"]); ?>" required>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-
-                      <div class="col-md-8 col-lg-9">
-                        <label for="curAddress" class="col-sm-2 col-form-label">Current Address</label>
-                        <input type="text" class="form-control" id="curAddress" name="curAddress" value="<?php echo htmlspecialchars($studs["curAddress"]); ?>" required>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-
-                      <div class="col-md-8 col-lg-9">
-                        <label for="cityAdd" class="col-sm-2 col-form-label">City Address</label>
-                        <input type="text" class="form-control" id="cityAdd" name="cityAdd" placeholder="(Barangay, Town or City, Province, Country)" value="<?php echo htmlspecialchars($studs["cityAdd"]); ?>" required>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-
-                      <div class="col-md-8 col-lg-9">
-                        <label for="zipcode" class="col-sm-2 col-form-label">Zip Code</label>
-                        <input type="text" class="form-control" id="zipcode" name="zipcode" value="<?php echo htmlspecialchars($studs["zipcode"]); ?>" required>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-
-                      <div class="col-md-8 col-lg-9">
-                        <label for="contact" class="col-sm-2 col-form-label">Contact</label>
-                        <input type="text" class="form-control" id="contact" name="contact" value="<?php echo htmlspecialchars($studs["contact"]); ?>" required>
-                      </div>
-                    </div>
-
-
-                    <div class="row mb-3">
-
-                      <div class="col-md-8 col-lg-9">
-                        <label for="fatherName" class="col-sm-2 col-form-label">Father's Name</label>
-                        <input type="text" class="form-control" id="fatherName" name="fatherName" value="<?php echo htmlspecialchars($studs["fatherName"]); ?>" required>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-
-                      <div class="col-md-8 col-lg-9">
-                        <label for="fwork" class="col-sm-2 col-form-label">Father's Occupation</label>
-                        <input type="text" class="form-control" id="fwork" name="fwork" value="<?php echo htmlspecialchars($studs["fwork"]); ?>" required>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-
-                      <div class="col-md-8 col-lg-9">
-                        <label for="motherName" class="col-sm-2 col-form-label">Mother's Name</label>
-                        <input type="text" class="form-control" id="motherName" name="motherName" value="<?php echo htmlspecialchars($studs["motherName"]); ?>" required>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <div class="col-md-8 col-lg-9">
-                        <label for="mwork" class="col-sm-2 col-form-label">Mother's Occupation</label>
-                        <input type="text" class="form-control" id="mwork" name="mwork" value="<?php echo htmlspecialchars($studs["mwork"]); ?>" required>
-                      </div>
-                    </div>
-                    <!-- Educational Background Sections -->
-                    <div class="row mb-3">
-
-                      <div class="col-md-8 col-lg-9">
-                        <h5 class="card-title" style="margin:5%; text-align:center">Educational Background</h5>
-                      </div>
-                    </div>
-
-                    <p class="card-title" style="margin-top: -3%;">Primary (Grade 1 - 4)</p>
-                    <div class="row mb-3">
-
-                      <div class="col-md-8 col-lg-9">
-                        <label for="primarySchool" class="col-sm-2 col-form-label">Name of School</label>
-                        <input type="text" class="form-control" id="primarySchool" name="primarySchool" value="<?php echo htmlspecialchars($studs["primarySchool"]); ?>" required>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-
-                      <div class="col-md-8 col-lg-9">
-                        <label for="primaryAddress" class="col-sm-2 col-form-label">School Address</label>
-                        <input type="text" class="form-control" id="primaryAddress" name="primaryAddress" value="<?php echo htmlspecialchars($studs["primaryAddress"]); ?>" required>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <div class="col-md-8 col-lg-9">
-                        <label for="primaryCompleted" class="col-sm-2 col-form-label">Completed</label>
-                        <input type="text" class="form-control" id="primaryCompleted" name="primaryCompleted" value="<?php echo htmlspecialchars($studs["primaryCompleted"]); ?>" required>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-
-                      <p class="card-title" style="margin-top: 2%;">Intermediate (Grade 5 - 6)</p>
-                      <div class="col-md-8">
-                        <label for="entermediateSchool" class="col-sm-2 col-form-label">Name of School</label>
-                        <input type="text" class="form-control" id="entermediateSchool" name="entermediateSchool" value="<?php echo htmlspecialchars($studs["entermediateSchool"]); ?>" required>
-                      </div>
-                    </div>
-
-
-                    <div class="row mb-3">
-
-                      <div class="col-md-6 col-lg-9">
-                        <label for="entermediateAddress" class="col-sm-2 col-form-label">School Address</label>
-                        <input type="text" class="form-control" id="entermediateAddress" name="entermediateAddress" value="<?php echo htmlspecialchars($studs["entermediateAddress"]); ?>" required>
-                      </div>
-                    </div>
-
-
-                    <div class="row mb-3">
-
-                      <div class="col-md-2 col-lg-9">
-                        <label for="entermediateCompleted" class="col-sm-2 col-form-label">Completed</label>
-                        <input type="text" class="form-control" id="entermediateCompleted" name="entermediateCompleted" value="<?php echo htmlspecialchars($studs["entermediateCompleted"]); ?>" required>
-                      </div>
-                    </div>
-
-
-                    <p class="card-title" style="margin-top: 2%;">High School</p>
-                    <div class="row mb-3">
-
-                      <div class="col-md-8 col-lg-9">
-                        <label for="hsSchool" class="col-sm-2 col-form-label">Name of School</label>
-                        <input type="text" class="form-control" id="hsSchool" name="hsSchool" value="<?php echo htmlspecialchars($studs["hsSchool"]); ?>" required>
-                      </div>
-                    </div>
-
-
-                    <div class="row mb-3">
-
-                      <div class="col-md-6 col-lg-9">
-                        <label for="hsAddress" class="col-sm-2 col-form-label">School Address</label>
-                        <input type="text" class="form-control" id="hsAddress" name="hsAddress" value="<?php echo htmlspecialchars($studs["hsAddress"]); ?>" required>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <div class="col-md-2 col-lg-9">
-                        <label for="hsCompleted" class="col-sm-2 col-form-label">Completed</label>
-                        <input type="text" class="form-control" id="hsCompleted" name="hsCompleted" value="<?php echo htmlspecialchars($studs["hsCompleted"]); ?>" required>
-                      </div>
-                    </div>
-
-                    <p class="card-title" style="margin-top: 2%;">K12</p>
-                    <div class="row mb-3">
-
-                      <div class="col-md-8 col-lg-9">
-                        <label for="shSchool" class="col-sm-2 col-form-label">Name of School</label>
-                        <input type="text" class="form-control" id="shSchool" name="shSchool" value="<?php echo htmlspecialchars($studs["shSchool"]); ?>" required>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-
-                      <div class="col-md-6 col-lg-9">
-                        <label for="shAddress" class="col-sm-2 col-form-label">School Address</label>
-                        <input type="text" class="form-control" id="shAddress" name="shAddress" value="<?php echo htmlspecialchars($studs["shAddress"]); ?>" required>
-                      </div>
-                    </div>
-
-
-                    <div class="row mb-3">
-
-                      <div class="col-md-2 col-lg-9">
-                        <label for="shCompleted" class="col-sm-2 col-form-label">Completed</label>
-                        <input type="text" class="form-control" id="shCompleted" name="shCompleted" value="<?php echo htmlspecialchars($studs["shCompleted"]); ?>" required>
-                      </div>
-                    </div>
-
-
-                    <p class="card-title" style="margin-top: 2%;">College</p>
-
-                    <div class="row mb-3">
-                      <div class="col-md-8 col-lg-9">
-                        <label for="collegeSchool" class="col-sm-2 col-form-label">Name of School</label>
-                        <input type="text" class="form-control" id="collegeSchool" name="collegeSchool" value="<?php echo htmlspecialchars($studs["collegeSchool"]); ?>" required>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-
-                      <div class="col-md-6 col-lg-9">
-                        <label for="collegeAddress" class="col-sm-2 col-form-label">School Address</label>
-                        <input type="text" class="form-control" id="collegeAddress" name="collegeAddress" value="<?php echo htmlspecialchars($studs["collegeAddress"]); ?>" required>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <div class="col-md-2 col-lg-9">
-                        <label for="collegeCompleted" class="col-sm-2 col-form-label">Completed</label>
-                        <input type="text" class="form-control" id="collegeCompleted" name="collegeCompleted" value="<?php echo htmlspecialchars($studs["collegeCompleted"]); ?>" required>
+                <div class="row mb-3">
+                  <div class="container my-5">
+                    <div class="card shadow-sm">
+                      <div class="card-body p-4">
+                        <h2 class="text-center mb-3">MICROSYSTEMS INTERNATIONAL INSTITUTE OF TECHNOLOGY, INC.</h2>
+                        <p class="text-center">National Highway, Inayagan, City of Naga, Cebu</p>
+                        <p class="text-center">Tel. No. (032) 4273630 (Registrar’s Office)</p>
+                        <hr class="mb-4">
+
+                        <h3 class="text-center mb-4">Student Personal Data - Enrollment</h3>
+
+                        <form action="upload/insert-student-rec.php" method="post" novalidate>
+                          <div class="row mb-3">
+                            <div class="col-md-1">
+                              <label for="user_id" class="form-label">ID:</label>
+                              <input type="text" id="user_id" name="user_id" class="form-control" value="<?php echo htmlspecialchars($studs["user_id"]); ?>" required>
+                            </div>
+
+                            <div class="col-md-4">
+                              <label for="lname" class="form-label">Last Name:</label>
+                              <input type="text" id="lname" name="lname" class="form-control" value="<?php echo htmlspecialchars($studs["lname"]); ?>" required>
+                            </div>
+                            <div class="col-md-4">
+                              <label for="fname" class="form-label">First Name:</label>
+                              <input type="text" id="fname" name="fname" class="form-control" value="<?php echo htmlspecialchars($studs["fname"]); ?>" required>
+                            </div>
+                            <div class="col-md-2">
+                              <label for="middleInitial" class="form-label">Middle :</label>
+                              <input type="text" id="middleInitial" name="middleInitial" class="form-control" value="<?php echo htmlspecialchars($studs["middleInitial"]); ?>" required>
+                            </div>
+                            <div class="col-md-1">
+                              <label for="Suffix" class="form-label">Suffix:</label>
+                              <input type="text" id="Suffix" name="Suffix" class="form-control" value="<?php echo htmlspecialchars($studs["Suffix"]); ?>" required>
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <div class="col-md-4">
+                              <label for="user_name" class="form-label">ID Number:</label>
+                              <input type="text" id="user_name" name="user_name" class="form-control" value="<?php echo htmlspecialchars($studs["user_name"]); ?>" required>
+                            </div>
+                            <div class="col-md-3">
+                              <label for="gender" class="form-label">Gender:</label>
+                              <select id="gender" name="gender" class="form-select">
+                                <option value="M" <?php echo ($studs["gender"] == 'M') ? 'selected' : ''; ?>required>M</option>
+                                <option value="F" <?php echo ($studs["gender"] == 'F') ? 'selected' : ''; ?>required>F</option>
+                              </select>
+                            </div>
+                            <div class="col-md-4">
+                              <label for="bdate" class="form-label">Date of Birth:</label>
+                              <input type="date" id="bdate" name="bdate" class="form-control" value="<?php echo htmlspecialchars($studs["bdate"]); ?>" required>
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <div class="col-md-4">
+                              <label for="pob" class="form-label">Place of Birth:</label>
+                              <input type="text" id="pob" name="pob" class="form-control" value="<?php echo htmlspecialchars($studs["pob"]) ?>" required>
+                            </div>
+                            <div class="col-md-4">
+                              <label for="nationality" class="form-label">Nationality :</label>
+                              <input type="text" id="nationality" name="nationality" class="form-control" value="<?php echo htmlspecialchars($studs["nationality"]); ?>" required>
+                            </div>
+                            <div class="col-md-4">
+                              <label for="email" class="form-label">Email Address:</label>
+                              <input type="email" id="email" name="email" class="form-control" value="<?php echo htmlspecialchars($studs["email"]); ?>" required>
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <div class="col-md-3">
+                              <label for="course" class="form-label">Course:</label>
+                              <input type="text" id="course" name="course" class="form-control" value="<?php echo htmlspecialchars($studs["course"]); ?>" required>
+                            </div>
+                            <div class="col-md-2">
+                              <label for="year" class="form-label">Year:</label>
+                              <input type="text" id="year" name="year" class="form-control" value="<?php echo htmlspecialchars($studs["year"]); ?>" required>
+                            </div>
+                            <div class="col-md-4">
+                              <label for="major" class="form-label">Major :</label>
+                              <input type="text" id="major" name="major" class="form-control" value="<?php echo htmlspecialchars($studs["major"]); ?>" required>
+                            </div>
+                            <div class="col-md-3">
+                              <label for="civilStatus" class="form-label">Civil Status :</label>
+                              <input type="text" id="civilStatus" name="civilStatus" class="form-control" value="<?php echo htmlspecialchars($studs["civilStatus"]); ?>" required>
+                            </div>
+
+                          </div>
+
+                          <div class="row mb-3">
+                            <div class="col-md-4">
+                              <label for="religion" class="form-label">Religion:</label>
+                              <input type="text" id="religion" name="religion" class="form-control" value="<?php echo htmlspecialchars($studs["religion"]) ?>" required>
+                            </div>
+                            <div class="col-md-4">
+                              <label for="modality" class="form-label">Modality :</label>
+                              <input type="text" id="modality" name="modality" class="form-control" value="<?php echo htmlspecialchars($studs["modality"]); ?>" required>
+                            </div>
+                            <div class="col-md-4">
+                              <label for="fb" class="form-label">Facebook Account:</label>
+                              <input type="text" id="fb" name="fb" class="form-control" value="<?php echo htmlspecialchars($studs["fb"]); ?>" required>
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <div class="col-md-4">
+                              <label for="curAddress" class="form-label">Current Address:</label>
+                              <input type="text" id="curAddress" name="curAddress" class="form-control" value="<?php echo htmlspecialchars($studs["curAddress"]) ?>" required>
+                            </div>
+                            <div class="col-md-3">
+                              <label for="cityAdd" class="form-label">City :</label>
+                              <input type="text" id="cityAdd" name="cityAdd" class="form-control" value="<?php echo htmlspecialchars($studs["cityAdd"]); ?>" required>
+                            </div>
+                            <div class="col-md-3">
+                              <label for="zipcode" class="form-label">Zip Code :</label>
+                              <input type="text" id="zipcode" name="zipcode" class="form-control" value="<?php echo htmlspecialchars($studs["zipcode"]); ?>" required>
+                            </div>
+                            <div class="col-md-2">
+                              <label for="contact" class="form-label">Phone Number :</label>
+                              <input type="text" id="contact" name="contact" class="form-control" value="<?php echo htmlspecialchars($studs["contact"]); ?>" required>
+                            </div>
+
+                          </div>
+                          <div style="margin-top: 5%;"></div>
+                          <div class="row mb-3">
+                            <div class="col-md-4" required>
+                              <label for="curAddress" class="form-label">Permanent Address:</label>
+                              <input type="text" id="curAddress" name="curAddress" class="form-control" value="<?php echo htmlspecialchars($studs["curAddress"]) ?>" required>
+                            </div>
+                            <div class="col-md-3">
+                              <label for="cityAdd" class="form-label">City :</label>
+                              <input type="text" id="cityAdd" name="cityAdd" class="form-control" value="<?php echo htmlspecialchars($studs["cityAdd"]); ?>">
+                            </div>
+                            <div class="col-md-3">
+                              <label for="zipcode" class="form-label">Zip Code :</label>
+                              <input type="text" id="zipcode" name="zipcode" class="form-control" value="<?php echo htmlspecialchars($studs["zipcode"]); ?>" required>
+                            </div>
+                            <div class="col-md-2">
+                              <label for="contact" class="form-label">Phone Number :</label>
+                              <input type="text" id="contact" name="contact" class="form-control" value="<?php echo htmlspecialchars($studs["contact"]); ?>" required>
+                            </div>
+
+                          </div>
+
+                          <div class="row mb-3">
+                            <div class="col-md-6">
+                              <label for="fatherName" class="form-label">Father's Name:</label>
+                              <input type="text" id="fatherName" name="fatherName" class="form-control" value="<?php echo htmlspecialchars($studs["fatherName"]); ?>" required>
+                            </div>
+                            <div class="col-md-6">
+                              <label for="fwork" class="form-label">Occupation:</label>
+                              <input type="text" id="fwork" name="fwork" class="form-control" value="<?php echo htmlspecialchars($studs["fwork"]); ?>" required>
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <div class="col-md-6">
+                              <label for="motherName" class="form-label">Mother's Name:</label>
+                              <input type="text" id="motherName" name="motherName" class="form-control" value="<?php echo htmlspecialchars($studs["motherName"]); ?>" required>
+                            </div>
+                            <div class="col-md-6">
+                              <label for="mwork" class="form-label">Occupation:</label>
+                              <input type="text" id="mwork" name="mwork" class="form-control" value="<?php echo htmlspecialchars($studs["mwork"]); ?>" required>
+                            </div>
+                          </div>
+
+                          <h3 class="text-center mb-4">Educational Attainment</h3>
+
+                          <table class="table table-bordered">
+                            <thead>
+                              <tr class="table-secondary">
+                                <th>Level</th>
+                                <th>Name of School</th>
+                                <th>School Address</th>
+                                <th>Year Completed</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Primary (Grade 1-4)</td>
+                                <td><input type="text" name="primarySchool" class="form-control" value="<?php echo htmlspecialchars($studs["primarySchool"]); ?>" required></td>
+                                <td><input type="text" name="primaryAddress" class="form-control" value="<?php echo htmlspecialchars($studs["primaryAddress"]); ?>" required></td>
+                                <td><input type="text" name="primaryCompleted" class="form-control" value="<?php echo htmlspecialchars($studs["primaryCompleted"]); ?>" required></td>
+                              </tr>
+                              <tr>
+                                <td>Intermediate (Grade 5-6)</td>
+                                <td><input type="text" name="entermediateSchool" class="form-control" value="<?php echo htmlspecialchars($studs["entermediateSchool"]); ?>" required></td>
+                                <td><input type="text" name="entermediateAddress" class="form-control" value="<?php echo htmlspecialchars($studs["entermediateAddress"]); ?>" required></td>
+                                <td><input type="text" name="entermediateCompleted" class="form-control" value="<?php echo htmlspecialchars($studs["entermediateCompleted"]); ?>" required></td>
+                              </tr>
+                              <tr>
+                                <td>High School</td>
+                                <td><input type="text" name="hsSchool" class="form-control" value="<?php echo htmlspecialchars($studs["hsSchool"]); ?>" required></td>
+                                <td><input type="text" name="hsAddress" class="form-control" value="<?php echo htmlspecialchars($studs["hsAddress"]); ?>" required></td>
+                                <td><input type="text" name="hsCompleted" class="form-control" value="<?php echo htmlspecialchars($studs["hsCompleted"]); ?>" required></td>
+                              </tr>
+                              <tr>
+                                <td>K12</td>
+                                <td><input type="text" name="shSchool" class="form-control" value="<?php echo htmlspecialchars($studs["shSchool"]); ?>" required></td>
+                                <td><input type="text" name="shAddress" class="form-control" value="<?php echo htmlspecialchars($studs["shAddress"]); ?>" required></td>
+                                <td><input type="text" name="shCompleted" class="form-control" value="<?php echo htmlspecialchars($studs["shCompleted"]); ?>" required></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <div style="margin-top: 10%"></div>
+                          <h6 class="text-justify mb-4">I hereby certify that all entries herein are true and correct. I certify further that I will read thoroughly the agreement/policy and commit myself to follow its provision.</h6>
+
+                          <div class="row mb-3">
+
+                            <div class="col-md-4">
+                              <label for="date" class="form-label">Date: </label>
+                              <input type="date" id="date" name="date" class="form-control" value="<?php echo htmlspecialchars($studs["date"]); ?>" required>
+                            </div>
+
+
+                          </div>
+
+                          <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary" name="submit">Save</button>
+                          </div>
+                        </form>
                       </div>
                     </div>
                   </div>
-                  <div class="text-center">
-                    <button type="submit" class="btn btn-primary" name="submit">Save Changes</button>
-                  </div>
-                </form>
-
-                <!-- End Profile Edit Form -->
-
+                </div>
               </div>
+              <!--End Profile Edit-->
 
-
+              <!--Start Profile Change Password-->
               <div class="tab-pane fade pt-3" id="profile-change-password">
                 <!-- Change Password Form -->
                 <form action="../admin/includes/change-pass.php" method="post">
@@ -798,6 +718,7 @@ $database->close();
                 </form>
                 <!-- End Change Password Form -->
               </div>
+              <!--Start Profile Change Password-->
 
             </div>
           </div><!-- End Bordered Tabs -->
