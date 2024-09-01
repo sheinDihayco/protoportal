@@ -118,13 +118,14 @@ foreach ($events as $event) {
                 </ul>
               </div>
               <div class="card-body">
-                <h5 class="card-title">Today's Event <span style="margin-left: 10px;"><?php echo htmlspecialchars($todaysEvent['date']); ?></span></h5>
+                <h5 class="card-title">Today's Event </h5>
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                     <i class="bi bi-calendar-day"></i>
                   </div>
                   <div class="ps-3">
                     <?php if ($todaysEvent) : ?>
+                      <h6 style="font-size:12px"><?php echo htmlspecialchars($todaysEvent['date']); ?></h6>
                       <li class="list-group-item d-flex justify-content-between align-items-start">
                         <div style="flex-grow: 1;">
                           <h6><?php echo htmlspecialchars($todaysEvent['title']); ?> </h6>
