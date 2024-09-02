@@ -41,7 +41,6 @@ function fetchSchedules($conn)
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-// Assuming $conn is defined elsewhere and passed to the function
 $schedules = fetchSchedules($conn);
 
 $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -116,9 +115,8 @@ if (isset($_SESSION['schedule_create']) && $_SESSION['schedule_create']) {
                                         <tr>
                                             <td><?php echo $currentSlot . ' - ' . $nextSlot; ?></td>
                                             <?php foreach ($daysOfWeek as $day): ?>
-                                                <td>
+                                                <td class="schedule-cell">
                                                     <?php
-                                                    // Ensure $schedules is an array and not null
                                                     if (!empty($schedules) && is_array($schedules)) {
                                                         foreach ($schedules as $schedule) {
                                                             if (
@@ -126,11 +124,22 @@ if (isset($_SESSION['schedule_create']) && $_SESSION['schedule_create']) {
                                                                 $schedule['start_time'] >= $currentSlot &&
                                                                 $schedule['start_time'] < $nextSlot
                                                             ) {
-                                                                echo htmlspecialchars($schedule['subject_description']) . "<br>" .
-                                                                    htmlspecialchars($schedule['course_description']) . "<br>" .
-                                                                    htmlspecialchars($schedule['user_lname']) . ", " .
-                                                                    htmlspecialchars($schedule['user_fname']) . "<br>" .
-                                                                    htmlspecialchars($schedule['room_name']) . "<hr>";
+                                                    ?>
+                                                                <div class="schedule-container">
+                                                                    <?php
+                                                                    echo htmlspecialchars($schedule['subject_description']) . "<br>" .
+                                                                        htmlspecialchars($schedule['course_description']) . "<br>" .
+                                                                        htmlspecialchars($schedule['user_lname']) . ", " .
+                                                                        htmlspecialchars($schedule['user_fname']) . "<br>" .
+                                                                        htmlspecialchars($schedule['room_name']);
+                                                                    ?>
+                                                                    <div class="action-buttons">
+                                                                        <button class="btn btn-sm btn-warning edit-btn ri-edit-2-fill" data-id="<?php echo $schedule['schedule_id']; ?>"></button>
+                                                                        <button class="btn btn-sm btn-danger delete-btn ri-delete-bin-6-line" data-id="<?php echo $schedule['schedule_id']; ?>"></button>
+                                                                    </div>
+                                                                </div>
+                                                                <hr>
+                                                    <?php
                                                             }
                                                         }
                                                     } else {
@@ -145,6 +154,7 @@ if (isset($_SESSION['schedule_create']) && $_SESSION['schedule_create']) {
                                     endwhile;
                                     ?>
                                 </tbody>
+
                             </table>
                         </div>
                     </div>
@@ -292,6 +302,32 @@ if (isset($_SESSION['schedule_create']) && $_SESSION['schedule_create']) {
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+<script>
+    $(document).ready(function() {
+        // Show action buttons on hover
+        $('.schedule-cell').hover(
+            function() {
+                $(this).find('.action-buttons').show();
+            },
+            function() {
+                $(this).find('.action-buttons').hide();
+            }
+        );
+
+        // Additional jQuery for edit and delete actions
+        $('.edit-btn').on('click', function() {
+            var scheduleId = $(this).data('id');
+            // Load schedule data into the edit modal
+            // Your AJAX call to fetch and populate data for editing
+        });
+
+        $('.delete-btn').on('click', function() {
+            var scheduleId = $(this).data('id');
+            // Handle delete action
+            // Your AJAX call to delete the schedule
+        });
+    });
+</script>
 
 <script>
     $(document).ready(function() {
@@ -499,6 +535,24 @@ if (isset($_SESSION['schedule_create']) && $_SESSION['schedule_create']) {
 </script>
 
 <style>
+    .schedule-container {
+        position: relative;
+        padding: 5px;
+        margin-bottom: 10px;
+    }
+
+    .schedule-container .action-buttons {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .schedule-container:hover .action-buttons {
+        display: block;
+    }
+
     .formal-schedule {
         background-color: #ffffff;
         border-collapse: collapse;
