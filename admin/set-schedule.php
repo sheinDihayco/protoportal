@@ -6,6 +6,16 @@ include_once 'includes/connection.php';
 $connClass = new Connection();
 $conn = $connClass->open();
 
+// Function to fetch data for dropdowns
+function fetchOptions($table, $valueField, $textField, $whereClause = '1')
+{
+    global $conn;
+    $query = "SELECT $valueField, $textField FROM $table WHERE $whereClause";
+    $stmt = $conn->prepare($query);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 // Fetch data for dropdowns
 $instructors = fetchOptions('tbl_users', 'user_id', 'CONCAT(user_fname, " ", user_lname) AS name', 'user_role = "teacher"');
 $courses = fetchOptions('tbl_course', 'course_id', 'CONCAT(course_description, " (Year ", course_year, ")") AS description');
@@ -14,23 +24,53 @@ $rooms = fetchOptions('tbl_rooms', 'room_id', 'room_name');
 $times = fetchOptions('tbl_sched_time', 'time_id', 'CONCAT(start_time, " - ", end_time) AS slot');
 $days = fetchOptions('tbl_days', 'day_id', 'day_name');
 
-function fetchOptions($table, $valueField, $textField, $where = '')
+// Function to fetch schedule data
+function fetchSchedules($conn)
 {
-    global $conn;
-    $options = [];
-    $query = "SELECT $valueField, $textField FROM $table";
-    if ($where) {
-        $query .= " WHERE $where";
-    }
+    $query = "SELECT ts.*, u.user_fname, u.user_lname, c.course_description, s.description AS subject_description, r.room_name, d.day_name, t.start_time
+              FROM tbl_schedule ts
+              JOIN tbl_users u ON ts.instructor_id = u.user_id 
+              JOIN tbl_course c ON ts.course_id = c.course_id
+              JOIN tbl_subjects s ON ts.subject_id = s.id
+              JOIN tbl_rooms r ON ts.room_id = r.room_id
+              JOIN tbl_days d ON ts.day_id = d.day_id
+              JOIN tbl_sched_time t ON ts.time_id = t.time_id";
+
     $stmt = $conn->prepare($query);
     $stmt->execute();
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $options[] = $row;
-    }
-    return $options;
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+// Assuming $conn is defined elsewhere and passed to the function
+$schedules = fetchSchedules($conn);
+
+$daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
 ?>
 
+<?php
+if (isset($_SESSION['schedule_create']) && $_SESSION['schedule_create']) {
+    echo "
+        <div class='alert'>
+            <span class='closebtn' onclick='this.parentElement.style.display=\"none\";'>&times;</span>
+            Schedule created successfully!
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                setTimeout(function() {
+                    var alert = document.querySelector('.alert');
+                    if (alert) {
+                        alert.style.opacity = '0';
+                        setTimeout(function() {
+                            alert.style.display = 'none';
+                        }, 600);
+                    }
+                }, 5000);
+            });
+        </script>";
+    unset($_SESSION['schedule_create']);
+}
+?>
 
 <main id="main" class="main">
 
@@ -47,26 +87,63 @@ function fetchOptions($table, $valueField, $textField, $where = '')
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
-        <div class="col-lg-12">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card recent-sales overflow-auto">
-                        <div class="card-body">
-                            <h5 class="card-title">Schedule <span>| set</span></h5>
-                            <table id="scheduleTable" class="table table-striped table-bordered">
+        <div class="row">
+            <!-- Schedule Table -->
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered formal-schedule">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Instructor</th>
-                                        <th scope="col">Course</th>
-                                        <th scope="col">Subject</th>
-                                        <th scope="col">Room</th>
                                         <th scope="col">Time Slot</th>
-                                        <th scope="col">Day</th>
-                                        <th scope="col">Actions</th>
+                                        <?php foreach ($daysOfWeek as $day): ?>
+                                            <th scope="col"><?php echo htmlspecialchars($day); ?></th>
+                                        <?php endforeach; ?>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- Data will be loaded here by JavaScript -->
+                                    <?php
+                                    // Create time slots from 7:00 AM to 5:00 PM
+                                    $startTime = strtotime('07:00');
+                                    $endTime = strtotime('17:00');
+                                    $timeInterval = 60 * 60; // 1-hour interval
+
+                                    while ($startTime <= $endTime):
+                                        $currentSlot = date('H:i', $startTime);
+                                        $nextSlot = date('H:i', $startTime + $timeInterval);
+                                    ?>
+                                        <tr>
+                                            <td><?php echo $currentSlot . ' - ' . $nextSlot; ?></td>
+                                            <?php foreach ($daysOfWeek as $day): ?>
+                                                <td>
+                                                    <?php
+                                                    // Ensure $schedules is an array and not null
+                                                    if (!empty($schedules) && is_array($schedules)) {
+                                                        foreach ($schedules as $schedule) {
+                                                            if (
+                                                                $schedule['day_name'] === $day &&
+                                                                $schedule['start_time'] >= $currentSlot &&
+                                                                $schedule['start_time'] < $nextSlot
+                                                            ) {
+                                                                echo htmlspecialchars($schedule['subject_description']) . "<br>" .
+                                                                    htmlspecialchars($schedule['course_description']) . "<br>" .
+                                                                    htmlspecialchars($schedule['user_lname']) . ", " .
+                                                                    htmlspecialchars($schedule['user_fname']) . "<br>" .
+                                                                    htmlspecialchars($schedule['room_name']) . "<hr>";
+                                                            }
+                                                        }
+                                                    } else {
+                                                        echo "No schedule data available.";
+                                                    }
+                                                    ?>
+                                                </td>
+                                            <?php endforeach; ?>
+                                        </tr>
+                                    <?php
+                                        $startTime += $timeInterval;
+                                    endwhile;
+                                    ?>
                                 </tbody>
                             </table>
                         </div>
@@ -75,7 +152,7 @@ function fetchOptions($table, $valueField, $textField, $where = '')
             </div>
         </div>
 
-
+        <!-- Modal Section -->
         <div class="modal fade" id="scheduleModal" tabindex="-1">
             <div class="modal-dialog modal-dialog modal-lg">
                 <div class="modal-content">
@@ -192,37 +269,29 @@ function fetchOptions($table, $valueField, $textField, $where = '')
                                 <select id="editRoom" name="room" class="form-control" required></select>
                             </div>
                             <div class="form-group">
-                                <label for="editDay">Day</label>
-                                <select id="editDay" name="day" class="form-control" required></select>
-                            </div>
-                            <div class="form-group">
                                 <label for="editTime">Time Slot</label>
                                 <select id="editTime" name="time" class="form-control" required></select>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-sm" style="margin-top: 20px;">Save changes</button>
+                            <div class="form-group">
+                                <label for="editDay">Day</label>
+                                <select id="editDay" name="day" class="form-control" required></select>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-sm btn-block" style="margin-top: 10px;">Update</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Toast Notification -->
-        <div class="toast-container position-fixed top-0 end-0 p-3">
-            <div id="statusToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                    <strong id="toastTitle" class="me-auto">Notification</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body" id="toastBody">
-                    <!-- Message will be loaded here by JavaScript -->
-                </div>
-            </div>
-        </div>
     </section>
 </main>
 
+<?php include_once "../templates/footer.php"; ?>
+
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 
 <script>
     $(document).ready(function() {
@@ -428,4 +497,99 @@ function fetchOptions($table, $valueField, $textField, $where = '')
         populateDropdowns();
     });
 </script>
+
+<style>
+    .formal-schedule {
+        background-color: #ffffff;
+        border-collapse: collapse;
+        width: 100%;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .formal-schedule th,
+    .formal-schedule td {
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 12px;
+        vertical-align: middle;
+    }
+
+    .formal-schedule th {
+        background-color: #2c3e50;
+        color: #ffffff;
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .formal-schedule td {
+        font-size: 14px;
+        color: #2c3e50;
+        background-color: #f9f9f9;
+    }
+
+    .formal-schedule tr:nth-child(even) {
+        background-color: #f1f1f1;
+    }
+
+    .formal-schedule tr:hover {
+        background-color: #e1e1e1;
+        cursor: pointer;
+    }
+
+    /* Styling for table header cells */
+    .table th {
+        font-weight: bold;
+        background-color: #2c3e50;
+        color: white;
+    }
+
+    /* Padding and alignment */
+    .table th,
+    .table td {
+        padding: 15px;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    /* Responsive styling */
+    @media (max-width: 768px) {
+
+        .formal-schedule th,
+        .formal-schedule td {
+            font-size: 12px;
+            padding: 8px;
+        }
+    }
+
+    a {
+        text-decoration: none !important;
+    }
+
+    .breadcrumb-item a {
+        text-decoration: none !important;
+    }
+
+    .breadcrumb-item.active {
+        text-decoration: none;
+    }
+
+    .navbar-brand {
+        text-decoration: none !important;
+    }
+
+    .alert {
+        padding: 20px;
+        background-color: #4CAF50;
+        color: white;
+        opacity: 1;
+        transition: opacity 0.6s;
+        margin-bottom: 15px;
+        border-radius: 4px;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 5000;
+        width: 300px;
+    }
+</style>
 <?php include_once "../templates/footer.php"; ?>

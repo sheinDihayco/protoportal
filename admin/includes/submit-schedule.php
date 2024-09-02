@@ -1,4 +1,6 @@
 <?php
+session_start(); // Start the session
+
 include_once 'connection.php';
 
 header('Content-Type: application/json');
@@ -53,8 +55,10 @@ if ($stmt->rowCount() > 0) {
         ':day_id' => $day_id, // Added day_id
     ]);
 
-    // Send success response with redirect URL
-    echo json_encode(['success' => 'Schedule has been added.', 'redirect' => 'set-schedule.php']);
+    // Set session variable and redirect
+    $_SESSION['schedule_create'] = true;
+    header('Location: set-schedule.php'); // Redirect to the page where the alert will be displayed
+    exit();
 }
 
 $connClass->close();
