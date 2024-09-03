@@ -59,6 +59,19 @@ try {
 }
 ?>
 
+<?php
+if (isset($_GET['user_id'])) {
+  $user_id = htmlspecialchars($_GET['user_id']);
+  // Fetch and display student profile information based on user_id
+}
+
+if (isset($_GET['delete-success']) && $_GET['delete-success'] === 'true') {
+  echo '<p>Record successfully deleted!</p>';
+}
+?>
+
+
+
 <!-- Start #main -->
 <main id="main" class="main">
 
@@ -229,12 +242,22 @@ try {
                                 <!-- Space Between Buttons -->
                                 <div style="display: inline-block;"></div>
 
+                                <!-- Example PHP code to include user_id -->
+                                <?php
+                                // Assuming $row['user_id'] contains the user ID
+                                $user_id = htmlspecialchars($row['user_id']);
+                                $payment_id = htmlspecialchars($row['payment_id']);
+                                ?>
+
                                 <!-- Delete Button with SweetAlert Confirmation -->
-                                <form id="deleteForm<?php echo $row['payment_id']; ?>" method="POST" action="../admin/upload/delete-payment.php" style="display: inline;">
-                                  <input type="hidden" name="payment_id" value="<?php echo htmlspecialchars($row['payment_id']); ?>">
+                                <form id="deleteForm<?php echo $payment_id; ?>" method="POST" action="../admin/upload/delete-payment.php" style="display: inline;">
+                                  <input type="hidden" name="payment_id" value="<?php echo $payment_id; ?>">
+                                  <input type="hidden" id="user_id<?php echo $payment_id; ?>" value="<?php echo $user_id; ?>">
                                   <button type="button" class="btn btn-sm btn-danger ri-delete-bin-6-line"
-                                    onclick="confirmDelete(<?php echo $row['payment_id']; ?>)"></button>
+                                    onclick="confirmDelete(<?php echo $payment_id; ?>, '<?php echo $user_id; ?>')"></button>
                                 </form>
+
+
                               </div>
 
                               <?php include('modals/update-payment-form.php'); ?>
@@ -503,13 +526,12 @@ try {
 </main>
 <!-- End #main -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<!-- SweetAlert CSS -->
-
-<!-- SweetAlert CSS -->
+<!-- SweetAlert2 CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
-<!-- SweetAlert JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -517,7 +539,8 @@ try {
     const success = urlParams.get('success');
     const userId = urlParams.get('user_id');
 
-    if (success && userId) {
+    // Check if the 'success' parameter is present and if 'user_id' is provided
+    if (success === 'created' && userId) {
       Swal.fire({
         icon: 'success',
         title: 'Success',
@@ -530,63 +553,78 @@ try {
 
 
 <script>
-  function confirmDelete(paymentId) {
+  document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const success = urlParams.get('success');
+    const userId = urlParams.get('user_id');
+
+    // Check if the 'success' parameter is present and if 'user_id' is provided
+    if (success === 'updated' && userId) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Update Successful',
+        text: `Payment status for student ID ${userId} has been successfully updated.`,
+        showConfirmButton: true
+      });
+    }
+  });
+</script>
+
+
+<script>
+  function confirmDelete(payment_id, user_id) {
     Swal.fire({
-      title: "Are you sure?",
+      title: 'Are you sure?',
       text: "You won't be able to revert this!",
-      icon: "warning",
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6", // Blue color for the confirm button
-      cancelButtonColor: "#d33", // Red color for the cancel button
-      confirmButtonText: "Yes, delete it!"
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel'
     }).then((result) => {
       if (result.isConfirmed) {
-        // Submit the form via AJAX to handle deletion
-        var form = document.getElementById('deleteForm' + paymentId);
-        var formData = new FormData(form);
+        var formData = new FormData();
+        formData.append('payment_id', payment_id);
 
-        fetch(form.action, {
+        fetch('../admin/upload/delete-payment.php', {
             method: 'POST',
             body: formData
           })
           .then(response => response.json())
           .then(data => {
             if (data.status === 'success') {
-              Swal.fire({
-                title: "Deleted!",
-                text: "The payment has been deleted.",
-                icon: "success",
-                confirmButtonText: "OK"
-              }).then(() => {
-                window.location.href = '../admin/student_profile.php?stud_id=<?php echo $studid; ?>';
+              Swal.fire(
+                'Deleted!',
+                'Your record has been deleted.',
+                'success'
+              ).then(() => {
+                // Redirect using user_id
+                window.location.href = "../admin/student_profile.php?user_id=" + encodeURIComponent(user_id) + "&delete-success=true";
               });
             } else {
-              Swal.fire({
-                title: "Error",
-                text: data.message,
-                icon: "error",
-                confirmButtonText: "OK"
-              });
+              Swal.fire(
+                'Error!',
+                'There was an error deleting the record.',
+                'error'
+              );
             }
           })
           .catch(error => {
-            Swal.fire({
-              title: "Error",
-              text: "An unexpected error occurred.",
-              icon: "error",
-              confirmButtonText: "OK"
-            });
+            Swal.fire(
+              'Error!',
+              'There was an error deleting the record.',
+              'error'
+            );
           });
-      } else {
-        Swal.fire({
-          title: "Cancelled",
-          text: "The payment was not deleted.",
-          icon: "info"
-        });
       }
     });
   }
 </script>
+
+
+
+
 
 <style>
   .icon-button {

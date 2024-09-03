@@ -13,12 +13,13 @@ if ($conn->connect_error) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+    $payment_id = $_POST['payment_id'];
     $user_id = $_POST['user_id'];
     $status = $_POST['payment_status'];
     $semester = $_POST['semester'];
     $paymentPeriod = $_POST['paymentPeriod'];
 
-    $sql = "UPDATE tbl_payments SET semester = ?, paymentPeriod = ?, payment_status = ? WHERE user_id = ?";
+    $sql = "UPDATE tbl_payments SET semester = ?, paymentPeriod = ?, payment_status = ? WHERE payment_id = ?";
 
     if ($stmt = $conn->prepare($sql)) {
         $stmt->bind_param(
@@ -26,12 +27,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $semester,
             $paymentPeriod,
             $status,
-            $user_id
-
+            $payment_id
         );
 
         if ($stmt->execute()) {
-            header("Location: ../payment.php?error=update-success");
+            header("Location: ../student_profile.php?user_id=" . urlencode($user_id) . "&success=updated");
             exit();
         } else {
             echo "Error updating record: " . $stmt->error;

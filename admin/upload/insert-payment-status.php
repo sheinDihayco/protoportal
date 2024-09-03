@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
             // Set session variable for the user_id
             $_SESSION['stud'] = $user_id;
             // Redirect to student_profile.php with user_id parameter
-            header("Location: ../student_profile.php?user_id=" . urlencode($user_id) . "&success");
+            header("Location: ../student_profile.php?user_id=" . urlencode($user_id) . "&success=created");
             exit();
         } else {
             echo "Error: " . $insertQuery . "<br>" . $conn->error;
