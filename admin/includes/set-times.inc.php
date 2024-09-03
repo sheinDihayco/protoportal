@@ -8,10 +8,13 @@ $response = [];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $time_id = $_POST['time_id'] ?? null;
-    $start_time = $_POST['start_time'];
-    $end_time = $_POST['end_time'];
+    $start_time = trim($_POST['start_time']);
+    $end_time = trim($_POST['end_time']);
 
     try {
+        // Begin transaction
+        $conn->beginTransaction();
+
         // Prepare the check query based on whether $time_id is set or not
         if ($time_id) {
             // Update existing time slot
@@ -22,6 +25,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $checkStmt = $conn->prepare("SELECT * FROM tbl_sched_time WHERE start_time = ? AND end_time = ?");
             $checkStmt->execute([$start_time, $end_time]);
         }
+
+        // Log the results for debugging
+        error_log("Query: " . $checkStmt->queryString);
+        error_log("Start Time: $start_time, End Time: $end_time");
+        error_log("Row Count: " . $checkStmt->rowCount());
 
         if ($checkStmt->rowCount() > 0) {
             $response = ['status' => 'error', 'message' => 'Duplicate time slot detected.'];
@@ -38,7 +46,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $response = ['status' => 'success', 'message' => 'Time slot added successfully.'];
             }
         }
+
+        // Commit transaction
+        $conn->commit();
     } catch (PDOException $e) {
+        // Rollback transaction on error
+        $conn->rollBack();
         $response = ['status' => 'error', 'message' => 'Database error: ' . $e->getMessage()];
     }
 } else {
@@ -48,4 +61,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 $connection->close();
 
 echo json_encode($response);
-?>

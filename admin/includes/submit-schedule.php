@@ -13,7 +13,7 @@ $course_id = $_POST['course'];
 $subject_id = $_POST['subject'];
 $room_id = $_POST['room'];
 $time_id = $_POST['time'];
-$day_id = $_POST['day']; // Added day_id
+$day_id = $_POST['day'];
 
 // Check for overlapping schedules
 $overlapCheckQuery = "
@@ -32,7 +32,7 @@ $stmt = $conn->prepare($overlapCheckQuery);
 $stmt->execute([
     ':room_id' => $room_id,
     ':time_id' => $time_id,
-    ':day_id' => $day_id, // Added day_id
+    ':day_id' => $day_id,
     ':instructor_id' => $instructor_id,
     ':course_id' => $course_id,
 ]);
@@ -52,12 +52,11 @@ if ($stmt->rowCount() > 0) {
         ':subject_id' => $subject_id,
         ':room_id' => $room_id,
         ':time_id' => $time_id,
-        ':day_id' => $day_id, // Added day_id
+        ':day_id' => $day_id,
     ]);
 
-    // Set session variable and redirect
-    $_SESSION['schedule_create'] = true;
-    header('Location: set-schedule.php'); // Redirect to the page where the alert will be displayed
+    // Set session variable and send success response
+    echo json_encode(['success' => 'Schedule created successfully.']);
     exit();
 }
 

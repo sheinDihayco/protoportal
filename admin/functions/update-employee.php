@@ -36,11 +36,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ]);
 
         // Redirect to user.php after successful update
-        header("Location: ../user.php?error=success");
+        header("Location: ../user.php?update=success");
         exit(); // Ensure no further code is executed after redirect
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
     }
 
     $database->close();
+} else {
+    echo "Invalid request method.";
 }

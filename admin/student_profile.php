@@ -2,11 +2,18 @@
 
 if (isset($_POST['stud_id']) && !empty($_POST['stud_id'])) {
   $_SESSION['stud'] = $_POST['stud_id'];
-}
-
-if (isset($_SESSION['stud']) && !empty($_SESSION['stud'])) {
+  $studid = $_POST['stud_id'];
+} elseif (isset($_GET['user_id']) && !empty($_GET['user_id'])) {
+  $_SESSION['stud'] = $_GET['user_id'];
+  $studid = $_GET['user_id'];
+} elseif (isset($_SESSION['stud']) && !empty($_SESSION['stud'])) {
   $studid = $_SESSION['stud'];
 } else {
+  exit('No student ID provided');
+}
+
+// Ensure the student ID is set and not empty
+if (empty($studid)) {
   exit('No student ID provided');
 }
 
@@ -57,22 +64,17 @@ try {
 
   <!-- Start Page Title -->
   <div class="pagetitle">
-    <?php if ($studs) : ?>
-      <h1><?php echo htmlspecialchars($studs["lname"]); ?>, <?php echo htmlspecialchars($studs["fname"]); ?></h1>
+    <h1><?php echo htmlspecialchars($studs["lname"]); ?>, <?php echo htmlspecialchars($studs["fname"]); ?></h1>
 
-      <?php if ($showButton): ?>
-        <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#insertStudent">
-        </button>
-      <?php endif; ?>
+    <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#insertStudent">
+    </button>
 
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><?php echo htmlspecialchars($studs["course"]); ?></li>
-        </ol>
-      </nav>
-    <?php else : ?>
-      <h1>No ID Found</h1>
-    <?php endif; ?>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><?php echo htmlspecialchars($studs["course"]); ?></li>
+      </ol>
+    </nav>
+
   </div>
   <!-- End Page Title -->
 
@@ -84,7 +86,7 @@ try {
           <h5 class="modal-title">Insert Payment Status</h5>
         </div>
         <div class="modal-body">
-          <form action="../admin/upload/insert-payment-status.php" method="post" class="row g-3 needs-validation" novalidate style="padding: 20px;">
+          <form action="../admin/upload/insert-payment-status.php" id="paymentForm" method="post" class="row g-3 needs-validation" novalidate style="padding: 20px;">
             <div class="col-md-6">
               <label for="user_id" class="form-label">Student ID</label>
               <input type="number" class="form-control" id="user_id" name="user_id" value="<?php echo htmlspecialchars($studid); ?>" required readonly>
@@ -130,7 +132,7 @@ try {
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" name="submit">Save changes</button>
+          <button type="submit" class="btn btn-primary" name="submit" id="savePayment">Save</button>
         </div>
         </form>
       </div>
@@ -210,7 +212,7 @@ try {
                         while ($row = $result->fetch_assoc()) {
                       ?>
                           <tr>
-                            <th scope="row"><a href=""><?php echo htmlspecialchars($row["user_id"]); ?></a></th>
+                            <th scope="row"><a href=""><?php echo htmlspecialchars($row["user_name"]); ?></a></th>
 
                             <td><?php echo htmlspecialchars($row["semester"]) ? htmlspecialchars($row["semester"]) : 'Choose semester'; ?></td>
 
@@ -218,8 +220,29 @@ try {
 
                             <td><?php echo htmlspecialchars($row["payment_status"]) ? htmlspecialchars($row["payment_status"]) : 'Not Available'; ?></td>
 
-                            <td><button type="button" class="btn btn-sm btn-warning ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#updatePaymentStatus<?php echo $row["user_id"]; ?>"></button></td>
-                            <?php include('modals/update-payment-form.php'); ?>
+                            <td>
+                              <div style="display: inline;">
+                                <!-- Edit Button -->
+                                <button type="button" class="btn btn-sm btn-warning ri-edit-2-fill"
+                                  data-bs-toggle="modal" data-bs-target="#updatePaymentStatus<?php echo $row['payment_id']; ?>"></button>
+
+                                <!-- Space Between Buttons -->
+                                <div style="display: inline-block;"></div>
+
+                                <!-- Delete Button with SweetAlert Confirmation -->
+                                <form id="deleteForm<?php echo $row['payment_id']; ?>" method="POST" action="../admin/upload/delete-payment.php" style="display: inline;">
+                                  <input type="hidden" name="payment_id" value="<?php echo htmlspecialchars($row['payment_id']); ?>">
+                                  <button type="button" class="btn btn-sm btn-danger ri-delete-bin-6-line"
+                                    onclick="confirmDelete(<?php echo $row['payment_id']; ?>)"></button>
+                                </form>
+                              </div>
+
+                              <?php include('modals/update-payment-form.php'); ?>
+                            </td>
+
+
+
+
                           </tr>
                       <?php
                         }
@@ -479,6 +502,91 @@ try {
 
 </main>
 <!-- End #main -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- SweetAlert CSS -->
+
+<!-- SweetAlert CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+<!-- SweetAlert JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const success = urlParams.get('success');
+    const userId = urlParams.get('user_id');
+
+    if (success && userId) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: `Payment status for student ID ${userId} has been successfully added.`,
+        showConfirmButton: true
+      });
+    }
+  });
+</script>
+
+
+<script>
+  function confirmDelete(paymentId) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6", // Blue color for the confirm button
+      cancelButtonColor: "#d33", // Red color for the cancel button
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Submit the form via AJAX to handle deletion
+        var form = document.getElementById('deleteForm' + paymentId);
+        var formData = new FormData(form);
+
+        fetch(form.action, {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.status === 'success') {
+              Swal.fire({
+                title: "Deleted!",
+                text: "The payment has been deleted.",
+                icon: "success",
+                confirmButtonText: "OK"
+              }).then(() => {
+                window.location.href = '../admin/student_profile.php?stud_id=<?php echo $studid; ?>';
+              });
+            } else {
+              Swal.fire({
+                title: "Error",
+                text: data.message,
+                icon: "error",
+                confirmButtonText: "OK"
+              });
+            }
+          })
+          .catch(error => {
+            Swal.fire({
+              title: "Error",
+              text: "An unexpected error occurred.",
+              icon: "error",
+              confirmButtonText: "OK"
+            });
+          });
+      } else {
+        Swal.fire({
+          title: "Cancelled",
+          text: "The payment was not deleted.",
+          icon: "info"
+        });
+      }
+    });
+  }
+</script>
 
 <style>
   .icon-button {

@@ -21,4 +21,3 @@ try {
 
 $connection->close();
 echo json_encode($response);
-?>

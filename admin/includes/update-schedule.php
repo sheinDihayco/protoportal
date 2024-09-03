@@ -11,11 +11,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $subject = $_POST['subject'];
     $room = $_POST['room'];
     $time = $_POST['time'];
+    $day = $_POST['day']; // Added day_id
 
     try {
         $stmt = $conn->prepare("
             UPDATE tbl_schedule
-            SET instructor_id = :instructor, course_id = :course, subject_id = :subject, room_id = :room, time_id = :time
+            SET instructor_id = :instructor, course_id = :course, subject_id = :subject, room_id = :room, time_id = :time, day_id = :day
             WHERE schedule_id = :schedule_id
         ");
 
@@ -25,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bindParam(':subject', $subject);
         $stmt->bindParam(':room', $room);
         $stmt->bindParam(':time', $time);
+        $stmt->bindParam(':day', $day); // Bind day_id
 
         if ($stmt->execute()) {
             echo json_encode(['status' => 'success']);

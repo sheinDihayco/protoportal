@@ -24,27 +24,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['assignStudents'])) {
         // Begin transaction
         $db->beginTransaction();
 
-        // Delete existing student assignments for this instructor
-        $sql = "DELETE FROM tbl_student_instructors WHERE instructor_id = :instructor_id";
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam(':instructor_id', $instructor_id, PDO::PARAM_INT);
-        $stmt->execute();
+        // Insert new student assignments, if not already assigned
+        $sql_check = "SELECT COUNT(*) FROM tbl_student_instructors WHERE student_id = :student_id AND instructor_id = :instructor_id";
+        $sql_insert = "INSERT INTO tbl_student_instructors (student_id, instructor_id) VALUES (:student_id, :instructor_id)";
+        $stmt_check = $db->prepare($sql_check);
+        $stmt_insert = $db->prepare($sql_insert);
 
-        // Insert new student assignments
-        $sql = "INSERT INTO tbl_student_instructors (student_id, instructor_id) VALUES (:student_id, :instructor_id)";
-        $stmt = $db->prepare($sql);
         foreach ($student_ids as $student_id) {
-            $stmt->execute([
-                ':student_id' => $student_id,
-                ':instructor_id' => $instructor_id
-            ]);
+            // Check if student is already assigned
+            $stmt_check->execute([':student_id' => $student_id, ':instructor_id' => $instructor_id]);
+            $already_assigned = $stmt_check->fetchColumn();
+
+            if (!$already_assigned) {
+                // Insert new record
+                $stmt_insert->execute([':student_id' => $student_id, ':instructor_id' => $instructor_id]);
+            }
         }
 
         // Commit transaction
         $db->commit();
 
-        // Redirect or notify success
-        header("Location:user.php?error=success");
+        // Show SweetAlert and redirect on success
+        echo "<script>
+            Swal.fire({
+                title: 'Success!',
+                text: 'Students have been successfully assigned.',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '../admin/assign-student-instructors.php';
+                }
+            });
+        </script>";
         exit();
     } catch (PDOException $e) {
         // Rollback transaction on error
@@ -55,6 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['assignStudents'])) {
     $database->close();
 }
 ?>
+
 
 <main id="main" class="main">
 
@@ -147,7 +160,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['assignStudents'])) {
                         <table class="table table-bordered table-striped">
                             <thead class="table-dark">
                                 <tr>
-                                    <th scope="col">Select</th>
+                                    <th scope="col">
+                                        <input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)">
+                                    </th>
                                     <th scope="col">Student ID</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Course</th>
@@ -247,6 +262,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['assignStudents'])) {
 
 </main>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
     function enableNextField(nextFieldId) {
         var currentField = event.target;
@@ -258,6 +275,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['assignStudents'])) {
         }
     }
 </script>
+
+
+<script>
+    function toggleSelectAll(selectAllCheckbox) {
+        // Get all checkboxes with class 'student-select'
+        var checkboxes = document.querySelectorAll('.student-select');
+
+        // Loop through all checkboxes and set their checked property
+        checkboxes.forEach(function(checkbox) {
+            checkbox.checked = selectAllCheckbox.checked;
+        });
+    }
+</script>
+
 
 <script>
     function clearSearchForm() {

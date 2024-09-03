@@ -19,7 +19,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $user_id = $conn->real_escape_string($_POST['user_id']);
     $fname = $conn->real_escape_string($_POST['fname']);
     $lname = $conn->real_escape_string($_POST['lname']);
-    $user_id = $conn->real_escape_string($_POST['user_id']);
     $course = $conn->real_escape_string($_POST['course']);
     $year = $conn->real_escape_string($_POST['year']);
     $semester = $conn->real_escape_string($_POST['semester']);
@@ -36,29 +35,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                         WHERE user_id = '$user_id'";
 
         if ($conn->query($updateQuery) === TRUE) {
-            $_SESSION['initial_update'] = "Record updated successfully.";
+            $_SESSION['initial_update'] = true; // Success flag
         } else {
             $_SESSION['initial_update_error'] = "Error updating record: " . $conn->error;
         }
     } else {
         // Student ID does not exist, perform insert
-        $insertQuery = "INSERT INTO tbl_students (user_id, fname, lname, course, year, semster, status)
+        $insertQuery = "INSERT INTO tbl_students (user_id, fname, lname, course, year, semester, status)
                         VALUES ('$user_id', '$fname', '$lname', '$course', '$year', '$semester', '$status')";
 
         if ($conn->query($insertQuery) === TRUE) {
-            $_SESSION['initial_update'] = "Record inserted successfully.";
+            $_SESSION['initial_update'] = true; // Success flag
         } else {
             $_SESSION['initial_update_error'] = "Error inserting record: " . $conn->error;
         }
     }
 
     // Redirect based on the result of the operation
-    if (isset($_SESSION['initial_update'])) {
-        header("Location: ../user-student.php?register=success");
-    } else {
-        header("Location: ../admin/insert-initial-data.php");
-    }
-
-    // Close connection
+    header("Location: ../user-student.php");
     $conn->close();
 }

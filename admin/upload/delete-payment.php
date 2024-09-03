@@ -13,19 +13,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $studentID = $conn->real_escape_string($_POST['studentID']);
+    $payment_id = $conn->real_escape_string($_POST['payment_id']);
 
     // Delete record
-    $sql = "DELETE FROM tbl_payments WHERE studentID = '$studentID'";
+    $sql = "DELETE FROM tbl_payments WHERE payment_id = '$payment_id'";
 
     if ($conn->query($sql) === TRUE) {
-        header("Location: ../stud_profile.php?error=delete-success");
-        exit();
+        // Return success response
+        echo json_encode(['status' => 'success']);
     } else {
-        echo "Error: " . $conn->error;
+        // Return error response
+        echo json_encode(['status' => 'error', 'message' => $conn->error]);
     }
 
     $conn->close();
 } else {
-    echo "Invalid request method.";
+    echo json_encode(['status' => 'error', 'message' => 'Invalid request method.']);
 }

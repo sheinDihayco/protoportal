@@ -47,35 +47,11 @@ $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday
 
 ?>
 
-<?php
-if (isset($_SESSION['schedule_create']) && $_SESSION['schedule_create']) {
-    echo "
-        <div class='alert'>
-            <span class='closebtn' onclick='this.parentElement.style.display=\"none\";'>&times;</span>
-            Schedule created successfully!
-        </div>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                setTimeout(function() {
-                    var alert = document.querySelector('.alert');
-                    if (alert) {
-                        alert.style.opacity = '0';
-                        setTimeout(function() {
-                            alert.style.display = 'none';
-                        }, 600);
-                    }
-                }, 5000);
-            });
-        </script>";
-    unset($_SESSION['schedule_create']);
-}
-?>
-
 <main id="main" class="main">
 
     <div class="pagetitle">
         <h1>Schedule Records</h1>
-        <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#scheduleModal">
+        <button type="button" class="ri-add-line tablebutton" data-bs-toggle="modal" data-bs-target="#scheduleModal">
         </button>
         <nav>
             <ol class="breadcrumb">
@@ -398,20 +374,29 @@ if (isset($_SESSION['schedule_create']) && $_SESSION['schedule_create']) {
                 dataType: 'json',
                 success: function(response) {
                     if (response.error) {
+                        // Show error in toast
                         $('#statusToast').removeClass('bg-success').addClass('bg-danger');
                         $('#toastTitle').text('Error');
                         $('#toastBody').text(response.error);
                     } else {
-                        $('#statusToast').removeClass('bg-danger').addClass('bg-success');
-                        $('#toastTitle').text('Success');
-                        $('#toastBody').text(response.success);
-                        loadSchedules();
-                        $('#scheduleForm')[0].reset();
+                        // Show success alert using SweetAlert2
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Schedule created successfully.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Redirect to set-schedule.php after confirmation
+                                window.location.href = '../admin/set-schedule.php';
+                            }
+                        });
                     }
                     var toast = new bootstrap.Toast($('#statusToast'));
                     toast.show();
                 },
                 error: function() {
+                    // Show error in toast
                     $('#statusToast').removeClass('bg-success').addClass('bg-danger');
                     $('#toastTitle').text('Error');
                     $('#toastBody').text('Failed to add schedule.');
@@ -466,14 +451,20 @@ if (isset($_SESSION['schedule_create']) && $_SESSION['schedule_create']) {
                 dataType: 'json',
                 success: function(response) {
                     if (response.status === 'success') {
-                        $('#statusToast').removeClass('bg-danger').addClass('bg-success');
-                        $('#toastTitle').text('Success');
-                        $('#toastBody').text('Schedule has been updated.');
-                        var toast = new bootstrap.Toast($('#statusToast'));
-                        toast.show();
-                        loadSchedules();
-                        $('#editModal').modal('hide');
+                        // Show success alert using SweetAlert2
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Schedule has been updated successfully.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Redirect to set-schedule.php
+                                window.location.href = '../admin/set-schedule.php';
+                            }
+                        });
                     } else {
+                        // Show error in toast
                         $('#statusToast').removeClass('bg-success').addClass('bg-danger');
                         $('#toastTitle').text('Error');
                         $('#toastBody').text(response.message);
@@ -482,6 +473,7 @@ if (isset($_SESSION['schedule_create']) && $_SESSION['schedule_create']) {
                     }
                 },
                 error: function() {
+                    // Show error in toast
                     $('#statusToast').removeClass('bg-success').addClass('bg-danger');
                     $('#toastTitle').text('Error');
                     $('#toastBody').text('Failed to update schedule.');
@@ -494,38 +486,55 @@ if (isset($_SESSION['schedule_create']) && $_SESSION['schedule_create']) {
 
         $(document).on('click', '.delete-btn', function() {
             var scheduleId = $(this).data('id');
-            if (confirm('Are you sure you want to delete this schedule?')) {
-                $.ajax({
-                    url: 'includes/delete-schedule.php',
-                    type: 'POST',
-                    data: {
-                        schedule_id: scheduleId
-                    },
-                    success: function(response) {
-                        if (response === 'Success') {
-                            $('#statusToast').removeClass('bg-danger').addClass('bg-success');
-                            $('#toastTitle').text('Success');
-                            $('#toastBody').text('Schedule has been deleted.');
-                            var toast = new bootstrap.Toast($('#statusToast'));
-                            toast.show();
-                            loadSchedules();
-                        } else {
-                            $('#statusToast').removeClass('bg-success').addClass('bg-danger');
-                            $('#toastTitle').text('Error');
-                            $('#toastBody').text('Failed to delete schedule.');
-                            var toast = new bootstrap.Toast($('#statusToast'));
-                            toast.show();
+
+            // SweetAlert2 confirmation dialog
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'Do you really want to delete this schedule?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: 'includes/delete-schedule.php',
+                        type: 'POST',
+                        data: {
+                            schedule_id: scheduleId
+                        },
+                        success: function(response) {
+                            if (response === 'Success') {
+                                Swal.fire({
+                                    title: 'Deleted!',
+                                    text: 'Schedule has been deleted successfully.',
+                                    icon: 'success',
+                                    confirmButtonText: 'OK'
+                                }).then(() => {
+                                    window.location.href = '../admin/set-schedule.php';
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: 'Failed to delete schedule.',
+                                    icon: 'error',
+                                    confirmButtonText: 'OK'
+                                });
+                            }
+                        },
+                        error: function() {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'An error occurred while deleting the schedule.',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
                         }
-                    },
-                    error: function() {
-                        $('#statusToast').removeClass('bg-success').addClass('bg-danger');
-                        $('#toastTitle').text('Error');
-                        $('#toastBody').text('Failed to delete schedule.');
-                        var toast = new bootstrap.Toast($('#statusToast'));
-                        toast.show();
-                    }
-                });
-            }
+                    });
+                }
+            });
         });
 
         // Initial load
@@ -629,21 +638,6 @@ if (isset($_SESSION['schedule_create']) && $_SESSION['schedule_create']) {
 
     .navbar-brand {
         text-decoration: none !important;
-    }
-
-    .alert {
-        padding: 20px;
-        background-color: #4CAF50;
-        color: white;
-        opacity: 1;
-        transition: opacity 0.6s;
-        margin-bottom: 15px;
-        border-radius: 4px;
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 5000;
-        width: 300px;
     }
 </style>
 <?php include_once "../templates/footer.php"; ?>

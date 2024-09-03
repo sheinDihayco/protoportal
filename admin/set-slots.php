@@ -31,7 +31,7 @@ $connection->close();
         <h1> Time Records</h1>
         <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#timeSlotModal">
         </button>
-        <button type="button" class="ri-arrow-go-back-fill tablebutton" onclick="window.location.href='../admin/set-schedule.php';">
+        <button type="button" class="ri-arrow-go-back-fill tablebutton" onclick="window.location.href='../admin/course.php';">
         </button>
         <nav>
             <ol class="breadcrumb">
@@ -181,13 +181,19 @@ $connection->close();
 <!-- JavaScript for Handling Form Submissions and Data Display -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- SweetAlert2 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
 <script>
     $(document).ready(function() {
         // Handle time slot form submission
         $('#timeSlotForm').on('submit', function(event) {
             event.preventDefault();
             $.ajax({
-                url: 'includes/set-times.inc.php',
+                url: 'includes/insert-time-slot.inc.php',
                 type: 'POST',
                 data: $(this).serialize(),
                 success: function(response) {
@@ -195,14 +201,29 @@ $connection->close();
                     if (data.status === 'success') {
                         $('#timeSlotModal').modal('hide');
                         loadTimes(); // Refresh the time slots table
-                        alert(data.message);
-                        window.location.href = '../admin/set-slots.php';
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: data.message,
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = '../admin/set-slots.php'; // Redirect after confirmation
+                            }
+                        });
                     } else {
-                        alert(data.message);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: data.message,
+                            confirmButtonText: 'OK'
+                        });
                     }
                 }
             });
         });
+
 
         // Load and display time slots
         function loadTimes() {
@@ -241,14 +262,30 @@ $connection->close();
                     if (data.status === 'success') {
                         $('#roomModal').modal('hide');
                         loadRooms(); // Refresh the rooms table
-                        alert(data.message);
-                        window.location.href = '../admin/set-slots.php';
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: data.message,
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = '../admin/set-slots.php'; // Redirect after confirmation
+                            }
+                        });
                     } else {
-                        alert(data.message);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: data.message,
+                            confirmButtonText: 'OK'
+                        });
                     }
                 }
             });
         });
+
+
 
         // Load and display rooms
         function loadRooms() {
@@ -274,7 +311,8 @@ $connection->close();
             });
         }
 
-        // Edit and delete functionality for time slots
+
+        // Display edit modal with current time slot data
         $(document).on('click', '.edit-time', function() {
             const id = $(this).data('id');
             const start = $(this).data('start');
@@ -285,28 +323,96 @@ $connection->close();
             $('#timeSlotModal').modal('show');
         });
 
+        // Handle time slot form submission
+        $('#timeSlotForm').on('submit', function(event) {
+            event.preventDefault();
+            $.ajax({
+                url: 'includes/set-times.inc.php',
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function(response) {
+                    const data = JSON.parse(response);
+                    if (data.status === 'success') {
+                        Swal.fire({
+                            title: 'Success',
+                            text: data.message,
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then(() => {
+                            $('#timeSlotModal').modal('hide');
+                            window.location.href = '../admin/set-slots.php'; // Redirect after success
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: data.message,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                }
+            });
+        });
+
+
+
         $(document).on('click', '.delete-time', function() {
             const id = $(this).data('id');
-            if (confirm('Are you sure you want to delete this time slot?')) {
-                $.ajax({
-                    url: 'includes/delete-time.php',
-                    type: 'POST',
-                    data: {
-                        time_id: id
-                    },
-                    success: function(response) {
-                        const data = JSON.parse(response);
-                        if (data.status === 'success') {
-                            loadTimes(); // Refresh the time slots table
-                            alert(data.message);
-                            window.location.href = '../admin/set-slots.php';
-                        } else {
-                            alert(data.message);
+
+            // Show SweetAlert confirmation dialog
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You won\'t be able to revert this!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Proceed with deletion if confirmed
+                    $.ajax({
+                        url: 'includes/delete-time.php',
+                        type: 'POST',
+                        data: {
+                            time_id: id
+                        },
+                        success: function(response) {
+                            const data = JSON.parse(response);
+                            if (data.status === 'success') {
+                                loadTimes(); // Refresh the time slots table
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Deleted!',
+                                    text: data.message,
+                                    confirmButtonText: 'OK'
+                                }).then(() => {
+                                    // Redirect to the set-slots.php page after clicking OK
+                                    window.location.href = '../admin/set-slots.php';
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error!',
+                                    text: data.message,
+                                    confirmButtonText: 'OK'
+                                });
+                            }
+                        },
+                        error: function() {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: 'There was an error processing your request. Please try again.',
+                                confirmButtonText: 'OK'
+                            });
                         }
-                    }
-                });
-            }
+                    });
+                }
+            });
         });
+
 
         // Edit and delete functionality for rooms
         $(document).on('click', '.edit-room', function() {
@@ -317,28 +423,92 @@ $connection->close();
             $('#roomModal').modal('show');
         });
 
+        // Handle room form submission
+        $('#roomForm').on('submit', function(event) {
+            event.preventDefault();
+            $.ajax({
+                url: 'includes/update-rooms.inc.php',
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function(response) {
+                    const data = JSON.parse(response);
+                    if (data.status === 'success') {
+                        $('#roomModal').modal('hide');
+                        loadRooms(); // Refresh the rooms table
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: data.message,
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = '../admin/set-slots.php'; // Redirect after confirmation
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: data.message,
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                }
+            });
+        });
+
+
         $(document).on('click', '.delete-room', function() {
             const id = $(this).data('id');
-            if (confirm('Are you sure you want to delete this room?')) {
-                $.ajax({
-                    url: 'includes/delete-room.php',
-                    type: 'POST',
-                    data: {
-                        room_id: id
-                    },
-                    success: function(response) {
-                        const data = JSON.parse(response);
-                        if (data.status === 'success') {
-                            loadRooms(); // Refresh the rooms table
-                            alert(data.message);
-                            window.location.href = '../admin/set-slots.php';
-                        } else {
-                            alert(data.message);
+
+            // Show SweetAlert confirmation dialog
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You won\'t be able to revert this!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Proceed with deletion if confirmed
+                    $.ajax({
+                        url: 'includes/delete-room.php',
+                        type: 'POST',
+                        data: {
+                            room_id: id
+                        },
+                        success: function(response) {
+                            const data = JSON.parse(response);
+                            if (data.status === 'success') {
+                                loadRooms(); // Refresh the rooms table
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Deleted!',
+                                    text: data.message,
+                                    confirmButtonText: 'OK'
+                                }).then(() => {
+                                    // Redirect to the set-slots.php page after clicking OK
+                                    window.location.href = '../admin/set-slots.php';
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error!',
+                                    text: data.message,
+                                    confirmButtonText: 'OK'
+                                });
+                            }
                         }
-                    }
-                });
-            }
+                    });
+                }
+            });
         });
+
+
 
         // Initial load of data
         loadTimes();

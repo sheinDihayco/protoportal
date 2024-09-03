@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $servername = "localhost";
     $username = "root";
@@ -19,10 +21,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "DELETE FROM tbl_students WHERE user_id = '$user_id'";
 
     if ($conn->query($sql) === TRUE) {
-        header("Location: ../user-student.php?error=delete-success");
+        $_SESSION['delete_success'] = true; // Set session variable for SweetAlert
+        header("Location: ../user-student.php");
         exit();
     } else {
-        echo "Error: " . $conn->error;
+        $_SESSION['delete_error'] = "Error deleting record: " . $conn->error;
+        header("Location: ../user-student.php");
+        exit();
     }
 
     $conn->close();

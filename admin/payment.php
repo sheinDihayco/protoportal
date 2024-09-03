@@ -1,42 +1,6 @@
 <?php
 include_once "../templates/header.php"; // Corrected PHP include tag
 ?>
-<?php
-
-if (isset($_SESSION['initial_update']) && $_SESSION['initial_update']) {
-  echo "
-        <div class='alert'>
-            <span class='closebtn' onclick='this.parentElement.style.display=\"none\";'>&times;</span>
-            Record successfully updated!
-        </div>
-        <script>
-            setTimeout(function() {
-                document.querySelector('.alert').style.opacity = '0';
-                setTimeout(function() {
-                    document.querySelector('.alert').style.display = 'none';
-                }, 600);
-            }, 5000);
-        </script>";
-  unset($_SESSION['initial_update']);
-}
-
-if (isset($_SESSION['initial_update_error'])) {
-  echo "
-        <div class='alert' style='background-color: #f44336;'>
-            <span class='closebtn' onclick='this.parentElement.style.display=\"none\";'>&times;</span>
-            " . $_SESSION['initial_update_error'] . "
-        </div>
-        <script>
-            setTimeout(function() {
-                document.querySelector('.alert').style.opacity = '0';
-                setTimeout(function() {
-                    document.querySelector('.alert').style.display = 'none';
-                }, 600);
-            }, 5000);
-        </script>";
-  unset($_SESSION['initial_update_error']);
-}
-?>
 
 <main id="main" class="main">
   <div class="pagetitle">
@@ -90,6 +54,7 @@ if (isset($_SESSION['initial_update_error'])) {
                         <button type="submit" class="btn btn-sm btn-success" name="submit"><i class="ri-arrow-right-circle-fill"></i></button>
                       </form>
                     </td>
+
                   </tr>
               <?php
                 }
@@ -109,43 +74,10 @@ if (isset($_SESSION['initial_update_error'])) {
 
 </main><!-- End #main -->
 
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 <?php
 include_once "../templates/footer.php";
 ?>
-
-<style>
-  .alert {
-    padding: 20px;
-    background-color: #4CAF50;
-    /* Green background for success */
-    color: white;
-    opacity: 1;
-    transition: opacity 0.6s;
-    margin-bottom: 15px;
-    border-radius: 4px;
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
-  }
-
-  .alert.error {
-    background-color: #f44336;
-    /* Red background for errors */
-  }
-
-  .closebtn {
-    margin-left: 15px;
-    color: white;
-    font-weight: bold;
-    float: right;
-    font-size: 22px;
-    line-height: 20px;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-
-  .closebtn:hover {
-    color: black;
-  }
-</style>

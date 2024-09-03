@@ -1,4 +1,6 @@
 <?php
+session_start(); // Ensure you start the session
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     // Database connection details
     $servername = "localhost";
@@ -28,29 +30,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        // Check if user_id already exists in tbl_payments
-        $checkPaymentQuery = "SELECT user_id FROM tbl_payments WHERE user_id = ?";
-        $stmt = $conn->prepare($checkPaymentQuery);
-        $stmt->bind_param("s", $user_id);
-        $stmt->execute();
-        $paymentResult = $stmt->get_result();
+        // Prepare an insert statement
+        $insertQuery = "INSERT INTO tbl_payments (user_id, payment_status, semester, paymentPeriod) VALUES (?, ?, ?, ?)";
+        $stmt = $conn->prepare($insertQuery);
+        $stmt->bind_param("ssss", $user_id, $status, $semester, $paymentPeriod);
 
-        if ($paymentResult->num_rows > 0) {
-            // Student ID already exists in tbl_payments
-            echo "Error: Payment record already exists for this student.";
+        if ($stmt->execute()) {
+            // Set session variable for the user_id
+            $_SESSION['stud'] = $user_id;
+            // Redirect to student_profile.php with user_id parameter
+            header("Location: ../student_profile.php?user_id=" . urlencode($user_id) . "&success");
+            exit();
         } else {
-            // Prepare an insert statement
-            $insertQuery = "INSERT INTO tbl_payments (user_id, payment_status,semester,paymentPeriod) VALUES (?, ?, ?, ?)";
-            $stmt = $conn->prepare($insertQuery);
-            $stmt->bind_param("ssss", $user_id, $status, $semester, $paymentPeriod);
-
-            if ($stmt->execute()) {
-                // Redirect to payment.php after successful insertion
-                header("Location: ../payment.php?error=success");
-                exit();
-            } else {
-                echo "Error: " . $insertQuery . "<br>" . $conn->error;
-            }
+            echo "Error: " . $insertQuery . "<br>" . $conn->error;
         }
     } else {
         echo "Error: Student ID does not exist.";

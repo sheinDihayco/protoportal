@@ -43,7 +43,7 @@ if (isset($_POST["register"])) {
 
     // Execute the query
     if ($statement->execute()) {
-        $_SESSION['student_created'] = true;
+        $_SESSION['user_created'] = true;
 
         // Determine redirection based on user role
         if ($role == 'student') {

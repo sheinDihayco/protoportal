@@ -20,11 +20,17 @@ try {
 $connection->close();
 ?>
 
+
 <main id="main" class="main">
     <div class="pagetitle">
         <h1>Course Records</h1>
+        <!-- Button to trigger modal -->
         <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#courseModal">
         </button>
+
+        <button type="button" class="ri-time-fill tablebutton" onclick="window.location.href='../admin/set-slots.php';">
+        </button>
+
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.php">Home</a></li>
@@ -85,7 +91,7 @@ $connection->close();
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="courseForm">
+                        <form id="addCourseForm">
                             <input type="hidden" name="course_id" id="course_id">
                             <div class="mb-3">
                                 <label for="course_description" class="form-label">Course Description</label>
@@ -101,18 +107,63 @@ $connection->close();
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="editCourseModal" tabindex="-1" aria-labelledby="editCourseModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editCourseModalLabel">Edit Course</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editCourseForm">
+                            <input type="hidden" name="course_id" id="edit_course_id">
+                            <div class="mb-3">
+                                <label for="edit_course_description" class="form-label">Course Description</label>
+                                <input type="text" class="form-control" id="edit_course_description" name="course_description" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="edit_course_year" class="form-label">Course Year</label>
+                                <input type="number" class="form-control" id="edit_course_year" name="course_year" min="1" max="12" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
     </section>
 
 </main>
 
 <!-- JavaScript for Handling Form Submissions and Data Display -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
     $(document).ready(function() {
-        // Handle course form submission
-        $('#courseForm').on('submit', function(event) {
+
+        // Function to show the Add Course Modal
+        function showAddCourseModal() {
+            $('#addCourseForm')[0].reset(); // Reset the form fields
+            $('#courseModal').modal('show'); // Show the Add Course modal
+        }
+
+        // Function to show the Edit Course Modal
+        function showEditCourseModal(courseData) {
+            // Populate the form fields with the course data
+            $('#edit_course_id').val(courseData.course_id);
+            $('#edit_course_description').val(courseData.course_description);
+            $('#edit_course_year').val(courseData.course_year);
+
+            $('#editCourseModal').modal('show'); // Show the Edit Course modal
+        }
+
+        // Event handlers for the forms
+        $('#addCourseForm').on('submit', function(event) {
             event.preventDefault();
             $.ajax({
                 url: 'includes/course.inc.php',
@@ -121,12 +172,54 @@ $connection->close();
                 success: function(response) {
                     const data = JSON.parse(response);
                     if (data.status === 'success') {
-                        $('#courseModal').modal('hide');
-                        loadCourses();
-                        alert(data.message);
-                        window.location.href = '../admin/course.php';
+                        Swal.fire({
+                            title: 'Success',
+                            text: data.message,
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then(() => {
+                            $('#courseModal').modal('hide');
+                            loadCourses();
+                            window.location.href = '../admin/course.php'; // Redirect after success
+                        });
                     } else {
-                        alert(data.message);
+                        Swal.fire({
+                            title: 'Error',
+                            text: data.message,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                }
+            });
+        });
+
+        $('#editCourseForm').on('submit', function(event) {
+            event.preventDefault();
+            $.ajax({
+                url: 'includes/edit-course.inc.php',
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function(response) {
+                    const data = JSON.parse(response);
+                    if (data.status === 'success') {
+                        Swal.fire({
+                            title: 'Success',
+                            text: data.message,
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then(() => {
+                            $('#editCourseModal').modal('hide');
+                            loadCourses();
+                            window.location.href = '../admin/course.php'; // Redirect after success
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: data.message,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
                     }
                 }
             });
@@ -168,28 +261,57 @@ $connection->close();
             $('#courseModal').modal('show');
         });
 
+
         $(document).on('click', '.delete-course', function() {
             const id = $(this).data('id');
-            if (confirm('Are you sure you want to delete this course?')) {
-                $.ajax({
-                    url: 'includes/delete-course.php',
-                    type: 'POST',
-                    data: {
-                        course_id: id
-                    },
-                    success: function(response) {
-                        const data = JSON.parse(response);
-                        if (data.status === 'success') {
-                            loadCourses(); // Refresh the courses table
-                            alert(data.message);
-                            window.location.href = '../admin/course.php';
-                        } else {
-                            alert(data.message);
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You won\'t be able to revert this!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: 'includes/delete-course.php',
+                        type: 'POST',
+                        data: {
+                            course_id: id
+                        },
+                        success: function(response) {
+                            const data = JSON.parse(response);
+                            if (data.status === 'success') {
+                                loadCourses(); // Refresh the courses table
+                                Swal.fire(
+                                    'Deleted!',
+                                    data.message,
+                                    'success'
+                                ).then(() => {
+                                    window.location.href = '../admin/course.php'; // Redirect after confirmation
+                                });
+                            } else {
+                                Swal.fire(
+                                    'Error!',
+                                    data.message,
+                                    'error'
+                                );
+                            }
+                        },
+                        error: function() {
+                            Swal.fire(
+                                'Error!',
+                                'Failed to delete course.',
+                                'error'
+                            );
                         }
-                    }
-                });
-            }
+                    });
+                }
+            });
         });
+
 
         // Initial load of data
         loadCourses();
