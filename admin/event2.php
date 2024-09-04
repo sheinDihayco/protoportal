@@ -1,5 +1,6 @@
-<?php include_once "../templates/header.php" ?>
 <?php
+
+include_once "../templates/header.php";
 include_once 'includes/connection.php';
 
 $connection = new Connection();
@@ -30,6 +31,77 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $connection->close();
 ?>
 
+<?php
+if (isset($_SESSION['event_created'])) {
+    echo '<script>
+            Swal.fire({
+                title: "Event Created!",
+                text: "Your event has been successfully created.",
+                icon: "success",
+                confirmButtonText: "OK"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "event2.php";
+                }
+            });
+        </script>';
+    unset($_SESSION['event_created']); // Unset the session variable after displaying the alert
+}
+?>
+
+<?php
+if (isset($_SESSION['event_edited'])) {
+    echo '<script>
+            Swal.fire({
+                title: "Event Edited!",
+                text: "The event has been successfully updated.",
+                icon: "success",
+                confirmButtonText: "OK"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "event2.php";
+                }
+            });
+        </script>';
+    unset($_SESSION['event_edited']); // Unset the session variable after displaying the alert
+}
+?>
+
+<?php
+if (isset($_SESSION['event_deleted'])) {
+    echo '<script>
+            Swal.fire({
+                title: "Event Deleted!",
+                text: "The event has been successfully deleted.",
+                icon: "success",
+                confirmButtonText: "OK"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "event2.php";
+                }
+            });
+        </script>';
+    unset($_SESSION['event_deleted']); // Unset the session variable after displaying the alert
+}
+
+if (isset($_SESSION['event_not_deleted'])) {
+    echo '<script>
+            Swal.fire({
+                title: "Error!",
+                text: "The event could not be deleted.",
+                icon: "error",
+                confirmButtonText: "OK"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "event2.php";
+                }
+            });
+        </script>';
+    unset($_SESSION['event_not_deleted']); // Unset the session variable after displaying the alert
+}
+?>
+
+
 <main id="main" class="main">
 
     <div class="pagetitle">
@@ -43,13 +115,6 @@ $connection->close();
             </ol>
         </nav>
     </div><!-- End Page Title -->
-
-    <?php if (isset($_GET['error'])) : ?>
-        <div class="alert alert-danger" role="alert">
-            <?php echo htmlspecialchars($_GET['error'], ENT_QUOTES, 'UTF-8'); ?>
-        </div>
-    <?php endif; ?>
-
 
     <!-- Modal -->
     <div class="modal fade" id="addEventModal" tabindex="-1" aria-labelledby="addEventModalLabel" aria-hidden="true">
@@ -116,7 +181,7 @@ $connection->close();
                                             <a href="../admin/edit-event.php?id=<?php echo $event['id']; ?>" class="btn btn-sm btn-warning" style="margin-right: 5px;">
                                                 <i class="bi bi-pencil"></i>
                                             </a>
-                                            <a href="../admin/upload/delete_event.php?id=<?php echo $event['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this event?');">
+                                            <a href="#" class="btn btn-sm btn-danger" onclick="confirmDelete(<?php echo $event['id']; ?>)">
                                                 <i class="bi bi-trash"></i>
                                             </a>
                                         </div>
@@ -242,4 +307,24 @@ $connection->close();
     </div>
 </div>
 
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function confirmDelete(eventId) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = `../admin/upload/delete_event.php?id=${eventId}`;
+            }
+        });
+    }
+</script>
 <?php include_once "../templates/footer.php" ?>

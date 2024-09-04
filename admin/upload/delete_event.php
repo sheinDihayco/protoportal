@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once "../includes/connect.php";
 include_once "../includes/connection.php";
 
@@ -14,9 +15,11 @@ if (isset($_GET['id'])) {
 
     $connection->close();
 
-    header("Location: ../event2.php?error=delete-success");
+    $_SESSION['event_deleted'] = true;
+    header("Location: ../event2.php");
     exit();
 } else {
-    header("Location: ../event2.php?error=not-deleted");
+    $_SESSION['event_not_deleted'] = true;
+    header("Location: ../event2.php");
     exit();
 }

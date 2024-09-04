@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 include_once 'connection.php';
 
@@ -33,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $connection->close();
         $_SESSION['event_created'] = true;
-        header('Location: ../event2.php?error=success');
+        header('Location: ../event2.php');
         exit();
     }
 }

@@ -36,7 +36,8 @@ if (isset($_GET['id'])) {
             'id' => $eventId
         ]);
 
-        header("Location: ../admin/event.php?error=success");
+        $_SESSION['event_edited'] = true;
+        header("Location: ../admin/event2.php");
         exit();
     }
 } else {
@@ -47,6 +48,8 @@ $connection->close();
 
 ob_end_flush(); // End output buffering and flush the output
 ?>
+
+
 <main id="main" class="main">
     <section class="section calendar"><!-- HTML Form to Edit Event -->
         <div class="card">
@@ -66,7 +69,7 @@ ob_end_flush(); // End output buffering and flush the output
                         <textarea class="form-control" id="eventDescription" name="eventDescription" rows="5" required><?php echo htmlspecialchars($event['description']); ?></textarea>
                     </div>
                     <button type="submit" class="btn btn-sm btn-success">Save</button>
-                    <button type="button" class="btn btn-sm btn-danger"><a href="../admin/event.php" style="text-decoration: none; color:white">Cancel</a></button>
+                    <button type="button" class="btn btn-sm btn-danger"><a href="../admin/event2.php" style="text-decoration: none; color:white">Cancel</a></button>
                 </form>
             </div>
         </div>
