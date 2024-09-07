@@ -34,8 +34,8 @@ $connection->close();
 
     <div class="pagetitle">
         <h1>School Calendar</h1>
-        <button type="button" class="ri-calendar-2-line tablebutton" data-bs-toggle="modal" data-bs-target="#addEventModal">
-        </button>
+        <!--<button type="button" class="ri-calendar-2-line tablebutton" data-bs-toggle="modal" data-bs-target="#addEventModal">
+        </button>-->
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.php">Home</a></li>

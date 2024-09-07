@@ -37,6 +37,11 @@ $database->close();
   <meta content="" name="description">
   <meta content="" name="keywords">
 
+
+  <!-- SweetAlert2 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <!-- SweetAlert2 JS -->
+
   <!-- Favicons -->
   <link href="../assets/img/miit.png" rel="icon">
   <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">

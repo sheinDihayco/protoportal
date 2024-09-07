@@ -26,33 +26,23 @@ try {
 $database->close();
 ?>
 
+
 <main id="main" class="main">
   <div class="pagetitle">
     <h1>Student Account Records</h1>
-    </button>
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
         <li class="breadcrumb-item active">Accounts</li>
       </ol>
     </nav>
-  </div><!-- End Page Title -->
-
-
+  </div>
 
   <section class="section dashboard">
     <div class="col-12">
       <div class="card recent-sales overflow-auto">
         <div class="filter">
-          <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-            <li class="dropdown-header text-start">
-              <h6>Filter</h6>
-            </li>
-            <li><a class="dropdown-item" href="#">Today</a></li>
-            <li><a class="dropdown-item" href="#">This Month</a></li>
-            <li><a class="dropdown-item" href="#">This Year</a></li>
-          </ul>
+          <!-- Filter options -->
         </div>
         <div class="card-body">
           <h5 class="card-title">Students <span>| Enrolled</span></h5>
@@ -79,7 +69,7 @@ $database->close();
                       <button type="button" class="btn btn-sm btn-warning ri-add-box-fill" data-bs-toggle="modal" data-bs-target="#insertGrade<?php echo htmlspecialchars($student['user_id']); ?>"></button>
 
                       <!-- Form to delete the user -->
-                      <form method="POST" action="../admin/upload/delete-user.php" onsubmit="return confirm('Are you sure you want to delete this user?');" style="display:inline;">
+                      <form method="POST" action="../admin/upload/delete-students.php" onsubmit="return confirmDelete(this);" style="display:inline;">
                         <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($student['user_id']); ?>">
                         <button type="submit" class="btn btn-sm btn-danger ri-delete-bin-6-line"></button>
                       </form>
@@ -96,27 +86,67 @@ $database->close();
           </table>
         </div>
       </div>
-    </div><!-- End Students Enrolled -->
+    </div>
   </section>
-</main><!-- End #main -->
+</main>
 
 <!-- Vendor JS Files -->
 <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
 <!-- Template Main JS File -->
 <script src="../assets/js/main.js"></script>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
-  document.getElementById('role').addEventListener('change', function() {
-    var role = this.value;
-    if (role === 'student') {
-      document.getElementById('usernameDiv').style.display = 'none';
-      document.getElementById('schoolidDiv').style.display = 'block';
-    } else {
-      document.getElementById('usernameDiv').style.display = 'block';
-      document.getElementById('schoolidDiv').style.display = 'none';
-    }
+  function confirmDelete(form) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        form.submit();
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'Student still enrolled in class :)',
+          'error'
+        )
+      }
+    });
+    return false; // Prevent the form from submitting immediately
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    <?php if (isset($_SESSION['grade_created']) && $_SESSION['grade_created']): ?>
+      Swal.fire({
+        title: 'Success!',
+        text: 'The grade has been successfully created.',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
+      <?php unset($_SESSION['grade_created']); ?>
+    <?php endif; ?>
+
+    <?php if (isset($_SESSION['grade_error'])): ?>
+      Swal.fire({
+        title: 'Error!',
+        text: '<?php echo $_SESSION['grade_error']; ?>',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
+      <?php unset($_SESSION['grade_error']); ?>
+    <?php endif; ?>
   });
 </script>
+</body>
 
-<?php include_once "../templates/footer.php"; ?>
+</html>

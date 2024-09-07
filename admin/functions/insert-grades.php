@@ -18,7 +18,7 @@ if (isset($_POST['register'])) {
     if ($user_id && $id && $year && $semester && $term && $grade) {
         // Prepare and execute the insert query
         try {
-            $sql = "INSERT INTO tbl_grades (user_id,year,semester, term, grade, id) VALUES (:user_id,:year,:semester, :term, :grade, :id )";
+            $sql = "INSERT INTO tbl_grades (user_id, year, semester, term, grade, id) VALUES (:user_id, :year, :semester, :term, :grade, :id)";
             $stmt = $db->prepare($sql);
 
             // Bind the parameters
@@ -31,16 +31,23 @@ if (isset($_POST['register'])) {
 
             // Execute the query
             if ($stmt->execute()) {
-                header("Location:../studentRecords.php");
+                $_SESSION['grade_created'] = true;
+                header("Location: ../studentRecords.php"); // Redirect to display SweetAlert
                 exit();
             } else {
-                echo "<script>alert('Failed to add grade');</script>";
+                $_SESSION['grade_error'] = 'Failed to add grade';
+                header("Location: ../studentRecords.php"); // Redirect to display SweetAlert
+                exit();
             }
         } catch (PDOException $e) {
-            echo "There was an error: " . $e->getMessage();
+            $_SESSION['grade_error'] = 'There was an error: ' . $e->getMessage();
+            header("Location: ../studentRecords.php"); // Redirect to display SweetAlert
+            exit();
         }
     } else {
-        echo "<script>alert('Please fill in all required fields.');</script>";
+        $_SESSION['grade_error'] = 'Please fill in all required fields.';
+        header("Location: ../studentRecords.php"); // Redirect to display SweetAlert
+        exit();
     }
 
     $database->close();
