@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 03, 2024 at 06:56 PM
+-- Generation Time: Sep 07, 2024 at 09:21 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -94,62 +94,36 @@ INSERT INTO `tbl_days` (`day_id`, `day_name`) VALUES
 
 CREATE TABLE `tbl_events` (
   `id` int(11) NOT NULL,
-  `title` varchar(50) NOT NULL,
-  `date` date NOT NULL,
-  `description` varchar(10000) NOT NULL
+  `title` varchar(100) NOT NULL,
+  `description` varchar(10000) NOT NULL,
+  `start_date` date DEFAULT NULL,
+  `end_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_events`
 --
 
-INSERT INTO `tbl_events` (`id`, `title`, `date`, `description`) VALUES
-(27, 'Start of Classes', '2024-07-29', 'Beginning of the first semester classes.'),
-(28, 'Ninoy Aquino Day', '2024-08-21', 'Commemoration of Ninoy Aquino\'s death.'),
-(29, 'National Heroes Day', '2024-08-26', 'Celebration of National Heroes Day.'),
-(30, 'Prelim Examination', '2024-08-29', 'Preliminary examinations for the first semester.'),
-(31, 'Prelim Examination', '2024-08-30', 'Preliminary examinations for the first semester.'),
-(32, 'Prelim Examination', '2024-08-31', 'Preliminary examinations for the first semester.'),
-(33, 'Osmeña Day', '2024-09-09', 'Celebration of Osmeña Day.'),
-(34, 'SPG/SSG Election', '2024-09-10', 'Student elections for SPG/SSG.'),
-(35, 'SPG/SSG Election', '2024-09-11', 'Student elections for SPG/SSG.'),
-(36, 'SPG/SSG Election', '2024-09-12', 'Student elections for SPG/SSG.'),
-(37, 'SPG/SSG Election', '2024-09-13', 'Student elections for SPG/SSG.'),
-(38, 'SPG/SSG Election', '2024-09-14', 'Student elections for SPG/SSG.'),
-(39, 'Midterm Examination (1st Quarter Examination)', '2024-10-02', 'Midterm examinations for the first quarter.'),
-(40, 'Midterm Examination (1st Quarter Examination)', '2024-10-03', 'Midterm examinations for the first quarter.'),
-(41, 'Midterm Examination (1st Quarter Examination)', '2024-10-04', 'Midterm examinations for the first quarter.'),
-(42, 'Intramurals', '2024-10-28', 'School-wide intramural sports competition.'),
-(43, 'Intramurals', '2024-10-29', 'School-wide intramural sports competition.'),
-(44, 'Intramurals', '2024-10-30', 'School-wide intramural sports competition.'),
-(45, 'All Saints Day', '2024-11-01', 'Observance of All Saints Day.'),
-(46, 'All Souls Day', '2024-11-02', 'Observance of All Souls Day.'),
-(47, 'Pre-Final Examination', '2024-11-07', 'Pre-final examinations for the first semester.'),
-(48, 'Pre-Final Examination', '2024-11-08', 'Pre-final examinations for the first semester.'),
-(49, 'Pre-Final Examination', '2024-11-09', 'Pre-final examinations for the first semester.'),
-(50, 'Bonifacio Day', '2024-11-30', 'Commemoration of Andres Bonifacio\'s birthday.'),
-(51, 'Feast of the Immaculate Conception', '2024-12-08', 'Religious observance of the Feast of the Immaculate Conception.'),
-(52, 'Final Examination (2nd Quarter Examination)', '2024-12-11', 'Final examinations for the second quarter.'),
-(53, 'Final Examination (2nd Quarter Examination)', '2024-12-12', 'Final examinations for the second quarter.'),
-(54, 'Final Examination (2nd Quarter Examination)', '2024-12-13', 'Final examinations for the second quarter.'),
-(55, 'Acquaintance Party / Christmas Party / End of the ', '2024-12-14', 'Acquaintance and Christmas party marking the end of the first semester.'),
-(56, 'Christmas Break', '2024-12-16', 'Start of the Christmas break.'),
-(57, 'Christmas Break', '2024-12-17', 'Start of the Christmas break.'),
-(58, 'Christmas Break', '2024-12-18', 'Start of the Christmas break.'),
-(59, 'Christmas Break', '2024-12-19', 'Start of the Christmas break.'),
-(60, 'Christmas Break', '2024-12-20', 'Start of the Christmas break.'),
-(61, 'Christmas Break', '2024-12-21', 'Start of the Christmas break.'),
-(62, 'Christmas Break', '2024-12-22', 'Start of the Christmas break.'),
-(63, 'Christmas Break', '2024-12-23', 'Start of the Christmas break.'),
-(64, 'Christmas Break', '2024-12-24', 'Start of the Christmas break.'),
-(65, 'Christmas Break', '2024-12-25', 'Start of the Christmas break.'),
-(66, 'Christmas Break', '2024-12-26', 'Start of the Christmas break.'),
-(67, 'Christmas Break', '2024-12-27', 'Start of the Christmas break.'),
-(68, 'Christmas Break', '2024-12-28', 'Start of the Christmas break.'),
-(69, 'Christmas Break', '2024-12-29', 'Start of the Christmas break.'),
-(70, 'Christmas Break', '2024-12-30', 'Start of the Christmas break.'),
-(71, 'Christmas Break', '2024-12-31', 'Start of the Christmas break.'),
-(74, 'Nutrition Month and Buwan ng Wika Celebration', '2024-08-16', 'Nutrition Month and Buwan ng Wika Celebration');
+INSERT INTO `tbl_events` (`id`, `title`, `description`, `start_date`, `end_date`) VALUES
+(1, 'Acquaintance Party / Christmas Party / End of the Academic Year ', 'Acquaintance and Christmas party marking the end of the first semester.', '2024-12-14', '2024-12-14'),
+(2, 'All Saints Day', 'Observance of All Saints Day.', '2024-11-01', '2024-11-01'),
+(3, 'All Souls Day', 'Observance of All Souls Day.', '2024-11-02', '2024-11-02'),
+(4, 'Bonifacio Day', 'Commemoration of Andres Bonifacio\'s birthday.', '2024-11-30', '2024-11-30'),
+(5, 'Christmas Break', 'Start of the Christmas break.', '2024-12-16', '2024-12-31'),
+(6, 'Feast of the Immaculate Conception', 'Religious observance of the Feast of the Immaculate Conception.', '2024-12-08', '2024-12-08'),
+(7, 'Final Examination (2nd Quarter Examination)', 'Final examinations for the second quarter.', '2024-12-11', '2024-12-13'),
+(8, 'Intramurals', 'School-wide intramural sports competition.', '2024-10-28', '2024-10-30'),
+(9, 'Midterm Examination (1st Quarter Examination)', 'Midterm examinations for the first quarter.', '2024-10-02', '2024-10-04'),
+(10, 'National Heroes Day', 'Celebration of National Heroes Day.', '2024-08-26', '2024-08-26'),
+(11, 'Ninoy Aquino Day', 'Commemoration of Ninoy Aquino\'s death.', '2024-08-21', '2024-08-21'),
+(12, 'Nutrition Month and Buwan ng Wika Celebration', 'Nutrition Month and Buwan ng Wika Celebration', '2024-08-16', '2024-08-16'),
+(13, 'Osmeña Day', 'Celebration of Osmeña Day.', '2024-09-09', '2024-09-09'),
+(14, 'Pre-Final Examination', 'Pre-final examinations for the first semester.', '2024-11-07', '2024-11-09'),
+(15, 'Prelim Examination', 'Preliminary examinations for the first semester.', '2024-08-29', '2024-08-31'),
+(16, 'SPG/SSG Election', 'Student elections for SPG/SSG.', '2024-09-10', '2024-09-14'),
+(17, 'Start of Classes', 'Beginning of the first semester classes.', '2024-07-29', '2024-07-29'),
+(35, 'SAMPLE EVENT', 'THIS IS 4TH EVENT SAMPLE', '2024-09-28', '2024-09-28'),
+(36, 'SAMPLE EVENT 2', 'THIS IS SAMPLE EVENT 2.', '2024-09-22', '2024-09-23');
 
 -- --------------------------------------------------------
 
@@ -166,6 +140,25 @@ CREATE TABLE `tbl_grades` (
   `term` varchar(20) NOT NULL,
   `grade` decimal(5,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_grades`
+--
+
+INSERT INTO `tbl_grades` (`grade_id`, `user_id`, `id`, `semester`, `year`, `term`, `grade`) VALUES
+(8, 30, 8, 2, 2, 'Prelim', 1.40),
+(9, 28, 20, 2, 1, 'Prelim', 1.50),
+(10, 28, 24, 2, 1, 'Final', 1.80),
+(11, 28, 20, 2, 1, 'Final', 1.20),
+(12, 47, 22, 1, 2, 'Final', 1.60),
+(13, 44, 20, 1, 1, 'Final', 1.30),
+(14, 44, 17, 1, 1, 'Final', 1.50),
+(15, 28, 18, 1, 1, 'Final', 1.60),
+(16, 47, 15, 1, 4, 'Pre-final', 1.20),
+(17, 44, 21, 1, 2, 'Final', 1.80),
+(18, 44, 12, 1, 1, 'Final', 1.50),
+(19, 30, 33, 1, 3, 'Final', 1.80),
+(20, 28, 19, 1, 4, 'Final', 1.80);
 
 -- --------------------------------------------------------
 
@@ -192,7 +185,8 @@ INSERT INTO `tbl_payments` (`payment_id`, `user_id`, `payment_status`, `semester
 (65, 37, 'Paid', '1st', 'Prelim'),
 (67, 28, 'Pending', '1st', 'Midterm'),
 (71, 44, 'Pending', '1st', 'Midterm'),
-(72, 44, 'Pending', '2nd', 'Midterm');
+(72, 44, 'Pending', '2nd', 'Midterm'),
+(73, 37, 'Pending', '1st', 'Midterm');
 
 -- --------------------------------------------------------
 
@@ -241,8 +235,10 @@ CREATE TABLE `tbl_schedule` (
 --
 
 INSERT INTO `tbl_schedule` (`schedule_id`, `instructor_id`, `course_id`, `subject_id`, `room_id`, `time_id`, `day_id`) VALUES
-(120, 55, 24, 63, 5, 3, 6),
-(121, 52, 24, 235, 7, 4, 6);
+(120, 55, 24, 63, 8, 3, 1),
+(121, 52, 24, 235, 7, 4, 6),
+(122, 52, 12, 22, 5, 3, 1),
+(123, 52, 16, 111, 5, 9, 3);
 
 -- --------------------------------------------------------
 
@@ -335,7 +331,9 @@ INSERT INTO `tbl_students` (`user_id`, `user_name`, `lname`, `fname`, `middleIni
 (28, 'MIIT-2021-137', 'Dihayco', 'Sheinalie', '', '', 'BSIT', 4, '', '', '', '', 'dihayco020903@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$ebZhC4VD7Im8ILupGWF0QOLLo0u6Oq38hF3Hz5tZXA0', 1, 'Enrolled', NULL),
 (30, 'MIIT-2021-160', 'Tahanlangit', 'Louie', '', '', 'BSIT', 4, '', '', '', '', 'tahanlangit123@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$XZl6V0o5dq35hH8CQc7iNOGQP7vWJV28VUQJ1ChZitP', 1, 'Enrolled', NULL),
 (37, 'MIIT-2021-124', 'Algarme', 'Zean Mariuss', '', '', 'BSIT', 4, '', '', '', '', 'zuild@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$qCUSgVQgkYZtcaYGDX0q7efcr9t4zHzgBv.IF77N/MW', 1, 'Enrolled', NULL),
-(44, 'MIIT-2021-124', 'Aguipo', 'Ashielamae', '', '', 'BSIT', 4, '', '', '', '', 'aguipo@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$deswu9vcgWNISskCMQ26f.h4Qw1Mpxcdw9ZY.jUbzJ1', 1, 'Enrolled', NULL);
+(44, 'MIIT-2021-124', 'Aguipo', 'Ashielamae', '', '', 'BSIT', 4, '', '', '', '', 'aguipo@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$deswu9vcgWNISskCMQ26f.h4Qw1Mpxcdw9ZY.jUbzJ1', 1, 'Enrolled', NULL),
+(47, 'MIIT-2021-1245', 'Ashielamae', 'Ashielamae', '', '', 'BSIT', 4, '', '', '', '', 'Ashielamae@GMAIL.COM', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$fCPseJyKfRmpZHM.382ZauWABrY9p.xe15ktV51vtIe', 1, 'Enrolled', NULL),
+(48, 'MIIT-2021-000', 'Dihayco', 'Althea', '', '', '', 0, '', '', '', '', 'dihayco020903@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$iL2J.QNfhbTykOcN./8ZB.pTjF0J3kIMKfKjuOuFztU', 0, '', NULL);
 
 -- --------------------------------------------------------
 
@@ -720,8 +718,8 @@ CREATE TABLE `tbl_users` (
 INSERT INTO `tbl_users` (`user_id`, `user_fname`, `user_lname`, `user_email`, `user_name`, `user_pass`, `user_role`, `user_image`, `date_of_birth`, `gender`, `hire_date`, `department`, `phone_number`, `address`) VALUES
 (37, 'Jessa mae', 'Carzano', 'jessamae@gmail.com', 'Carzano@123', '$2y$10$EvkWpYHY.6O4XjTMI1yXVu4rpw38pW2PUuHpn0V16e2O23oa.BBSq', 'admin', '../admin/upload/upload-files/maam_jessa.png', NULL, NULL, NULL, NULL, NULL, NULL),
 (52, 'Romulo', 'Estrera', 'estrera@gmail.com', 'Estrera', '$2y$10$.W8L3Xy6ln2DmwBUt0sWFez1UfYj0byLvoCTQuEvXVSdSxFJv.Aqy', 'teacher', '', '1980-02-28', 'Male', '2018-02-09', 'IT', '09999999999', 'Car-Car City, Cebu'),
-(55, 'Michael John ', 'Bustamante', 'ser.mike@gmail.com', 'Mike', '$2y$10$/Z0UlCAijDzg5/Hu0BgKm.xDaMhLxdY/LDWA2rAlzaN/a6UlTsXxi', 'teacher', '', NULL, NULL, NULL, NULL, NULL, NULL),
-(62, 'Jason', 'Lipreso', 'jLipreso@gmail.com', 'jLipreso', '$2y$10$PhJWuONt8ruLngzav7v1g.OGuAoxUJUOEw9xwAMcnYiPRfjv8QLb.', 'teacher', '', NULL, NULL, NULL, NULL, NULL, NULL);
+(55, 'Michael John ', 'Bustamante', 'ser.mike@gmail.com', 'Mike', '$2y$10$/Z0UlCAijDzg5/Hu0BgKm.xDaMhLxdY/LDWA2rAlzaN/a6UlTsXxi', 'teacher', '', '1989-01-01', 'Male', '2020-01-02', 'IT', '09999999999', 'Tungkop, Minglanilla, Cebu'),
+(62, 'Jason', 'Lipreso', 'jLipreso@gmail.com', 'jLipreso', '$2y$10$PhJWuONt8ruLngzav7v1g.OGuAoxUJUOEw9xwAMcnYiPRfjv8QLb.', 'teacher', '', '1998-01-20', 'Male', '2024-03-28', 'IT', '09999999999', 'City of Naga, Cebu');
 
 --
 -- Indexes for dumped tables
@@ -829,19 +827,19 @@ ALTER TABLE `tbl_days`
 -- AUTO_INCREMENT for table `tbl_events`
 --
 ALTER TABLE `tbl_events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `tbl_grades`
 --
 ALTER TABLE `tbl_grades`
-  MODIFY `grade_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `grade_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `tbl_payments`
 --
 ALTER TABLE `tbl_payments`
-  MODIFY `payment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `payment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `tbl_rooms`
@@ -853,7 +851,7 @@ ALTER TABLE `tbl_rooms`
 -- AUTO_INCREMENT for table `tbl_schedule`
 --
 ALTER TABLE `tbl_schedule`
-  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
+  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
 
 --
 -- AUTO_INCREMENT for table `tbl_sched_time`
@@ -865,7 +863,7 @@ ALTER TABLE `tbl_sched_time`
 -- AUTO_INCREMENT for table `tbl_students`
 --
 ALTER TABLE `tbl_students`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `tbl_subjects`
