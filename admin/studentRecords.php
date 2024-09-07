@@ -26,6 +26,24 @@ try {
 $database->close();
 ?>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    <?php if (isset($_SESSION['grade_created']) && $_SESSION['grade_created'] === true) : ?>
+      Swal.fire({
+        icon: 'success',
+        title: 'Event Created',
+        text: 'The event has been successfully created!',
+        confirmButtonText: 'OK'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          <?php unset($_SESSION['grade_created']); ?> // Clear session variable
+        }
+      });
+    <?php endif; ?>
+  });
+</script>
+
 
 <main id="main" class="main">
   <div class="pagetitle">

@@ -2,6 +2,8 @@
 include("../includes/connect.php");
 include("../includes/connection.php");
 
+session_start();
+
 if (isset($_POST['register'])) {
     $database = new Connection();
     $db = $database->open();
