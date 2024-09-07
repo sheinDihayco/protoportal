@@ -27,7 +27,7 @@ $days = fetchOptions('tbl_days', 'day_id', 'day_name');
 // Function to fetch schedule data
 function fetchSchedules($conn)
 {
-    $query = "SELECT ts.*, u.user_fname, u.user_lname, c.course_description, s.description AS subject_description, r.room_name, d.day_name, t.start_time
+    $query = "SELECT ts.*, u.user_fname, u.user_lname, c.course_description, s.description AS subject_description, r.room_name, d.day_name, t.start_time, c.course_year
               FROM tbl_schedule ts
               JOIN tbl_users u ON ts.instructor_id = u.user_id 
               JOIN tbl_course c ON ts.course_id = c.course_id
@@ -104,11 +104,12 @@ $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday
                                                                 <div class="schedule-container">
                                                                     <?php
                                                                     echo htmlspecialchars($schedule['subject_description']) . "<br>" .
-                                                                        htmlspecialchars($schedule['course_description']) . "<br>" .
+                                                                        htmlspecialchars($schedule['course_description'])  .  "( " . htmlspecialchars($schedule['course_year']) . " )" . "<br>" .
                                                                         htmlspecialchars($schedule['user_lname']) . ", " .
                                                                         htmlspecialchars($schedule['user_fname']) . "<br>" .
                                                                         htmlspecialchars($schedule['room_name']);
                                                                     ?>
+
                                                                     <div class="action-buttons">
                                                                         <button class="btn btn-sm btn-warning edit-btn ri-edit-2-fill" data-id="<?php echo $schedule['schedule_id']; ?>"></button>
                                                                         <button class="btn btn-sm btn-danger delete-btn ri-delete-bin-6-line" data-id="<?php echo $schedule['schedule_id']; ?>"></button>
