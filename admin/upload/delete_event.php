@@ -3,23 +3,31 @@ session_start();
 include_once "../includes/connect.php";
 include_once "../includes/connection.php";
 
-if (isset($_GET['id'])) {
-    $eventId = $_GET['id'];
+// Check if form was submitted using POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['event_id'])) {
+        $eventId = $_POST['event_id'];
 
-    $connection = new Connection();
-    $pdo = $connection->open();
+        $connection = new Connection();
+        $pdo = $connection->open();
 
-    $sql = "DELETE FROM tbl_events WHERE id = :id";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(['id' => $eventId]);
+        // Prepare and execute delete statement
+        $sql = "DELETE FROM tbl_events WHERE id = :id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['id' => $eventId]);
 
-    $connection->close();
+        $connection->close();
 
-    $_SESSION['event_deleted'] = true;
-    header("Location: ../event2.php");
-    exit();
+        // Redirect with a success parameter
+        header("Location: ../event2.php?deleted=true");
+        exit();
+    } else {
+        // Redirect with failure parameter
+        header("Location: ../event2.php?deleted=false");
+        exit();
+    }
 } else {
-    $_SESSION['event_not_deleted'] = true;
-    header("Location: ../event2.php");
+    // Redirect with failure parameter
+    header("Location: ../event2.php?deleted=false");
     exit();
 }

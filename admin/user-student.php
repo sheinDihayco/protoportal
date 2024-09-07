@@ -215,13 +215,9 @@ if (isset($_SESSION['initial_update_error'])) {
                                         <td><?php echo $row["lname"] ?>, <?php echo $row["fname"] ?></td>
                                         <td><?php echo $row["status"] ?></td>
                                         <td>
-                                            <?php if (empty($row['user_id'])) { ?>
-                                                <!-- Add Button -->
-                                                <button type="button" class="btn btn-sm btn-primary ri-add-box-fill" data-bs-toggle="modal" data-bs-target="#insertInitial<?php echo htmlspecialchars($row['user_id']); ?>"></button>
-                                            <?php } else { ?>
-                                                <!-- Edit Button -->
-                                                <button type="button" class="btn btn-sm btn-warning ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editStudent<?php echo htmlspecialchars($row['user_id']); ?>"></button>
-                                            <?php } ?>
+
+                                            <!-- Edit Button -->
+                                            <button type="button" class="btn btn-sm btn-warning ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editStudent<?php echo htmlspecialchars($row['user_id']); ?>"></button>
 
                                             <form action="student_profile.php" method="post" style="display:inline;">
                                                 <input type="hidden" name="stud_id" value="<?php echo htmlspecialchars($row['user_id']); ?>">
