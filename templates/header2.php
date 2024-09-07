@@ -368,7 +368,7 @@ $database->close();
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="../admin/schedule-teacher.php">
-          <i class="ri ri-group-line"></i>
+          <i class="ri-time-line"></i>
           <span>Schedule</span>
         </a>
       </li>
@@ -382,7 +382,7 @@ $database->close();
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="ri ri-group-line"></i><span>Academics</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-journal-text"></i><span>Academics</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
@@ -403,15 +403,8 @@ $database->close();
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="../admin/event-teacher.php">
-          <i class="ri ri-group-line"></i>
+          <i class="ri-calendar-check-fill"></i>
           <span>Events</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
-          <i class="ri-calendar-2-fill"></i>
-          <span>Announcements</span>
         </a>
       </li>
 
@@ -472,12 +465,12 @@ $database->close();
 
     </ul>
 
-    <div style="margin-top: 13%; position:fixed">
+    <!-- <div style="margin-top: 13%; position:fixed">
       <label class="switch">
         <input type="checkbox" id="darkModeToggle">
         <span class="slider round"></span>
       </label>
-    </div>
+    </div>-->
 
   </aside><!-- End Sidebar-->
 

@@ -324,12 +324,12 @@ $database->close();
 
     </ul>
 
-    <div style="margin-top: 35%; position:sticky">
+    <!--<div style="margin-top: 35%; position:sticky">
       <label class="switch">
         <input type="checkbox" id="darkModeToggle">
         <span class="slider round"></span>
       </label>
-    </div>
+    </div>-->
 
 
   </aside><!-- End Sidebar -->
