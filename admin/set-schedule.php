@@ -139,135 +139,203 @@ $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday
         </div>
 
         <!-- Modal Section -->
-        <div class="modal fade" id="scheduleModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog modal-lg">
+        <div class="modal fade" id="scheduleModal" tabindex="-1" aria-labelledby="scheduleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Create New Schedule</h5>
+                        <h5 class="modal-title" id="scheduleModalLabel">Create New Schedule</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body" style="padding: 25px;">
-                        <form id="scheduleForm" action="./includes/submit-schedule.php" method="POST">
-                            <div class="form-group">
-                                <label for="instructor">Instructor</label>
-                                <select id="instructor" name="instructor" class="form-control" required>
-                                    <option value="" disabled selected>Select an Instructor</option>
-                                    <?php foreach ($instructors as $instructor): ?>
-                                        <option value="<?= htmlspecialchars($instructor['user_id']) ?>">
-                                            <?= htmlspecialchars($instructor['name']) ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
+                    <div class="modal-body">
+                        <div class="card-body p-4">
+                            <form id="scheduleForm" action="./includes/submit-schedule.php" method="POST">
+                                <!-- Instructor Selection -->
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="instructor" class="form-label">Instructor</label>
+                                        <select id="instructor" name="instructor" class="form-select" required>
+                                            <option value="" disabled selected>Select an Instructor</option>
+                                            <?php foreach ($instructors as $instructor): ?>
+                                                <option value="<?= htmlspecialchars($instructor['user_id']) ?>">
+                                                    <?= htmlspecialchars($instructor['name']) ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <div class="invalid-feedback">Please select an instructor.</div>
+                                    </div>
+                                    <!-- Course Selection -->
+                                    <div class="col-md-6">
+                                        <label for="course" class="form-label">Course</label>
+                                        <select id="course" name="course" class="form-select" required>
+                                            <option value="" disabled selected>Select a Course</option>
+                                            <?php foreach ($courses as $course): ?>
+                                                <option value="<?= htmlspecialchars($course['course_id']) ?>">
+                                                    <?= htmlspecialchars($course['description']) ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <div class="invalid-feedback">Please select a course.</div>
+                                    </div>
+                                </div>
 
-                            <div class="form-group">
-                                <label for="course">Course</label>
-                                <select id="course" name="course" class="form-control" required>
-                                    <option value="" disabled selected>Select a Course</option>
-                                    <?php foreach ($courses as $course): ?>
-                                        <option value="<?= htmlspecialchars($course['course_id']) ?>">
-                                            <?= htmlspecialchars($course['description']) ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
+                                <!-- Subject Selection -->
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="subject" class="form-label">Subject</label>
+                                        <select id="subject" name="subject" class="form-select" required>
+                                            <option value="" disabled selected>Select a Subject</option>
+                                            <?php foreach ($subjects as $subject): ?>
+                                                <option value="<?= htmlspecialchars($subject['id']) ?>">
+                                                    <?= htmlspecialchars($subject['description']) ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <div class="invalid-feedback">Please select a subject.</div>
+                                    </div>
 
-                            <div class="form-group">
-                                <label for="subject">Subject</label>
-                                <select id="subject" name="subject" class="form-control" required>
-                                    <option value="" disabled selected>Select a Subject</option>
-                                    <?php foreach ($subjects as $subject): ?>
-                                        <option value="<?= htmlspecialchars($subject['id']) ?>">
-                                            <?= htmlspecialchars($subject['description']) ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
+                                    <!-- Room Selection -->
+                                    <div class="col-md-6">
+                                        <label for="room" class="form-label">Room</label>
+                                        <select id="room" name="room" class="form-select" required>
+                                            <option value="" disabled selected>Select a Room</option>
+                                            <?php foreach ($rooms as $room): ?>
+                                                <option value="<?= htmlspecialchars($room['room_id']) ?>">
+                                                    <?= htmlspecialchars($room['room_name']) ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <div class="invalid-feedback">Please select a room.</div>
+                                    </div>
+                                </div>
 
-                            <div class="form-group">
-                                <label for="room">Room</label>
-                                <select id="room" name="room" class="form-control" required>
-                                    <option value="" disabled selected>Select a Room</option>
-                                    <?php foreach ($rooms as $room): ?>
-                                        <option value="<?= htmlspecialchars($room['room_id']) ?>">
-                                            <?= htmlspecialchars($room['room_name']) ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
+                                <!-- Time Slot & Day Selection -->
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="time" class="form-label">Time Slot</label>
+                                        <select id="time" name="time" class="form-select" required>
+                                            <option value="" disabled selected>Select a Time Slot</option>
+                                            <?php foreach ($times as $time): ?>
+                                                <option value="<?= htmlspecialchars($time['time_id']) ?>">
+                                                    <?= htmlspecialchars($time['slot']) ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <div class="invalid-feedback">Please select a time slot.</div>
+                                    </div>
 
-                            <div class="form-group">
-                                <label for="time">Time Slot</label>
-                                <select id="time" name="time" class="form-control" required>
-                                    <option value="" disabled selected>Select a Time Slot</option>
-                                    <?php foreach ($times as $time): ?>
-                                        <option value="<?= htmlspecialchars($time['time_id']) ?>">
-                                            <?= htmlspecialchars($time['slot']) ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
+                                    <div class="col-md-6">
+                                        <label for="day" class="form-label">Day</label>
+                                        <select id="day" name="day" class="form-select" required>
+                                            <option value="" disabled selected>Select a Day</option>
+                                            <?php foreach ($days as $day): ?>
+                                                <option value="<?= htmlspecialchars($day['day_id']) ?>">
+                                                    <?= htmlspecialchars($day['day_name']) ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <div class="invalid-feedback">Please select a day.</div>
+                                    </div>
+                                </div>
 
-                            <div class="form-group">
-                                <label for="day">Day</label>
-                                <select id="day" name="day" class="form-control" required>
-                                    <option value="" disabled selected>Select a Day</option>
-                                    <?php foreach ($days as $day): ?>
-                                        <option value="<?= htmlspecialchars($day['day_id']) ?>">
-                                            <?= htmlspecialchars($day['day_name']) ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary btn-sm btn-block" style="margin-top: 10px;">Submit</button>
-                        </form>
+                                <!-- Submit Button -->
+                                <div class="d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-primary" name="submit">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
+
         <!-- Edit Modal -->
         <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="editModalLabel">Edit Schedule</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="editScheduleForm">
-                            <input type="hidden" id="editScheduleId" name="schedule_id">
-                            <div class="form-group">
-                                <label for="editInstructor">Instructor</label>
-                                <select id="editInstructor" name="instructor" class="form-control" required></select>
-                            </div>
-                            <div class="form-group">
-                                <label for="editCourse">Course</label>
-                                <select id="editCourse" name="course" class="form-control" required></select>
-                            </div>
-                            <div class="form-group">
-                                <label for="editSubject">Subject</label>
-                                <select id="editSubject" name="subject" class="form-control" required></select>
-                            </div>
-                            <div class="form-group">
-                                <label for="editRoom">Room</label>
-                                <select id="editRoom" name="room" class="form-control" required></select>
-                            </div>
-                            <div class="form-group">
-                                <label for="editTime">Time Slot</label>
-                                <select id="editTime" name="time" class="form-control" required></select>
-                            </div>
-                            <div class="form-group">
-                                <label for="editDay">Day</label>
-                                <select id="editDay" name="day" class="form-control" required></select>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-sm btn-block" style="margin-top: 10px;">Update</button>
-                        </form>
+                        <div class="card-body p-4">
+                            <form id="editScheduleForm" method="POST" action="./includes/update-schedule.php">
+                                <input type="hidden" id="editScheduleId" name="schedule_id">
+
+                                <!-- Instructor Selection -->
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="editInstructor" class="form-label">Instructor</label>
+                                        <select id="editInstructor" name="instructor" class="form-select" required>
+                                            <option value="" disabled selected>Select an Instructor</option>
+                                            <!-- Instructor options populated dynamically -->
+                                        </select>
+                                        <div class="invalid-feedback">Please select an instructor.</div>
+                                    </div>
+                                    <!-- Course Selection -->
+                                    <div class="col-md-6">
+                                        <label for="editCourse" class="form-label">Course</label>
+                                        <select id="editCourse" name="course" class="form-select" required>
+                                            <option value="" disabled selected>Select a Course</option>
+                                            <!-- Course options populated dynamically -->
+                                        </select>
+                                        <div class="invalid-feedback">Please select a course.</div>
+                                    </div>
+                                </div>
+
+                                <!-- Subject Selection -->
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="editSubject" class="form-label">Subject</label>
+                                        <select id="editSubject" name="subject" class="form-select" required>
+                                            <option value="" disabled selected>Select a Subject</option>
+                                            <!-- Subject options populated dynamically -->
+                                        </select>
+                                        <div class="invalid-feedback">Please select a subject.</div>
+                                    </div>
+                                    <!-- Room Selection -->
+                                    <div class="col-md-6">
+                                        <label for="editRoom" class="form-label">Room</label>
+                                        <select id="editRoom" name="room" class="form-select" required>
+                                            <option value="" disabled selected>Select a Room</option>
+                                            <!-- Room options populated dynamically -->
+                                        </select>
+                                        <div class="invalid-feedback">Please select a room.</div>
+                                    </div>
+                                </div>
+
+                                <!-- Time Slot & Day Selection -->
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="editTime" class="form-label">Time Slot</label>
+                                        <select id="editTime" name="time" class="form-select" required>
+                                            <option value="" disabled selected>Select a Time Slot</option>
+                                            <!-- Time slot options populated dynamically -->
+                                        </select>
+                                        <div class="invalid-feedback">Please select a time slot.</div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="editDay" class="form-label">Day</label>
+                                        <select id="editDay" name="day" class="form-select" required>
+                                            <option value="" disabled selected>Select a Day</option>
+                                            <!-- Day options populated dynamically -->
+                                        </select>
+                                        <div class="invalid-feedback">Please select a day.</div>
+                                    </div>
+                                </div>
+
+                                <!-- Update Button -->
+                                <div class="d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-primary" name="update">Update</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
 
     </section>
 </main>
@@ -429,6 +497,7 @@ $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday
                         $('#editSubject').val(schedule.subject_id);
                         $('#editRoom').val(schedule.room_id);
                         $('#editTime').val(schedule.time_id);
+                        $('#editDay').val(schedule.day_id);
                         $('#editModal').modal('show');
                     }
                 },
