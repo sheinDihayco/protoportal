@@ -7,39 +7,62 @@ $connection = new Connection();
 $pdo = $connection->open(); // Use $pdo instead of $db for consistency
 $userid = $_SESSION["login"];
 
-$sql = "SELECT * FROM tbl_events ORDER BY date DESC";
+$connection = new Connection();
+$pdo = $connection->open();
+
+// Fetch events from the database ordered by title and start date
+$sql = "SELECT * FROM tbl_events ORDER BY title, start_date ASC";
 $stmt = $pdo->query($sql);
+
 $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$today = date('Y-m-d');
-$currentMonthStart = date('Y-m-01');
-$currentMonthEnd = date('Y-m-t');
-$todaysEvent = null;
-$filteredEvents = [];
-$filterTitle = '';
-$showTodayEvent = true;
-
-// Separate today's event and filter events within the current month
+// Process events to group by title and aggregate date ranges
+$eventGroups = [];
 foreach ($events as $event) {
-    if ($event['date'] === $today) {
-        $todaysEvent = $event;
-    }
-
-    if ($event['date'] >= $currentMonthStart && $event['date'] <= $currentMonthEnd) {
-        $filteredEvents[] = $event;
+    $title = $event['title'];
+    if (!isset($eventGroups[$title])) {
+        $eventGroups[$title] = [
+            'id' => $event['id'], // Capture ID
+            'start_date' => $event['start_date'],
+            'end_date' => $event['end_date'],
+            'description' => $event['description']
+        ];
+    } else {
+        // Update the end date if necessary
+        $eventGroups[$title]['end_date'] = max($eventGroups[$title]['end_date'], $event['end_date']);
     }
 }
 
-// Filter events based on form input
+// Get today's date
+$today = date('Y-m-d');
+$todaysEvent = null;
+
+// Find today's event by checking start and end date
+foreach ($eventGroups as $title => $event) {
+    if ($event['start_date'] <= $today && $event['end_date'] >= $today) {
+        $todaysEvent = $event;
+        break; // Stop once we find today's event
+    }
+}
+
+// Handle filtering logic
+$filteredEvents = [];
+$filterTitle = '';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $filterTitle = isset($_POST['title']) ? $_POST['title'] : '';
 
     if ($filterTitle) {
-        $filteredEvents = array_filter($filteredEvents, function ($event) use ($filterTitle) {
-            return stripos($event['title'], $filterTitle) !== false;
-        });
-        $showTodayEvent = false;
+        // Filter events by title
+        $filteredEvents = array_filter($eventGroups, function ($event, $title) use ($filterTitle) {
+            return stripos($title, $filterTitle) !== false;
+        }, ARRAY_FILTER_USE_BOTH);
+    } else {
+        // No filter, show all events
+        $filteredEvents = $eventGroups;
     }
+} else {
+    $filteredEvents = $eventGroups;
 }
 
 // Initialize variables for counting and fetching assigned students

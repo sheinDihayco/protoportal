@@ -11,6 +11,7 @@ $empcount = $statements->fetch(PDO::FETCH_ASSOC);
 $statements = $conn->prepare("SELECT COUNT(user_id) AS count_stud FROM tbl_students");
 $statements->execute();
 $studcount = $statements->fetch(PDO::FETCH_ASSOC);
+
 // Establish database connection
 $connection = new Connection();
 $pdo = $connection->open();
