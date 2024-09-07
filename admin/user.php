@@ -62,6 +62,7 @@ if (isset($_GET['update']) && $_GET['update'] == 'success') {
     </nav>
   </div><!-- End Page Title -->
 
+  <!-- Start Insert Employee-->
   <div class="modal fade" id="insertStudent" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
@@ -132,6 +133,7 @@ if (isset($_GET['update']) && $_GET['update'] == 'success') {
       </div>
     </div>
   </div>
+  <!-- End Insert Employee-->
 
   <section class="section dashboard">
     <div class="row">
@@ -192,87 +194,85 @@ if (isset($_GET['update']) && $_GET['update'] == 'success') {
                           <div class="modal-dialog modal-dialog-centered modal-lg">
                             <div class="modal-content border-0 shadow-lg">
                               <div class="modal-header bg-primary text-white">
-                                <h5 class="modal-title" id="editModalLabel<?php echo htmlspecialchars($row['user_id']); ?>">
-                                  <?php echo htmlspecialchars($row['user_lname']); ?>, <?php echo htmlspecialchars($row['user_fname']); ?>
+                                <h5 class="modal-title" id="editModalLabel">
+                                  Edit Employee Details
                                 </h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
 
                               <div class="modal-body">
-                                <form action="functions/update-employee.php" method="post" class="needs-validation" novalidate>
-                                  <!-- Hidden field to pass user_id -->
-                                  <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($row['user_id']); ?>">
+                                <div class="card-body p-4">
+                                  <form action="functions/update-employee.php" method="post" class="needs-validation" novalidate>
+                                    <!-- Hidden field to pass user_id -->
+                                    <input type="hidden" name="user_id" value="<?= htmlspecialchars($row['user_id']); ?>">
 
-                                  <div class="mb-4 row">
-                                    <label for="bdate<?php echo htmlspecialchars($row['user_id']); ?>" class="col-sm-3 col-form-label">Date of Birth</label>
-                                    <div class="col-sm-9">
-                                      <input type="date" class="form-control" id="bdate<?php echo htmlspecialchars($row['user_id']); ?>" name="bdate" value="<?php echo htmlspecialchars($row['date_of_birth']); ?>" required>
-                                      <div class="invalid-feedback">Please provide a valid date of birth.</div>
+                                    <!-- Date of Birth -->
+                                    <div class="row mb-3">
+                                      <div class="col-md-6">
+                                        <label for="bdate" class="form-label">Date of Birth</label>
+                                        <input type="date" class="form-control" id="bdate" name="bdate" value="<?= htmlspecialchars($row['date_of_birth']); ?>" required>
+                                        <div class="invalid-feedback">Please provide a valid date of birth.</div>
+                                      </div>
+                                      <!-- Gender -->
+                                      <div class="col-md-6">
+                                        <label for="gend" class="form-label">Gender</label>
+                                        <select class="form-select" id="gend" name="gend" required>
+                                          <option value="" disabled>Select Gender</option>
+                                          <option value="Male" <?= ($row['gender'] == 'Male') ? 'selected' : ''; ?>>Male</option>
+                                          <option value="Female" <?= ($row['gender'] == 'Female') ? 'selected' : ''; ?>>Female</option>
+                                        </select>
+                                        <div class="invalid-feedback">Please select a valid gender.</div>
+                                      </div>
                                     </div>
-                                  </div>
 
-                                  <div class="mb-4 row">
-                                    <label for="gend<?php echo htmlspecialchars($row['user_id']); ?>" class="col-sm-3 col-form-label">Gender</label>
-                                    <div class="col-sm-9">
-                                      <select class="form-select" id="gend<?php echo htmlspecialchars($row['user_id']); ?>" name="gend" required>
-                                        <option disabled value="">Select Gender</option>
-                                        <option value="Male" <?php echo ($row['gender'] == 'Male') ? 'selected' : ''; ?>>Male</option>
-                                        <option value="Female" <?php echo ($row['gender'] == 'Female') ? 'selected' : ''; ?>>Female</option>
-                                      </select>
-                                      <div class="invalid-feedback">Please select a valid gender.</div>
+                                    <!-- Date Hired & Job Title -->
+                                    <div class="row mb-3">
+                                      <div class="col-md-6">
+                                        <label for="dhire" class="form-label">Date Hired</label>
+                                        <input type="date" class="form-control" id="dhire" name="dhire" value="<?= htmlspecialchars($row['hire_date']); ?>" required>
+                                        <div class="invalid-feedback">Please provide a valid hire date.</div>
+                                      </div>
+
+                                      <div class="col-md-6">
+                                        <label for="user_role" class="form-label">Job Title</label>
+                                        <input type="text" class="form-control" id="user_role" name="user_role" value="<?= htmlspecialchars($row['user_role']); ?>" required>
+                                        <div class="invalid-feedback">Please provide a valid job title.</div>
+                                      </div>
                                     </div>
-                                  </div>
 
-                                  <div class="mb-4 row">
-                                    <label for="dhire<?php echo htmlspecialchars($row['user_id']); ?>" class="col-sm-3 col-form-label">Date Hired</label>
-                                    <div class="col-sm-9">
-                                      <input type="date" class="form-control" id="dhire<?php echo htmlspecialchars($row['user_id']); ?>" name="dhire" value="<?php echo htmlspecialchars($row['hire_date']); ?>" required>
-                                      <div class="invalid-feedback">Please provide a valid date hired.</div>
+                                    <!-- Department & Contact Number -->
+                                    <div class="row mb-3">
+                                      <div class="col-md-6">
+                                        <label for="dept" class="form-label">Department</label>
+                                        <input type="text" class="form-control" id="dept" name="dept" value="<?= htmlspecialchars($row['department']); ?>" required>
+                                        <div class="invalid-feedback">Please provide a valid department.</div>
+                                      </div>
+
+                                      <div class="col-md-6">
+                                        <label for="cnum" class="form-label">Contact Number</label>
+                                        <input type="text" class="form-control" id="cnum" name="cnum" value="<?= htmlspecialchars($row['phone_number']); ?>" required>
+                                        <div class="invalid-feedback">Please provide a valid contact number.</div>
+                                      </div>
                                     </div>
-                                  </div>
 
-                                  <div class="mb-4 row">
-                                    <label for="user_role<?php echo htmlspecialchars($row['user_id']); ?>" class="col-sm-3 col-form-label">Job Title</label>
-                                    <div class="col-sm-9">
-                                      <input type="text" class="form-control" id="user_role<?php echo htmlspecialchars($row['user_id']); ?>" name="user_role" value="<?php echo htmlspecialchars($row['user_role']); ?>" required>
-                                      <div class="invalid-feedback">Please provide a valid job title.</div>
-                                    </div>
-                                  </div>
-
-                                  <div class="mb-4 row">
-                                    <label for="dept<?php echo htmlspecialchars($row['user_id']); ?>" class="col-sm-3 col-form-label">Department</label>
-                                    <div class="col-sm-9">
-                                      <input type="text" class="form-control" id="dept<?php echo htmlspecialchars($row['user_id']); ?>" name="dept" value="<?php echo htmlspecialchars($row['department']); ?>" required>
-                                      <div class="invalid-feedback">Please provide a valid department.</div>
-                                    </div>
-                                  </div>
-
-                                  <div class="mb-4 row">
-                                    <label for="cnum<?php echo htmlspecialchars($row['user_id']); ?>" class="col-sm-3 col-form-label">Contact Number</label>
-                                    <div class="col-sm-9">
-                                      <input type="text" class="form-control" id="cnum<?php echo htmlspecialchars($row['user_id']); ?>" name="cnum" value="<?php echo htmlspecialchars($row['phone_number']); ?>" required>
-                                      <div class="invalid-feedback">Please provide a valid contact number.</div>
-                                    </div>
-                                  </div>
-
-                                  <div class="mb-4 row">
-                                    <label for="add<?php echo htmlspecialchars($row['user_id']); ?>" class="col-sm-3 col-form-label">Address</label>
-                                    <div class="col-sm-9">
-                                      <input type="text" class="form-control" id="add<?php echo htmlspecialchars($row['user_id']); ?>" name="add" value="<?php echo htmlspecialchars($row['address']); ?>" required>
+                                    <!-- Address -->
+                                    <div class="mb-3">
+                                      <label for="add" class="form-label">Address</label>
+                                      <input type="text" class="form-control" id="add" name="add" value="<?= htmlspecialchars($row['address']); ?>" required>
                                       <div class="invalid-feedback">Please provide a valid address.</div>
                                     </div>
-                                  </div>
 
-                                  <div class="d-flex justify-content-end mt-3">
-                                    <button type="submit" class="btn btn-primary btn-sm me-2" name="submit">Save Changes</button>
-                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-                                  </div>
-                                </form>
+                                    <!-- Submit Button -->
+                                    <div class="d-flex justify-content-end mt-3">
+                                      <button type="submit" class="btn btn-primary btn-sm me-2" name="submit">Save Changes</button>
+                                      <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                  </form>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
-
 
 
                     <?php
