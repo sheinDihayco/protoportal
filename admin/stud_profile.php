@@ -16,7 +16,7 @@ include_once 'includes/connection.php';
 
 try {
   // Fetch student details
-  $statement = $conn->prepare("SELECT * FROM tbl_students WHERE studentID = :sid");
+  $statement = $conn->prepare("SELECT * FROM tbl_students WHERE user_id = :sid");
   $statement->bindParam(':sid', $studid, PDO::PARAM_STR);
   $statement->execute();
   $studs = $statement->fetch(PDO::FETCH_ASSOC);
@@ -35,7 +35,7 @@ try {
   $sql = "SELECT g.grade, g.term, s.code AS subject_code, s.description
         FROM tbl_grades g
         LEFT JOIN tbl_subjects s ON g.id = s.id
-        WHERE g.studentID = :sid
+        WHERE g.user_id = :sid
         ORDER BY s.code ASC";
 
   $stmt = $db->prepare($sql);
@@ -122,8 +122,8 @@ $database->close();
                       // Query to fetch students with their payment status for the selected studentID
                       $sql = 'SELECT s.*, p.*
                           FROM tbl_students s 
-                          LEFT JOIN tbl_payments p ON s.studentID = p.studentID
-                          WHERE s.studentID = ?';
+                          LEFT JOIN tbl_payments p ON s.user_id = p.user_id
+                          WHERE s.user_id = ?';
 
                       if ($stmt = $conn->prepare($sql)) {
                         $stmt->bind_param("s", $studid);
@@ -133,8 +133,7 @@ $database->close();
                         while ($row = $result->fetch_assoc()) {
                       ?>
                           <tr>
-                            <th scope="row"><a href=""><?php echo htmlspecialchars($row["studentID"]); ?></a></th>
-
+                            <th scope="row"><a href=""><?php echo htmlspecialchars($row["user_name"]); ?></a></th>
                             <td><?php echo htmlspecialchars($row["semester"]) ? htmlspecialchars($row["semester"]) : 'Choose semester'; ?></td>
 
                             <td><?php echo htmlspecialchars($row["payment_status"]) ? htmlspecialchars($row["payment_status"]) : 'Not Available'; ?></td>
@@ -728,6 +727,24 @@ $database->close();
   </section>
 </main><!-- End #main -->
 
+<!-- Add custom CSS to remove underlines -->
+<style>
+  a {
+    text-decoration: none !important;
+  }
+
+  .breadcrumb-item a {
+    text-decoration: none !important;
+  }
+
+  .breadcrumb-item.active {
+    text-decoration: none;
+  }
+
+  .navbar-brand {
+    text-decoration: none !important;
+  }
+</style>
 <?php
 include_once "../templates/footer.php";
 ?>

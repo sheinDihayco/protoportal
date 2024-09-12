@@ -39,17 +39,16 @@ foreach ($events as $event) {
   }
 }
 
-// Get today's date
+/// Get today's date
 $today = date('Y-m-d');
-$todaysEvent = null;
 
-// Find today's event by checking start and end date
-foreach ($eventGroups as $title => $event) {
-  if ($event['start_date'] <= $today && $event['end_date'] >= $today) {
-    $todaysEvent = $event;
-    break; // Stop once we find today's event
-  }
-}
+// Fetch events happening today from the database
+$sql = "SELECT * FROM tbl_events WHERE :today BETWEEN start_date AND end_date ORDER BY title ASC";
+$stmt = $pdo->prepare($sql);
+$stmt->execute(['today' => $today]);
+
+// Fetch the first event happening today (if any)
+$todaysEvent = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // Handle filtering logic
 $filteredEvents = [];
@@ -163,18 +162,18 @@ $connection->close();
                 </ul>
               </div>
               <div class="card-body">
-                <h5 class="card-title">Today's Event </h5>
+                <h5 class="card-title">Today's Event</h5>
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                     <i class="bi bi-calendar-day"></i>
                   </div>
                   <div class="ps-3">
                     <?php if ($todaysEvent) : ?>
-                      <h6 style="font-size:12px"><?php echo htmlspecialchars($todaysEvent['date']); ?></h6>
+                      <h6 style="font-size:12px"><?php echo htmlspecialchars($todaysEvent['start_date']); ?></h6>
                       <li class="list-group-item d-flex justify-content-between align-items-start">
                         <div style="flex-grow: 1;">
-                          <h6><?php echo htmlspecialchars($todaysEvent['title']); ?> </h6>
-                          <!-- <p><?php echo htmlspecialchars($todaysEvent['description']); ?></p>-->
+                          <h6 class="card-title"><?php echo htmlspecialchars($todaysEvent['title']); ?></h6>
+                          <!--<p>Description: <?php echo htmlspecialchars($todaysEvent['description']); ?></p>-->
                         </div>
                       </li>
                     <?php else : ?>

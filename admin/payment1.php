@@ -92,12 +92,12 @@ $lname = $user['user_lname'];
                                             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                                         ?>
                                                 <tr>
-                                                    <th scope="row"><a href="#"><?php echo htmlspecialchars($row["studentID"]); ?></a></th>
+                                                    <th scope="row"><a href="#"><?php echo htmlspecialchars($row["user_name"]); ?></a></th>
                                                     <td><?php echo htmlspecialchars($row["lname"]); ?>, <?php echo htmlspecialchars($row["fname"]); ?></td>
                                                     <td><?php echo htmlspecialchars($row["course"]); ?> - <?php echo htmlspecialchars($row["year"]); ?></td>
                                                     <td>
                                                         <form action="stud_profile.php" method="post">
-                                                            <input type="hidden" name="stud_id" value="<?php echo htmlspecialchars($row['studentID']); ?>">
+                                                            <input type="hidden" name="stud_id" value="<?php echo htmlspecialchars($row['user_id']); ?>">
                                                             <button type="submit" class="btn btn-sm btn-success" name="submit"><i class="ri-arrow-right-circle-fill"></i></button>
                                                         </form>
                                                     </td>

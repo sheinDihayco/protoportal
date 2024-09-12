@@ -13,9 +13,9 @@ $conn = $database->open();
 $userid = $_SESSION["login"];
 
 // Fetch user information from the database
-$statements = $conn->prepare("SELECT u.user_fname, u.user_lname, u.user_image, s.course
-    FROM tbl_users u
-    JOIN tbl_students s ON u.user_id = s.user_id
+$statements = $conn->prepare("SELECT u.fname, u.lname, u.user_image, u.course
+    FROM tbl_students u
+    LEFT JOIN tbl_users s ON u.user_id = s.user_id
     WHERE u.user_id = :userid
 ");
 $statements->bindParam(':userid', $userid, PDO::PARAM_INT);
@@ -23,10 +23,10 @@ $statements->execute();
 $user = $statements->fetch(PDO::FETCH_ASSOC);
 
 if ($user) {
-  $fname = $user['user_fname'];
-  $lname = $user['user_lname'];
+  $fname = $user['fname'];
+  $lname = $user['lname'];
   $image = $user['user_image'];
-  $course = $user['course'];
+  $course = isset($user['course']) ? $user['course'] : 'No course available';
 } else {
   // Handle the case where no user was found
   echo "User or student information not found.";
@@ -36,7 +36,6 @@ if ($user) {
 // Close the connection
 $database->close();
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">

@@ -1,76 +1,73 @@
 <?php
-
 include_once "connect.php";
-session_start(); // Start the session
+session_start(); // Start session
 
 if (isset($_POST["login"])) {
-    $identifier = trim($_POST["identifier"]);
-    $pass = trim($_POST["password"]);
-    $remember = isset($_POST["remember"]);
+    $identifier = trim($_POST["identifier"]); // User input (username or student ID)
+    $pass = trim($_POST["password"]); // User input (password)
+    $remember = isset($_POST["remember"]); // Remember me checkbox
 
-    try {
-        // Query to check if the identifier exists in tbl_students
-        $stmt = $conn->prepare("SELECT * FROM tbl_students WHERE user_name = :identifier");
-        $stmt->bindParam(':identifier', $identifier, PDO::PARAM_STR);
-        $stmt->execute();
+    // Check if the user exists in tbl_users (for admins and teachers)
+    $statement = $conn->prepare("SELECT * FROM tbl_users WHERE user_name = :identifier");
+    $statement->bindParam(':identifier', $identifier);
+    $statement->execute();
+    $user = $statement->fetch(PDO::FETCH_ASSOC);
 
-        // If no rows are returned from tbl_students, check tbl_users
-        if ($stmt->rowCount() === 0) {
-            $stmt = $conn->prepare("SELECT * FROM tbl_users WHERE user_name = :identifier");
-            $stmt->bindParam(':identifier', $identifier, PDO::PARAM_STR);
-            $stmt->execute();
-        }
+    // If not found in tbl_users, check in tbl_students (for students)
+    if (!$user) {
+        $statement = $conn->prepare("SELECT * FROM tbl_students WHERE user_name = :identifier");
+        $statement->bindParam(':identifier', $identifier);
+        $statement->execute();
+        $student = $statement->fetch(PDO::FETCH_ASSOC);
+    }
 
-        // Check if the query returned any rows
-        if ($stmt->rowCount() > 0) {
-            $account = $stmt->fetch(PDO::FETCH_ASSOC);
+    // Either user or student found
+    if ($user || $student) {
+        $account = $user ? $user : $student;
+        $password = $account["user_pass"];
+        $checkpass = password_verify($pass, $password); // Use password_verify for hashed passwords
 
-            if ($account) {
-                $password = $account["user_pass"];
-                $checkpass = password_verify($pass, $password);
-
-                if ($checkpass === false) {
-                    header("location:../login.php?error=wrongpass");
-                    exit;
-                } else {
-                    $_SESSION['login'] = $account["user_id"];
-                    $_SESSION['role'] = $account["user_role"];
-                    $_SESSION['login_success'] = true;
-
-                    if ($remember) {
-                        setcookie("rememberedIdentifier", $identifier, time() + (86400 * 30), "/");
-                        setcookie("rememberedPassword", $pass, time() + (86400 * 30), "/");
-                    } else {
-                        setcookie("rememberedIdentifier", "", time() - 3600, "/");
-                        setcookie("rememberedPassword", "", time() - 3600, "/");
-                    }
-
-                    // Redirect based on role
-                    switch ($account["user_role"]) {
-                        case "admin":
-                            header("location:../index.php");
-                            break;
-                        case "teacher":
-                            header("location:../index2.php");
-                            break;
-                        case "student":
-                            header("location:../index3.php");
-                            break;
-                        default:
-                            header("location:../login.php?error=unknownrole");
-                            break;
-                    }
-                    exit;
-                }
-            }
+        // Check if password matches
+        if ($checkpass === false) {
+            header("location:../login.php?error=wrongpass");
+            exit;
         } else {
-            header("location:../login.php?error=nouser");
+            // Set up the session variables
+            $_SESSION['login'] = $account["user_id"];
+            $_SESSION['role'] = $account["user_role"];
+            $_SESSION['login_success'] = true;
+            $_SESSION['user_id'] = $account["user_id"];
+
+            // Set cookies for "remember me" functionality if checked
+            if ($remember) {
+                setcookie("rememberedIdentifier", $identifier, time() + (86400 * 30), "/"); // 30-day cookie
+                setcookie("rememberedPassword", $pass, time() + (86400 * 30), "/"); // Storing the raw password is not recommended for security reasons, you may hash it
+            } else {
+                // Unset cookies if "remember me" is not selected
+                setcookie("rememberedIdentifier", "", time() - 3600, "/");
+                setcookie("rememberedPassword", "", time() - 3600, "/");
+            }
+
+            // Redirect based on user role
+            switch ($account["user_role"]) {
+                case "admin":
+                    header("location:../index.php");
+                    break;
+                case "teacher":
+                    header("location:../index2.php");
+                    break;
+                case "student":
+                    header("location:../index3.php");
+                    break;
+                default:
+                    header("location:../login.php?error=unknownrole");
+                    break;
+            }
             exit;
         }
-    } catch (PDOException $e) {
-        // Log the error for debugging (in a real application, consider logging this to a file)
-        error_log("Error during login: " . $e->getMessage());
-        header("location:../login.php?error=queryfailed");
+    } else {
+        // If no user or student was found
+        header("location:../login.php?error=nouser");
         exit;
     }
 }

@@ -6,44 +6,81 @@ include_once 'includes/connection.php';
 $connection = new Connection();
 $pdo = $connection->open();
 
-$sql = "SELECT * FROM tbl_events ORDER BY date DESC";
+// Fetch events from the database ordered by title and start date
+$sql = "SELECT * FROM tbl_events ORDER BY title, start_date ASC";
 $stmt = $pdo->query($sql);
+
 $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$today = date('Y-m-d');
-$currentMonthStart = date('Y-m-01');
-$currentMonthEnd = date('Y-m-t');
-$todaysEvent = null;
-$filteredEvents = [];
-$filterTitle = '';
-$showTodayEvent = true;
-
-// Separate today's event and filter events within the current month
+// Process events to group by title and aggregate date ranges
+$eventGroups = [];
 foreach ($events as $event) {
-    if ($event['date'] === $today) {
-        $todaysEvent = $event;
-    }
-
-    if ($event['date'] >= $currentMonthStart && $event['date'] <= $currentMonthEnd) {
-        $filteredEvents[] = $event;
+    $title = $event['title'];
+    if (!isset($eventGroups[$title])) {
+        $eventGroups[$title] = [
+            'id' => $event['id'], // Capture ID
+            'start_date' => $event['start_date'],
+            'end_date' => $event['end_date'],
+            'description' => $event['description']
+        ];
+    } else {
+        // Update the end date if necessary
+        $eventGroups[$title]['end_date'] = max($eventGroups[$title]['end_date'], $event['end_date']);
     }
 }
 
-// Filter events based on form input
+/// Get today's date
+$today = date('Y-m-d');
+
+// Fetch events happening today from the database
+$sql = "SELECT * FROM tbl_events WHERE :today BETWEEN start_date AND end_date ORDER BY title ASC";
+$stmt = $pdo->prepare($sql);
+$stmt->execute(['today' => $today]);
+
+// Fetch the first event happening today (if any)
+$todaysEvent = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// Handle filtering logic
+$filteredEvents = [];
+$filterTitle = '';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $filterTitle = isset($_POST['title']) ? $_POST['title'] : '';
 
     if ($filterTitle) {
-        $filteredEvents = array_filter($filteredEvents, function ($event) use ($filterTitle) {
-            return stripos($event['title'], $filterTitle) !== false;
-        });
-        $showTodayEvent = false;
+        // Filter events by title
+        $filteredEvents = array_filter($eventGroups, function ($event, $title) use ($filterTitle) {
+            return stripos($title, $filterTitle) !== false;
+        }, ARRAY_FILTER_USE_BOTH);
+    } else {
+        // No filter, show all events
+        $filteredEvents = $eventGroups;
     }
+} else {
+    $filteredEvents = $eventGroups;
 }
 
-$statements = $conn->prepare("SELECT COUNT(studentID) AS count_stud FROM tbl_students");
+$statements = $conn->prepare("SELECT COUNT(user_id) AS count_stud FROM tbl_students");
 $statements->execute();
 $studcount = $statements->fetch(PDO::FETCH_ASSOC);
+
+
+// Get current year and month
+$currentYear = date('Y');
+$currentMonth = date('m');
+
+// Establish database connection
+$connection = new Connection();
+$pdo = $connection->open();
+
+// Fetch events for the current month
+$sql = "SELECT * FROM tbl_events WHERE (DATE_FORMAT(start_date, '%Y-%m') = :currentMonthYear OR DATE_FORMAT(end_date, '%Y-%m') = :currentMonthYear) ORDER BY start_date ASC";
+$stmt = $pdo->prepare($sql);
+$currentMonthYear = $currentYear . '-' . $currentMonth;
+$stmt->bindParam(':currentMonthYear', $currentMonthYear, PDO::PARAM_STR);
+$stmt->execute();
+
+$events = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $connection->close();
 ?>
@@ -67,18 +104,18 @@ $connection->close();
                         </ul>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">Today's Event </h5>
+                        <h5 class="card-title">Today's Event</h5>
                         <div class="d-flex align-items-center">
                             <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                 <i class="bi bi-calendar-day"></i>
                             </div>
                             <div class="ps-3">
                                 <?php if ($todaysEvent) : ?>
-                                    <h6 style="font-size:12px"><?php echo htmlspecialchars($todaysEvent['date']); ?></h6>
+                                    <h6 style="font-size:12px"><?php echo htmlspecialchars($todaysEvent['start_date']); ?></h6>
                                     <li class="list-group-item d-flex justify-content-between align-items-start">
                                         <div style="flex-grow: 1;">
-                                            <h6><?php echo htmlspecialchars($todaysEvent['title']); ?> </h6>
-                                            <!-- <p><?php echo htmlspecialchars($todaysEvent['description']); ?></p>-->
+                                            <h6 class="card-title"><?php echo htmlspecialchars($todaysEvent['title']); ?></h6>
+                                            <!--<p>Description: <?php echo htmlspecialchars($todaysEvent['description']); ?></p>-->
                                         </div>
                                     </li>
                                 <?php else : ?>
@@ -93,7 +130,7 @@ $connection->close();
         </div>
 
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-8">
                 <div class="card recent-sales overflow-auto">
                     <div class="filter">
                         <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
@@ -134,12 +171,12 @@ $connection->close();
                                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                                 ?>
                                         <tr>
-                                            <th scope="row"><a href="#"><?php echo htmlspecialchars($row["studentID"]); ?></a></th>
+                                            <th scope="row"><a href="#"><?php echo htmlspecialchars($row["user_name"]); ?></a></th>
                                             <td><?php echo htmlspecialchars($row["lname"]); ?>, <?php echo htmlspecialchars($row["fname"]); ?></td>
                                             <td><?php echo htmlspecialchars($row["course"]); ?> - <?php echo htmlspecialchars($row["year"]); ?></td>
                                             <td>
                                                 <form action="stud_profile.php" method="post">
-                                                    <input type="hidden" name="stud_id" value="<?php echo htmlspecialchars($row['studentID']); ?>">
+                                                    <input type="hidden" name="stud_id" value="<?php echo htmlspecialchars($row['user_id']); ?>">
                                                     <button type="submit" class="btn btn-sm btn-success" name="submit"><i class="ri-arrow-right-circle-fill"></i></button>
                                                 </form>
                                             </td>
@@ -158,23 +195,26 @@ $connection->close();
 
                 </div>
             </div><!-- End Recent Sales -->
-        </div>
-        <div class="col-lg-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title"> Event List <span class="badge bg-success" style="color: white;">This month</span></h5>
-                    <ul class="list-group">
-                        <?php if (!empty($filteredEvents)) : ?>
-                            <?php foreach ($filteredEvents as $event) : ?>
-                                <li class="list-group-item">
-                                    <h6 class="card-title"><?php echo htmlspecialchars($event['title']); ?> <span>
-                                            <?php echo htmlspecialchars($event['date']); ?></span></h6>
-                                </li>
-                            <?php endforeach; ?>
-                        <?php else : ?>
-                            <li class="list-group-item">No events found for the current month.</li>
-                        <?php endif; ?>
-                    </ul>
+
+
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Event List <span class="badge bg-success" style="color: white;">This month</span></h5>
+                        <ul class="list-group">
+                            <?php if (!empty($events)) : ?>
+                                <?php foreach ($events as $event) : ?>
+                                    <li class="list-group-item">
+                                        <h6 class="card-title"><?php echo htmlspecialchars($event['title'] ?? 'Untitled Event'); ?>
+                                            <span><?php echo htmlspecialchars($event['start_date'] ?? 'Unknown Date'); ?></span>
+                                        </h6>
+                                    </li>
+                                <?php endforeach; ?>
+                            <?php else : ?>
+                                <li class="list-group-item">No events found for the current month.</li>
+                            <?php endif; ?>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

@@ -28,22 +28,23 @@ if (isset($_POST["register"])) {
     if ($role == 'student') {
         $schoolid = $_POST["schoolid"];
         $statement = $conn->prepare("INSERT INTO tbl_students (fname, lname, email, user_name, user_pass, user_role) VALUES (:firstName, :lastName, :email, :userName, :password, :role)");
-        $statement->bindParam(':userName', $schoolid);
+        $statement->bindParam(':userName', $schoolid);  // Ensure that 'schoolid' is used for students
     } else {
         $username = $_POST["username"];
         $statement = $conn->prepare("INSERT INTO tbl_users (user_fname, user_lname, user_email, user_name, user_pass, user_role) VALUES (:firstName, :lastName, :email, :userName, :password, :role)");
-        $statement->bindParam(':userName', $username);
+        $statement->bindParam(':userName', $username);  // Ensure that 'username' is used for non-students
     }
 
+    // Bind parameters for both queries
     $statement->bindParam(':firstName', $firstName);
     $statement->bindParam(':lastName', $lastName);
     $statement->bindParam(':email', $email);
-    $statement->bindParam(':password', $hashedPassword);
+    $statement->bindParam(':password', $hashedPassword);  // Bind the hashed password
     $statement->bindParam(':role', $role);
 
     // Execute the query
     if ($statement->execute()) {
-        $_SESSION['user_created'] = true;
+        $_SESSION['student_created'] = true;
 
         // Determine redirection based on user role
         if ($role == 'student') {
