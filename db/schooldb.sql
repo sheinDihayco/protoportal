@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 07, 2024 at 09:21 AM
+-- Generation Time: Sep 14, 2024 at 03:43 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -141,25 +141,6 @@ CREATE TABLE `tbl_grades` (
   `grade` decimal(5,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `tbl_grades`
---
-
-INSERT INTO `tbl_grades` (`grade_id`, `user_id`, `id`, `semester`, `year`, `term`, `grade`) VALUES
-(8, 30, 8, 2, 2, 'Prelim', 1.40),
-(9, 28, 20, 2, 1, 'Prelim', 1.50),
-(10, 28, 24, 2, 1, 'Final', 1.80),
-(11, 28, 20, 2, 1, 'Final', 1.20),
-(12, 47, 22, 1, 2, 'Final', 1.60),
-(13, 44, 20, 1, 1, 'Final', 1.30),
-(14, 44, 17, 1, 1, 'Final', 1.50),
-(15, 28, 18, 1, 1, 'Final', 1.60),
-(16, 47, 15, 1, 4, 'Pre-final', 1.20),
-(17, 44, 21, 1, 2, 'Final', 1.80),
-(18, 44, 12, 1, 1, 'Final', 1.50),
-(19, 30, 33, 1, 3, 'Final', 1.80),
-(20, 28, 19, 1, 4, 'Final', 1.80);
-
 -- --------------------------------------------------------
 
 --
@@ -173,20 +154,6 @@ CREATE TABLE `tbl_payments` (
   `semester` varchar(20) NOT NULL,
   `paymentPeriod` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tbl_payments`
---
-
-INSERT INTO `tbl_payments` (`payment_id`, `user_id`, `payment_status`, `semester`, `paymentPeriod`) VALUES
-(52, 28, 'Paid', '1st', 'Prelim'),
-(53, 44, 'Paid', '1st', 'Prelim'),
-(63, 30, 'Pending', '1st', 'Midterm'),
-(65, 37, 'Paid', '1st', 'Prelim'),
-(67, 28, 'Pending', '1st', 'Midterm'),
-(71, 44, 'Pending', '1st', 'Midterm'),
-(72, 44, 'Pending', '2nd', 'Midterm'),
-(73, 37, 'Pending', '1st', 'Midterm');
 
 -- --------------------------------------------------------
 
@@ -238,7 +205,8 @@ INSERT INTO `tbl_schedule` (`schedule_id`, `instructor_id`, `course_id`, `subjec
 (120, 55, 24, 63, 8, 3, 1),
 (121, 52, 24, 235, 7, 4, 6),
 (122, 52, 12, 22, 5, 3, 1),
-(123, 52, 16, 111, 5, 9, 3);
+(123, 52, 16, 111, 5, 9, 3),
+(124, 62, 17, 22, 12, 9, 2);
 
 -- --------------------------------------------------------
 
@@ -317,7 +285,7 @@ CREATE TABLE `tbl_students` (
   `collegeCompleted` varchar(30) NOT NULL,
   `user_image` varchar(50) NOT NULL,
   `user_role` varchar(50) NOT NULL,
-  `user_pass` varchar(50) NOT NULL,
+  `user_pass` varchar(100) NOT NULL,
   `semester` int(11) NOT NULL,
   `status` varchar(20) NOT NULL,
   `date` date DEFAULT NULL
@@ -328,12 +296,9 @@ CREATE TABLE `tbl_students` (
 --
 
 INSERT INTO `tbl_students` (`user_id`, `user_name`, `lname`, `fname`, `middleInitial`, `Suffix`, `course`, `year`, `contact`, `gender`, `bdate`, `pob`, `email`, `major`, `nationality`, `civilStatus`, `religion`, `modality`, `fb`, `curAddress`, `cityAdd`, `zipcode`, `fatherName`, `fwork`, `motherName`, `mwork`, `primarySchool`, `primaryAddress`, `primaryCompleted`, `entermediateSchool`, `entermediateAddress`, `entermediateCompleted`, `hsSchool`, `hsAddress`, `hsCompleted`, `shSchool`, `shAddress`, `shCompleted`, `collegeSchool`, `collegeAddress`, `collegeCompleted`, `user_image`, `user_role`, `user_pass`, `semester`, `status`, `date`) VALUES
-(28, 'MIIT-2021-137', 'Dihayco', 'Sheinalie', '', '', 'BSIT', 4, '', '', '', '', 'dihayco020903@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$ebZhC4VD7Im8ILupGWF0QOLLo0u6Oq38hF3Hz5tZXA0', 1, 'Enrolled', NULL),
-(30, 'MIIT-2021-160', 'Tahanlangit', 'Louie', '', '', 'BSIT', 4, '', '', '', '', 'tahanlangit123@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$XZl6V0o5dq35hH8CQc7iNOGQP7vWJV28VUQJ1ChZitP', 1, 'Enrolled', NULL),
-(37, 'MIIT-2021-124', 'Algarme', 'Zean Mariuss', '', '', 'BSIT', 4, '', '', '', '', 'zuild@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$qCUSgVQgkYZtcaYGDX0q7efcr9t4zHzgBv.IF77N/MW', 1, 'Enrolled', NULL),
-(44, 'MIIT-2021-124', 'Aguipo', 'Ashielamae', '', '', 'BSIT', 4, '', '', '', '', 'aguipo@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$deswu9vcgWNISskCMQ26f.h4Qw1Mpxcdw9ZY.jUbzJ1', 1, 'Enrolled', NULL),
-(47, 'MIIT-2021-1245', 'Ashielamae', 'Ashielamae', '', '', 'BSIT', 4, '', '', '', '', 'Ashielamae@GMAIL.COM', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$fCPseJyKfRmpZHM.382ZauWABrY9p.xe15ktV51vtIe', 1, 'Enrolled', NULL),
-(48, 'MIIT-2021-000', 'Dihayco', 'Althea', '', '', '', 0, '', '', '', '', 'dihayco020903@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$iL2J.QNfhbTykOcN./8ZB.pTjF0J3kIMKfKjuOuFztU', 0, '', NULL);
+(50, 'MIIT-2021-1007', 'Marabiles', 'Kylie', '', '', 'ABM', 11, '', '', '', '', 'marbiles1007@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$52Hp8QZVBLWshtYiX3MJIerTXbK1L5Hb2yZG0WUaiopdbIbUWCQf.', 1, 'Enrolled', NULL),
+(51, 'MIIT-2021-137', 'Dihayco', 'Sheinalie', '', '', 'BSIT', 4, '', '', '', '', 'dihayco020903@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$CIVJVN5xS//Nj.Vj5cdcx.9zbaSOfiP4oyed.pVNH/xtaOkCfu0oW', 1, 'Enrolled', NULL),
+(52, 'MIIT-2021-124', 'Algarme', 'Zean Mariuss', 'N/A', 'N/A', 'BSIT', 4, 'N/A', 'M', '2002-11-22', 'N/A', 'zuild@gmail.com', 'PROGRAMMING', 'FILIPINO', 'SINGLE', 'N/A', 'FACE TO FACE', 'ZEAN MARIUSS ALGRAME', 'TUNGKOP, MINGLANILLA', 'CEBU', '6037', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '-', 'N/A', 'N/A', '-', 'N/A', 'N/A', '-', 'N/A', 'N/A', '-', '', '', '', '', 'student', '$2y$10$.dJwhHqJ8DRiFJhBrn7DqO.PyK6VOdaBohNKi0xa.MWWpBCHVx.zS', 1, 'Enrolled', '2024-09-09');
 
 -- --------------------------------------------------------
 
@@ -351,18 +316,8 @@ CREATE TABLE `tbl_student_instructors` (
 --
 
 INSERT INTO `tbl_student_instructors` (`student_id`, `instructor_id`) VALUES
-(28, 52),
-(28, 55),
-(28, 62),
-(30, 52),
-(30, 55),
-(30, 62),
-(37, 52),
-(37, 55),
-(37, 62),
-(44, 52),
-(44, 55),
-(44, 62);
+(51, 55),
+(52, 55);
 
 -- --------------------------------------------------------
 
@@ -851,7 +806,7 @@ ALTER TABLE `tbl_rooms`
 -- AUTO_INCREMENT for table `tbl_schedule`
 --
 ALTER TABLE `tbl_schedule`
-  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
+  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 
 --
 -- AUTO_INCREMENT for table `tbl_sched_time`
@@ -863,7 +818,7 @@ ALTER TABLE `tbl_sched_time`
 -- AUTO_INCREMENT for table `tbl_students`
 --
 ALTER TABLE `tbl_students`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `tbl_subjects`
@@ -909,7 +864,7 @@ ALTER TABLE `tbl_schedule`
 -- Constraints for table `tbl_student_instructors`
 --
 ALTER TABLE `tbl_student_instructors`
-  ADD CONSTRAINT `tbl_student_instructors_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `tbl_students` (`user_id`),
+  ADD CONSTRAINT `tbl_student_instructors_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `tbl_students` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `tbl_student_instructors_ibfk_2` FOREIGN KEY (`instructor_id`) REFERENCES `tbl_users` (`user_id`);
 COMMIT;
 

@@ -110,7 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
         if ($conn->query($updateSQL) === TRUE) {
             $_SESSION['student_updated'] = true;
-            header("location: ../payment.php?error=success");
+            header("location: ../payment1.php?error=success");
         } else {
             echo "Error updating record: " . $conn->error;
         }

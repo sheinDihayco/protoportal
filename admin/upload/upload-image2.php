@@ -61,8 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
     } else {
         echo "Error uploading file: " . $file['error'];
     }
-} else {
-    echo "No file uploaded or invalid request.";
 }
 
 $conn->close();
+?>

@@ -13,7 +13,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Start the session to get the user ID
+// Start the session to get the user ID and role
 session_start();
 if (!isset($_SESSION["login"])) {
     header("location:login.php?error=loginfirst");
@@ -21,6 +21,23 @@ if (!isset($_SESSION["login"])) {
 }
 
 $userid = $_SESSION["login"];
+
+// Fetch user role
+$roleSql = "SELECT user_role FROM tbl_users WHERE user_id = ?";
+
+if ($roleStmt = $conn->prepare($roleSql)) {
+    $roleStmt->bind_param("s", $userid);
+
+    if ($roleStmt->execute()) {
+        $roleStmt->bind_result($userRole);
+        $roleStmt->fetch();
+        $roleStmt->close();
+    } else {
+        die("Error executing role statement: " . $roleStmt->error);
+    }
+} else {
+    die("Error preparing role statement: " . $conn->error);
+}
 
 // Check if the request method is POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -40,9 +57,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Fetch the current password hash from the database
-    $sql = "SELECT user_pass FROM tbl_users WHERE user_id = ?";
+    $passwordSql = ($userRole === 'student') 
+        ? "SELECT user_pass FROM tbl_students WHERE user_id = ?" 
+        : "SELECT user_pass FROM tbl_users WHERE user_id = ?";
 
-    if ($stmt = $conn->prepare($sql)) {
+    if ($stmt = $conn->prepare($passwordSql)) {
         $stmt->bind_param("s", $userid);
 
         if ($stmt->execute()) {
@@ -56,7 +75,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $newHashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
 
                 // Update the password in the database
-                $updateSql = "UPDATE tbl_users SET user_pass = ? WHERE user_id = ?";
+                $updateSql = ($userRole === 'student') 
+                    ? "UPDATE tbl_students SET user_pass = ? WHERE user_id = ?" 
+                    : "UPDATE tbl_users SET user_pass = ? WHERE user_id = ?";
 
                 if ($updateStmt = $conn->prepare($updateSql)) {
                     $updateStmt->bind_param("ss", $newHashedPassword, $userid);
@@ -88,3 +109,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     echo "Invalid request method.";
 }
+?>

@@ -7,12 +7,23 @@ if (!isset($_SESSION["login"])) {
 
 $userid = $_SESSION["login"];
 
-$statements = $conn->prepare("SELECT * FROM tbl_users WHERE user_id = '$userid'");
+// Prepare and execute the query
+$statements = $conn->prepare("SELECT * FROM tbl_students WHERE user_id = :userid");
+$statements->bindParam(':userid', $userid, PDO::PARAM_INT);
 $statements->execute();
 $user = $statements->fetch(PDO::FETCH_ASSOC);
-$fname = $user['user_fname'];
-$lname = $user['user_lname'];
+
+// Check if user data was found
+if ($user) {
+    $fname = $user['fname'];
+    $lname = $user['lname'];
+} else {
+    // Handle the case where the user is not found
+    echo "User not found.";
+    exit;
+}
 ?>
+
 
 <main id="main" class="main">
     <?php

@@ -3,8 +3,8 @@ include_once "includes/connection.php"; // Use connection.php for database conne
 
 session_start();
 if (!isset($_SESSION["login"])) {
-  header("location:login.php?error=loginfirst");
-  exit;
+    header("location:login.php?error=loginfirst");
+    exit;
 }
 
 $database = new Connection();
@@ -17,13 +17,24 @@ $statements = $conn->prepare("SELECT user_fname, user_lname, user_image FROM tbl
 $statements->execute([$userid]);
 $user = $statements->fetch(PDO::FETCH_ASSOC);
 
-$fname = $user['user_fname'];
-$lname = $user['user_lname'];
-$image = $user['user_image'];
+// Check if the user exists before trying to access array keys
+if ($user) {
+    $fname = $user['user_fname'];
+    $lname = $user['user_lname'];
+    $image = $user['user_image'];
+} else {
+    // Handle case where user is not found (optional handling)
+    echo "User not found.";
+    // Optionally redirect or show an error message
+    header("location:login.php?error=usernotfound");
+    exit;
+}
 
 // Close the connection when done
 $database->close();
 ?>
+
+
 
 
 <!DOCTYPE html>
@@ -321,29 +332,35 @@ $database->close();
   <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
-
       <div class="profile-section">
-        <div class="profile-img">
-          <img src="upload-files/<?php echo htmlspecialchars($image); ?>" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image" class="rounded-circle">
-        </div>
-
-        <div class="profile-info">
-          <h5><?php echo htmlspecialchars($lname) . ', ' . htmlspecialchars($fname); ?></h5>
-        </div>
-        <div class="settings-icon">
-          <a href="javascript:void(0);" onclick="document.getElementById('fileInput').click();">
-            <i class="ri-image-add-line"></i>
-          </a>
-        </div>
-
-        <form action="upload/upload-image2.php" method="post" enctype="multipart/form-data">
-          <input type="file" id="fileInput" name="file" style="display: none;" onchange="showSaveButton();" />
-
-          <!-- Save Button -->
-          <div class="save-button" id="saveButton" style="display: none;">
-            <button type="submit" class="btn btn-primary" name="save">Save</button>
+          <div class="profile-img">
+              <!-- Display current profile image with a default fallback -->
+              <img src="upload-files/<?php echo htmlspecialchars($image); ?>" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image" class="rounded-circle">
           </div>
-        </form>
+
+          <div class="profile-info">
+              <h5><?php echo htmlspecialchars($lname) . ', ' . htmlspecialchars($fname); ?></h5>
+          </div>
+
+          <div class="settings-icon">
+              <a href="javascript:void(0);" onclick="document.getElementById('fileInput').click();">
+                  <i class="ri-image-add-line"></i>
+              </a>
+          </div>
+
+          <form action="upload/upload-image2.php" method="post" enctype="multipart/form-data">
+              <input type="file" id="fileInput" name="file" style="display: none;" onchange="previewImage();" />
+
+              <!-- Save Button -->
+              <div class="save-button" id="saveButton" style="display: none;">
+                  <button type="submit" class="btn btn-primary" name="save">Save</button>
+              </div>
+          </form>
+
+          <!-- Preview Image Section -->
+          <div class="preview-section" style="display: none;">
+              <img id="preview" src="" alt="Image Preview" class="img-thumbnail">
+          </div>
       </div>
 
       <script>
@@ -523,6 +540,33 @@ $database->close();
       }
     });
   </script>
+
+
+<script>
+    // Show preview and save button when file is selected
+    function previewImage() {
+        const fileInput = document.getElementById('fileInput');
+        const preview = document.getElementById('preview');
+        const saveButton = document.getElementById('saveButton');
+        const previewSection = document.querySelector('.preview-section');
+
+        if (fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                previewSection.style.display = 'block'; // Show preview
+                saveButton.style.display = 'block'; // Show save button
+            };
+
+            reader.readAsDataURL(file);
+        } else {
+            previewSection.style.display = 'none'; // Hide preview
+            saveButton.style.display = 'none'; // Hide save button
+        }
+    }
+</script>
 
   <style>
     html {

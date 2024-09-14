@@ -1,7 +1,8 @@
 <?php
-include_once "includes/connection.php"; // Only include connection.php
+include_once "includes/connection.php"; // Ensure connection.php is correctly included
 
 session_start();
+
 if (!isset($_SESSION["login"])) {
   header("location:login.php?error=loginfirst");
   exit;
@@ -12,12 +13,18 @@ $conn = $database->open();
 
 $userid = $_SESSION["login"];
 
+// Debugging: Check if $userid is set correctly
+if (empty($userid)) {
+    die("User ID is not set.");
+}
+
 // Fetch user information from the database
 $statements = $conn->prepare("SELECT u.fname, u.lname, u.user_image, u.course
     FROM tbl_students u
     LEFT JOIN tbl_users s ON u.user_id = s.user_id
     WHERE u.user_id = :userid
 ");
+
 $statements->bindParam(':userid', $userid, PDO::PARAM_INT);
 $statements->execute();
 $user = $statements->fetch(PDO::FETCH_ASSOC);
@@ -36,6 +43,7 @@ if ($user) {
 // Close the connection
 $database->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -184,29 +192,35 @@ $database->close();
   <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
 
-      <div class="profile-section">
-        <div class="profile-img">
-          <img src="upload-files/<?php echo htmlspecialchars($image); ?>" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image" class="rounded-circle">
-        </div>
-
-        <div class="profile-info">
-          <h5><?php echo htmlspecialchars($lname) . ', ' . htmlspecialchars($fname); ?></h5>
-        </div>
-
-        <div class="settings-icon">
-          <a href="javascript:void(0);" onclick="document.getElementById('fileInput').click();">
-            <i class="ri-image-add-line"></i>
-          </a>
-        </div>
-
-        <form action="upload/upload-image.php" method="post" enctype="multipart/form-data">
-          <input type="file" id="fileInput" name="file" style="display: none;" onchange="showSaveButton();" />
-
-          <!-- Save Button -->
-          <div class="save-button" id="saveButton" style="display: none;">
-            <button type="submit" class="btn btn-primary" name="save">Save</button>
+        <div class="profile-section">
+          <div class="profile-img">
+              <!-- Display current profile image with a default fallback -->
+              <img src="upload-files/<?php echo htmlspecialchars($image); ?>" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image" class="rounded-circle">
           </div>
-        </form>
+
+          <div class="profile-info">
+              <h5><?php echo htmlspecialchars($lname) . ', ' . htmlspecialchars($fname); ?></h5>
+          </div>
+
+          <div class="settings-icon">
+              <a href="javascript:void(0);" onclick="document.getElementById('fileInput').click();">
+                  <i class="ri-image-add-line"></i>
+              </a>
+          </div>
+
+          <form action="upload/upload-image1.php" method="post" enctype="multipart/form-data">
+              <input type="file" id="fileInput" name="file" style="display: none;" onchange="previewImage();" />
+
+              <!-- Save Button -->
+              <div class="save-button" id="saveButton" style="display: none;">
+                  <button type="submit" class="btn btn-primary" name="save">Save</button>
+              </div>
+          </form>
+
+          <!-- Preview Image Section -->
+          <div class="preview-section" style="display: none;">
+              <img id="preview" src="" alt="Image Preview" class="img-thumbnail">
+          </div>
       </div>
 
       <script>
@@ -230,7 +244,7 @@ $database->close();
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+        <a class="nav-link collapsed" href="../admin/schedule-students.php">
           <i class="ri ri-group-line"></i>
           <span>Schedule</span>
         </a>
@@ -273,17 +287,31 @@ $database->close();
             </a>
           </li>';
                 break;
-              case 'GRADE11':
+              case 'ABM':
                 echo '<li>
-            <a href="../admin/grade11-prospectus.php">
-              <i class="bi bi-circle"></i><span>Grade 11 Subjects</span>
+            <a href="../admin/ABM-prospectus.php">
+              <i class="bi bi-circle"></i><span>ABM</span>
             </a>
           </li>';
                 break;
-              case 'GRADE12':
+              case 'GAS':
+                echo '<li>
+           <a href="../admin/grade12-prospectus.php">
+              <i class="bi bi-circle"></i><span>GAS</span>
+            </a>
+            </li>';
+                break;
+              case 'ICT':
                 echo '<li>
             <a href="../admin/grade12-prospectus.php">
-              <i class="bi bi-circle"></i><span>Grade 12 Subjects</span>
+              <i class="bi bi-circle"></i><span>ICT</span>
+            </a>
+            </li>';
+                break;
+              case 'HUMSS':
+                echo '<li>
+            <a href="../admin/grade12-prospectus.php">
+              <i class="bi bi-circle"></i>HUMSS</span>
             </a>
           </li>';
                 break;
@@ -300,12 +328,17 @@ $database->close();
         </ul>
       </li>
 
-      <li class="nav-item">
+     <!--<li class="nav-item">
         <a class="nav-link collapsed" href="">
           <i class="bx bx-book"></i>
           <span>Enrollment</span>
         </a>
       </li>
+      
+      
+      
+      
+      -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="../admin/payment1.php">
@@ -382,6 +415,33 @@ $database->close();
       }
     });
   </script>
+
+<script>
+    // Show preview and save button when file is selected
+    function previewImage() {
+        const fileInput = document.getElementById('fileInput');
+        const preview = document.getElementById('preview');
+        const saveButton = document.getElementById('saveButton');
+        const previewSection = document.querySelector('.preview-section');
+
+        if (fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                previewSection.style.display = 'block'; // Show preview
+                saveButton.style.display = 'block'; // Show save button
+            };
+
+            reader.readAsDataURL(file);
+        } else {
+            previewSection.style.display = 'none'; // Hide preview
+            saveButton.style.display = 'none'; // Hide save button
+        }
+    }
+</script>
+
 
   <style>
     html {
