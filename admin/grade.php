@@ -18,20 +18,15 @@ if (isset($_POST['search']) && isset($_POST['user_name'])) {
   $searchTerm = '%' . $_POST['user_name'] . '%';
   $enteredCode = $_POST['subject_code'] ?? '';
 
-  // Prepare the SQL statement to get student info
-  $studentStmt = $pdo->prepare("
-        SELECT 
-            s.user_name,
-            s.lname,
-            s.fname,
-            s.middleInitial,
-            s.user_id,
-            s.course
-        FROM 
-            tbl_students s
-        WHERE 
-            s.user_name LIKE :searchTerm
-    ");
+  // Query to get students assigned to the specific instructor
+  $sql = "
+    SELECT s.user_id, s.lname, s.fname, s.course, s.year, s.status, s.user_name
+    FROM tbl_students s
+    INNER JOIN tbl_student_instructors si ON s.user_id = si.student_id
+    WHERE si.instructor_id = :instructor_id
+      AND s.user_name LIKE :searchTerm";
+  $studentStmt = $pdo->prepare($sql);
+  $studentStmt->bindParam(':instructor_id', $userid, PDO::PARAM_INT); // Assuming $userid is the logged-in instructor
   $studentStmt->bindParam(':searchTerm', $searchTerm, PDO::PARAM_STR);
   $studentStmt->execute();
 
@@ -39,22 +34,13 @@ if (isset($_POST['search']) && isset($_POST['user_name'])) {
   $studentInfo = $studentStmt->fetch(PDO::FETCH_ASSOC);
 
   if ($studentInfo) {
-    // Prepare the SQL statement to get grades for the entered subject code
+    // Fetch grades based on the selected subject code
     $gradesStmt = $pdo->prepare("
-            SELECT 
-                sub.code,
-                sub.description,
-                sub.unit,
-                g.term,
-                g.grade
-            FROM 
-                tbl_grades g
-            JOIN 
-                tbl_subjects sub ON g.id = sub.id
-            WHERE 
-                g.user_id = :user_id
-                AND (:enteredCode = '' OR sub.code = :enteredCode)
-        ");
+      SELECT sub.code, sub.description, sub.unit, g.term, g.grade
+      FROM tbl_grades g
+      JOIN tbl_subjects sub ON g.id = sub.id
+      WHERE g.user_id = :user_id
+        AND (:enteredCode = '' OR sub.code = :enteredCode)");
     $gradesStmt->bindParam(':user_id', $studentInfo['user_id'], PDO::PARAM_INT);
     $gradesStmt->bindParam(':enteredCode', $enteredCode, PDO::PARAM_STR);
     $gradesStmt->execute();
@@ -73,33 +59,83 @@ if (isset($_POST['search']) && isset($_POST['user_name'])) {
   </div>
   <!-- End Page Title -->
 
-  <div class="container">
     <!-- Start Search bar -->
-    <div class="card">
-      <div class="card-body">
+<div class="card">
+    <div class="card-body">
         <form method="POST" action="" class="row g-3">
-          <div class="col-md-6 form-group">
-            <label for="user_name" class="form-label">Student ID:</label>
-            <input type="text" name="user_name" id="user_name" class="form-control" placeholder="Format: MIIT-0000-000" required
-              value="<?php echo isset($_POST['user_name']) ? htmlspecialchars($_POST['user_name']) : ''; ?>">
-          </div>
-          <div class="col-md-4 form-group">
-            <label for="subject_code" class="form-label">Subject Code:</label>
-            <input type="text" name="subject_code" id="subject_code" class="form-control" placeholder="Enter Subject Code"
-              value="<?php echo isset($_POST['subject_code']) ? htmlspecialchars($_POST['subject_code']) : ''; ?>">
-          </div>
+            <!-- Student Selection -->
+           <div class="col-md-6 form-group">
+    <label for="user_name" class="form-label">Student ID:</label>
+    <select name="user_name" id="user_name" class="form-select" required>
+        <option value="" selected>Select Student ID</option>
+        <?php
+        try {
+            // Get the logged-in instructor's ID (assuming it's stored in $userid)
+            $instructor_id = $userid;
 
-          <div class="col-md-2 form-group align-self-end">
-            <button type="submit" name="search" class="btn btn-primary">
-              <i class="bx bx-search-alt"></i>
-            </button>
-            <button type="button" class="btn btn-secondary" onclick="clearSearchForm()">
-              <i class="bx bx-eraser"></i>
-            </button>
-          </div>
+            // Fetch students assigned to the instructor
+            $sql = "SELECT s.user_name, s.lname, s.fname 
+                    FROM tbl_students s
+                    INNER JOIN tbl_student_instructors si ON s.user_id = si.student_id
+                    WHERE si.instructor_id = :instructor_id
+                    ORDER BY s.lname, s.fname";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':instructor_id', $instructor_id, PDO::PARAM_INT);
+            $stmt->execute();
+
+            // Fetch the students
+            $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            // Loop through the students and display them in the dropdown
+            foreach ($students as $student) {
+                $fullName = htmlspecialchars($student['lname']) . ', ' . htmlspecialchars($student['fname']);
+                $selected = (isset($_POST['user_name']) && $_POST['user_name'] == $student['user_name']) ? 'selected' : '';
+                echo '<option value="' . htmlspecialchars($student['user_name']) . '" ' . $selected . '>' . $fullName . ' (' . htmlspecialchars($student['user_name']) . ')</option>';
+            }
+        } catch (PDOException $e) {
+            echo "<option value='' disabled>Error fetching students</option>";
+        }
+        ?>
+    </select>
+</div>
+
+
+            <!-- Subject Code Selection from tbl_subjects -->
+            <div class="col-md-4 form-group">
+                <label for="subject_code" class="form-label">Subject Code:</label>
+                <select class="form-select" id="subject_code" name="subject_code">
+                    <option value="" selected>Select Subject Code</option>
+                    <?php
+                    try {
+                        // Fetch distinct subject codes from tbl_subjects
+                        $stmt = $pdo->prepare("SELECT DISTINCT code FROM tbl_subjects ORDER BY code");
+                        $stmt->execute();
+
+                        // Loop through unique subject codes and display in the dropdown
+                        foreach ($stmt as $subject) {
+                            $selected = (isset($_POST['subject_code']) && $_POST['subject_code'] == $subject['code']) ? 'selected' : '';
+                            echo '<option value="' . htmlspecialchars($subject['code']) . '" ' . $selected . '>' . htmlspecialchars($subject['code']) . '</option>';
+                        }
+                    } catch (PDOException $e) {
+                        echo "<option value='' disabled>Error fetching subjects</option>";
+                    }
+                    ?>
+                </select>
+            </div>
+
+            <!-- Search and Clear Buttons -->
+            <div class="col-md-2 form-group align-self-end">
+                <button type="submit" name="search" class="btn btn-primary">
+                    <i class="bx bx-search-alt"></i>
+                </button>
+                <button type="button" class="btn btn-secondary" onclick="clearSearchForm()">
+                    <i class="bx bx-eraser"></i> 
+                </button>
+            </div>
         </form>
-      </div>
     </div>
+</div>
+
     <!-- End Search bar -->
 
     <!-- Start display result -->
@@ -197,8 +233,6 @@ if (isset($_POST['search']) && isset($_POST['user_name'])) {
       <p class="no-results">No student found.</p>
     <?php endif; ?>
     <!-- End display result -->
-  </div>
-
 </main>
 
 <script>

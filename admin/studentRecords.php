@@ -32,8 +32,8 @@ $database->close();
     <?php if (isset($_SESSION['grade_created']) && $_SESSION['grade_created'] === true) : ?>
       Swal.fire({
         icon: 'success',
-        title: 'Event Created',
-        text: 'The event has been successfully created!',
+        title: 'Grade Created',
+        text: 'The grade has been successfully created!',
         confirmButtonText: 'OK'
       }).then((result) => {
         if (result.isConfirmed) {
@@ -47,11 +47,11 @@ $database->close();
 
 <main id="main" class="main">
   <div class="pagetitle">
-    <h1>Student Account Records</h1>
+    <h1>Student Records</h1>
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-        <li class="breadcrumb-item active">Accounts</li>
+        <li class="breadcrumb-item active">Enrolled</li>
       </ol>
     </nav>
   </div>

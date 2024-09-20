@@ -43,7 +43,29 @@ if (isset($_SESSION['subject_created']) && $_SESSION['subject_created']) {
         <form id="subjectForm" action="" method="GET" class="row g-3">
           <div class="col-md-6 form-group">
             <label for="course" class="form-label">Course</label>
-            <input type="text" class="form-control" id="course" name="course" value="<?php echo htmlspecialchars($_GET['course'] ?? ''); ?>" oninput="enableNextField('year')" required>
+              <select class="form-select" id="course" name="course" oninput="enableNextField('year')" required>
+                <option value="" selected>Select Course</option>
+                  <?php
+                    $database = new Connection();
+                    $db = $database->open();
+
+                    try {
+                      // Select distinct course descriptions
+                      $sql = "SELECT DISTINCT course_description FROM tbl_course";
+                      $stmt = $db->prepare($sql);
+                      $stmt->execute();
+
+                      // Loop through unique course descriptions
+                      foreach ($stmt as $course) {
+                      echo '<option value="' . htmlspecialchars($course['course_description']) . '">' . htmlspecialchars($course['course_description']) . '</option>';
+                      }
+                      } catch (PDOException $e) {
+                      echo "<option value='' disabled>Error fetching courses</option>";
+                      }
+
+                      $database->close();
+                  ?>
+              </select>
           </div>
           <div class="col-md-2 form-group">
             <label for="year" class="form-label">Year</label>
@@ -54,6 +76,8 @@ if (isset($_SESSION['subject_created']) && $_SESSION['subject_created']) {
               <option value="2" <?php echo (isset($_GET['year']) && $_GET['year'] == '2') ? 'selected' : ''; ?>>2</option>
               <option value="3" <?php echo (isset($_GET['year']) && $_GET['year'] == '3') ? 'selected' : ''; ?>>3</option>
               <option value="4" <?php echo (isset($_GET['year']) && $_GET['year'] == '4') ? 'selected' : ''; ?>>4</option>
+              <option value="11" <?php echo (isset($_GET['year']) && $_GET['year'] == '11') ? 'selected' : ''; ?>>11</option>
+              <option value="12" <?php echo (isset($_GET['year']) && $_GET['year'] == '12') ? 'selected' : ''; ?>>12</option>
             </select>
           </div>
           <div class="col-md-2 form-group">
@@ -91,7 +115,7 @@ if (isset($_SESSION['subject_created']) && $_SESSION['subject_created']) {
           $course = $_GET['course'] ?? '';
           $year = $_GET['year'] ?? 'all';
           $semester = $_GET['semester'] ?? 'all';
-          $years = ['1' => 'First Year', '2' => 'Second Year', '3' => 'Third Year', '4' => 'Fourth Year'];
+          $years = ['1' => 'First Year', '2' => 'Second Year', '3' => 'Third Year', '4' => 'Fourth Year', '11' => "Grade 11", '12' => "Grade 12"];
 
           echo '<table class="table table-bordered table-striped">';
           echo '<thead class="table-dark">';
@@ -511,62 +535,6 @@ if (isset($_SESSION['subject_created']) && $_SESSION['subject_created']) {
   .closebtn:hover {
     color: black;
   }
-
-
-  .modal-content {
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    background-color: #f8f9fa;
-  }
-
-  .modal-header {
-    background-color: #007bff;
-    color: white;
-    border-bottom: none;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-  }
-
-  .modal-title {
-    font-size: 1rem;
-    font-weight: bold;
-  }
-
-  .btn-close {
-    filter: invert(1);
-  }
-
-  .modal-body {
-    color: #333;
-    padding: 20px;
-    font-size: 1rem;
-  }
-
-  #eventModalDate {
-    font-size: 1rem;
-    color: #6c757d;
-    margin-bottom: 10px;
-  }
-
-  #editSubjectModal {
-    font-size: 1rem;
-    line-height: 1.5;
-    word-wrap: break-word;
-  }
-
-  .modal-footer {
-    background-color: #f1f1f1;
-    border-top: none;
-    padding: 10px 20px;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-    text-align: right;
-  }
-
-  body {
-    background-color: #f8f9fa;
-  }
-
   .container {
     margin-top: 20px;
   }

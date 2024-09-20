@@ -10,7 +10,7 @@ $course = $_GET['course'] ?? '';
 $year = $_GET['year'] ?? 'all';
 $semester = $_GET['semester'] ?? 'all';
 
-$years = ['1' => 'First Year', '2' => 'Second Year', '3' => 'Third Year', '4' => 'Fourth Year']; // Initialize $years array
+$years = ['1' => 'First Year', '2' => 'Second Year', '3' => 'Third Year', '4' => 'Fourth Year' , '11' => 'Grade 11' , '12' => "Grade 12"]; // Initialize $years array
 $semesters = ['1' => '1st Semester', '2' => '2nd Semester']; // Initialize $semesters array
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['assignStudents'])) {
@@ -114,8 +114,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['assignStudents'])) {
                     </div>
                     <div class="col-md-3 form-group">
                         <label for="course" class="form-label">Course</label>
-                        <input type="text" class="form-control" id="course" name="course" disabled oninput="enableNextField('year')" placeholder="Enter course" required>
+                        <select class="form-select" id="course" name="course" disabled oninput="enableNextField('year')" required>
+                            <option value="" selected>Select Course</option>
+                            <?php
+                            $database = new Connection();
+                            $db = $database->open();
+
+                            try {
+                                // Select distinct course descriptions
+                                $sql = "SELECT DISTINCT course_description FROM tbl_course";
+                                $stmt = $db->prepare($sql);
+                                $stmt->execute();
+
+                                // Loop through unique course descriptions
+                                foreach ($stmt as $course) {
+                                    echo '<option value="' . htmlspecialchars($course['course_description']) . '">' . htmlspecialchars($course['course_description']) . '</option>';
+                                }
+                            } catch (PDOException $e) {
+                                echo "<option value='' disabled>Error fetching courses</option>";
+                            }
+
+                            $database->close();
+                            ?>
+                        </select>
                     </div>
+
                     <div class="col-md-2 form-group">
                         <label for="year" class="form-label">Year</label>
                         <select class="form-select" id="year" name="year" disabled oninput="enableNextField('semester')" required>
@@ -125,6 +148,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['assignStudents'])) {
                             <option value="2">2</option>
                             <option value="3">3</option>
                             <option value="4">4</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
                         </select>
                     </div>
                     <div class="col-md-2 form-group">
@@ -172,80 +197,89 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['assignStudents'])) {
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php
-                                $database = new Connection();
-                                $db = $database->open();
+                            <?php
+$database = new Connection();
+$db = $database->open();
 
-                                try {
-                                    if ($year == 'all' && $semester == 'all') {
-                                        foreach ($years as $yearNumber => $yearTitle) {
-                                            foreach ($semesters as $semesterNumber => $semesterTitle) {
-                                                echo "<tr><td colspan='7' class='table-info text-center'><strong>$yearTitle - $semesterTitle</strong></td></tr>";
+try {
+    // Ensure $course is a string, not an array
+    $course = isset($_GET['course']) ? $_GET['course'] : '';
 
-                                                $sql = "SELECT * FROM tbl_students WHERE course = :course AND year = :year AND semester = :semester";
-                                                $stmt = $db->prepare($sql);
-                                                $stmt->bindParam(':course', $course);
-                                                $stmt->bindParam(':year', $yearNumber);
-                                                $stmt->bindParam(':semester', $semesterNumber);
-                                                $stmt->execute();
+    if (is_array($course)) {
+        // If it's an array, handle it or convert it appropriately
+        $course = $course[0]; // Assuming you want the first value, adjust as needed
+    }
 
-                                                if ($stmt->rowCount() > 0) {
-                                                    foreach ($stmt as $student) {
-                                                        echo "<tr>";
-                                                        echo '<td><input type="checkbox" class="form-check-input student-select" name="student_ids[]" value="' . htmlspecialchars($student['user_id']) . '"></td>';
-                                                        echo "<td>" . htmlspecialchars($student['user_name']) . "</td>";
-                                                        echo "<td>" . htmlspecialchars($student['lname']) . " " . htmlspecialchars($student['fname']) . "</td>";
-                                                        echo "<td>" . htmlspecialchars($student['course']) . "</td>";
-                                                        echo "<td>" . htmlspecialchars($student['year']) . "</td>";
-                                                        echo "<td>" . htmlspecialchars($student['semester']) . "</td>";
-                                                        echo "<td>" . htmlspecialchars($student['status']) . "</td>";
-                                                        echo "</tr>";
-                                                    }
-                                                    echo '<tr><td colspan="7"><hr></td></tr>'; // Horizontal line separator for semester
-                                                }
-                                            }
-                                        }
-                                    } else {
-                                        $sql = "SELECT * FROM tbl_students WHERE course = :course AND year = :year AND semester = :semester";
-                                        $stmt = $db->prepare($sql);
-                                        $stmt->bindParam(':course', $course);
-                                        $stmt->bindParam(':year', $year);
-                                        $stmt->bindParam(':semester', $semester);
-                                        $stmt->execute();
+    if ($year == 'all' && $semester == 'all') {
+        foreach ($years as $yearNumber => $yearTitle) {
+            foreach ($semesters as $semesterNumber => $semesterTitle) {
+                echo "<tr><td colspan='7' class='table-info text-center'><strong>$yearTitle - $semesterTitle</strong></td></tr>";
 
-                                        if ($stmt->rowCount() > 0) {
-                                            $currentYear = '';
-                                            $currentSemester = '';
-                                            foreach ($stmt as $student) {
-                                                if ($student['year'] != $currentYear || $student['semester'] != $currentSemester) {
-                                                    if ($currentYear !== '') {
-                                                        echo '<tr><td colspan="7"><hr></td></tr>'; // Horizontal line separator for semester
-                                                    }
-                                                    echo "<tr><td colspan='7' class='table-info text-center'><strong>" . $years[$student['year']] . " - " . $semesters[$student['semester']] . "</strong></td></tr>";
-                                                    $currentYear = $student['year'];
-                                                    $currentSemester = $student['semester'];
-                                                }
+                $sql = "SELECT * FROM tbl_students WHERE course = :course AND year = :year AND semester = :semester";
+                $stmt = $db->prepare($sql);
+                $stmt->bindParam(':course', $course);
+                $stmt->bindParam(':year', $yearNumber);
+                $stmt->bindParam(':semester', $semesterNumber);
+                $stmt->execute();
 
-                                                echo "<tr>";
-                                                echo '<td><input type="checkbox" class="form-check-input student-select" name="student_ids[]" value="' . htmlspecialchars($student['user_id']) . '"></td>';
-                                                echo "<td>" . htmlspecialchars($student['user_name']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($student['lname']) . " " . htmlspecialchars($student['fname']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($student['course']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($student['year']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($student['semester']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($student['status']) . "</td>";
-                                                echo "</tr>";
-                                            }
-                                        } else {
-                                            echo "<tr><td colspan='7'>No students found for the selected course and year.</td></tr>";
-                                        }
-                                    }
-                                } catch (PDOException $e) {
-                                    echo "<tr><td colspan='7'>There was an error: " . $e->getMessage() . "</td></tr>";
-                                }
+                if ($stmt->rowCount() > 0) {
+                    foreach ($stmt as $student) {
+                        echo "<tr>";
+                        echo '<td><input type="checkbox" class="form-check-input student-select" name="student_ids[]" value="' . htmlspecialchars($student['user_id']) . '"></td>';
+                        echo "<td>" . htmlspecialchars($student['user_name']) . "</td>";
+                        echo "<td>" . htmlspecialchars($student['lname']) . " " . htmlspecialchars($student['fname']) . "</td>";
+                        echo "<td>" . htmlspecialchars($student['course']) . "</td>";
+                        echo "<td>" . htmlspecialchars($student['year']) . "</td>";
+                        echo "<td>" . htmlspecialchars($student['semester']) . "</td>";
+                        echo "<td>" . htmlspecialchars($student['status']) . "</td>";
+                        echo "</tr>";
+                    }
+                    echo '<tr><td colspan="7"><hr></td></tr>'; // Horizontal line separator for semester
+                }
+            }
+        }
+    } else {
+        $sql = "SELECT * FROM tbl_students WHERE course = :course AND year = :year AND semester = :semester";
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':course', $course);
+        $stmt->bindParam(':year', $year);
+        $stmt->bindParam(':semester', $semester);
+        $stmt->execute();
 
-                                $database->close();
-                                ?>
+        if ($stmt->rowCount() > 0) {
+            $currentYear = '';
+            $currentSemester = '';
+            foreach ($stmt as $student) {
+                if ($student['year'] != $currentYear || $student['semester'] != $currentSemester) {
+                    if ($currentYear !== '') {
+                        echo '<tr><td colspan="7"><hr></td></tr>'; // Horizontal line separator for semester
+                    }
+                    echo "<tr><td colspan='7' class='table-info text-center'><strong>" . $years[$student['year']] . " - " . $semesters[$student['semester']] . "</strong></td></tr>";
+                    $currentYear = $student['year'];
+                    $currentSemester = $student['semester'];
+                }
+
+                echo "<tr>";
+                echo '<td><input type="checkbox" class="form-check-input student-select" name="student_ids[]" value="' . htmlspecialchars($student['user_id']) . '"></td>';
+                echo "<td>" . htmlspecialchars($student['user_name']) . "</td>";
+                echo "<td>" . htmlspecialchars($student['lname']) . " " . htmlspecialchars($student['fname']) . "</td>";
+                echo "<td>" . htmlspecialchars($student['course']) . "</td>";
+                echo "<td>" . htmlspecialchars($student['year']) . "</td>";
+                echo "<td>" . htmlspecialchars($student['semester']) . "</td>";
+                echo "<td>" . htmlspecialchars($student['status']) . "</td>";
+                echo "</tr>";
+            }
+        } else {
+            echo "<tr><td colspan='7'>No students found for the selected course and year.</td></tr>";
+        }
+    }
+} catch (PDOException $e) {
+    echo "<tr><td colspan='7'>There was an error: " . $e->getMessage() . "</td></tr>";
+}
+
+$database->close();
+?>
+
                             </tbody>
                         </table>
                     </div>
