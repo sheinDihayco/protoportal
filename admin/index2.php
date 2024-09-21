@@ -126,6 +126,8 @@ function fetchSchedules($user_id)
 $schedules = fetchSchedules($userid);
 $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
+
+
 $connection->close();
 ?>
 

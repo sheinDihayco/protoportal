@@ -1,50 +1,3 @@
-<?php
-include_once "includes/connection.php"; // Ensure connection.php is correctly included
-
-session_start();
-
-if (!isset($_SESSION["login"])) {
-  header("location:login.php?error=loginfirst");
-  exit;
-}
-
-$database = new Connection();
-$conn = $database->open();
-
-$userid = $_SESSION["login"];
-
-// Debugging: Check if $userid is set correctly
-if (empty($userid)) {
-    die("User ID is not set.");
-}
-
-// Fetch user information from the database
-$statements = $conn->prepare("SELECT u.fname, u.lname, u.user_image, u.course
-    FROM tbl_students u
-    LEFT JOIN tbl_users s ON u.user_id = s.user_id
-    WHERE u.user_id = :userid
-");
-
-$statements->bindParam(':userid', $userid, PDO::PARAM_INT);
-$statements->execute();
-$user = $statements->fetch(PDO::FETCH_ASSOC);
-
-if ($user) {
-  $fname = $user['fname'];
-  $lname = $user['lname'];
-  $image = $user['user_image'];
-  $course = isset($user['course']) ? $user['course'] : 'No course available';
-} else {
-  // Handle the case where no user was found
-  echo "User or student information not found.";
-  exit;
-}
-
-// Close the connection
-$database->close();
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -85,6 +38,53 @@ $database->close();
   ======================================================== -->
 </head>
 
+<?php
+include_once "includes/connection.php"; // Ensure connection.php is correctly included
+
+session_start();
+
+if (!isset($_SESSION["login"])) {
+  header("location:login.php?error=loginfirst");
+  exit;
+}
+
+$database = new Connection();
+$conn = $database->open();
+
+$userid = $_SESSION["login"];
+
+// Debugging: Check if $userid is set correctly
+if (empty($userid)) {
+    die("User ID is not set.");
+}
+
+// Fetch user information from the database
+$statements = $conn->prepare("SELECT u.fname, u.lname, u.user_image, u.course, u.user_role
+    FROM tbl_students u
+    LEFT JOIN tbl_users s ON u.user_id = s.user_id
+    WHERE u.user_id = :userid
+");
+
+$statements->bindParam(':userid', $userid, PDO::PARAM_INT);
+$statements->execute();
+$user = $statements->fetch(PDO::FETCH_ASSOC);
+
+if ($user) {
+  $fname = $user['fname'];
+  $lname = $user['lname'];
+  $role = $user['user_role'];
+  $image = $user['user_image'];
+  $course = isset($user['course']) ? $user['course'] : 'No course available';
+} else {
+  // Handle the case where no user was found
+  echo "User or student information not found.";
+  exit;
+}
+
+// Close the connection
+$database->close();
+?>
+
 <body>
 
   <?php
@@ -108,7 +108,7 @@ $database->close();
   ?>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
+  <header id="header" class="header fixed-top d-flex align-items-center" style="background-color: #008000;">
     <div class="d-flex align-items-center justify-content-between">
       <a href="../admin/index3.php" class="logo d-flex align-items-center">
         <img src="../assets/img/miit.png" alt="">
@@ -127,6 +127,11 @@ $database->close();
         </li><!-- End Search Icon-->
 
         <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-bell"></i>
+            <span class="badge bg-primary badge-number">4</span>
+          </a><!-- End Notification Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
             <li class="dropdown-header">
@@ -196,54 +201,181 @@ $database->close();
 
         </li><!-- End Notification Nav -->
 
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-chat-left-text"></i>
+            <span class="badge bg-success badge-number">3</span>
+          </a><!-- End Messages Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+            <li class="dropdown-header">
+              You have 3 new messages
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="../../assets/img/messages-1.jpg" alt="" class="rounded-circle">
+                <div>
+                  <h4>Maria Hudson</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>4 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="../../assets/img/messages-2.jpg" alt="" class="rounded-circle">
+                <div>
+                  <h4>Anna Nelson</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>6 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="../../assets/img/messages-3.jpg" alt="" class="rounded-circle">
+                <div>
+                  <h4>David Muldon</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>8 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="dropdown-footer">
+              <a href="#">Show all messages</a>
+            </li>
+
+          </ul><!-- End Messages Dropdown Items -->
+
+        </li><!-- End Messages Nav -->
+
+        <!-- Start Profile Nav -->
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+           <img src="upload-files/<?php echo htmlspecialchars($image); ?>" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo htmlspecialchars($lname)?></span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6><?php echo htmlspecialchars($lname) . ', ' . htmlspecialchars($fname); ?></h6>
+              <span><?php echo htmlspecialchars($role)?></span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <i class="bi bi-gear"></i>
+                <span>Account Settings</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                <i class="bi bi-question-circle"></i>
+                <span>Need Help?</span>
+              </a>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="javascript:void(0);" onclick="document.getElementById('fileInput').click();">
+                <i class="ri-image-add-line"></i>
+                <span>Update Profile</span>
+              </a>
+
+              <!-- Profile Section for Image Upload -->
+                <form action="upload/upload-image1.php" method="post" enctype="multipart/form-data">
+                  <input type="file" id="fileInput" name="file" style="display: none;" onchange="showSaveButton();" />
+
+                  <!-- Save Button -->
+                   <div class="save-button" id="saveButton" style="display: none; margin-left: 75%; margin-top:-15%;position:absolute">
+                    <button type="submit" class="btn btn-primary btn-sm" name="save">Save</button>
+                  </div>
+                </form>
+         
+            </li>
+
+            <script>
+              function showSaveButton() {
+                var fileInput = document.getElementById('fileInput');
+                var saveButton = document.getElementById('saveButton');
+                if (fileInput.files.length > 0) {
+                  saveButton.style.display = 'inline-block';
+                } else {
+                  saveButton.style.display = 'none';
+                }
+              }
+            </script>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="../admin/includes/logout.inc.php">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
   </header><!-- End Header -->
 
-  <aside id="sidebar" class="sidebar">
+  <aside id="sidebar" class="sidebar" style="background-color: #008000;">
     <ul class="sidebar-nav" id="sidebar-nav">
 
-        <div class="profile-section">
-          <div class="profile-img">
-              <!-- Display current profile image with a default fallback -->
-              <img src="upload-files/<?php echo htmlspecialchars($image); ?>" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image" class="rounded-circle">
-          </div>
+       <div class="profile-section">
+        <div class="profile-img">
+          <img src="../admin/images/miit.png" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image" class="rounded-circle">
+        </div>
 
-          <div class="profile-info">
-              <h5><?php echo htmlspecialchars($lname) . ', ' . htmlspecialchars($fname); ?></h5>
-          </div>
-
-          <div class="settings-icon">
-              <a href="javascript:void(0);" onclick="document.getElementById('fileInput').click();">
-                  <i class="ri-image-add-line"></i>
-              </a>
-          </div>
-
-          <form action="upload/upload-image1.php" method="post" enctype="multipart/form-data">
-              <input type="file" id="fileInput" name="file" style="display: none;" onchange="previewImage();" />
-
-              <!-- Save Button -->
-              <div class="save-button" id="saveButton" style="display: none;">
-                  <button type="submit" class="btn btn-primary" name="save">Save</button>
-              </div>
-          </form>
-
-          <!-- Preview Image Section -->
-          <div class="preview-section" style="display: none;">
-              <img id="preview" src="" alt="Image Preview" class="img-thumbnail">
-          </div>
+        <div class="text-white" >
+          <h6>Microsystems International Institute of Technology Inc.</h6 >
+        </div>
+       
       </div>
-
-      <script>
-        function showSaveButton() {
-          var fileInput = document.getElementById('fileInput');
-          var saveButton = document.getElementById('saveButton');
-          if (fileInput.files.length > 0) {
-            saveButton.style.display = 'block';
-          } else {
-            saveButton.style.display = 'none';
-          }
-        }
-      </script>
-
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="../admin/index3.php">
@@ -268,98 +400,86 @@ $database->close();
 
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse">
+        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
           <i class="ri ri-group-line"></i><span>Prospectus</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <?php
-            switch (strtoupper(trim($course))) {
-              case 'BSIT':
-                echo '<li>
-            <a href="../admin/bsit-prospectus.php">
-              <i class="bi bi-circle"></i><span>BSIT</span>
-            </a>
-          </li>';
-                break;
-              case 'BSBA':
-                echo '<li>
-            <a href="../admin/bsba-prospectus.php">
-              <i class="bi bi-circle"></i><span>BSBA</span>
-            </a>
-          </li>';
-                break;
-              case 'BSOA':
-                echo '<li>
-            <a href="../admin/bsoa-prospectus.php">
-              <i class="bi bi-circle"></i><span>BSOA</span>
-            </a>
-          </li>';
-                break;
-              case 'ABM':
-                echo '<li>
-            <a href="../admin/ABM-prospectus.php">
-              <i class="bi bi-circle"></i><span>ABM</span>
-            </a>
-          </li>';
-                break;
-              case 'GAS':
-                echo '<li>
-           <a href="../admin/grade12-prospectus.php">
-              <i class="bi bi-circle"></i><span>GAS</span>
-            </a>
-            </li>';
-                break;
-              case 'ICT':
-                echo '<li>
-            <a href="../admin/grade12-prospectus.php">
-              <i class="bi bi-circle"></i><span>ICT</span>
-            </a>
-            </li>';
-                break;
-              case 'HUMSS':
-                echo '<li>
-            <a href="../admin/grade12-prospectus.php">
-              <i class="bi bi-circle"></i>HUMSS</span>
-            </a>
-          </li>';
-                break;
-              default:
-                echo '<li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>No Prospectus Available</span>
-            </a>
-          </li>';
-                break;
-            }
-            ?>
-          </li>
+        <ul id="tables-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <?php
+          switch (strtoupper(trim($course))) {
+            case 'BSIT':
+              echo '
+                <li class="nav-item">
+                  <a class="nav-link collapsed" href="../admin/bsit-prospectus.php">
+                    <i class="bi bi-circle-fill"></i><span>BSIT</span>
+                  </a>
+                </li>';
+              break;
+            case 'BSBA':
+              echo '
+                <li class="nav-item">
+                  <a class="nav-link collapsed" href="../admin/bsba-prospectus.php">
+                    <i class="bi bi-circle-fill"></i><span>BSBA</span>
+                  </a>
+                </li>';
+              break;
+            case 'BSOA':
+              echo '
+                <li class="nav-item">
+                  <a class="nav-link collapsed" href="../admin/bsoa-prospectus.php">
+                    <i class="bi bi-circle-fill"></i><span>BSOA</span>
+                  </a>
+                </li>';
+              break;
+            case 'ABM':
+              echo '
+                <li class="nav-item">
+                  <a class="nav-link collapsed" href="../admin/ABM-prospectus.php">
+                    <i class="bi bi-circle-fill"></i><span>ABM</span>
+                  </a>
+                </li>';
+              break;
+            case 'GAS':
+              echo '
+                <li class="nav-item">
+                  <a class="nav-link collapsed" href="../admin/grade12-prospectus.php">
+                    <i class="bi bi-circle-fill"></i><span>GAS</span>
+                  </a>
+                </li>';
+              break;
+            case 'ICT':
+              echo '
+                <li class="nav-item">
+                  <a class="nav-link collapsed" href="../admin/grade12-prospectus.php">
+                    <i class="bi bi-circle-fill"></i><span>ICT</span>
+                  </a>
+                </li>';
+              break;
+            case 'HUMSS':
+              echo '
+                <li class="nav-item">
+                  <a class="nav-link collapsed" href="../admin/grade12-prospectus.php">
+                    <i class="bi bi-circle-fill"></i><span>HUMSS</span>
+                  </a>
+                </li>';
+              break;
+            default:
+              echo '
+                <li class="nav-item">
+                  <a class="nav-link collapsed" href="#">
+                    <i class="bi bi-circle-fill"></i><span>No Prospectus Available</span>
+                  </a>
+                </li>';
+              break;
+          }
+          ?>
         </ul>
-      </li>
+      </li><!-- End Prospectus Nav -->
 
-     <!--<li class="nav-item">
-        <a class="nav-link collapsed" href="">
-          <i class="bx bx-book"></i>
-          <span>Enrollment</span>
-        </a>
-      </li>
-      
-      
-      
-      
-      -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="../admin/payment1.php">
           <i class="bx bx-wallet"></i>
           <span>Payment</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="../admin/includes/logout.inc.php">
-          <i class="ri-logout-circle-r-line"></i>
-          <span>Log out</span>
         </a>
       </li>
 
@@ -374,56 +494,6 @@ $database->close();
 
 
   </aside><!-- End Sidebar -->
-
-  <script>
-    document.querySelectorAll('.sidebar .nav-link').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        if (this.hash !== "") {
-          e.preventDefault();
-
-          const target = document.querySelector(this.hash);
-          if (target) {
-            target.scrollIntoView({
-              behavior: 'smooth'
-            });
-          }
-        }
-      });
-    });
-  </script>
-
-  <script>
-    // Get the toggle button and the body element
-    const toggleButton = document.getElementById('darkModeToggle');
-    const body = document.body;
-
-    // Check if dark mode is already enabled
-    if (localStorage.getItem('darkMode') === 'enabled') {
-      body.classList.add('dark-mode');
-      toggleButton.checked = true;
-    }
-
-    // Function to enable dark mode
-    const enableDarkMode = () => {
-      body.classList.add('dark-mode');
-      localStorage.setItem('darkMode', 'enabled');
-    };
-
-    // Function to disable dark mode
-    const disableDarkMode = () => {
-      body.classList.remove('dark-mode');
-      localStorage.setItem('darkMode', 'disabled');
-    };
-
-    // Add an event listener to toggle dark mode
-    toggleButton.addEventListener('click', () => {
-      if (toggleButton.checked) {
-        enableDarkMode();
-      } else {
-        disableDarkMode();
-      }
-    });
-  </script>
 
 <script>
     // Show preview and save button when file is selected

@@ -38,7 +38,7 @@ $user = $statement->fetch(PDO::FETCH_ASSOC);
 
 ?>
 
-<main id="main" class="main">
+<main id="main" class="main" >
   <section class="section dashboard">
     <div class="row">
       <h4 class="pagetitle text-center mb-3">BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY (BSIT)</h4>

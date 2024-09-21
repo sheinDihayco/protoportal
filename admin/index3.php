@@ -1,5 +1,6 @@
+<?php include_once "../templates/header3.php"; ?>
+
 <?php
-include_once "../templates/header3.php";
 include_once "includes/connect.php";
 include_once 'includes/connection.php';
 
@@ -86,7 +87,7 @@ $connection->close();
 ?>
 
 
-<main id="main" class="main">
+<main id="main" class="main" style="background-color: #e6ffe6;">
     <section class="section dashboard">
         <div class="row">
 
@@ -214,8 +215,9 @@ $connection->close();
         </div>
 
     </section>
-
 </main><!-- End #main -->
+
+
 <!-- Add required CSS -->
 <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.3/font/bootstrap-icons.min.css" rel="stylesheet">
@@ -231,7 +233,6 @@ $connection->close();
             message.style.display = 'none';
         }
     }
-
     setTimeout(hideWelcomeMessage, 60000);
 </script>
 
@@ -278,47 +279,55 @@ $connection->close();
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth',
-            customButtons: {
-                datePicker: {
-                    text: '',
-                    icon: 'bi bi-calendar',
-                    click: function() {
-                        $('#datePickerModal').modal('show');
-                    }
-                }
-            },
-            headerToolbar: {
-                left: 'datePicker',
-                center: 'title',
-                right: 'today dayGridMonth,timeGridWeek,timeGridDay'
-            },
-            events: [
-                <?php foreach ($events as $event) : ?> {
-                        title: '<?php echo $event['title']; ?>',
-                        start: '<?php echo $event['date']; ?>',
-                        description: '<?php echo $event['description']; ?>',
-                        color: 'your_custom_color'
+            if(calendarEl){
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
+                    customButtons: {
+                        datePicker: {
+                            text: '',
+                            icon: 'bi bi-calendar',
+                            click: function() {
+                                $('#datePickerModal').modal('show');
+                            }
+                        }
                     },
-                <?php endforeach; ?>
-            ],
-            eventClick: function(info) {
-                alert(info.event.title + "\n" + info.event.start.toLocaleDateString() + "\n" + info.event.extendedProps.description);
+                    headerToolbar: {
+                        left: 'datePicker',
+                        center: 'title',
+                        right: 'today dayGridMonth,timeGridWeek,timeGridDay'
+                    },
+                    events: [
+                            <?php 
+                            $eventData = [];
+                            foreach ($events as $event) {
+                                $eventData[] = "{
+                                    title: '" . addslashes($event['title']) . "',
+                                    start: '" . $event['date'] . "',
+                                    description: '" . addslashes($event['description']) . "',
+                                    color: 'your_custom_color'
+                                }";
+                            }
+                            echo implode(",", $eventData);
+                            ?>
+                        ],
+                    eventClick: function(info) {
+                        alert(info.event.title + "\n" + info.event.start.toLocaleDateString() + "\n" + info.event.extendedProps.description);
+                    }
+                });
+                calendar.render();
+
+                // Initialize date picker
+                $('#datepicker').datepicker({
+                    format: 'yyyy-mm-dd',
+                    autoclose: true
+                }).on('changeDate', function(e) {
+                    var date = e.format('yyyy-mm-dd');
+                    calendar.gotoDate(date);
+                    $('#datePickerModal').modal('hide');
+                });
+                calendar.render();
             }
         });
-        calendar.render();
-
-        // Initialize date picker
-        $('#datepicker').datepicker({
-            format: 'yyyy-mm-dd',
-            autoclose: true
-        }).on('changeDate', function(e) {
-            var date = e.format('yyyy-mm-dd');
-            calendar.gotoDate(date);
-            $('#datePickerModal').modal('hide');
-        });
-    });
 </script>
 
 <!-- Date Picker Modal -->
@@ -335,9 +344,4 @@ $connection->close();
         </div>
     </div>
 </div>
-
-
-
-<?php
-include_once "../templates/footer.php";
-?>
+<?php include_once "../templates/footer.php"; ?>

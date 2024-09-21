@@ -37,13 +37,14 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
+
 <?php
 include_once "includes/connection.php"; // Use connection.php for database connection
 
 session_start();
 if (!isset($_SESSION["login"])) {
-  header("location:login.php?error=loginfirst");
-  exit;
+    header("location:login.php?error=loginfirst");
+    exit;
 }
 
 $database = new Connection();
@@ -52,17 +53,30 @@ $conn = $database->open();
 $userid = $_SESSION["login"];
 
 // Fetch user information from the database
-$statements = $conn->prepare("SELECT user_fname, user_lname, user_image FROM tbl_users WHERE user_id = ?");
+$statements = $conn->prepare("SELECT user_fname, user_lname, user_image, user_role FROM tbl_users WHERE user_id = ?");
 $statements->execute([$userid]);
 $user = $statements->fetch(PDO::FETCH_ASSOC);
 
-$fname = $user['user_fname'];
-$lname = $user['user_lname'];
-$image = $user['user_image'];
+// Check if user data was fetched successfully
+if ($user) {
+    $fname = $user['user_fname'];
+    $lname = $user['user_lname'];
+    $role = $user['user_role'];
+    $image = $user['user_image'];
+} else {
+    // Handle the case where no user is found (perhaps redirect or display an error)
+    $fname = '';
+    $lname = '';
+    $role = '';
+    $image = 'default.png'; // Fallback image if user not found
+    // Optional: Log the error, redirect to login, or show a message
+    echo "User not found!";
+}
 
 // Close the connection when done
 $database->close();
 ?>
+
 <body>
 
   <?php
@@ -85,58 +99,279 @@ $database->close();
   }
   ?>
   <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
+  <header id="header" class="header fixed-top d-flex align-items-center" style="background-color: #008000;">
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="../admin/index.php" class="logo d-flex align-items-center">
         <img src="../assets/img/miit.png" alt="">
-        <span class="d-none d-lg-block">MicroTech</span>
+        <span class="d-none d-lg-block text-white">MicroTech</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li><!-- End Search Icon-->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-bell"></i>
+            <span class="badge bg-primary badge-number">4</span>
+          </a><!-- End Notification Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+            <li class="dropdown-header">
+              You have 4 new notifications
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-exclamation-circle text-warning"></i>
+              <div>
+                <h4>Lorem Ipsum</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>30 min. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-x-circle text-danger"></i>
+              <div>
+                <h4>Atque rerum nesciunt</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>1 hr. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-check-circle text-success"></i>
+              <div>
+                <h4>Sit rerum fuga</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>2 hrs. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-info-circle text-primary"></i>
+              <div>
+                <h4>Dicta reprehenderit</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>4 hrs. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li class="dropdown-footer">
+              <a href="#">Show all notifications</a>
+            </li>
+
+          </ul><!-- End Notification Dropdown Items -->
+
+        </li><!-- End Notification Nav -->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-chat-left-text"></i>
+            <span class="badge bg-success badge-number">3</span>
+          </a><!-- End Messages Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+            <li class="dropdown-header">
+              You have 3 new messages
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="../../assets/img/messages-1.jpg" alt="" class="rounded-circle">
+                <div>
+                  <h4>Maria Hudson</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>4 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="../../assets/img/messages-2.jpg" alt="" class="rounded-circle">
+                <div>
+                  <h4>Anna Nelson</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>6 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="../../assets/img/messages-3.jpg" alt="" class="rounded-circle">
+                <div>
+                  <h4>David Muldon</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>8 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="dropdown-footer">
+              <a href="#">Show all messages</a>
+            </li>
+
+          </ul><!-- End Messages Dropdown Items -->
+
+        </li><!-- End Messages Nav -->
+
+        <!-- Start Profile Nav -->
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0 " href="#" data-bs-toggle="dropdown">
+           <img src="upload-files/<?php echo htmlspecialchars($image); ?>" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo htmlspecialchars($lname)?></span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6><?php echo htmlspecialchars($lname) . ', ' . htmlspecialchars($fname); ?></h6>
+              <span><?php echo htmlspecialchars($role)?></span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <i class="bi bi-gear"></i>
+                <span>Account Settings</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                <i class="bi bi-question-circle"></i>
+                <span>Need Help?</span>
+              </a>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="javascript:void(0);" onclick="document.getElementById('fileInput').click();">
+                <i class="ri-image-add-line"></i>
+                <span>Update Profile</span>
+              </a>
+
+              <!-- Profile Section for Image Upload -->
+                <form action="upload/upload-image.php" method="post" enctype="multipart/form-data">
+                  <input type="file" id="fileInput" name="file" style="display: none;" onchange="showSaveButton();" />
+
+                  <!-- Save Button -->
+                   <div class="save-button" id="saveButton" style="display: none; margin-left: 75%; margin-top:-15%;position:absolute">
+                    <button type="submit" class="btn btn-primary btn-sm" name="save">Save</button>
+                  </div>
+                </form>
+         
+            </li>
+
+            <script>
+              function showSaveButton() {
+                var fileInput = document.getElementById('fileInput');
+                var saveButton = document.getElementById('saveButton');
+                if (fileInput.files.length > 0) {
+                  saveButton.style.display = 'inline-block';
+                } else {
+                  saveButton.style.display = 'none';
+                }
+              }
+            </script>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="../admin/includes/logout.inc.php">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
   </header><!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar">
+  <aside id="sidebar" class="sidebar" style="background-color: #008000;">
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <div class="profile-section">
         <div class="profile-img">
-          <img src="upload-files/<?php echo htmlspecialchars($image); ?>" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image" class="rounded-circle">
+          <img src="../admin/images/miit.png" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image" class="rounded-circle">
         </div>
 
-        <div class="profile-info">
-          <h5><?php echo htmlspecialchars($lname) . ', ' . htmlspecialchars($fname); ?></h5>
+        <div class=" card-title text-white" >
+          <h6>Microsystems International Institute of Technology Inc.</h6 >
         </div>
-        <div class="settings-icon">
-          <a href="javascript:void(0);" onclick="document.getElementById('fileInput').click();">
-            <i class="ri-image-add-line"></i>
-          </a>
-        </div>
-
-        <form action="upload/upload-image1.php" method="post" enctype="multipart/form-data">
-          <input type="file" id="fileInput" name="file" style="display: none;" onchange="showSaveButton();" />
-
-          <!-- Save Button -->
-          <div class="save-button" id="saveButton" style="display: none;">
-            <button type="submit" class="btn btn-primary" name="save">Save</button>
-          </div>
-        </form>
+       
       </div>
 
-      <script>
-        function showSaveButton() {
-          var fileInput = document.getElementById('fileInput');
-          var saveButton = document.getElementById('saveButton');
-          if (fileInput.files.length > 0) {
-            saveButton.style.display = 'block';
-          } else {
-            saveButton.style.display = 'none';
-          }
-        }
-      </script>
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="../admin/index.php">
@@ -146,67 +381,64 @@ $database->close();
       </li>
       <!-- End Dashboard Nav -->
 
-
-      <!-- <li class="nav-item">
-        <a class="nav-link collapsed" href="../admin/studentRecords1.php">
-          <i class="ri ri-group-line"></i>
-          <span>Student</span>
-        </a
-      </li>-->
-
       <!-- Start Forms Nav -->
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-journal-text"></i><span>Academics</span><i class="bi bi-chevron-down ms-auto"></i>
+        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Academics</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="../admin/set-schedule.php">
-              <i class="ri-checkbox-blank-circle-fill"></i><span>Schedule</span>
+        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="../admin/set-schedule.php">
+              <i class="bi bi-circle-fill"></i>
+              <span>Schedules</span>
             </a>
           </li>
 
-          <li>
-            <a href="../admin/Grades.php">
-              <i class="ri-checkbox-blank-circle-fill"></i><span>Grades</span>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="../admin/Grades.php">
+              <i class="bi bi-circle-fill"></i>
+              <span>Grades</span>
             </a>
           </li>
 
-          <li>
-            <a href="../admin/course.php">
-              <i class="ri-checkbox-blank-circle-fill"></i><span>Courses</span>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="../admin/course.php">
+              <i class="bi bi-circle-fill"></i>
+              <span>Courses</span>
             </a>
           </li>
 
-          <li>
-            <a href="../admin/assign-student-instructors.php">
-              <i class="ri-checkbox-blank-circle-fill"></i><span>Assign Students</span>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="../admin/assign-student-instructors.php">
+              <i class="bi bi-circle-fill"></i>
+              <span>Assign students</span>
             </a>
           </li>
 
         </ul>
-      </li>
+      </li><!-- End Tables Nav -->
+
       <!-- End Forms Nav -->
 
-      <!-- Start User Nav -->
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#user-nav" data-bs-toggle="collapse" href="#">
-          <i class="ri ri-group-line"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-layout-text-window-reverse"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="user-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="../admin/user-student.php">
-              <i class="bi bi-circle-fill"></i><span>Students</span>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="../admin/user.php">
+              <i class="bi bi-circle-fill"></i>
+              <span>Students</span>
             </a>
           </li>
-          <li>
-            <a href="../admin/user.php">
-              <i class="bi bi-circle-fill"></i><span>Instructors</span>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="../admin/user.php">
+              <i class="bi bi-circle-fill"></i>
+              <span>Instructors</span>
             </a>
           </li>
         </ul>
-      </li>
-      <!-- End User Nav -->
+      </li><!-- End Tables Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="../admin/event2.php">
@@ -249,84 +481,8 @@ $database->close();
         </ul>
       </li><!-- End Tables Nav -->
 
-      <!--<li class="nav-item">
-        <a class="nav-link collapsed" href="../admin/employee.php">
-          <i class="ri ri-group-line"></i>
-          <span>Employee</span>
-        </a>
-      </li>-->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="../admin/includes/logout.inc.php">
-          <i class="ri-logout-circle-r-line"></i>
-          <span>Log out</span>
-        </a>
-      </li>
-
       <br>
-      <div class="settings-icon" style="display: none;">
-        <a href="../admin/user-form.php">
-          <i class="bi bi-gear"></i> <!-- Settings icon -->
-        </a>
-      </div>
-
-      <!-- <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#user-nav" data-bs-toggle="collapse" href="#">
-          <i class="ri ri-group-line"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="user-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="../admin/student.php">
-              <i class="bi bi-circle-fill"></i><span>Students</span>
-            </a>
-          </li>
-          <li>
-            <a href="../admin/instructor.php">
-              <i class="bi bi-circle-fill"></i><span>Instructors</span>
-            </a>
-          </li>
-        </ul>
-      </li> -->
-      <!-- End Components Nav -->
-
-      <!-- <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Components</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="../admin/enrollment.php">
-              <i class="bi bi-circle"></i><span>Enrollment</span>
-            </a>
-          </li>
-          <li>
-            <a href="../admin/schedule.php">
-              <i class="bi bi-circle"></i><span>Schedule</span>
-            </a>
-          </li>
-          <li>
-            <a href="../admin/upload.eval.php">
-              <i class="bi bi-circle"></i><span>Evaluation</span>
-            </a>
-          </li>
-          <li>
-            <a href="../admin/grade.php">
-              <i class="bi bi-circle"></i><span>Grade</span>
-            </a>
-          </li>
-        </ul>
-      </li> -->
-
-      <!-- End Components Nav -->
-
     </ul>
-
-    <!-- <div style="margin-top: -5.5%; position:sticky">
-      <label class="switch">
-        <input type="checkbox" id="darkModeToggle">
-        <span class="slider round"></span>
-      </label>
-    </div>-->
 
   </aside><!-- End Sidebar-->
 
@@ -344,40 +500,6 @@ $database->close();
           }
         }
       });
-    });
-  </script>
-
-
-  <script>
-    // Get the toggle button and the body element
-    const toggleButton = document.getElementById('darkModeToggle');
-    const body = document.body;
-
-    // Check if dark mode is already enabled
-    if (localStorage.getItem('darkMode') === 'enabled') {
-      body.classList.add('dark-mode');
-      toggleButton.checked = true;
-    }
-
-    // Function to enable dark mode
-    const enableDarkMode = () => {
-      body.classList.add('dark-mode');
-      localStorage.setItem('darkMode', 'enabled');
-    };
-
-    // Function to disable dark mode
-    const disableDarkMode = () => {
-      body.classList.remove('dark-mode');
-      localStorage.setItem('darkMode', 'disabled');
-    };
-
-    // Add an event listener to toggle dark mode
-    toggleButton.addEventListener('click', () => {
-      if (toggleButton.checked) {
-        enableDarkMode();
-      } else {
-        disableDarkMode();
-      }
     });
   </script>
 
