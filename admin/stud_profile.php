@@ -100,8 +100,8 @@ $database->close();
                       <tr>
                         <th scope="col">Student ID</th>
                         <th scope="col">Semester</th>
+                        <th scope="col">Payment Period</th>
                         <th scope="col">Payment Status</th>
-                        <th scope="col">Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -135,12 +135,11 @@ $database->close();
                           <tr>
                             <th scope="row"><a href=""><?php echo htmlspecialchars($row["user_name"]); ?></a></th>
                             <td><?php echo htmlspecialchars($row["semester"]) ? htmlspecialchars($row["semester"]) : 'Choose semester'; ?></td>
+                            
+                             <td><?php echo htmlspecialchars($row["paymentPeriod"]) ? htmlspecialchars($row["paymentPeriod"]) : 'Choose payment period'; ?></td>
 
                             <td><?php echo htmlspecialchars($row["payment_status"]) ? htmlspecialchars($row["payment_status"]) : 'Not Available'; ?></td>
 
-                            <td>
-                              <button type="button" class=" btn btn-sm btn-warning ri-edit-2-fill"><i class="bi view-list"></i></button>
-                            </td>
                           </tr>
 
                       <?php

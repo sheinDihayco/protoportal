@@ -185,7 +185,7 @@ $connection->close();
             </div>
           </div>
           <!-- End Event -->
-
+          
           <!-- Students Enrolled -->
           <div class="col-12">
             <div class="card recent-sales overflow-auto">

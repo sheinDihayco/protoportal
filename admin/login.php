@@ -163,7 +163,7 @@
 
             <div class="course bg-white h-100 align-self-stretch">
               <figure class="m-0">
-                <a href="course-single.html"><img src="images/bsoa.jpg" alt="Image" class="img-fluid"></a>
+                <a href="BSOA.html"><img src="images/bsoa.jpg" alt="Image" class="img-fluid"></a>
               </figure>
               <div class="course-inner-text py-4 px-4">
                 <span class="course-price bg-dark">$20</span>
@@ -179,7 +179,7 @@
 
             <div class="course bg-white h-100 align-self-stretch">
               <figure class="m-0">
-                <a href="course-single.html"><img src="images/bsba.png" alt="Image" class="img-fluid"></a>
+                <a href="BSBA.html"><img src="images/bsba.png" alt="Image" class="img-fluid"></a>
               </figure>
               <div class="course-inner-text py-4 px-4">
                 <span class="course-price bg-dark">$99</span>

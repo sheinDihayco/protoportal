@@ -710,4 +710,5 @@ $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday
         text-decoration: none !important;
     }
 </style>
+
 <?php include_once "../templates/footer.php"; ?>

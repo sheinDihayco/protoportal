@@ -193,7 +193,7 @@ if (isset($_GET['update']) && $_GET['update'] == 'success') {
                         <div class="modal fade" id="editModal<?php echo htmlspecialchars($row['user_id']); ?>" tabindex="-1" aria-labelledby="editModalLabel<?php echo htmlspecialchars($row['user_id']); ?>" aria-hidden="true">
                           <div class="modal-dialog modal-dialog-centered modal-lg">
                             <div class="modal-content border-0 shadow-lg">
-                              <div class="modal-header bg-primary text-white">
+                              <div class="modal-header text-dark">
                                 <h5 class="modal-title" id="editModalLabel">
                                   Edit Employee Details
                                 </h5>
