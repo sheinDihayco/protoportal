@@ -7,7 +7,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
-      <div class="modal-body">
+      <div class="modal-body"  style="background-color: #e6ffe6;">
         <div class="card-body p-4">
           <form action="upload/insert-initial-data.php" method="post" class="needs-validation" novalidate>
             <!-- Hidden field to pass user_id -->

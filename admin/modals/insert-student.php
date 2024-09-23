@@ -5,7 +5,7 @@
                 <h5 class="modal-title">Assign Instructors to Student <?php echo $row["user_fname"] . ' ' . $row["user_lname"] ?></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="background-color: #e6ffe6;" >
                 <form action="functions/assign-student.php" method="post" class="row g-3 needs-validation" novalidate style="padding: 20px;">
                     <input type="hidden" name="instructor_id" value="<?php echo $row["user_id"]; ?>">
 

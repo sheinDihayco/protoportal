@@ -6,7 +6,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
-      <div class="modal-body">
+      <div class="modal-body"  style="background-color: #e6ffe6;">
         <form action="functions/add-employee.php" method="post" class="row g-3 needs-validation" novalidate>
           <!-- Hidden field to pass employee_id -->
           <input type="hidden" name="employee_id" value="<?php echo htmlspecialchars($row['employee_id']); ?>">

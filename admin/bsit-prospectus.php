@@ -84,16 +84,7 @@ $user = $statement->fetch(PDO::FETCH_ASSOC);
   </section>
 </main>
 
-
 <style>
-  main {
-    line-height: 1.6;
-    color: #333;
-    margin: 0;
-    padding: 20px;
-    background-color: #f4f4f4;
-  }
-
   .section {
     padding: 20px;
     border: 1px solid #dcdcdc;
@@ -108,19 +99,10 @@ $user = $statement->fetch(PDO::FETCH_ASSOC);
     margin: auto;
   }
 
-  h6 {
-    font-size: 1.4rem;
-    color: #004080;
-    /*border-bottom: 1px solid #e0e0e0;*/
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-    font-weight: bold;
-  }
 
   h4 {
     font-size: 1.4rem;
     color: #004080;
-    /*border-bottom: 1px solid #e0e0e0;*/
     padding-bottom: 10px;
     margin-bottom: 20px;
     font-weight: bold;

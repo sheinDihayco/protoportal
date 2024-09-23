@@ -23,7 +23,7 @@ $database->close();
                 <h5 class="modal-title" id="insertGradeLabel<?php echo htmlspecialchars($student['user_id']); ?>">Insert Grade</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body"  style="background-color: #e6ffe6;">
                 <div class="card-body p-4">
                     <form action="../admin/functions/insert-grades.php" method="post" novalidate>
                         <div class="row mb-3">

@@ -90,7 +90,7 @@ $connection->close();
                         <h5 class="modal-title" id="courseModalLabel">Add Course</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" style="background-color:#e6ffe6;">
                         <form id="addCourseForm">
                             <input type="hidden" name="course_id" id="course_id">
                             <div class="mb-3">
@@ -115,7 +115,7 @@ $connection->close();
                         <h5 class="modal-title" id="editCourseModalLabel">Edit Course</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" style="background-color:#e6ffe6;">
                         <form id="editCourseForm">
                             <input type="hidden" name="course_id" id="edit_course_id">
                             <div class="mb-3">

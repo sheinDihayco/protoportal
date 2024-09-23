@@ -49,6 +49,7 @@ if (isset($_GET['update']) && $_GET['update'] == 'success') {
 ?>
 
 <main id="main" class="main">
+ 
 
   <div class="pagetitle">
     <h1>Instructor Account Records</h1>
@@ -70,7 +71,7 @@ if (isset($_GET['update']) && $_GET['update'] == 'success') {
           <h5 class="modal-title">Register Account</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" style="background-color:#e6ffe6;">
           <form action="includes/register.inc.php" method="post" class="row g-3 needs-validation" novalidate style="padding: 20px;">
             <div class="col-12">
               <label for="role" class="form-label">Role</label>
@@ -200,7 +201,7 @@ if (isset($_GET['update']) && $_GET['update'] == 'success') {
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
 
-                              <div class="modal-body">
+                              <div class="modal-body" style="background-color:#e6ffe6;">
                                 <div class="card-body p-4">
                                   <form action="functions/update-employee.php" method="post" class="needs-validation" novalidate>
                                     <!-- Hidden field to pass user_id -->

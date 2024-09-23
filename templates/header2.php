@@ -39,7 +39,8 @@
   ======================================================== -->
 </head>
 
-<body>
+<body style="background-color: #e6ffe6;">
+ 
 
 <?php
 include_once "includes/connection.php"; // Use connection.php for database connection
@@ -85,9 +86,9 @@ $database->close();
     <div class="d-flex align-items-center justify-content-between">
       <a href="../admin/index3.php" class="logo d-flex align-items-center">
         <img src="../assets/img/miit.png" alt="">
-        <span class="d-none d-lg-block">MicroTech</span>
+        <span class="d-none d-lg-block text-white">MicroTech</span>
       </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
+      <i class="bi bi-list toggle-sidebar-btn text-white"></i>
     </div><!-- End Logo -->
 
     <nav class="header-nav ms-auto">
@@ -102,7 +103,7 @@ $database->close();
         <li class="nav-item dropdown">
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-bell"></i>
+            <i class="bi bi-bell text-white"></i>
             <span class="badge bg-primary badge-number">4</span>
           </a><!-- End Notification Icon -->
 
@@ -177,7 +178,7 @@ $database->close();
         <li class="nav-item dropdown">
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-chat-left-text"></i>
+            <i class="bi bi-chat-left-text text-white"></i>
             <span class="badge bg-success badge-number">3</span>
           </a><!-- End Messages Icon -->
 
@@ -245,7 +246,7 @@ $database->close();
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
            <img src="upload-files/<?php echo htmlspecialchars($image); ?>" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo htmlspecialchars($lname)?></span>
+            <span class="d-none d-md-block dropdown-toggle ps-2 text-white"><?php echo htmlspecialchars($lname)?></span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -345,8 +346,8 @@ $database->close();
               <img src="../admin/images/miit.png" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image" class="rounded-circle">
             </div>
 
-            <div class=" card-title text-white" >
-              <h6>Microsystems International Institute of Technology Inc.</h6 >
+            <div class="text-white" style="padding: 10px; text-align: center;">
+              <h6>Microsystems International Institute of Technology Inc.</h6>
             </div>
           
           </div>
@@ -526,9 +527,6 @@ $database->close();
     background-color: #008000;
    }
 
-   main{
-    background-color: #e6ffe6;
-   }
 </style>
 
 

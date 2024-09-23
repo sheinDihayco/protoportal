@@ -1,5 +1,4 @@
-<?php include_once "../templates/header3.php"; ?>
-
+<?php include_once "../templates/header3.php"?>
 <?php
 include_once "includes/connect.php";
 include_once 'includes/connection.php';
@@ -225,7 +224,6 @@ $connection->close();
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
 <!-- Add custom CSS to remove underlines -->
 
-
 <script>
     function hideWelcomeMessage() {
         var message = document.getElementById('message');
@@ -344,4 +342,5 @@ $connection->close();
         </div>
     </div>
 </div>
+
 <?php include_once "../templates/footer.php"; ?>

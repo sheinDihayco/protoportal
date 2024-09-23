@@ -47,7 +47,7 @@ $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday
 
 ?>
 
-<main id="main" class="main">
+<main id="main" class="main" >
 
     <div class="pagetitle">
         <h1>Schedule Records</h1>
@@ -147,7 +147,7 @@ $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday
                         <h5 class="modal-title" id="scheduleModalLabel">Create New Schedule</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" style="background-color:#e6ffe6;">
                         <div class="card-body p-4">
                             <form id="scheduleForm" action="./includes/submit-schedule.php" method="POST">
                                 <!-- Instructor Selection -->
@@ -258,7 +258,7 @@ $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday
                         <h5 class="modal-title" id="editModalLabel">Edit Schedule</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" style="background-color:#e6ffe6;">
                         <div class="card-body p-4">
                             <form id="editScheduleForm" method="POST" action="./includes/update-schedule.php">
                                 <input type="hidden" id="editScheduleId" name="schedule_id">
@@ -709,6 +709,7 @@ $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday
     .navbar-brand {
         text-decoration: none !important;
     }
+   
 </style>
 
 <?php include_once "../templates/footer.php"; ?>

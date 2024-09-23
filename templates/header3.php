@@ -10,7 +10,7 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="../../assets/img/favicon.png" rel="icon">
+  <link href="../admin/images/miit.png" rel="icon">
   <link href="../../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
@@ -85,7 +85,7 @@ if ($user) {
 $database->close();
 ?>
 
-<body>
+<body style="background-color:#e6ffe6;">
 
   <?php
   if (isset($_SESSION['login_success']) && $_SESSION['login_success']) {
@@ -95,7 +95,7 @@ $database->close();
             Successfully logged in!
         </div>
         <script>
-           // Automatically close the alert after 5 seconds
+            // Automatically close the alert after 5 seconds
             setTimeout(function() {
                 document.querySelector('.alert').style.opacity = '0';
                 setTimeout(function() {
@@ -106,16 +106,18 @@ $database->close();
     unset($_SESSION['login_success']);
   }
   ?>
-
+  
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center" style="background-color: #008000;">
+
     <div class="d-flex align-items-center justify-content-between">
-      <a href="../admin/index3.php" class="logo d-flex align-items-center">
+      <a href="../admin/index.php" class="logo d-flex align-items-center">
         <img src="../assets/img/miit.png" alt="">
-        <span class="d-none d-lg-block">MicroTech</span>
+        <span class="d-none d-lg-block text-white">MicroTech</span>
       </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
+      <i class="bi bi-list toggle-sidebar-btn text-white"></i>
     </div><!-- End Logo -->
+
 
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
@@ -129,7 +131,7 @@ $database->close();
         <li class="nav-item dropdown">
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-bell"></i>
+            <i class="bi bi-bell text-white"></i>
             <span class="badge bg-primary badge-number">4</span>
           </a><!-- End Notification Icon -->
 
@@ -204,7 +206,7 @@ $database->close();
         <li class="nav-item dropdown">
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-chat-left-text"></i>
+            <i class="bi bi-chat-left-text text-white"></i>
             <span class="badge bg-success badge-number">3</span>
           </a><!-- End Messages Icon -->
 
@@ -270,9 +272,9 @@ $database->close();
         <!-- Start Profile Nav -->
         <li class="nav-item dropdown pe-3">
 
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+          <a class="nav-link nav-profile d-flex align-items-center pe-0 " href="#" data-bs-toggle="dropdown">
            <img src="upload-files/<?php echo htmlspecialchars($image); ?>" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo htmlspecialchars($lname)?></span>
+            <span class="d-none d-md-block dropdown-toggle ps-2 text-white"><?php echo htmlspecialchars($lname)?></span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -363,6 +365,7 @@ $database->close();
     </nav><!-- End Icons Navigation -->
   </header><!-- End Header -->
 
+  <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar" style="background-color: #008000;">
     <ul class="sidebar-nav" id="sidebar-nav">
 
@@ -371,10 +374,9 @@ $database->close();
           <img src="../admin/images/miit.png" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image" class="rounded-circle">
         </div>
 
-        <div class="text-white" >
-          <h6>Microsystems International Institute of Technology Inc.</h6 >
+        <div class="text-white" style="padding: 10px; text-align: center;">
+          <h6>Microsystems International Institute of Technology Inc.</h6>
         </div>
-       
       </div>
 
       <li class="nav-item">
@@ -521,6 +523,22 @@ $database->close();
     }
 </script>
 
+  <script>
+    document.querySelectorAll('.sidebar .nav-link').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        if (this.hash !== "") {
+          e.preventDefault();
+
+          const target = document.querySelector(this.hash);
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth'
+            });
+          }
+        }
+      });
+    });
+  </script>
 
   <style>
     html {
@@ -533,9 +551,7 @@ $database->close();
 
     .sidebar .nav-link:hover {
       background-color: #f0f0f0;
-      /* Adjust color as needed */
       color: #333;
-      /* Adjust color as needed */
     }
 
     .profile-section {
@@ -561,8 +577,6 @@ $database->close();
     }
 
     .alert {
-      max-width: 300px;
-      width: 100%;
       padding: 20px;
       background-color: #4CAF50;
       color: white;
@@ -572,8 +586,8 @@ $database->close();
       border-radius: 4px;
       position: fixed;
       top: 20px;
-      left: 80%;
-      z-index: 5000;
+      right: 20px;
+      z-index: 1000;
     }
 
     .closebtn {
@@ -584,114 +598,11 @@ $database->close();
       font-size: 22px;
       line-height: 20px;
       cursor: pointer;
-      transition: color 0.3s;
+      transition: 0.3s;
     }
 
     .closebtn:hover {
       color: black;
     }
-
-    /* Universal Dark Mode Styles */
-    .dark-mode {
-      background-color: #222;
-      color: #e0e0e0;
-    }
-
-    /* Header and Sidebar Styling */
-    .dark-mode .header,
-    .dark-mode .sidebar {
-      background-color: #2c2c2c;
-      color: #f0f0f0;
-    }
-
-    /* Text Color for Various Titles and Links */
-    .dark-mode .nav-link,
-    .dark-mode .profile-info h5,
-    .dark-mode .card-title,
-    .dark-mode .pagetitle h1,
-    .dark-mode .title,
-    .dark-mode .nav-item a,
-    .dark-mode .sidebar-nav li,
-    .dark-mode .settings-icon a {
-      color: #d1d1d1;
-    }
-
-    .dark-mode .save-button button {
-      background-color: #555;
-      border: 1px solid #666;
-      color: #f0f0f0;
-    }
-
-    .dark-mode .card,
-    .dark-mode .card-body,
-    .dark-mode .list-group-item,
-    .dark-mode .mb-3 input,
-    .dark-mode .mb-3 textarea,
-    .dark-mode .table th,
-    .dark-mode .modal-content,
-    .dark-mode .modal-content input,
-    .dark-mode .modal-content select {
-      background-color: #3c3c3c;
-      color: #f0f0f0;
-    }
-
-    .dark-mode .card a,
-    .dark-mode .table td,
-    .dark-mode .d-none,
-    .dark-mode .ps-3 h6,
-    .dark-mode .col-md-2 label,
-    .dark-mode .modal-title {
-      color: #ffffff;
-    }
-
-    .switch {
-      position: relative;
-      display: inline-block;
-      width: 40px;
-      height: 20px;
-    }
-
-    .switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #1a1a1a;
-      transition: .4s;
-    }
-
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 16px;
-      width: 16px;
-      left: 2px;
-      bottom: 2px;
-      background-color: #0088ff;
-      transition: .4s;
-    }
-
-    input:checked+.slider {
-      background-color: #555;
-    }
-
-    input:checked+.slider:before {
-      transform: translateX(20px);
-    }
-
-    .slider.round {
-      border-radius: 20px;
-    }
-
-    .slider.round:before {
-      border-radius: 50%;
-    }
+    
   </style>

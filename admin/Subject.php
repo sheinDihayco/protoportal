@@ -25,7 +25,7 @@ if (isset($_SESSION['subject_created']) && $_SESSION['subject_created']) {
   <!-- Start Page Title -->
   <div class="pagetitle">
     <h1>Subject Records</h1>
-    <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#courseModal">
+    <button type="button" class="ri-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#courseModal">
     </button>
     <nav>
       <ol class="breadcrumb">
@@ -243,7 +243,7 @@ if (isset($_SESSION['subject_created']) && $_SESSION['subject_created']) {
           <h5 class="modal-title" id="courseModalLabel">Add Subject</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" style="background-color:#e6ffe6;">
           <form id="addSubjectForm" action="functions/add-subject.php" method="POST">
             <div class="row g-3">
               <div class="col-md-6">
@@ -298,11 +298,11 @@ if (isset($_SESSION['subject_created']) && $_SESSION['subject_created']) {
                 </select>
               </div>
             </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Add Subject</button>
-        </div>
+       
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Add Subject</button>
+            </div>
         </form>
       </div>
     </div>
@@ -317,7 +317,7 @@ if (isset($_SESSION['subject_created']) && $_SESSION['subject_created']) {
           <h5 class="modal-title" id="editSubjectModalLabel">Edit Subject</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" style="background-color:#e6ffe6;">
           <form id="editSubjectForm" action="includes/update_subject.php" method="POST">
             <!-- Include a hidden input field to hold the subject ID -->
             <input type="hidden" id="edit-id" name="id">

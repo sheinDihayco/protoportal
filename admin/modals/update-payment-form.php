@@ -1,11 +1,11 @@
-<div class="modal fade" id="updatePaymentStatus<?php echo $row['payment_id']; ?>" tabindex="-1" aria-labelledby="updatePaymentStatusLabel<?php echo $row['payment_id']; ?>" aria-hidden="true">
+<div class="modal fade"id="updatePaymentStatus<?php echo $row['payment_id']; ?>" tabindex="-1" aria-labelledby="updatePaymentStatusLabel<?php echo $row['payment_id']; ?>" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="updatePaymentStatusLabel<?php echo $row['payment_id']; ?>">Update Payment Status</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" style="background-color: #e6ffe6;" >
         <div class="card-body p-4">
           <form action="functions/payment-status.php" method="POST" novalidate>
             <input type="hidden" name="payment_id" value="<?php echo $row['payment_id']; ?>">

@@ -86,7 +86,7 @@ $connection->close();
                             <h5 class="modal-title" id="timeSlotModalLabel">Add Time Slot</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body" style="background-color:#e6ffe6;">
                             <form id="timeSlotForm">
                                 <input type="hidden" name="time_id" id="time_id">
                                 <div class="mb-3">
@@ -159,7 +159,7 @@ $connection->close();
                             <h5 class="modal-title" id="roomModalLabel">Add Room</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body" style="background-color:#e6ffe6;">
                             <form id="roomForm">
                                 <input type="hidden" name="room_id" id="room_id">
                                 <div class="mb-3">

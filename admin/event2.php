@@ -122,7 +122,7 @@ endif; ?>
                     <h5 class="modal-title" id="addEventModalLabel">Add New Event</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="background-color:#e6ffe6;">
                     <!-- Event Form -->
                     <form action="includes/event.inc.php" method="POST">
                         <div class="mb-3">
@@ -231,7 +231,7 @@ endif; ?>
                             <h5 class="modal-title" id="editEventModalLabel<?php echo htmlspecialchars($event['id']); ?>">Edit Event</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body" style="background-color:#e6ffe6;">
                             <!-- Edit Event Form -->
                             <form action="../admin/includes/update-event.php" method="POST">
                                 <input type="hidden" name="eventId" value="<?php echo htmlspecialchars($event['id']); ?>">
