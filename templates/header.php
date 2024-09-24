@@ -99,7 +99,7 @@ $database->close();
   }
   ?>
   <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center" style="background-color: #008000;">
+  <header id="header" class="header fixed-top d-flex align-items-center" style="background-color: #00674f;">
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="../admin/index.php" class="logo d-flex align-items-center">
@@ -357,7 +357,7 @@ $database->close();
   </header><!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar" style="background-color: #008000;">
+  <aside id="sidebar" class="sidebar" style="background-color: #00674f;">
 
     <ul class="sidebar-nav" id="sidebar-nav">
 

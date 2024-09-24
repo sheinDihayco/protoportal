@@ -86,7 +86,7 @@ $connection->close();
 ?>
 
 
-<main id="main" class="main" style="background-color: #e6ffe6;">
+<main id="main" class="main" >
     <section class="section dashboard">
         <div class="row">
 
@@ -264,6 +264,9 @@ $connection->close();
         right: 20px;
         z-index: 5000;
         width: 300px;
+    }
+    footer{
+        background-color: #e6ffe6;
     }
 </style>
 

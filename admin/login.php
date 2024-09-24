@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -115,13 +116,13 @@
                           <label for="identifier" class="form-label">Username or School ID</label>
                           <div class="input-group has-validation">
                             <span class="input-group-text" id="inputGroupPrepend">@</span>
-                            <input type="text" name="identifier" class="form-control" id="identifier" value="<?php echo isset($_COOKIE['rememberedIdentifier']) ? htmlspecialchars($_COOKIE['rememberedIdentifier']) : ''; ?>" required>
+                            <input type="text" name="identifier" class="form-control" id="identifier" value="" required>
                             <div class="invalid-feedback">Please enter your username or school ID.</div>
                           </div>
                         </div>
                         <div class="col-12">
                           <label for="yourPassword" class="form-label">Password</label>
-                          <input type="password" name="password" class="form-control" id="yourPassword" value="<?php echo isset($_COOKIE['rememberedPassword']) ? htmlspecialchars($_COOKIE['rememberedPassword']) : ''; ?>" required>
+                          <input type="password" name="password" class="form-control" id="yourPassword" value="" required>
                           <div class="invalid-feedback">Please enter your password!</div>
                         </div>
                         <div class="col-12">
@@ -163,7 +164,7 @@
 
             <div class="course bg-white h-100 align-self-stretch">
               <figure class="m-0">
-                <a href="BSOA.html"><img src="images/bsoa.jpg" alt="Image" class="img-fluid"></a>
+                <a href="course-single.html"><img src="images/bsoa.jpg" alt="Image" class="img-fluid"></a>
               </figure>
               <div class="course-inner-text py-4 px-4">
                 <span class="course-price bg-dark">$20</span>
@@ -179,7 +180,7 @@
 
             <div class="course bg-white h-100 align-self-stretch">
               <figure class="m-0">
-                <a href="BSBA.html"><img src="images/bsba.png" alt="Image" class="img-fluid"></a>
+                <a href="course-single.html"><img src="images/bsba.png" alt="Image" class="img-fluid"></a>
               </figure>
               <div class="course-inner-text py-4 px-4">
                 <span class="course-price bg-dark">$99</span>

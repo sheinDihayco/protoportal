@@ -39,7 +39,7 @@
   ======================================================== -->
 </head>
 
-<body style="background-color: #e6ffe6;">
+<body style="background-color: #d4e2cd;">
  
 
 <?php
@@ -82,7 +82,7 @@ $database->close();
 ?>
 
  <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center" style="background-color: #008000;">
+  <header id="header" class="header fixed-top d-flex align-items-center" style="background-color: #87ae73;">
     <div class="d-flex align-items-center justify-content-between">
       <a href="../admin/index3.php" class="logo d-flex align-items-center">
         <img src="../assets/img/miit.png" alt="">
@@ -337,7 +337,7 @@ $database->close();
     </nav><!-- End Icons Navigation -->
   </header><!-- End Header -->
 
-  <aside id="sidebar" class="sidebar" style="background-color: #008000;">
+  <aside id="sidebar" class="sidebar" style="background-color: #87ae73;">
 
       <ul class="sidebar-nav" id="sidebar-nav">
         

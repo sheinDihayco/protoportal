@@ -74,7 +74,7 @@ $connection->close();
 ?>
 
 
-<main id="main" class="main" style="background-color: #e6ffe6;">
+<main id="main" class="main">
   <div class="pagetitle">
     <h1>Dashboard</h1>
     <nav>
