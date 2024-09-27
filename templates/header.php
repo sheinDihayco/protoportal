@@ -98,6 +98,7 @@ $database->close();
     unset($_SESSION['login_success']);
   }
   ?>
+  
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center" style="background-color: #00674f;">
 
@@ -425,7 +426,7 @@ $database->close();
         </a>
         <ul id="user-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li class="nav-item">
-            <a class="nav-link collapsed" href="../admin/user.php">
+            <a class="nav-link collapsed" href="../admin/user-student.php">
               <i class="bi bi-circle-fill"></i>
               <span>Students</span>
             </a>

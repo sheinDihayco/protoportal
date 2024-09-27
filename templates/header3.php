@@ -37,7 +37,6 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
-
 <?php
 include_once "includes/connection.php"; // Ensure connection.php is correctly included
 
@@ -85,7 +84,7 @@ if ($user) {
 $database->close();
 ?>
 
-<body style="background-color:#d4e2cd;">
+<body style="background-color:#e6ffe6;">
 
   <?php
   if (isset($_SESSION['login_success']) && $_SESSION['login_success']) {
@@ -106,503 +105,477 @@ $database->close();
     unset($_SESSION['login_success']);
   }
   ?>
-  
-  <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center" style="background-color: #87ae73;">
 
-    <div class="d-flex align-items-center justify-content-between">
-      <a href="../admin/index.php" class="logo d-flex align-items-center">
-        <img src="../assets/img/miit.png" alt="">
-        <span class="d-none d-lg-block text-white">MicroTech</span>
-      </a>
-      <i class="bi bi-list toggle-sidebar-btn text-white"></i>
-    </div><!-- End Logo -->
+<!-- ======= Header ======= -->
+<header id="header" class="header fixed-top d-flex align-items-center" style="background-color: #00674f;">
+
+  <div class="d-flex align-items-center justify-content-between">
+    <a href="../admin/index.php" class="logo d-flex align-items-center">
+      <img src="../assets/img/miit.png" alt="">
+      <span class="d-none d-lg-block text-white">MicroTech</span>
+    </a>
+    <i class="bi bi-list toggle-sidebar-btn text-white"></i>
+  </div><!-- End Logo -->
 
 
-    <nav class="header-nav ms-auto">
-      <ul class="d-flex align-items-center">
+  <nav class="header-nav ms-auto">
+    <ul class="d-flex align-items-center">
 
-        <li class="nav-item d-block d-lg-none">
-          <a class="nav-link nav-icon search-bar-toggle " href="#">
-            <i class="bi bi-search"></i>
-          </a>
-        </li><!-- End Search Icon-->
+      <li class="nav-item d-block d-lg-none">
+        <a class="nav-link nav-icon search-bar-toggle " href="#">
+          <i class="bi bi-search"></i>
+        </a>
+      </li><!-- End Search Icon-->
 
-        <li class="nav-item dropdown">
+      <li class="nav-item dropdown">
 
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-bell text-white"></i>
-            <span class="badge bg-primary badge-number">4</span>
-          </a><!-- End Notification Icon -->
+        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+          <i class="bi bi-bell text-white"></i>
+          <span class="badge bg-primary badge-number">4</span>
+        </a><!-- End Notification Icon -->
 
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-            <li class="dropdown-header">
-              You have 4 new notifications
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+          <li class="dropdown-header">
+            You have 4 new notifications
+            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
 
-            <li class="notification-item">
-              <i class="bi bi-exclamation-circle text-warning"></i>
+          <li class="notification-item">
+            <i class="bi bi-exclamation-circle text-warning"></i>
+            <div>
+              <h4>Lorem Ipsum</h4>
+              <p>Quae dolorem earum veritatis oditseno</p>
+              <p>30 min. ago</p>
+            </div>
+          </li>
+
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+
+          <li class="notification-item">
+            <i class="bi bi-x-circle text-danger"></i>
+            <div>
+              <h4>Atque rerum nesciunt</h4>
+              <p>Quae dolorem earum veritatis oditseno</p>
+              <p>1 hr. ago</p>
+            </div>
+          </li>
+
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+
+          <li class="notification-item">
+            <i class="bi bi-check-circle text-success"></i>
+            <div>
+              <h4>Sit rerum fuga</h4>
+              <p>Quae dolorem earum veritatis oditseno</p>
+              <p>2 hrs. ago</p>
+            </div>
+          </li>
+
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+
+          <li class="notification-item">
+            <i class="bi bi-info-circle text-primary"></i>
+            <div>
+              <h4>Dicta reprehenderit</h4>
+              <p>Quae dolorem earum veritatis oditseno</p>
+              <p>4 hrs. ago</p>
+            </div>
+          </li>
+
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li class="dropdown-footer">
+            <a href="#">Show all notifications</a>
+          </li>
+
+        </ul><!-- End Notification Dropdown Items -->
+
+      </li><!-- End Notification Nav -->
+
+      <li class="nav-item dropdown">
+
+        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+          <i class="bi bi-chat-left-text text-white"></i>
+          <span class="badge bg-success badge-number">3</span>
+        </a><!-- End Messages Icon -->
+
+        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+          <li class="dropdown-header">
+            You have 3 new messages
+            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+
+          <li class="message-item">
+            <a href="#">
+              <img src="../../assets/img/messages-1.jpg" alt="" class="rounded-circle">
               <div>
-                <h4>Lorem Ipsum</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>30 min. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-x-circle text-danger"></i>
-              <div>
-                <h4>Atque rerum nesciunt</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>1 hr. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-check-circle text-success"></i>
-              <div>
-                <h4>Sit rerum fuga</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>2 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-info-circle text-primary"></i>
-              <div>
-                <h4>Dicta reprehenderit</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
+                <h4>Maria Hudson</h4>
+                <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
                 <p>4 hrs. ago</p>
               </div>
-            </li>
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
 
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li class="dropdown-footer">
-              <a href="#">Show all notifications</a>
-            </li>
+          <li class="message-item">
+            <a href="#">
+              <img src="../../assets/img/messages-2.jpg" alt="" class="rounded-circle">
+              <div>
+                <h4>Anna Nelson</h4>
+                <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                <p>6 hrs. ago</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
 
-          </ul><!-- End Notification Dropdown Items -->
+          <li class="message-item">
+            <a href="#">
+              <img src="../../assets/img/messages-3.jpg" alt="" class="rounded-circle">
+              <div>
+                <h4>David Muldon</h4>
+                <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                <p>8 hrs. ago</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
 
-        </li><!-- End Notification Nav -->
+          <li class="dropdown-footer">
+            <a href="#">Show all messages</a>
+          </li>
 
-        <li class="nav-item dropdown">
+        </ul><!-- End Messages Dropdown Items -->
 
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-chat-left-text text-white"></i>
-            <span class="badge bg-success badge-number">3</span>
-          </a><!-- End Messages Icon -->
+      </li><!-- End Messages Nav -->
 
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-            <li class="dropdown-header">
-              You have 3 new messages
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+      <!-- Start Profile Nav -->
+      <li class="nav-item dropdown pe-3">
 
-            <li class="message-item">
-              <a href="#">
-                <img src="../../assets/img/messages-1.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>Maria Hudson</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>4 hrs. ago</p>
+        <a class="nav-link nav-profile d-flex align-items-center pe-0 " href="#" data-bs-toggle="dropdown">
+          <img src="upload-files/<?php echo htmlspecialchars($image); ?>" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image" class="rounded-circle">
+          <span class="d-none d-md-block dropdown-toggle ps-2 text-white"><?php echo htmlspecialchars($lname)?></span>
+        </a><!-- End Profile Iamge Icon -->
+
+        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+          <li class="dropdown-header">
+            <h6><?php echo htmlspecialchars($lname) . ', ' . htmlspecialchars($fname); ?></h6>
+            <span><?php echo htmlspecialchars($role)?></span>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <i class="bi bi-person"></i>
+              <span>My Profile</span>
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <i class="bi bi-gear"></i>
+              <span>Account Settings</span>
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+              <i class="bi bi-question-circle"></i>
+              <span>Need Help?</span>
+            </a>
+          </li>
+
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="javascript:void(0);" onclick="document.getElementById('fileInput').click();">
+              <i class="ri-image-add-line"></i>
+              <span>Update Profile</span>
+            </a>
+
+            <!-- Profile Section for Image Upload -->
+              <form action="upload/upload-image1.php" method="post" enctype="multipart/form-data">
+                <input type="file" id="fileInput" name="file" style="display: none;" onchange="showSaveButton();" />
+
+                <!-- Save Button -->
+                  <div class="save-button" id="saveButton" style="display: none; margin-left: 75%; margin-top:-15%;position:absolute">
+                  <button type="submit" class="btn btn-primary btn-sm" name="save">Save</button>
                 </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+              </form>
+        
+          </li>
 
-            <li class="message-item">
-              <a href="#">
-                <img src="../../assets/img/messages-2.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>Anna Nelson</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>6 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="../../assets/img/messages-3.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>David Muldon</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>8 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="dropdown-footer">
-              <a href="#">Show all messages</a>
-            </li>
-
-          </ul><!-- End Messages Dropdown Items -->
-
-        </li><!-- End Messages Nav -->
-
-        <!-- Start Profile Nav -->
-        <li class="nav-item dropdown pe-3">
-
-          <a class="nav-link nav-profile d-flex align-items-center pe-0 " href="#" data-bs-toggle="dropdown">
-           <img src="upload-files/<?php echo htmlspecialchars($image); ?>" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2 text-white"><?php echo htmlspecialchars($lname)?></span>
-          </a><!-- End Profile Iamge Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">
-              <h6><?php echo htmlspecialchars($lname) . ', ' . htmlspecialchars($fname); ?></h6>
-              <span><?php echo htmlspecialchars($role)?></span>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-person"></i>
-                <span>My Profile</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                <i class="bi bi-question-circle"></i>
-                <span>Need Help?</span>
-              </a>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="javascript:void(0);" onclick="document.getElementById('fileInput').click();">
-                <i class="ri-image-add-line"></i>
-                <span>Update Profile</span>
-              </a>
-
-              <!-- Profile Section for Image Upload -->
-                <form action="upload/upload-image1.php" method="post" enctype="multipart/form-data">
-                  <input type="file" id="fileInput" name="file" style="display: none;" onchange="showSaveButton();" />
-
-                  <!-- Save Button -->
-                   <div class="save-button" id="saveButton" style="display: none; margin-left: 75%; margin-top:-15%;position:absolute">
-                    <button type="submit" class="btn btn-primary btn-sm" name="save">Save</button>
-                  </div>
-                </form>
-         
-            </li>
-
-            <script>
-              function showSaveButton() {
-                var fileInput = document.getElementById('fileInput');
-                var saveButton = document.getElementById('saveButton');
-                if (fileInput.files.length > 0) {
-                  saveButton.style.display = 'inline-block';
-                } else {
-                  saveButton.style.display = 'none';
-                }
+          <script>
+            function showSaveButton() {
+              var fileInput = document.getElementById('fileInput');
+              var saveButton = document.getElementById('saveButton');
+              if (fileInput.files.length > 0) {
+                saveButton.style.display = 'inline-block';
+              } else {
+                saveButton.style.display = 'none';
               }
-            </script>
+            }
+          </script>
 
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
 
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="../admin/includes/logout.inc.php">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
-            </li>
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="../admin/includes/logout.inc.php">
+              <i class="bi bi-box-arrow-right"></i>
+              <span>Sign Out</span>
+            </a>
+          </li>
 
-          </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
-
-      </ul>
-    </nav><!-- End Icons Navigation -->
-  </header><!-- End Header -->
-
-  <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar" style="background-color: #87ae73;">
-    <ul class="sidebar-nav" id="sidebar-nav">
-
-       <div class="profile-section">
-        <div class="profile-img">
-          <img src="../admin/images/miit.png" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image" class="rounded-circle">
-        </div>
-
-        <div class="text-white" style="padding: 10px; text-align: center;">
-          <h6>Microsystems International Institute of Technology Inc.</h6>
-        </div>
-      </div>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="../admin/index3.php">
-          <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
-        </a>
-      </li><!-- End Dashboard Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="../admin/schedule-students.php">
-          <i class="ri ri-group-line"></i>
-          <span>Schedule</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="../admin/event-student.php">
-          <i class="ri ri-group-line"></i>
-          <span>Events</span>
-        </a>
-      </li>
-
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="ri ri-group-line"></i><span>Prospectus</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="tables-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-          <?php
-          switch (strtoupper(trim($course))) {
-            case 'BSIT':
-              echo '
-                <li class="nav-item">
-                  <a class="nav-link collapsed" href="../admin/bsit-prospectus.php">
-                    <i class="bi bi-circle-fill"></i><span>BSIT</span>
-                  </a>
-                </li>';
-              break;
-            case 'BSBA':
-              echo '
-                <li class="nav-item">
-                  <a class="nav-link collapsed" href="../admin/bsba-prospectus.php">
-                    <i class="bi bi-circle-fill"></i><span>BSBA</span>
-                  </a>
-                </li>';
-              break;
-            case 'BSOA':
-              echo '
-                <li class="nav-item">
-                  <a class="nav-link collapsed" href="../admin/bsoa-prospectus.php">
-                    <i class="bi bi-circle-fill"></i><span>BSOA</span>
-                  </a>
-                </li>';
-              break;
-            case 'ABM':
-              echo '
-                <li class="nav-item">
-                  <a class="nav-link collapsed" href="../admin/ABM-prospectus.php">
-                    <i class="bi bi-circle-fill"></i><span>ABM</span>
-                  </a>
-                </li>';
-              break;
-            case 'GAS':
-              echo '
-                <li class="nav-item">
-                  <a class="nav-link collapsed" href="../admin/grade12-prospectus.php">
-                    <i class="bi bi-circle-fill"></i><span>GAS</span>
-                  </a>
-                </li>';
-              break;
-            case 'ICT':
-              echo '
-                <li class="nav-item">
-                  <a class="nav-link collapsed" href="../admin/grade12-prospectus.php">
-                    <i class="bi bi-circle-fill"></i><span>ICT</span>
-                  </a>
-                </li>';
-              break;
-            case 'HUMSS':
-              echo '
-                <li class="nav-item">
-                  <a class="nav-link collapsed" href="../admin/grade12-prospectus.php">
-                    <i class="bi bi-circle-fill"></i><span>HUMSS</span>
-                  </a>
-                </li>';
-              break;
-            default:
-              echo '
-                <li class="nav-item">
-                  <a class="nav-link collapsed" href="#">
-                    <i class="bi bi-circle-fill"></i><span>No Prospectus Available</span>
-                  </a>
-                </li>';
-              break;
-          }
-          ?>
-        </ul>
-      </li><!-- End Prospectus Nav -->
-
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="../admin/payment1.php">
-          <i class="bx bx-wallet"></i>
-          <span>Payment</span>
-        </a>
-      </li>
+        </ul><!-- End Profile Dropdown Items -->
+      </li><!-- End Profile Nav -->
 
     </ul>
+  </nav><!-- End Icons Navigation -->
+</header><!-- End Header -->
 
-    <!--<div style="margin-top: 35%; position:sticky">
-      <label class="switch">
-        <input type="checkbox" id="darkModeToggle">
-        <span class="slider round"></span>
-      </label>
-    </div>-->
+<!-- ======= Sidebar ======= -->
+<aside id="sidebar" class="sidebar" style="background-color: #00674f;">
+  <ul class="sidebar-nav" id="sidebar-nav">
+
+      <div class="profile-section">
+      <div class="profile-img">
+        <img src="../admin/images/miit.png" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image" class="rounded-circle">
+      </div>
+
+      <div class="text-white" style="padding: 10px; text-align: center;">
+        <h6>Microsystems International Institute of Technology Inc.</h6>
+      </div>
+    </div>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="../admin/index3.php">
+        <i class="bi bi-grid"></i>
+        <span>Dashboard</span>
+      </a>
+    </li><!-- End Dashboard Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="../admin/schedule-students.php">
+        <i class="ri ri-group-line"></i>
+        <span>Schedule</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="../admin/event-student.php">
+        <i class="ri ri-group-line"></i>
+        <span>Events</span>
+      </a>
+    </li>
 
 
-  </aside><!-- End Sidebar -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+        <i class="ri ri-group-line"></i><span>Prospectus</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="tables-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+        <?php
+        switch (strtoupper(trim($course))) {
+          case 'BSIT':
+            echo '
+              <li class="nav-item">
+                <a class="nav-link collapsed" href="../admin/bsit-prospectus.php">
+                  <i class="bi bi-circle-fill"></i><span>BSIT</span>
+                </a>
+              </li>';
+            break;
+          case 'BSBA':
+            echo '
+              <li class="nav-item">
+                <a class="nav-link collapsed" href="../admin/bsba-prospectus.php">
+                  <i class="bi bi-circle-fill"></i><span>BSBA</span>
+                </a>
+              </li>';
+            break;
+          case 'BSOA':
+            echo '
+              <li class="nav-item">
+                <a class="nav-link collapsed" href="../admin/bsoa-prospectus.php">
+                  <i class="bi bi-circle-fill"></i><span>BSOA</span>
+                </a>
+              </li>';
+            break;
+          case 'ABM':
+            echo '
+              <li class="nav-item">
+                <a class="nav-link collapsed" href="../admin/ABM-prospectus.php">
+                  <i class="bi bi-circle-fill"></i><span>ABM</span>
+                </a>
+              </li>';
+            break;
+          case 'GAS':
+            echo '
+              <li class="nav-item">
+                <a class="nav-link collapsed" href="../admin/grade12-prospectus.php">
+                  <i class="bi bi-circle-fill"></i><span>GAS</span>
+                </a>
+              </li>';
+            break;
+          case 'ICT':
+            echo '
+              <li class="nav-item">
+                <a class="nav-link collapsed" href="../admin/grade12-prospectus.php">
+                  <i class="bi bi-circle-fill"></i><span>ICT</span>
+                </a>
+              </li>';
+            break;
+          case 'HUMSS':
+            echo '
+              <li class="nav-item">
+                <a class="nav-link collapsed" href="../admin/grade12-prospectus.php">
+                  <i class="bi bi-circle-fill"></i><span>HUMSS</span>
+                </a>
+              </li>';
+            break;
+          default:
+            echo '
+              <li class="nav-item">
+                <a class="nav-link collapsed" href="#">
+                  <i class="bi bi-circle-fill"></i><span>No Prospectus Available</span>
+                </a>
+              </li>';
+            break;
+        }
+        ?>
+      </ul>
+    </li><!-- End Prospectus Nav -->
+
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="../admin/payment1.php">
+        <i class="bx bx-wallet"></i>
+        <span>Payment</span>
+      </a>
+    </li>
+
+  </ul>
+
+  <!--<div style="margin-top: 35%; position:sticky">
+    <label class="switch">
+      <input type="checkbox" id="darkModeToggle">
+      <span class="slider round"></span>
+    </label>
+  </div>-->
+
+
+</aside><!-- End Sidebar -->
 
 <script>
-    // Show preview and save button when file is selected
-    function previewImage() {
-        const fileInput = document.getElementById('fileInput');
-        const preview = document.getElementById('preview');
-        const saveButton = document.getElementById('saveButton');
-        const previewSection = document.querySelector('.preview-section');
+  document.querySelectorAll('.sidebar .nav-link').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      if (this.hash !== "") {
+        e.preventDefault();
 
-        if (fileInput.files.length > 0) {
-            const file = fileInput.files[0];
-            const reader = new FileReader();
-
-            reader.onload = function(e) {
-                preview.src = e.target.result;
-                previewSection.style.display = 'block'; // Show preview
-                saveButton.style.display = 'block'; // Show save button
-            };
-
-            reader.readAsDataURL(file);
-        } else {
-            previewSection.style.display = 'none'; // Hide preview
-            saveButton.style.display = 'none'; // Hide save button
+        const target = document.querySelector(this.hash);
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth'
+          });
         }
-    }
+      }
+    });
+  });
 </script>
 
-  <script>
-    document.querySelectorAll('.sidebar .nav-link').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        if (this.hash !== "") {
-          e.preventDefault();
+<style>
+  html {
+    scroll-behavior: smooth;
+  }
 
-          const target = document.querySelector(this.hash);
-          if (target) {
-            target.scrollIntoView({
-              behavior: 'smooth'
-            });
-          }
-        }
-      });
-    });
-  </script>
+  .sidebar .nav-link {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
 
-  <style>
-    html {
-      scroll-behavior: smooth;
-    }
+  .sidebar .nav-link:hover {
+    background-color: #f0f0f0;
+    color: #333;
+  }
 
-    .sidebar .nav-link {
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
+  .profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+  }
 
-    .sidebar .nav-link:hover {
-      background-color: #f0f0f0;
-      color: #333;
-    }
+  .profile-img img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
 
-    .profile-section {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 1rem;
-      border-bottom: 1px solid #ddd;
-    }
+  .profile-info h5 {
+    margin: 0;
+    font-size: 1.1rem;
+    text-align: center;
+  }
 
-    .profile-img img {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 10px;
-    }
+  .alert {
+    padding: 20px;
+    background-color: #4CAF50;
+    color: white;
+    opacity: 1;
+    transition: opacity 0.6s;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
 
-    .profile-info h5 {
-      margin: 0;
-      font-size: 1.1rem;
-      text-align: center;
-    }
+  .closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
 
-    .alert {
-      padding: 20px;
-      background-color: #4CAF50;
-      color: white;
-      opacity: 1;
-      transition: opacity 0.6s;
-      margin-bottom: 15px;
-      border-radius: 4px;
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 1000;
-    }
-
-    .closebtn {
-      margin-left: 15px;
-      color: white;
-      font-weight: bold;
-      float: right;
-      font-size: 22px;
-      line-height: 20px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .closebtn:hover {
-      color: black;
-    }
-    
-  </style>
+  .closebtn:hover {
+    color: black;
+  }
+  
+</style>

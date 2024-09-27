@@ -6,12 +6,12 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Components / Badges - NiceAdmin Bootstrap Template</title>
+  <title>MicroTech</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="../../assets/img/favicon.png" rel="icon">
+  <link href="../admin/images/miit.png" rel="icon">
   <link href="../../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
@@ -39,7 +39,7 @@
   ======================================================== -->
 </head>
 
-<body style="background-color: #d4e2cd;">
+<body style="background-color: #e6ffe6;">
  
 
 <?php
@@ -82,7 +82,7 @@ $database->close();
 ?>
 
  <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center" style="background-color: #87ae73;">
+  <header id="header" class="header fixed-top d-flex align-items-center" style="background-color: #00674f;">
     <div class="d-flex align-items-center justify-content-between">
       <a href="../admin/index3.php" class="logo d-flex align-items-center">
         <img src="../assets/img/miit.png" alt="">
@@ -337,8 +337,7 @@ $database->close();
     </nav><!-- End Icons Navigation -->
   </header><!-- End Header -->
 
-  <aside id="sidebar" class="sidebar" style="background-color: #87ae73;">
-
+  <aside id="sidebar" class="sidebar" style="background-color: #00674f;">
       <ul class="sidebar-nav" id="sidebar-nav">
         
         <div class="profile-section">
@@ -409,7 +408,7 @@ $database->close();
         </label>
       </div>-->
 
-    </aside><!-- End Sidebar-->
+  </aside><!-- End Sidebar-->
 
     <script>
       document.querySelectorAll('.sidebar .nav-link').forEach(anchor => {
@@ -426,35 +425,36 @@ $database->close();
           }
         });
       });
-    </script>
-
-  <script>
-    // Show preview and save button when file is selected
-    function previewImage() {
-        const fileInput = document.getElementById('fileInput');
-        const preview = document.getElementById('preview');
-        const saveButton = document.getElementById('saveButton');
-        const previewSection = document.querySelector('.preview-section');
-
-        if (fileInput.files.length > 0) {
-            const file = fileInput.files[0];
-            const reader = new FileReader();
-
-            reader.onload = function(e) {
-                preview.src = e.target.result;
-                previewSection.style.display = 'block'; // Show preview
-                saveButton.style.display = 'block'; // Show save button
-            };
-
-            reader.readAsDataURL(file);
-        } else {
-            previewSection.style.display = 'none'; // Hide preview
-            saveButton.style.display = 'none'; // Hide save button
-        }
-    }
   </script>
 
-  <style>
+
+<script>
+  // Show preview and save button when file is selected
+  function previewImage() {
+      const fileInput = document.getElementById('fileInput');
+      const preview = document.getElementById('preview');
+      const saveButton = document.getElementById('saveButton');
+      const previewSection = document.querySelector('.preview-section');
+
+      if (fileInput.files.length > 0) {
+          const file = fileInput.files[0];
+          const reader = new FileReader();
+
+          reader.onload = function(e) {
+              preview.src = e.target.result;
+              previewSection.style.display = 'block'; // Show preview
+              saveButton.style.display = 'block'; // Show save button
+          };
+
+          reader.readAsDataURL(file);
+      } else {
+          previewSection.style.display = 'none'; // Hide preview
+          saveButton.style.display = 'none'; // Hide save button
+      }
+  }
+</script>
+
+<style>
     html {
       scroll-behavior: smooth;
     }

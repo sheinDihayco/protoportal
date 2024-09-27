@@ -1,7 +1,7 @@
 <?php include_once "../templates/header.php"; ?>
-<?php
-include_once 'includes/connection.php';
+<?php include_once 'includes/connection.php';
 
+session_start();
 // Create an instance of the Connection class
 $connClass = new Connection();
 $conn = $connClass->open();
@@ -341,11 +341,9 @@ $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday
     </section>
 </main>
 
-<?php include_once "../templates/footer.php"; ?>
-
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
     $(document).ready(function() {
@@ -359,17 +357,13 @@ $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday
             }
         );
 
-        // Additional jQuery for edit and delete actions
         $('.edit-btn').on('click', function() {
             var scheduleId = $(this).data('id');
-            // Load schedule data into the edit modal
-            // Your AJAX call to fetch and populate data for editing
         });
 
         $('.delete-btn').on('click', function() {
             var scheduleId = $(this).data('id');
-            // Handle delete action
-            // Your AJAX call to delete the schedule
+            X
         });
     });
 </script>

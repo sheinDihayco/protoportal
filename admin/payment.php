@@ -1,6 +1,4 @@
-<?php
-include_once "../templates/header.php"; // Corrected PHP include tag
-?>
+<?php include_once "../templates/header.php";?>
 
 <main id="main" class="main">
   <div class="pagetitle">
@@ -74,9 +72,7 @@ include_once "../templates/header.php"; // Corrected PHP include tag
 
 </main><!-- End #main -->
 
-
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 
 <?php
 include_once "../templates/footer.php";

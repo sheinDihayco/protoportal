@@ -1,4 +1,4 @@
-<?php include "../templates/header.php" ?>;
+<?php include "../templates/header.php"; ?>
 
 
 <main id="main" class="main">
@@ -97,6 +97,4 @@
 
 </main><!-- End #main -->
 
-<?php
-include_once "../templates/footer.php";
-?>
+<?php include_once "../templates/footer.php"; ?>
