@@ -279,7 +279,7 @@ $database->close();
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="../admin/user-profile-admin.php">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>
@@ -289,7 +289,7 @@ $database->close();
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="../user-profile-admin.php">
                 <i class="bi bi-gear"></i>
                 <span>Account Settings</span>
               </a>
@@ -304,40 +304,6 @@ $database->close();
                 <span>Need Help?</span>
               </a>
             </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="javascript:void(0);" onclick="document.getElementById('fileInput').click();">
-                <i class="ri-image-add-line"></i>
-                <span>Update Profile</span>
-              </a>
-
-              <!-- Profile Section for Image Upload -->
-                <form action="upload/upload-image.php" method="post" enctype="multipart/form-data">
-                  <input type="file" id="fileInput" name="file" style="display: none;" onchange="showSaveButton();" />
-
-                  <!-- Save Button -->
-                   <div class="save-button" id="saveButton" style="display: none; margin-left: 75%; margin-top:-15%;position:absolute">
-                    <button type="submit" class="btn btn-primary btn-sm" name="save">Save</button>
-                  </div>
-                </form>
-         
-            </li>
-
-            <script>
-              function showSaveButton() {
-                var fileInput = document.getElementById('fileInput');
-                var saveButton = document.getElementById('saveButton');
-                if (fileInput.files.length > 0) {
-                  saveButton.style.display = 'inline-block';
-                } else {
-                  saveButton.style.display = 'none';
-                }
-              }
-            </script>
 
             <li>
               <hr class="dropdown-divider">

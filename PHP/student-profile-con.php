@@ -1,5 +1,4 @@
 <?php
-
 if (isset($_POST['stud_id']) && !empty($_POST['stud_id'])) {
   $_SESSION['stud'] = $_POST['stud_id'];
   $studid = $_POST['stud_id'];
@@ -12,9 +11,31 @@ if (isset($_POST['stud_id']) && !empty($_POST['stud_id'])) {
   exit('No student ID provided');
 }
 
-// Ensure the student ID is set and not empty
-if (empty($studid)) {
-  exit('No student ID provided');
+// Fetch student details and user image
+$statement = $conn->prepare("SELECT user_id FROM tbl_students WHERE user_id = :sid");
+$statement->bindParam(':sid', $studid, PDO::PARAM_INT);
+$statement->execute();
+$studs = $statement->fetch(PDO::FETCH_ASSOC);
+
+if ($studs) {
+  $userid = $studs['user_id'];
+
+  // Fetch the user image from tbl_users
+  $statementUser = $conn->prepare("SELECT user_image, lname FROM tbl_students WHERE user_id = :userid");
+  $statementUser->bindParam(':userid', $userid, PDO::PARAM_INT);
+  $statementUser->execute();
+  $user = $statementUser->fetch(PDO::FETCH_ASSOC);
+
+  if ($user && !empty($user["user_image"])) {
+    $image = htmlspecialchars($user["user_image"]);
+  } else {
+    $image = "default.png";  // Set to default image if user doesn't have an image
+  }
+
+  // Get the student's last name
+  $lname = htmlspecialchars($user["lname"]);
+} else {
+  exit('Student not found');
 }
 
 include_once "../templates/header.php";
@@ -70,7 +91,6 @@ if (isset($_GET['delete-success']) && $_GET['delete-success'] === 'true') {
 }
 ?>
 
-
 <!-- End #main -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- SweetAlert2 CSS -->
@@ -116,7 +136,6 @@ if (isset($_GET['delete-success']) && $_GET['delete-success'] === 'true') {
     }
   });
 </script>
-
 
 <script>
   function confirmDelete(payment_id, user_id) {
@@ -169,10 +188,6 @@ if (isset($_GET['delete-success']) && $_GET['delete-success'] === 'true') {
   }
 </script>
 
-
-
-
-
 <style>
   .icon-button {
     border: none;
@@ -214,4 +229,26 @@ if (isset($_GET['delete-success']) && $_GET['delete-success'] === 'true') {
   .navbar-brand {
     text-decoration: none !important;
   }
+  .custom-profile-img {
+      width: 150px;
+      height: 160px;
+      object-fit: cover; 
+       border: 5px solid gray; 
+      border-radius: 0; 
+      display: block; 
+      margin: 0 auto; 
+  }
+
+  /* Styling the profile name */
+  .custom-name {
+    font-weight: 500; /* Medium weight for the text */
+    font-size: 16px; /* Font size */
+    color: #f8f9fa; /* Text color */
+  }
+
+  /* Add some padding between image and text */
+  .custom-nav-link .ps-2 {
+    padding-left: 10px;
+  }
+
 </style>

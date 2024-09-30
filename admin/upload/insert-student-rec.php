@@ -108,12 +108,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                       date = '$date'
                       WHERE user_id = '$user_id'";
 
-        if ($conn->query($updateSQL) === TRUE) {
+    if ($conn->query($updateSQL) === TRUE) {
             $_SESSION['student_updated'] = true;
-            header("location: ../payment1.php?error=success");
-        } else {
-            echo "Error updating record: " . $conn->error;
-        }
+            $user_id = urlencode($user_id); // Make sure user_id is URL encoded
+            echo "<script>
+                        window.location.href = '../stud_profile.php?user_id=" . $user_id . "&update-success=true';
+                </script>";
+            exit(); // Terminate the script after echoing
+            } 
     } else {
         // studentID does not exist, insert a new record
         $insertSQL = "INSERT INTO tbl_students (user_name, lname, fname, middleInitial, Suffix, course, year, gender, bdate, pob, email, user_id, major, contact, nationality, civilStatus, religion, modality, fb, curAddress, cityAdd, zipcode, fatherName, fwork, motherName, mwork, primarySchool, primaryAddress, primaryCompleted, entermediateSchool, entermediateAddress, entermediateCompleted, hsSchool, hsAddress, hsCompleted, shSchool, shAddress, shCompleted, collegeSchool, collegeAddress, collegeCompleted,date)

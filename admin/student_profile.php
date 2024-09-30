@@ -3,7 +3,6 @@
 
 <!-- Start #main -->
 <main id="main" class="main">
-
   <!-- Start Page Title -->
   <div class="pagetitle">
     <h1><?php echo htmlspecialchars($studs["lname"]); ?>, <?php echo htmlspecialchars($studs["fname"]); ?></h1>
@@ -214,11 +213,17 @@
               <!--Start Profile Overview-->
               <div class="tab-pane fade" id="profile-overview">
                 <div class="container my-5">
-                  <div class="card shadow-sm">
+                  <div class="card shadow-sm"> 
+                    <h3 class="text-center mb-4">Student Personal Data - Enrollment</h3>
                     <div class="card-body p-4">
+                    
+                   <a class="nav-link nav-profile d-flex align-items-center pe-0 custom-nav-link" href="#" data-bs-toggle="dropdown">
+                      <img src="upload-files/<?php echo htmlspecialchars($image); ?>" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image" class="custom-profile-img">
+                      <span class="d-none d-md-block dropdown-toggle ps-2 text-white custom-name"><?php echo htmlspecialchars($lname); ?></span>
+                  </a>
 
-                      <h3 class="text-center mb-4">Student Personal Data - Enrollment</h3>
-                      <hr class="mb-4">
+                    <!-- End Profile Image Icon -->
+                    <hr class="mb-4">
 
                       <form>
                         <div class="row mb-3">
@@ -246,11 +251,8 @@
                             <input type="text" id="user_name" name="user_name" class="form-control" value="<?php echo htmlspecialchars($studs["user_name"]); ?>" readonly>
                           </div>
                           <div class="col-md-3">
-                            <label for="gender" class="form-label">Gender:</label>
-                            <select id="gender" name="gender" class="form-select">
-                              <option value="M" <?php echo ($studs["gender"] == 'M') ? 'selected' : ''; ?> readonly>M</option>
-                              <option value="F" <?php echo ($studs["gender"] == 'F') ? 'selected' : ''; ?> readonly>F</option>
-                            </select>
+                              <label for="gender" class="form-label">Gender:</label>
+                              <input type="text" id="gender" name="gend" class="form-control" value="<?php echo ($studs['gender'] == 'M') ? 'Male' : 'Female'; ?>" readonly>
                           </div>
                           <div class="col-md-4">
                             <label for="bdate" class="form-label">Date of Birth:</label>

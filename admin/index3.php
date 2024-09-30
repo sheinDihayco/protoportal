@@ -157,5 +157,4 @@
     </section>
 </main><!-- End #main -->
 
-<?php include_once "../PHP/index3-php-script.php"; ?>
 <?php include_once "../templates/footer.php"; ?>

@@ -17,9 +17,26 @@
                 <form method="POST" action="" class="row g-3">
                     <div class="col-md-6 form-group">
                         <label for="user_name" class="form-label">Student ID:</label>
-                        <input type="text" name="user_name" id="user_name" class="form-control" placeholder="Format: MIIT-0000-000" required
-                            value="<?php echo isset($_POST['user_name']) ? htmlspecialchars($_POST['user_name']) : ''; ?>">
+                        <select name="user_name" id="user_name" class="form-control" required>
+                            <option value="">Select Student ID</option>
+                            <?php
+                            // Database connection
+                            $conn = new PDO('mysql:host=localhost;dbname=schooldb', 'root', '');
+
+                            // Fetch user_name from tbl_students
+                            $stmt = $conn->prepare("SELECT user_name FROM tbl_students");
+                            $stmt->execute();
+                            $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                            // Loop through the student names and populate the dropdown
+                            foreach ($students as $student) {
+                                $selected = (isset($_POST['user_name']) && $_POST['user_name'] == $student['user_name']) ? 'selected' : '';
+                                echo "<option value='" . htmlspecialchars($student['user_name']) . "' $selected>" . htmlspecialchars($student['user_name']) . "</option>";
+                            }
+                            ?>
+                        </select>
                     </div>
+
                     <div class="col-md-2 form-group">
                         <label for="year" class="form-label">Year:</label>
                         <select name="year" id="year" class="form-control" disabled>

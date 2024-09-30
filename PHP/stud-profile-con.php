@@ -1,18 +1,47 @@
 <?php
 
+include_once "../templates/header3.php";
+include_once "includes/connect.php";
+include_once 'includes/connection.php';
+
 if (isset($_POST['stud_id']) && !empty($_POST['stud_id'])) {
   $_SESSION['stud'] = $_POST['stud_id'];
-}
-
-if (isset($_SESSION['stud']) && !empty($_SESSION['stud'])) {
+  $studid = $_POST['stud_id'];
+} elseif (isset($_GET['user_id']) && !empty($_GET['user_id'])) {
+  $_SESSION['stud'] = $_GET['user_id'];
+  $studid = $_GET['user_id'];
+} elseif (isset($_SESSION['stud']) && !empty($_SESSION['stud'])) {
   $studid = $_SESSION['stud'];
 } else {
   exit('No student ID provided');
 }
 
-include_once "../templates/header3.php";
-include_once "includes/connect.php";
-include_once 'includes/connection.php';
+// Fetch student details and user image
+$statement = $conn->prepare("SELECT user_id FROM tbl_students WHERE user_id = :sid");
+$statement->bindParam(':sid', $studid, PDO::PARAM_INT);
+$statement->execute();
+$studs = $statement->fetch(PDO::FETCH_ASSOC);
+
+if ($studs) {
+  $userid = $studs['user_id'];
+
+  // Fetch the user image from tbl_users
+  $statementUser = $conn->prepare("SELECT user_image, lname FROM tbl_students WHERE user_id = :userid");
+  $statementUser->bindParam(':userid', $userid, PDO::PARAM_INT);
+  $statementUser->execute();
+  $user = $statementUser->fetch(PDO::FETCH_ASSOC);
+
+  if ($user && !empty($user["user_image"])) {
+    $image = htmlspecialchars($user["user_image"]);
+  } else {
+    $image = "default.png";  // Set to default image if user doesn't have an image
+  }
+
+  // Get the student's last name
+  $lname = htmlspecialchars($user["lname"]);
+} else {
+  exit('Student not found');
+}
 
 try {
   // Fetch student details
@@ -47,6 +76,28 @@ try {
 }
 $database->close();
 ?>
+
+<!-- Include SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<?php
+if (isset($_SESSION['student_updated']) && $_SESSION['student_updated']) {
+    echo "
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Information Updated',
+                text: 'Information successfully updated!',
+                showConfirmButton: false,
+                timer: 5000
+            });
+        });
+    </script>";
+    unset($_SESSION['student_updated']); // Clear the session variable after use
+}
+?>
+
 
 <!-- Add custom CSS to remove underlines -->
 <style>

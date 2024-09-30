@@ -228,5 +228,4 @@
 
 </main>
 
-<?php include_once "../PHP/assign-student-instructors-script.php"; ?>
 <?php include_once "../templates/footer.php"; ?>

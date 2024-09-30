@@ -125,7 +125,7 @@
                     $db = $database->open();
 
                     try {
-                      $sql = "SELECT * FROM tbl_users WHERE user_role = 'teacher' ORDER BY user_id ASC";
+                      $sql = "SELECT * FROM tbl_users WHERE user_role = 'teacher' OR user_role = 'admin ' ORDER BY user_id ASC";
                       foreach ($db->query($sql) as $row) {
                     ?>
                         <tr>

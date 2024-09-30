@@ -1,7 +1,6 @@
 <?php include_once "../templates/header.php" ?>
 <?php include_once "../PHP/set-slots-con.php"; ?>
 
-
 <main id="main" class="main">
 
     <div class="pagetitle">

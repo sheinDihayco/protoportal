@@ -77,10 +77,10 @@ if (isset($_POST['search']) && isset($_POST['user_name'])) {
 <script>
     function clearSearchForm() {
         // Clear all input fields in the form
-        document.querySelectorAll('form input, form select').forEach(input => input.value = '');
+        document.querySelectorAll('form input, form select, form-control').forEach(input => input.value = '');
 
         // Check if the form is empty, and hide the section if it is
-        const isFormEmpty = Array.from(document.querySelectorAll('form input, form select'))
+        const isFormEmpty = Array.from(document.querySelectorAll('form input, form select, form-control'))
             .every(input => input.value === '');
 
         if (isFormEmpty) {
@@ -180,4 +180,3 @@ if (isset($_POST['search']) && isset($_POST['user_name'])) {
     }
 </style>
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">

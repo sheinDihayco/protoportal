@@ -2,25 +2,6 @@
 <?php include_once "../PHP/payment1-con.php"; ?>
 
 <main id="main" class="main">
-    <?php
-    if (isset($_SESSION['change-pass']) && $_SESSION['change-pass']) {
-        echo "
-        <div class='alert'>
-            <span class='closebtn' onclick='this.parentElement.style.display=\"none\";'>&times;</span>
-           Password successfully changed!
-        </div>
-        <script>
-            // Automatically close the alert after 5 seconds
-            setTimeout(function() {
-                document.querySelector('.alert').style.opacity = '0';
-                setTimeout(function() {
-                    document.querySelector('.alert').style.display = 'none';
-                }, 600);
-            }, 5000);
-        </script>";
-        unset($_SESSION['change-pass']);
-    }
-    ?>
     <div class="pagetitle">
         <h1>Student Records</h1>
         <nav>

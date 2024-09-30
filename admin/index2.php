@@ -138,5 +138,4 @@
 
 </main><!-- End #main -->
 
-<?php include_once "../PHP/index2-php-script.php"; ?>
 <?php include_once "../templates/footer.php"; ?>

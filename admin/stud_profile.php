@@ -147,12 +147,9 @@
                             <label for="user_name" class="form-label">ID Number:</label>
                             <input type="text" id="user_name" name="user_name" class="form-control" value="<?php echo htmlspecialchars($studs["user_name"]); ?>">
                           </div>
-                          <div class="col-md-3">
-                            <label for="gender" class="form-label">Gender:</label>
-                            <select id="gender" name="gender" class="form-select">
-                              <option value="M" <?php echo ($studs["gender"] == 'M') ? 'selected' : ''; ?> readonly>M</option>
-                              <option value="F" <?php echo ($studs["gender"] == 'F') ? 'selected' : ''; ?> readonly>F</option>
-                            </select>
+                           <div class="col-md-3">
+                              <label for="gender" class="form-label">Gender:</label>
+                              <input type="text" id="gender" name="gend" class="form-control" value="<?php echo ($studs['gender'] == 'M') ? 'Male' : 'Female'; ?>" readonly>
                           </div>
                           <div class="col-md-4">
                             <label for="bdate" class="form-label">Date of Birth:</label>
@@ -307,6 +304,12 @@
                               <td><input type="text" name="shSchool" class="form-control" value="<?php echo htmlspecialchars($studs["shSchool"]); ?>" readonly></td>
                               <td><input type="text" name="shAddress" class="form-control" value="<?php echo htmlspecialchars($studs["shAddress"]); ?>" readonly></td>
                               <td><input type="text" name="shCompleted" class="form-control" value="<?php echo htmlspecialchars($studs["shCompleted"]); ?>" readonly></td>
+                            </tr>
+                            <tr>
+                              <td>College</td>
+                              <td><input type="text" name="collegeSchool" class="form-control" value="<?php echo htmlspecialchars($studs["collegeSchool"]); ?>" readonly></td>
+                              <td><input type="text" name="collegeAddress" class="form-control" value="<?php echo htmlspecialchars($studs["collegeAddress"]); ?>" readonly></td>
+                              <td><input type="text" name="collegeCompleted" class="form-control" value="<?php echo htmlspecialchars($studs["collegeCompleted"]); ?>" readonly></td>
                             </tr>
                           </tbody>
                         </table>
@@ -609,6 +612,12 @@
                                 <td><input type="text" name="shSchool" class="form-control" value="<?php echo htmlspecialchars($studs["shSchool"]); ?>" required></td>
                                 <td><input type="text" name="shAddress" class="form-control" value="<?php echo htmlspecialchars($studs["shAddress"]); ?>" required></td>
                                 <td><input type="text" name="shCompleted" class="form-control" value="<?php echo htmlspecialchars($studs["shCompleted"]); ?>" required></td>
+                              </tr>
+                              <tr>
+                                <td>College</td>
+                                <td><input type="text" name="collegeSchool" class="form-control" value="<?php echo htmlspecialchars($studs["collegeSchool"]); ?>" required></td>
+                                <td><input type="text" name="collegeAddress" class="form-control" value="<?php echo htmlspecialchars($studs["collegeAddress"]); ?>" required></td>
+                                <td><input type="text" name="collegeCompleted" class="form-control" value="<?php echo htmlspecialchars($studs["collegeCompleted"]); ?>" required></td>
                               </tr>
                             </tbody>
                           </table>

@@ -147,5 +147,3 @@ if (isset($_POST['search']) && isset($_POST['user_name'])) {
     font-style: italic;
   }
 </style>
-
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
