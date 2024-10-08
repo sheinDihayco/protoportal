@@ -1,5 +1,6 @@
 <?php include_once "../templates/header2.php";?>
 <?php include_once "../PHP/index2-php-con.php"; ?>
+<?php include_once "../PHP/studentRecords-con.php"; ?>
 
 <main id="main" class="main">
     <section class="section dashboard">
@@ -75,61 +76,57 @@
 
         </div>
         <div class="row">
-            <!-- Schedule Table -->
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered formal-schedule">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Time Slot</th>
-                                        <?php foreach ($daysOfWeek as $day): ?>
-                                            <th scope="col"><?php echo $day; ?></th>
-                                        <?php endforeach; ?>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    // Create time slots from 7:00 AM to 5:00 PM
-                                    $startTime = strtotime('07:00');
-                                    $endTime = strtotime('17:00');
-                                    $timeInterval = 60 * 60; // 1-hour interval
 
-                                    while ($startTime <= $endTime):
-                                        $currentSlot = date('H:i', $startTime);
-                                        $nextSlot = date('H:i', $startTime + $timeInterval);
-                                    ?>
-                                        <tr>
-                                            <td><?php echo $currentSlot . ' - ' . $nextSlot; ?></td>
-                                            <?php foreach ($daysOfWeek as $day): ?>
-                                                <td>
-                                                    <?php
-                                                    foreach ($schedules as $schedule) {
-                                                        if (
-                                                            $schedule['day_name'] === $day &&
-                                                            $schedule['start_time'] >= $currentSlot &&
-                                                            $schedule['start_time'] < $nextSlot
-                                                        ) {
-                                                            echo htmlspecialchars($schedule['subject_description']) . "<br>" .
-                                                                htmlspecialchars($schedule['course_description']) . "<br>" .
-                                                                htmlspecialchars($schedule['room_name']);
-                                                        }
-                                                    }
-                                                    ?>
-                                                </td>
-                                            <?php endforeach; ?>
-                                        </tr>
-                                    <?php
-                                        $startTime += $timeInterval;
-                                    endwhile;
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
+             <!-- Student Table -->
+            <div class="col-12">
+                <div class="card recent-sales overflow-auto">
+                    <div class="filter">
+                    <!-- Filter options -->
+                    </div>
+                    <div class="card-body">
+                    <h5 class="card-title">Class Records <span>| Enrolled</span></h5>
+                    <table class="table table-borderless datatable">
+                        <thead>
+                        <tr>
+                            <th scope="col">Student ID</th>
+                            <th scope="col">Course & Year</th>
+                            <th scope="col">Full Name</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php if (!empty($assignedStudents)): ?>
+                            <?php foreach ($assignedStudents as $student): ?>
+                            <tr>
+                                <th scope="row"><?php echo htmlspecialchars($student['user_name']); ?></th>
+                                <td><?php echo htmlspecialchars($student['course']) . ' ' . htmlspecialchars($student['year']); ?></td>
+                                <td><?php echo htmlspecialchars($student['lname']) . ', ' . htmlspecialchars($student['fname']); ?></td>
+                                <td><?php echo htmlspecialchars($student['status']); ?></td>
+                                <td>
+                                <!-- Button to trigger the modal for grade insertion -->
+                                <button type="button" class="btn btn-sm btn-warning ri-add-box-fill" data-bs-toggle="modal" data-bs-target="#insertGrade<?php echo htmlspecialchars($student['user_id']); ?>"></button>
+
+                                <!-- Form to delete the user -->
+                                <form method="POST" action="../admin/upload/delete-students.php" onsubmit="return confirmDelete(this);" style="display:inline;">
+                                    <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($student['user_id']); ?>">
+                                    <button type="submit" class="btn btn-sm btn-danger ri-delete-bin-6-line"></button>
+                                </form>
+                                </td>
+                                <?php include('modals/insert-grade.php'); ?>
+                            </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                            <td colspan="5">No students assigned to this instructor.</td>
+                            </tr>
+                        <?php endif; ?>
+                        </tbody>
+                    </table>
                     </div>
                 </div>
             </div>
+
         </div>
 
     </section>

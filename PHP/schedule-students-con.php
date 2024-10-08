@@ -83,11 +83,7 @@ $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <style>
-    body {
-        font-family: "Arial", sans-serif;
-        background-color: #f4f4f4;
-    }
-
+   
     .card-title {
         font-family: "Times New Roman", serif;
         font-size: 24px;

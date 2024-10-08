@@ -1,7 +1,6 @@
 <?php include_once "../templates/header2.php"; ?>
 <?php include_once "../PHP/schedule-teacher-con.php"; ?>
 
-<a href="../PHP/schedule-teacher-con.php"></a>
 <main id="main" class="main">
     <div class="pagetitle">
         <h1>Schedule Records</h1>

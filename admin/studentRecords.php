@@ -19,7 +19,7 @@
           <!-- Filter options -->
         </div>
         <div class="card-body">
-          <h5 class="card-title">Students <span>| Enrolled</span></h5>
+          <h5 class="card-title">Class Records <span>| Currently Enrolled</span></h5>
           <table class="table table-borderless datatable">
             <thead>
               <tr>

@@ -85,7 +85,7 @@ $database->close();
   <header id="header" class="header fixed-top d-flex align-items-center" style="background-color: #00674f;">
     <div class="d-flex align-items-center justify-content-between">
       <a href="../admin/index3.php" class="logo d-flex align-items-center">
-        <img src="../assets/img/miit.png" alt="">
+        <!--<img src="../assets/img/miit.png" alt="">-->
         <span class="d-none d-lg-block text-white">MicroTech</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn text-white"></i>
@@ -307,8 +307,8 @@ $database->close();
       <ul class="sidebar-nav" id="sidebar-nav">
         
         <div class="profile-section">
-            <div class="profile-img">
-              <img src="../admin/images/miit.png" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image" class="rounded-circle">
+            <div class="profile-image">
+              <img src="../admin/images/miit.png" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image">
             </div>
 
             <div class="text-white" style="padding: 10px; text-align: center;">
@@ -448,6 +448,13 @@ $database->close();
       width: 80px;
       height: 80px;
       border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+
+    .profile-image img {
+      width: 150px;
+      height: 100px;
       object-fit: cover;
       margin-bottom: 10px;
     }

@@ -209,11 +209,6 @@ if (isset($_GET['delete-success']) && $_GET['delete-success'] === 'true') {
     font-size: 20px;
   }
 
-  #signature-pad {
-    border: 1px solid #000;
-    background-color: #fff;
-  }
-
   a {
     text-decoration: none !important;
   }
@@ -233,10 +228,7 @@ if (isset($_GET['delete-success']) && $_GET['delete-success'] === 'true') {
       width: 150px;
       height: 160px;
       object-fit: cover; 
-       border: 5px solid gray; 
       border-radius: 0; 
-      display: block; 
-      margin: 0 auto; 
   }
 
   /* Styling the profile name */
