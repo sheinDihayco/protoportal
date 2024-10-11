@@ -35,9 +35,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ':user_id' => $user_id
         ]);
 
-         $_SESSION['employee_updated'] = true;
+         $_SESSION['instructor_updated'] = true;
         // Redirect to user.php after successful update
-        header("Location: ../user.php?update=success");
+        header("Location: ../user-profile-instructor.php?update=success");
         exit(); // Ensure no further code is executed after redirect
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();

@@ -113,7 +113,7 @@
             </div>
           </div>
           <!-- End Event -->
-          
+
           <!-- Students Enrolled -->
           <div class="col-12">
             <div class="card recent-sales overflow-auto">
@@ -251,5 +251,4 @@
 
 </main><!-- End #main -->
 
-<?php include_once "../PHP/index-php-script.php"; ?>
 <?php include_once "../templates/footer.php"; ?>

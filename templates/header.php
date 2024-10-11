@@ -289,7 +289,7 @@ $database->close();
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="../user-profile-admin.php">
+              <a class="dropdown-item d-flex align-items-center" href="../admin/account-settings-admin.php">
                 <i class="bi bi-gear"></i>
                 <span>Account Settings</span>
               </a>
@@ -333,7 +333,7 @@ $database->close();
           <img src="../admin/images/miit.png" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image" >
         </div>
 
-        <div class="text-white" style="padding: 10px; text-align: center; font-size:100px; font-family:'Segoe UI'">
+        <div class="text-white" style="padding: 10px; text-align: center;">
           <h6>Microsystems International Institute of Technology Inc.</h6>
         </div>
       </div>

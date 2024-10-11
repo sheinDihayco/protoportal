@@ -53,22 +53,23 @@
               <div class="col-md-6">
                 <label for="semester" class="form-label">Semester</label>
                 <select class="form-select" id="semester" name="semester" required>
-                  <option value="" disabled>Select Semester</option>
-                  <option value="1" <?= ($row['semester'] === '1') ? 'selected' : ''; ?>>1</option>
-                  <option value="2" <?= ($row['semester'] === '2') ? 'selected' : ''; ?>>2</option>
+                  <option value="" disabled>Select Gender</option>
+                  <option value="1" <?= ($row['semester'] == '1') ? 'selected' : ''; ?>>1</option>
+                  <option value="2" <?= ($row['semester'] == '2') ? 'selected' : ''; ?>>2</option>
                 </select>
                 <div class="invalid-feedback">Please select a valid semester.</div>
-              </div>
+            </div>
+                
             </div>
 
             <!-- Status -->
             <div class="mb-3">
               <label for="status" class="form-label">Status</label>
-              <select class="form-select" id="status" name="status" required>
-                <option value="" disabled>Select Status</option>
-                <option value="Enrolled" <?= ($row['status'] === 'Enrolled') ? 'selected' : ''; ?>>Enrolled</option>
-                <option value="Unenrolled" <?= ($row['status'] === 'Unenrolled') ? 'selected' : ''; ?>>Unenrolled</option>
-              </select>
+                <select class="form-select" id="status" name="status" required>
+                  <option value="" disabled>Select Semester</option>
+                  <option value="Enrolled" <?= ($row['status'] == 'Enrolled') ? 'Enrolled' : ''; ?>>Enrolled</option>
+                  <option value="Unenrolled" <?= ($row['status'] == 'Unenrolled') ? 'Unenrolled' : ''; ?>>Unenrolled</option>
+                </select>
               <div class="invalid-feedback">Please select a valid status.</div>
             </div>
 

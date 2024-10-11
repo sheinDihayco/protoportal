@@ -250,10 +250,12 @@
                             <label for="user_name" class="form-label">ID Number:</label>
                             <input type="text" id="user_name" name="user_name" class="form-control" value="<?php echo htmlspecialchars($studs["user_name"]); ?>" readonly>
                           </div>
-                          <div class="col-md-3">
-                              <label for="gender" class="form-label">Gender:</label>
-                              <input type="text" id="gender" name="gend" class="form-control" value="<?php echo ($studs['gender'] == 'M') ? 'Male' : 'Female'; ?>" readonly>
+
+                          <div class="col-md-4">
+                            <label for="gender" class="form-label"> Gender </label>
+                            <input type="text" id="gender" name="gender" class="form-control" value="<?php echo htmlspecialchars($studs["gender"]); ?>" readonly>
                           </div>
+                          
                           <div class="col-md-4">
                             <label for="bdate" class="form-label">Date of Birth:</label>
                             <input type="date" id="bdate" name="bdate" class="form-control" value="<?php echo htmlspecialchars($studs["bdate"]); ?>" readonly>

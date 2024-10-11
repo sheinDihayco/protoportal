@@ -2,11 +2,6 @@
 include_once "connect.php";
 session_start(); // Start the session
 
-// Enable error reporting
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 if (isset($_POST["register"])) {
     $role = $_POST["role"];
     $firstName = $_POST["firstName"];
@@ -44,7 +39,7 @@ if (isset($_POST["register"])) {
 
     // Execute the query
     if ($statement->execute()) {
-        $_SESSION['student_created'] = true;
+        $_SESSION['user_created'] = true;
 
         // Determine redirection based on user role
         if ($role == 'student') {

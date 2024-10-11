@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
             $stmt->bind_param("si", $targetFile, $userid);
 
             if ($stmt->execute()) {
-                header("Location: ../index.php?error=success");
+                header("Location: ../user-profile-admin.php?error=success");
                 exit;
             } else {
                 echo "Failed to update database.";

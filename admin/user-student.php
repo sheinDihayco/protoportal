@@ -137,10 +137,38 @@
                                                     <i class="ri-arrow-right-circle-fill"></i>
                                                 </button>
                                             </form>
-                                            <form method="POST" action="../admin/upload/delete-student.php" style="display:inline;">
+
+                                            <form method="POST" action="../admin/upload/delete-student.php" style="display:inline;"  id="deleteStudentForm" >
                                                 <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($row["user_id"]); ?>">
-                                                <button type="submit" class="btn btn-sm btn-danger ri-delete-bin-6-line"></button>
+                                                <button type="submit" class="btn btn-sm btn-danger ri-delete-bin-6-line" onclick="confirmDelete()"></button>
                                             </form>
+
+
+                                        <!--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                                            <script>
+                                            function confirmDelete() {
+                                                // Get the form element
+                                                const form = document.getElementById("deleteStudentForm");
+                                                
+                                                Swal.fire({
+                                                    title: 'Are you sure?',
+                                                    text: "Do you really want to delete this student? This action cannot be undone.",
+                                                    icon: 'warning',
+                                                    showCancelButton: true,
+                                                    confirmButtonColor: '#d33',
+                                                    cancelButtonColor: '#3085d6',
+                                                    confirmButtonText: 'Yes, delete it!',
+                                                    cancelButtonText: 'Cancel'
+                                                }).then((result) => {
+                                                    if (result.isConfirmed) {
+                                                        // Submit the form after confirmation
+                                                        form.submit();
+                                                    }
+                                                });
+                                            }
+                                            </script>-->
+
+
 
                                         <td>
 
@@ -163,5 +191,20 @@
 
 
 </main><!-- End #main -->
+
+<!-- Template Main JS File -->
+<script src="../assets/js/main.js"></script>
+<script>
+    document.getElementById('role').addEventListener('change', function() {
+        var role = this.value;
+        if (role === 'student') {
+            document.getElementById('usernameDiv').style.display = 'none';
+            document.getElementById('schoolidDiv').style.display = 'block';
+        } else {
+            document.getElementById('usernameDiv').style.display = 'block';
+            document.getElementById('schoolidDiv').style.display = 'none';
+        }
+    });
+</script>
 
 <?php include_once "../templates/footer.php" ?>;

@@ -112,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
             $_SESSION['student_updated'] = true;
             $user_id = urlencode($user_id); // Make sure user_id is URL encoded
             echo "<script>
-                        window.location.href = '../stud_profile.php?user_id=" . $user_id . "&update-success=true';
+                        window.location.href = '../user-profile.php?user_id=" . $user_id . "&update-success=true';
                 </script>";
             exit(); // Terminate the script after echoing
             } 
@@ -123,7 +123,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
         if ($conn->query($insertSQL) === TRUE) {
             $_SESSION['student_updated'] = true;
-            header("location: ../payment1.php?error=success");
+            header("location: ../user-profile.php?error=success");
         } else {
             echo "Error inserting record: " . $conn->error;
         }
