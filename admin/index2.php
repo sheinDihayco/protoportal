@@ -7,7 +7,7 @@
         <div class="row">
 
             <!-- Student Count Card -->
-            <div class="col-xxl-4 col-md-6">
+            <div class="col-xxl-6 col-md-6">
                 <div class="card info-card sales-card">
                     <div class="filter">
                         <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
@@ -36,7 +36,7 @@
             </div><!-- End Student Count Card -->
 
             <!-- Start Event -->
-            <div class="col-xxl-4 col-md-6">
+            <div class="col-xxl-6 col-md-6">
                 <div class="card info-card sales-card">
                     <div class="filter">
                         <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>

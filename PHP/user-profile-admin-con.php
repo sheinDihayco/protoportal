@@ -19,6 +19,7 @@ $studs = $stmt->fetch(PDO::FETCH_ASSOC);
 // Close the connection
 $connection->close();
 ?>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <style>
   .icon-button {

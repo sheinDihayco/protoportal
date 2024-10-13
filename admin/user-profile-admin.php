@@ -180,61 +180,70 @@
                 </script>
 
                 <form action="functions/update-admin.php" method="post" class="needs-validation" novalidate>
-                        <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id); ?>"> 
+                    <!-- Hidden field to pass user_id -->
+                    <input type="hidden" name="user_id" value="<?= htmlspecialchars($row['user_id']); ?>">
 
-                        <div class="row mb-3">
-                                <div class="col-md-4">
-                                    <label for="last-name" class="form-label">Last Name:</label>
-                                    <input type="text" id="last-name" name="last-name" class="form-control" value="<?php echo htmlspecialchars($studs['user_lname']); ?>" readonly>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="first-name" class="form-label">First Name:</label>
-                                    <input type="text" id="first-name" name="first-name" class="form-control" value="<?php echo htmlspecialchars($studs['user_fname']); ?>" readonly>
-                                </div>
+                    <!-- Date of Birth -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                        <label for="bdate" class="form-label">Date of Birth</label>
+                        <input type="date" class="form-control" id="bdate" name="bdate" value="<?= htmlspecialchars($row['date_of_birth']); ?>" required>
+                        <div class="invalid-feedback">Please provide a valid date of birth.</div>
+                        </div>
+                        <!-- Gender -->
+                        <div class="col-md-6">
+                        <label for="gend" class="form-label">Gender</label>
+                        <select class="form-select" id="gend" name="gend" required>
+                            <option value="" disabled>Select Gender</option>
+                            <option value="Male" <?= ($row['gender'] == 'Male') ? 'selected' : ''; ?>>Male</option>
+                            <option value="Female" <?= ($row['gender'] == 'Female') ? 'selected' : ''; ?>>Female</option>
+                        </select>
+                        <div class="invalid-feedback">Please select a valid gender.</div>
+                        </div>
+                    </div>
 
-                                <div class="col-md-3">
-                                    <label for="gender" class="form-label">Gender:</label>
-                                    <input type="text" id="gender" name="gend" class="form-control" value="<?php echo ($studs['gender'] == 'M') ? 'Male' : 'Female'; ?>" readonly>
-                                </div>
-
-
+                    <!-- Date Hired & Job Title -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                        <label for="dhire" class="form-label">Date Hired</label>
+                        <input type="date" class="form-control" id="dhire" name="dhire" value="<?= htmlspecialchars($row['hire_date']); ?>" required>
+                        <div class="invalid-feedback">Please provide a valid hire date.</div>
                         </div>
 
-                        <div class="row mb-3">
-                                <div class="col-md-4">
-                                    <label for="date_of_birth" class="form-label">Date of Birth:</label>
-                                    <input type="date" id="date_of_birth" name="bdate" class="form-control" value="<?php echo htmlspecialchars($studs['date_of_birth']); ?>" required>
-                                </div>
+                        <div class="col-md-6">
+                        <label for="user_role" class="form-label">Job Title</label>
+                        <input type="text" class="form-control" id="user_role" name="user_role" value="<?= htmlspecialchars($row['user_role']); ?>" required>
+                        <div class="invalid-feedback">Please provide a valid job title.</div>
+                        </div>
+                    </div>
 
-                                <div class="col-md-4">
-                                    <label for="address" class="form-label">Address</label>
-                                    <input type="text" id="address" name="add" class="form-control" value="<?php echo htmlspecialchars($studs['address']); ?>" required>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label for="email" class="form-label">Email Address:</label>
-                                    <input type="email" id="email" name="email" class="form-control" value="<?php echo htmlspecialchars($studs['user_email']); ?>" required>
-                                </div>
+                    <!-- Department & Contact Number -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                        <label for="dept" class="form-label">Department</label>
+                        <input type="text" class="form-control" id="dept" name="dept" value="<?= htmlspecialchars($row['department']); ?>" required>
+                        <div class="invalid-feedback">Please provide a valid department.</div>
                         </div>
 
-                        <div class="row mb-3">
-
-                            <div class="col-md-4">
-                                        <label for="department" class="form-label">Department:</label>
-                                        <input type="text" id="department" name="dept" class="form-control" value="<?php echo htmlspecialchars($studs['department']); ?>" required>
-                            </div>
-                            
-                            <div class="col-md-4">
-                                        <label for="phone_number" class="form-label">Phone Number:</label>
-                                        <input type="text" id="phone_number" name="cnum" class="form-control" value="<?php echo htmlspecialchars($studs['phone_number']); ?>" required>
-                            </div>
-
+                        <div class="col-md-6">
+                        <label for="cnum" class="form-label">Contact Number</label>
+                        <input type="text" class="form-control" id="cnum" name="cnum" value="<?= htmlspecialchars($row['phone_number']); ?>" required>
+                        <div class="invalid-feedback">Please provide a valid contact number.</div>
                         </div>
-                        
-                        <!-- Submit Button -->
-                        <div class="d-flex justify-content-end mt-3">
-                            <button type="submit" class="btn btn-primary btn-sm me-2" name="submit">Save Changes</button>
-                        </div>
+                    </div>
+
+                    <!-- Address -->
+                    <div class="mb-3">
+                        <label for="add" class="form-label">Address</label>
+                        <input type="text" class="form-control" id="add" name="add" value="<?= htmlspecialchars($row['address']); ?>" required>
+                        <div class="invalid-feedback">Please provide a valid address.</div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="d-flex justify-content-end mt-3">
+                        <button type="submit" class="btn btn-primary btn-sm me-2" name="submit">Save Changes</button>
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                    </div>
                 </form>
             </div>
                 

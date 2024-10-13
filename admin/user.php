@@ -32,7 +32,7 @@
                 <option value="" disabled selected>Select your role</option>
                 <option value="admin">Admin</option>
                 <option value="teacher">Teacher</option>
-                <option value="student">Student</option>
+               <!-- <option value="student">Student</option>-->
               </select>
               <div class="invalid-feedback">Please select a role.</div>
             </div>
@@ -249,5 +249,20 @@
   </section>
 
 </main><!-- End #main -->
+
+<!-- Template Main JS File -->
+<script src="../assets/js/main.js"></script>
+<script>
+    document.getElementById('role').addEventListener('change', function() {
+        var role = this.value;
+        if (role === 'student') {
+            document.getElementById('usernameDiv').style.display = 'none';
+            document.getElementById('schoolidDiv').style.display = 'block';
+        } else {
+            document.getElementById('usernameDiv').style.display = 'block';
+            document.getElementById('schoolidDiv').style.display = 'none';
+        }
+    });
+</script>
 
 <?php include_once "../templates/footer.php"; ?>
