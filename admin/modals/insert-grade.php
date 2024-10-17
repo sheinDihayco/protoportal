@@ -58,7 +58,6 @@ $database->close();
                             <div class="col-md-3">
                                 <label for="year<?php echo htmlspecialchars($student['user_id']); ?>" class="form-label">Year</label>
                                 <input type="text" name="year" class="form-control" id="year<?php echo htmlspecialchars($student['user_id']); ?>" required>
-                                <div class="invalid-feedback">Please insert a year.</div>
                             </div>
                             <div class="col-md-3">
                                 <label for="semester<?php echo htmlspecialchars($student['user_id']); ?>" class="form-label">Semester</label>

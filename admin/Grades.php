@@ -19,20 +19,25 @@
                         <label for="user_name" class="form-label">Student ID:</label>
                         <select name="user_name" id="user_name" class="form-control" required>
                             <option value="">Select Student ID</option>
-                            <?php
-                            // Database connection
-                            $conn = new PDO('mysql:host=localhost;dbname=schooldb', 'root', '');
+                           <?php
+                                // Database connection
+                                $conn = new PDO('mysql:host=localhost;dbname=schooldb', 'root', '');
 
-                            // Fetch user_name from tbl_students
-                            $stmt = $conn->prepare("SELECT user_name FROM tbl_students");
-                            $stmt->execute();
-                            $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                // Fetch user_name, fname, lname from tbl_students
+                                $stmt = $conn->prepare("SELECT user_name, fname, lname FROM tbl_students");
+                                $stmt->execute();
+                                $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                            // Loop through the student names and populate the dropdown
-                            foreach ($students as $student) {
-                                $selected = (isset($_POST['user_name']) && $_POST['user_name'] == $student['user_name']) ? 'selected' : '';
-                                echo "<option value='" . htmlspecialchars($student['user_name']) . "' $selected>" . htmlspecialchars($student['user_name']) . "</option>";
-                            }
+                                // Loop through the student names and populate the dropdown
+                                foreach ($students as $student) {
+                                    $selected = (isset($_POST['user_name']) && $_POST['user_name'] == $student['user_name']) ? 'selected' : '';
+                                    // Display user_name with fname and lname
+                                    echo "<option value='" . htmlspecialchars($student['user_name']) . "' $selected>" 
+                                            . htmlspecialchars($student['user_name']) . " --- " 
+                                            . htmlspecialchars($student['lname']) . ", " 
+                                            . htmlspecialchars($student['fname']) 
+                                        . "</option>";
+                                }
                             ?>
                         </select>
                     </div>

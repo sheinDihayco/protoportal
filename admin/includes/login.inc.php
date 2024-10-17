@@ -1,5 +1,5 @@
 <?php
-include_once "connect.php";
+include_once '../includes/connection.php'; 
 session_start(); // Start session
 
 if (isset($_POST["login"])) {

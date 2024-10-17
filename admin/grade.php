@@ -48,28 +48,49 @@
             ?>
         </select>
     </div>
-    <!-- Subject Code Selection from tbl_subjects -->
+   <!-- Subject Code Selection based on user_id and year level -->
     <div class="col-md-4 form-group">
         <label for="subject_code" class="form-label">Subject Code:</label>
         <select class="form-select" id="subject_code" name="subject_code">
             <option value="" selected>Select Subject Code</option>
             <?php
-            try {
-                // Fetch distinct subject codes from tbl_subjects
-                $stmt = $pdo->prepare("SELECT DISTINCT code FROM tbl_subjects ORDER BY code");
-                $stmt->execute();
+                try {
+                    // Assuming you have the student's user_id stored in a session or as a form input
+                    $user_id = $_SESSION['user_id']; // Or retrieve from a form if needed
 
-                // Loop through unique subject codes and display in the dropdown
-                foreach ($stmt as $subject) {
-                    $selected = (isset($_POST['subject_code']) && $_POST['subject_code'] == $subject['code']) ? 'selected' : '';
-                    echo '<option value="' . htmlspecialchars($subject['code']) . '" ' . $selected . '>' . htmlspecialchars($subject['code']) . '</option>';
+                    // Step 1: Fetch the student's year level and course based on the user_id
+                    $yearLevelStmt = $pdo->prepare("SELECT year, course FROM tbl_students WHERE user_id = :user_id");
+                    $yearLevelStmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+                    $yearLevelStmt->execute();
+                    $student = $yearLevelStmt->fetch(PDO::FETCH_ASSOC);
+
+                    if ($student) {
+                        $year_level = $student['year'];
+                        $course = $student['course'];
+
+                        // Step 2: Fetch the subject codes and descriptions based on the student's year level and course
+                        $subjectStmt = $pdo->prepare("SELECT DISTINCT code, description FROM tbl_subjects WHERE year = :year AND course = :course ORDER BY code");
+                        $subjectStmt->bindParam(':year', $year_level, PDO::PARAM_INT);
+                        $subjectStmt->bindParam(':course', $course, PDO::PARAM_STR); // Assuming 'course' is a string
+                        $subjectStmt->execute();
+
+                        // Loop through the subjects and display both code and description in the dropdown
+                        foreach ($subjectStmt as $subject) {
+                            $selected = (isset($_POST['subject_code']) && $_POST['subject_code'] == $subject['code']) ? 'selected' : '';
+                            echo '<option value="' . htmlspecialchars($subject['code']) . '" ' . $selected . '>' 
+                                . htmlspecialchars($subject['code']) . ' - ' . htmlspecialchars($subject['description']) 
+                                . '</option>';
+                        }
+                    } else {
+                        echo "<option value='' disabled>Student year level not found</option>";
+                    }
+                } catch (PDOException $e) {
+                    echo "<option value='' disabled>Error fetching subjects</option>";
                 }
-            } catch (PDOException $e) {
-                echo "<option value='' disabled>Error fetching subjects</option>";
-            }
             ?>
         </select>
     </div>
+
 
     <!-- Search and Clear Buttons -->
     <div class="col-md-2 form-group align-self-end">

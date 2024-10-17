@@ -56,7 +56,7 @@ $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                <li class="breadcrumb-item active">Accounts</li>
+                <li class="breadcrumb-item active">Schedules</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->

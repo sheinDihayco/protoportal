@@ -45,7 +45,7 @@
                         </select>
                     </div>
 
-                   <div class="col-md-3 form-group">
+                    <!--<div class="col-md-3 form-group">
                         <label for="subject_id" class="form-label">Subject</label>
                         <select class="form-select" id="subject_id" name="subject_id" required>
                             <option value="" selected>Select Subject</option>
@@ -54,7 +54,7 @@
                             $db = $database->open();
 
                             try {
-                               $sql = "SELECT DISTINCT description FROM tbl_subjects ORDER BY description ASC";
+                                $sql = "SELECT DISTINCT description FROM tbl_subjects ORDER BY description ASC";
                                 $stmt = $db->prepare($sql);
                                 $stmt->execute();
 
@@ -68,7 +68,7 @@
                             $database->close();
                             ?>
                         </select>
-                    </div>
+                    </div>-->
 
                     <div class="col-md-3 form-group">
                         <label for="course" class="form-label">Course</label>
