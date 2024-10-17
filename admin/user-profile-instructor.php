@@ -1,5 +1,5 @@
 <?php include_once "../templates/header2.php"; ?>
-<?php include_once '../PHP/user-profile-admin-con.php'; ?>
+<?php include_once '../PHP/user-profile-instructor-con.php'; ?>
 <?php include_once '../PHP/user-con.php' ?>
 
   <main id="main" class="main">

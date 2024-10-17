@@ -1,14 +1,16 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "schooldb";
+// Database connection using PDO
+$host = 'localhost';
+$dbname = 'schooldb';
+$username = 'root';
+$password = '';
 
 try {
-  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-  // set the PDO error mode to exception
-  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  //   echo "Connect Successfully";
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    // Set error mode to exception
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-  echo "Connection failed: " . $e->getMessage();
+    // Handle connection error
+    die("Connection failed: " . $e->getMessage());
 }
+?>
