@@ -46,18 +46,22 @@ if ($stmt->rowCount() > 0) {
         INSERT INTO tbl_schedule (instructor_id, course_id, subject_id, room_id, time_id, day_id) 
         VALUES (:instructor_id, :course_id, :subject_id, :room_id, :time_id, :day_id)";
     $stmt = $conn->prepare($insertQuery);
-    $stmt->execute([
+    
+    if ($stmt->execute([
         ':instructor_id' => $instructor_id,
         ':course_id' => $course_id,
         ':subject_id' => $subject_id,
         ':room_id' => $room_id,
         ':time_id' => $time_id,
         ':day_id' => $day_id,
-    ]);
-
-    // Set session variable and send success response
-    echo json_encode(['success' => 'Schedule created successfully.']);
-    exit();
+    ])) {
+        // Insert successful
+        $_SESSION['schedule_success'] = "Schedule created successfully.";
+        echo json_encode(['success' => 'Schedule created successfully.']);
+    } else {
+        // Insert failed
+        echo json_encode(['error' => 'Failed to create the schedule. Please try again.']);
+    }
 }
 
 $connClass->close();
