@@ -24,7 +24,6 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">Instructor</th>
-                                            <th scope="col">Course & Year</th>
                                             <th scope="col">View Students</th>
                                         </tr>
                                     </thead>
@@ -34,14 +33,6 @@
                                                 <?php foreach ($instructor['courses'] as $course => $years): ?>
                                                     <tr>
                                                         <td><?php echo htmlspecialchars($instructor['name']); ?></td>
-                                                        <td>
-                                                            <?php
-                                                            // Remove duplicate years and sort them
-                                                            $unique_years = array_unique($years);
-                                                            sort($unique_years);
-                                                            echo htmlspecialchars($course) . ' - ' . implode(',', $unique_years);
-                                                            ?>
-                                                        </td>
                                                         <td>
                                                             <a href="../admin/class-assigned.php?user_id=<?php echo htmlspecialchars($instructor_id); ?>" class="btn btn-success btn-sm">
                                                                 <i class="ri-arrow-right-circle-fill"></i>
