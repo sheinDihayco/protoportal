@@ -20,6 +20,27 @@ $studs = $stmt->fetch(PDO::FETCH_ASSOC);
 $connection->close();
 ?>
 
+<script>
+  // Check if the session variable 'user_created' is set
+  <?php if (isset($_SESSION['profile_updated']) && $_SESSION['profile_updated']): ?>
+    // Show SweetAlert success message with OK button
+    Swal.fire({
+      icon: 'success',
+      title: 'Update Successful',
+      text: 'Profile Successfully Updated!',
+      confirmButtonText: 'OK'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Redirect to the student page when OK is clicked
+        window.location.href = '../admin/user-profile-admin.php';
+      }
+    });
+
+    // Unset the session variable to prevent repeated alerts
+    <?php unset($_SESSION['profile_updated']); ?>
+  <?php endif; ?>
+</script>
+
 <style>
   .icon-button {
     border: none;

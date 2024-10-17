@@ -21,6 +21,27 @@ $connection->close();
 ?>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<script>
+  // Check if the session variable 'user_created' is set
+  <?php if (isset($_SESSION['profile_updated']) && $_SESSION['profile_updated']): ?>
+    // Show SweetAlert success message with OK button
+    Swal.fire({
+      icon: 'success',
+      title: 'Update Successful',
+      text: 'Profile Successfully Updated!',
+      confirmButtonText: 'OK'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Redirect to the student page when OK is clicked
+        window.location.href = '../admin/user-profile-admin.php';
+      }
+    });
+
+    // Unset the session variable to prevent repeated alerts
+    <?php unset($_SESSION['profile_updated']); ?>
+  <?php endif; ?>
+</script>
+
 <style>
   .icon-button {
     border: none;

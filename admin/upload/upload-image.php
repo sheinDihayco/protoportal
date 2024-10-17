@@ -48,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
             $stmt->bind_param("si", $targetFile, $userid);
 
             if ($stmt->execute()) {
+                $_SESSION['profile_updated'] = true;
                 header("Location: ../user-profile-admin.php?error=success");
                 exit;
             } else {

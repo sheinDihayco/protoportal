@@ -375,9 +375,16 @@ $database->close();
           </li>
 
           <li class="nav-item">
+            <a class="nav-link collapsed" href="../admin/classes.php">
+              <i class="bi bi-circle-fill"></i>
+              <span>Class Records</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
             <a class="nav-link collapsed" href="../admin/assign-student-instructors.php">
               <i class="bi bi-circle-fill"></i>
-              <span>Assign students</span>
+              <span>Assign Class</span>
             </a>
           </li>
 

@@ -11,6 +11,7 @@
             </ol>
         </nav>
     </div><!-- End Page Title -->
+    
     <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -25,6 +26,7 @@
             </div>
         </div>
     </div>
+
     <section class="section calendar">
         <div class="row">
             <div class="col-lg-6">

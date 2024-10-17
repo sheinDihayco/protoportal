@@ -5,7 +5,7 @@
 
     <!-- Start Page Title -->
     <div class="pagetitle">
-        <h1>Student Records</h1>
+        <h1>Assigned Class to Instructor</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.php">Home</a></li>
@@ -22,7 +22,7 @@
                 <form id="instructorForm" action="" method="GET" class="row g-3">
                     <div class="col-md-3 form-group">
                         <label for="instructor_id" class="form-label">Instructor</label>
-                        <select class="form-select" id="instructor_id" name="instructor_id" onchange="enableNextField('course')" required>
+                        <select class="form-select" id="instructor_id" name="instructor_id"  required>
                             <option value="" selected>Select Instructor</option>
                             <?php
                             $database = new Connection();
@@ -44,10 +44,36 @@
                             ?>
                         </select>
                     </div>
+
+                   <div class="col-md-3 form-group">
+                        <label for="subject_id" class="form-label">Subject</label>
+                        <select class="form-select" id="subject_id" name="subject_id" required>
+                            <option value="" selected>Select Subject</option>
+                            <?php
+                            $database = new Connection();
+                            $db = $database->open();
+
+                            try {
+                               $sql = "SELECT DISTINCT description FROM tbl_subjects ORDER BY description ASC";
+                                $stmt = $db->prepare($sql);
+                                $stmt->execute();
+
+                                foreach ($stmt as $subject) {
+                                    echo '<option value="' . htmlspecialchars($subject['description']) . '">' . htmlspecialchars($subject['description']) . '</option>';
+                                }
+                            } catch (PDOException $e) {
+                                echo "<option value='' disabled>Error fetching subjects</option>";
+                            }
+
+                            $database->close();
+                            ?>
+                        </select>
+                    </div>
+
                     <div class="col-md-3 form-group">
                         <label for="course" class="form-label">Course</label>
-                        <select class="form-select" id="course" name="course" disabled oninput="enableNextField('year')" required>
-                            <option value="" selected>Select Course</option>
+                        <select class="form-select" id="course" name="course"  required>
+                            <option value="" selected>Select</option>
                             <?php
                             $database = new Connection();
                             $db = $database->open();
@@ -73,9 +99,9 @@
 
                     <div class="col-md-2 form-group">
                         <label for="year" class="form-label">Year</label>
-                        <select class="form-select" id="year" name="year" disabled oninput="enableNextField('semester')" required>
-                            <option value="" selected>Select Year</option>
-                            <option value="all">All Years</option>
+                        <select class="form-select" id="year" name="year"  required>
+                            <option value="" selected>Select</option>
+                            <option value="all">All</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -84,14 +110,16 @@
                             <option value="12">12</option>
                         </select>
                     </div>
+
                     <div class="col-md-2 form-group">
                         <label for="semester" class="form-label">Semester</label>
-                        <select class="form-select" id="semester" name="semester" disabled required>
-                            <option value="all" selected>All Semesters</option>
-                            <option value="1">1st Semester</option>
-                            <option value="2">2nd Semester</option>
+                        <select class="form-select" id="semester" name="semester"  required>
+                            <option value="all" selected>All</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
                         </select>
                     </div>
+
                     <div class="col-md-2 form-group align-self-end">
                         <button type="submit" class="btn btn-primary">
                             <i class="bx bx-search-alt"></i>
@@ -100,6 +128,7 @@
                             <i class="bx bx-eraser"></i>
                         </button>
                     </div>
+
                 </form>
             </div>
         </div>
@@ -112,6 +141,7 @@
         <div class="studentResult">
             <form id="assignStudentsForm" action="" method="POST">
                 <input type="hidden" name="instructor_id" value="<?php echo htmlspecialchars($instructor_id); ?>">
+                <input type="hidden" name="subject_id" value="<?php echo htmlspecialchars($subject_id); ?>">
                 <section class="section dashboard">
                     <div class="table-responsive mt-4">
                         <table class="table table-bordered table-striped">

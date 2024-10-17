@@ -9,13 +9,18 @@ $instructor_id = $_GET['instructor_id'] ?? '';
 $course = $_GET['course'] ?? '';
 $year = $_GET['year'] ?? 'all';
 $semester = $_GET['semester'] ?? 'all';
+$subject_id = $_GET['subject_id'] ?? ''; // Get subject_id from the request
 
-$years = ['1' => 'First Year', '2' => 'Second Year', '3' => 'Third Year', '4' => 'Fourth Year' , '11' => 'Grade 11' , '12' => "Grade 12"]; // Initialize $years array
+$years = ['1' => 'First Year', '2' => 'Second Year', '3' => 'Third Year', '4' => 'Fourth Year', '11' => 'Grade 11', '12' => "Grade 12"]; // Initialize $years array
 $semesters = ['1' => '1st Semester', '2' => '2nd Semester']; // Initialize $semesters array
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['assignStudents'])) {
     $instructor_id = $_POST['instructor_id']; // The user_id of the instructor
+    $subject_id = $_POST['subject_id']; // Get subject_id from the form
     $student_ids = isset($_POST['student_ids']) ? $_POST['student_ids'] : []; // Array of student_ids
+
+    $already_assigned_students = []; // Array to track students already assigned
+    $newly_assigned_students = []; // Array to track newly assigned students
 
     $database = new Connection();
     $db = $database->open();
@@ -24,50 +29,86 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['assignStudents'])) {
         // Begin transaction
         $db->beginTransaction();
 
-        // Insert new student assignments, if not already assigned
-        $sql_check = "SELECT COUNT(*) FROM tbl_student_instructors WHERE student_id = :student_id AND instructor_id = :instructor_id";
-        $sql_insert = "INSERT INTO tbl_student_instructors (student_id, instructor_id) VALUES (:student_id, :instructor_id)";
+        // Prepare SQL statements for checking and inserting student assignments
+        $sql_check = "SELECT COUNT(*) FROM tbl_student_instructors WHERE student_id = :student_id AND instructor_id = :instructor_id AND subject_id = :subject_id";
+        $sql_insert = "INSERT INTO tbl_student_instructors (student_id, instructor_id, subject_id) VALUES (:student_id, :instructor_id, :subject_id)";
         $stmt_check = $db->prepare($sql_check);
         $stmt_insert = $db->prepare($sql_insert);
 
         foreach ($student_ids as $student_id) {
             // Check if student is already assigned
-            $stmt_check->execute([':student_id' => $student_id, ':instructor_id' => $instructor_id]);
+            $stmt_check->execute([':student_id' => $student_id, ':instructor_id' => $instructor_id, ':subject_id' => $subject_id]);
             $already_assigned = $stmt_check->fetchColumn();
 
-            if (!$already_assigned) {
-                // Insert new record
-                $stmt_insert->execute([':student_id' => $student_id, ':instructor_id' => $instructor_id]);
+            if ($already_assigned) {
+                // Add to the list of already assigned students
+                $already_assigned_students[] = $student_id;
+            } else {
+                // Insert new assignment for students not already assigned
+                $stmt_insert->execute([':student_id' => $student_id, ':instructor_id' => $instructor_id, ':subject_id' => $subject_id]);
+                $newly_assigned_students[] = $student_id;
             }
         }
 
         // Commit transaction
         $db->commit();
 
-        // Show SweetAlert and redirect on success
-        echo "<script>
-            Swal.fire({
-                title: 'Success!',
-                text: 'Students have been successfully assigned.',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = '../admin/assign-student-instructors.php';
-                }
-            });
-        </script>";
-        exit();
+        // Flush output buffer to ensure it's sent to the browser
+        ob_end_flush();
+
+        // Show SweetAlert messages
+        if (count($newly_assigned_students) > 0) {
+            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+            echo "<script>
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Students have been successfully assigned.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '../admin/assign-student-instructors.php';
+                    }
+                });
+            </script>";
+        }
+
+        // If there are already assigned students, show a different SweetAlert
+        if (count($already_assigned_students) > 0) {
+            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+            echo "<script>
+                Swal.fire({
+                    title: 'Warning!',
+                    text: 'Some students are already enrolled in this class.',
+                    icon: 'warning',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '../admin/assign-student-instructors.php';
+                    }
+                });
+            </script>";
+        }
     } catch (PDOException $e) {
         // Rollback transaction on error
         $db->rollBack();
-        echo "There was an error: " . $e->getMessage();
+        echo "<script>
+            Swal.fire({
+                title: 'Error!',
+                text: 'There was an error assigning the students: " . $e->getMessage() . "',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        </script>";
     }
 
     $database->close();
 }
 ?>
 
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>

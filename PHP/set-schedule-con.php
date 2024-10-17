@@ -136,47 +136,6 @@ $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday
             });
         }
 
-        $('#scheduleForm').submit(function(e) {
-            e.preventDefault();
-            $.ajax({
-                url: $(this).attr('action'),
-                type: 'POST',
-                data: $(this).serialize(),
-                dataType: 'json',
-                success: function(response) {
-                    if (response.error) {
-                        // Show error in toast
-                        $('#statusToast').removeClass('bg-success').addClass('bg-danger');
-                        $('#toastTitle').text('Error');
-                        $('#toastBody').text(response.error);
-                    } else {
-                        // Show success alert using SweetAlert2
-                        Swal.fire({
-                            title: 'Success!',
-                            text: 'Schedule created successfully.',
-                            icon: 'success',
-                            confirmButtonText: 'OK'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                // Redirect to set-schedule.php after confirmation
-                                window.location.href = '../admin/set-schedule.php';
-                            }
-                        });
-                    }
-                    var toast = new bootstrap.Toast($('#statusToast'));
-                    toast.show();
-                },
-                error: function() {
-                    // Show error in toast
-                    $('#statusToast').removeClass('bg-success').addClass('bg-danger');
-                    $('#toastTitle').text('Error');
-                    $('#toastBody').text('Failed to add schedule.');
-                    var toast = new bootstrap.Toast($('#statusToast'));
-                    toast.show();
-                }
-            });
-        });
-
         $(document).on('click', '.edit-btn', function() {
             var scheduleId = $(this).data('id');
             $.ajax({
@@ -305,6 +264,50 @@ $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday
                             });
                         }
                     });
+                }
+            });
+        });
+
+        $('#scheduleForm').submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'POST',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function(response) {
+                    if (response.error) {
+                        // Show SweetAlert2 when a conflict occurs
+                        Swal.fire({
+                            title: 'Conflict Detected!',
+                            text: 'The instructor, time, day, course, room, and subject are already in use. Please choose different options.',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    } else if (response.success) {
+                        // Show success alert using SweetAlert2
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Schedule created successfully.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Redirect to set-schedule.php after confirmation
+                                window.location.href = '../admin/set-schedule.php';
+                            }
+                        });
+                    }
+                    var toast = new bootstrap.Toast($('#statusToast'));
+                    toast.show();
+                },
+                error: function() {
+                    // Show error in toast
+                    $('#statusToast').removeClass('bg-success').addClass('bg-danger');
+                    $('#toastTitle').text('Error');
+                    $('#toastBody').text('Failed to add schedule.');
+                    var toast = new bootstrap.Toast($('#statusToast'));
+                    toast.show();
                 }
             });
         });
