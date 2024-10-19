@@ -9,7 +9,7 @@
       <h1>Profile</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="../admin/index3.php">Home</a></li>
+          <li class="breadcrumb-item"><a href="../admin/index2.php">Home</a></li>
           <li class="breadcrumb-item">Users</li>
           <li class="breadcrumb-item active">Profile</li>
         </ol>

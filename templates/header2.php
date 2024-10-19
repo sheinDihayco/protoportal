@@ -318,7 +318,7 @@ $database->close();
           </div>
         <li class="nav-item">
           <a class="nav-link collapsed" href="../admin/index2.php">
-            <i class="bi bi-grid"></i>
+            <i class="bi bi-grid-fill"></i>
             <span>Dashboard</span>
           </a>
         </li>
@@ -326,7 +326,7 @@ $database->close();
 
         <li class="nav-item">
           <a class="nav-link collapsed" href="../admin/schedule-teacher.php">
-            <i class="ri-time-line"></i>
+            <i class="bi bi-list-check"></i>
             <span>Schedule</span>
           </a>
         </li>
@@ -340,7 +340,7 @@ $database->close();
 
        <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="ri-user-fill"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li class="nav-item">
@@ -360,7 +360,7 @@ $database->close();
 
         <li class="nav-item">
           <a class="nav-link collapsed" href="../admin/event-teacher.php">
-            <i class="ri-calendar-check-fill"></i>
+            <i class="bi bi-calendar-fill"></i>
             <span>Events</span>
           </a>
         </li>

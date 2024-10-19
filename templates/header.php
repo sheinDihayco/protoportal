@@ -341,7 +341,7 @@ $database->close();
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="../admin/index.php">
-          <i class="bi bi-grid"></i>
+          <i class="bi bi-grid-fill"></i>
           <span>Dashboard</span>
         </a>
       </li>
@@ -350,7 +350,7 @@ $database->close();
       <!-- Start Forms Nav -->
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Academics</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-book-fill"></i><span>Academics</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li class="nav-item">
@@ -395,7 +395,7 @@ $database->close();
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#user-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="ri-user-fill"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="user-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li class="nav-item">
@@ -415,28 +415,28 @@ $database->close();
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="../admin/event2.php">
-          <i class="ri-calendar-check-line"></i>
+          <i class="bi bi-calendar-fill"></i>
           <span>Events</span>
         </a>
       </li>
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="../admin/subject.php">
-          <i class="ri-book-3-line"></i>
+          <i class="bi bi-file-earmark-text-fill"></i>
           <span>Prospectus</span>
         </a>
       </li>
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="../admin/payment.php">
-          <i class="bx bx-wallet"></i>
+          <i class="bi bi-wallet-fill"></i>
           <span>Payment</span>
         </a>
       </li>
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Form</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-file-earmark-fill"></i><span>Form</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li class="nav-item">

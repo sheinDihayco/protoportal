@@ -132,7 +132,7 @@ $connection->close();
 
 <!-- Optional: AJAX for dynamic updates (if required) -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -169,6 +169,24 @@ $connection->close();
 
         loadSchedules(); // Load schedules when document is ready
     });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  // Check if the session variable 'user_created' is set
+  <?php if (isset($_SESSION['success']) && $_SESSION['success']): ?>
+    // Show SweetAlert success message with OK button
+    Swal.fire({
+      icon: 'success',
+      title: 'Login successful!',
+      text: ' You have successfully logged into the system.',
+      confirmButtonText: 'OK'
+    });
+
+    // Unset the session variable to prevent repeated alerts
+    <?php unset($_SESSION['success']); ?>
+  <?php endif; ?>
 </script>
 
 

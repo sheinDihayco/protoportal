@@ -27,8 +27,8 @@ $connection->close();
     // Show SweetAlert success message with OK button
     Swal.fire({
       icon: 'success',
-      title: 'Update Successful',
-      text: 'Profile Successfully Updated!',
+      title: 'Update Completed',
+      text: 'Your profile has been successfully updated.',
       confirmButtonText: 'OK'
     }).then((result) => {
       if (result.isConfirmed) {
@@ -45,7 +45,7 @@ $connection->close();
 <style>
   .icon-button {
     border: none;
-    background: transparent;
+    background: transparent;  
     padding: 0;
     cursor: pointer;
     display: flex;

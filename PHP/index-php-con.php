@@ -76,3 +76,27 @@ $connection->close();
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  // Check if the session variable 'user_created' is set
+  <?php if (isset($_SESSION['success']) && $_SESSION['success']): ?>
+    // Show SweetAlert success message with OK button
+    Swal.fire({
+      icon: 'success',
+      title: 'Login successful!',
+      text: ' You have successfully logged into the system.',
+      confirmButtonText: 'OK'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Redirect to the student page when OK is clicked
+        window.location.href = '../admin/index.php';
+      }
+    });
+
+    // Unset the session variable to prevent repeated alerts
+    <?php unset($_SESSION['success']); ?>
+  <?php endif; ?>
+</script>

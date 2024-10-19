@@ -20,6 +20,8 @@ $studs = $stmt->fetch(PDO::FETCH_ASSOC);
 $connection->close();
 ?>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
   // Check if the session variable 'user_created' is set
   <?php if (isset($_SESSION['profile_updated']) && $_SESSION['profile_updated']): ?>
@@ -32,7 +34,7 @@ $connection->close();
     }).then((result) => {
       if (result.isConfirmed) {
         // Redirect to the student page when OK is clicked
-        window.location.href = '../admin/user-profile-admin.php';
+        window.location.href = '../admin/user-profile.php';
       }
     });
 
@@ -40,6 +42,24 @@ $connection->close();
     <?php unset($_SESSION['profile_updated']); ?>
   <?php endif; ?>
 </script>
+
+<!-- SweetAlert Script -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+    // Check if the session variable 'student_updated' is set
+    <?php if (isset($_SESSION['student_updated']) && $_SESSION['student_updated']): ?>
+        // Show SweetAlert success message with OK button
+        Swal.fire({
+            icon: 'success',
+            title: 'Update Completed!',
+            text: 'The details have been successfully updated.',
+            confirmButtonText: 'OK'
+        });
+        // Unset the session variable to prevent repeated alerts
+        <?php unset($_SESSION['student_updated']); ?>
+    <?php endif; ?>
+</script>
+
 
 <style>
   .icon-button {
@@ -78,11 +98,10 @@ $connection->close();
     text-decoration: none !important;
   }
   .custom-profile-img {
-      width: 150px;
-      height: 160px;
-      object-fit: cover; 
-       border: 5px solid gray; 
-      border-radius: 0; 
+  width: 100px; /* Set the desired width */
+  height: 100px; /* Set the desired height */
+  border-radius: 50%; /* Make it circular */
+  object-fit: cover; /* Ensure the image covers the entire area */
   }
 
   /* Styling the profile name */

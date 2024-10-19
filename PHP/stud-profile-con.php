@@ -1,5 +1,4 @@
 <?php
-
 include_once "../templates/header3.php";
 include_once "includes/connect.php";
 include_once 'includes/connection.php';
@@ -77,43 +76,3 @@ try {
 $database->close();
 ?>
 
-<!-- Include SweetAlert2 -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<?php
-if (isset($_SESSION['student_updated']) && $_SESSION['student_updated']) {
-    echo "
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            Swal.fire({
-                icon: 'success',
-                title: 'Information Updated',
-                text: 'Information successfully updated!',
-                showConfirmButton: false,
-                timer: 5000
-            });
-        });
-    </script>";
-    unset($_SESSION['student_updated']); // Clear the session variable after use
-}
-?>
-
-
-<!-- Add custom CSS to remove underlines -->
-<style>
-  a {
-    text-decoration: none !important;
-  }
-
-  .breadcrumb-item a {
-    text-decoration: none !important;
-  }
-
-  .breadcrumb-item.active {
-    text-decoration: none;
-  }
-
-  .navbar-brand {
-    text-decoration: none !important;
-  }
-</style>

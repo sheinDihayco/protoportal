@@ -36,7 +36,7 @@ if (isset($_GET['update']) && $_GET['update'] == 'success') {
         <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
         <script>
             Swal.fire({
-                title: 'Updated!',
+                title: 'Update Completed!',
                 text: 'The employee details have been successfully updated.',
                 icon: 'success',
                 confirmButtonText: 'OK'
@@ -102,9 +102,6 @@ if (isset($_GET['update']) && $_GET['update'] == 'success') {
 
     </style>
 
-    
-<!-- Vendor JS Files -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
     // Check if the session variable 'user_updated' is set
@@ -112,8 +109,8 @@ if (isset($_GET['update']) && $_GET['update'] == 'success') {
         // Show SweetAlert success message with OK button
         Swal.fire({
             icon: 'success',
-            title: 'Update Success',
-            text: 'The data has been successfully updated!',
+            title: 'Update Completed!',
+            text: 'The details have been successfully updated.',
             confirmButtonText: 'OK'
         }).then((result) => {
             if (result.isConfirmed) {
@@ -133,8 +130,8 @@ if (isset($_GET['update']) && $_GET['update'] == 'success') {
         // Show SweetAlert success message with OK button
         Swal.fire({
             icon: 'success',
-            title: 'Update Success',
-            text: 'The data has been successfully updated!',
+            title: 'Update Completed!',
+            text: 'The details have been successfully updated.',
             confirmButtonText: 'OK'
         }).then((result) => {
             if (result.isConfirmed) {
@@ -147,3 +144,4 @@ if (isset($_GET['update']) && $_GET['update'] == 'success') {
         <?php unset($_SESSION['instructor_updated']); ?>
     <?php endif; ?>
 </script>
+

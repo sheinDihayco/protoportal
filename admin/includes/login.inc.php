@@ -2,6 +2,10 @@
 include_once '../includes/connection.php'; 
 session_start(); // Start session
 
+// Create a new instance of the Connection class
+$database = new Connection();
+$conn = $database->open(); // Open the connection
+
 if (isset($_POST["login"])) {
     $identifier = trim($_POST["identifier"]); // User input (username or student ID)
     $pass = trim($_POST["password"]); // User input (password)
@@ -35,7 +39,7 @@ if (isset($_POST["login"])) {
             // Set up the session variables
             $_SESSION['login'] = $account["user_id"];
             $_SESSION['role'] = $account["user_role"];
-            $_SESSION['login_success'] = true;
+            $_SESSION['success'] = true;
             $_SESSION['user_id'] = $account["user_id"];
 
             // Set cookies for "remember me" functionality if checked
@@ -71,3 +75,7 @@ if (isset($_POST["login"])) {
         exit;
     }
 }
+
+// Close the connection after the operations
+$database->close();
+?>

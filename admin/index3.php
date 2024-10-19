@@ -67,7 +67,29 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-8">
+            
+
+            <div class="col-lg-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Event List <span class="badge bg-success" style="color: white;">This month</span></h5>
+                        <ul class="list-group">
+                            <?php if (!empty($events)) : ?>
+                                <?php foreach ($events as $event) : ?>
+                                    <li class="list-group-item">
+                                        <h6 class="card-title"><?php echo htmlspecialchars($event['title'] ?? 'Untitled Event'); ?>
+                                            <span><?php echo htmlspecialchars($event['start_date'] ?? 'Unknown Date'); ?></span>
+                                        </h6>
+                                    </li>
+                                <?php endforeach; ?>
+                            <?php else : ?>
+                                <li class="list-group-item">No events found for the current month.</li>
+                            <?php endif; ?>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
                     <div class="card recent-sales overflow-auto">
                         <div class="filter">
                             <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
@@ -131,28 +153,7 @@
                         </div>
 
                     </div>
-                </div><!-- End Recent Sales -->
-
-            <div class="col-lg-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Event List <span class="badge bg-success" style="color: white;">This month</span></h5>
-                        <ul class="list-group">
-                            <?php if (!empty($events)) : ?>
-                                <?php foreach ($events as $event) : ?>
-                                    <li class="list-group-item">
-                                        <h6 class="card-title"><?php echo htmlspecialchars($event['title'] ?? 'Untitled Event'); ?>
-                                            <span><?php echo htmlspecialchars($event['start_date'] ?? 'Unknown Date'); ?></span>
-                                        </h6>
-                                    </li>
-                                <?php endforeach; ?>
-                            <?php else : ?>
-                                <li class="list-group-item">No events found for the current month.</li>
-                            <?php endif; ?>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            </div><!-- End Recent Sales -->
         </div>  
     </section>
 </main><!-- End #main -->
