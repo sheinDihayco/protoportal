@@ -8,10 +8,6 @@
         <!-- Button to trigger modal -->
         <button type="button" class="ri-user-add-fill tablebutton" data-bs-toggle="modal" data-bs-target="#courseModal">
         </button>
-
-        <button type="button" class="ri-time-fill tablebutton" onclick="window.location.href='../admin/set-slots.php';">
-        </button>
-
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.php">Home</a></li>

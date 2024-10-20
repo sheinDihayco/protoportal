@@ -1,6 +1,9 @@
 <?php
+
 include("../includes/connect.php");
 include("../includes/connection.php");
+
+session_start();
 
 $connection = new Connection();
 $pdo = $connection->open();

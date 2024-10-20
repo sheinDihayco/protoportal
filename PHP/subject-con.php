@@ -1,94 +1,139 @@
 
-
-<?php
-// Display a success message if a new subject was added
-if (isset($_SESSION['subject_created']) && $_SESSION['subject_created']) {
-  echo "
-    <div class='alert alert-success'>
-        <span class='closebtn' onclick='this.parentElement.style.display=\"none\";'>&times;</span>
-        New subject successfully added!
-    </div>
-    <script>
-        setTimeout(function() {
-            document.querySelector('.alert').style.opacity = '0';
-            setTimeout(function() {
-                document.querySelector('.alert').style.display = 'none';
-            }, 600);
-        }, 5000);
-    </script>";
-  unset($_SESSION['subject_created']);
-}
-?>
-
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <script>
-  // Handle the Edit Button Click
-  $(document).on('click', '.btn-edit', function() {
-    // Get the subject ID from the data attribute
-    var subjectId = $(this).data('id');
-    
-    // Make an AJAX request to fetch the subject details
-    $.ajax({
-      url: 'includes/get_subject.php', // PHP file to fetch subject details
-      type: 'GET',
-      data: { id: subjectId },
-      dataType: 'json',
-      success: function(data) {
-        // Populate the modal fields with the fetched data
-        $('#edit-id').val(data.id);
-        $('#edit-code').val(data.code);
-        $('#edit-description').val(data.description);
-        $('#edit-lec').val(data.lec);
-        $('#edit-lab').val(data.lab);
-        $('#edit-unit').val(data.unit);
-        $('#edit-pre_req').val(data.pre_req);
-        $('#edit-total').val(data.total);
-        $('#edit-course').val(data.course);
-        $('#edit-year').val(data.year);
-        $('#edit-semester').val(data.semester);
-        
-        // Show the modal
-        $('#editCourseModal').modal('show');
-      },
-      error: function(xhr, status, error) {
-        console.log("Error fetching subject data: " + error);
+  // Check if the session variable 'user_created' is set
+  <?php if (isset($_SESSION['subject_created']) && $_SESSION['subject_created']): ?>
+    // Show SweetAlert success message with OK button
+    Swal.fire({
+      icon: 'success',
+      title: 'Successful',
+      text: 'The subject has been successfully created!',
+      confirmButtonText: 'OK'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Redirect to the student page when OK is clicked
+        window.location.href = '../admin/subject.php';
       }
     });
 
-     $(document).on('click', '.btn-delete', function() {
-    // Get the subject ID from the data attribute
-    var subjectId = $(this).data('id');
-    
-    // Show a confirmation alert before proceeding with deletion
-    if (confirm('Are you sure you want to delete this subject?')) {
-      // If confirmed, make an AJAX request to delete the subject
-      $.ajax({
-        url: 'includes/delete-subject.php', // PHP file to handle deletion
-        type: 'POST',
-        data: { id: subjectId },
-        success: function(response) {
-          // Optionally reload the page or update the table to reflect changes
-          alert('Subject deleted successfully.');
-          location.reload(); // Reload the page to reflect changes
-        },
-        error: function(xhr, status, error) {
-          console.log("Error deleting subject: " + error);
-        }
-      });
-    }
-  });
-});
+    // Unset the session variable to prevent repeated alerts
+    <?php unset($_SESSION['subject_created']); ?>
+  <?php endif; ?>
+</script>
+
+<script>
+  // Check if the session variable 'subject_updated' is set
+  <?php if (isset($_SESSION['subject_updated']) && $_SESSION['subject_updated']): ?>
+    // Show SweetAlert success message with OK button
+    Swal.fire({
+      icon: 'success',
+      title: 'Update Complete!',
+      text: 'The subject has been successfully updated!',
+      confirmButtonText: 'OK'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Redirect to the student page when OK is clicked
+        window.location.href = '../admin/subject.php';
+      }
+    });
+
+    // Unset the session variable to prevent repeated alerts
+    <?php unset($_SESSION['subject_updated']); ?>
+  <?php endif; ?>
+</script>
+
+<script>
+function fetchSubjectData(subjectId) {
+    // Use AJAX to fetch subject data based on subjectId
+    fetch('includes/get_subject.php?id=' + subjectId)
+        .then(response => response.json())
+        .then(data => {
+            if (data) {
+                // Populate the modal fields with the fetched data
+                document.getElementById('edit-id').value = data.id;
+                document.getElementById('edit-code').value = data.code;
+                document.getElementById('edit-description').value = data.description;
+                document.getElementById('edit-lec').value = data.lec;
+                document.getElementById('edit-lab').value = data.lab;
+                document.getElementById('edit-unit').value = data.unit;
+                document.getElementById('edit-pre_req').value = data.pre_req;
+                document.getElementById('edit-total').value = data.total;
+                document.getElementById('edit-course').value = data.course;
+                document.getElementById('edit-year').value = data.year;
+                document.getElementById('edit-semester').value = data.semester;
+            }
+        })
+        .catch(error => console.error('Error fetching subject data:', error));
+}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const deleteButtons = document.querySelectorAll('.btn-delete');
+
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const subjectId = this.getAttribute('data-id');
+
+                // SweetAlert confirmation dialog
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "This action cannot be undone!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Send AJAX request to delete the subject
+                        fetch('includes/delete_subject.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ id: subjectId })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Show success alert and wait for user to click 'OK' before reloading
+                                Swal.fire({
+                                    title: 'Deleted!',
+                                    text: 'The subject has been deleted.',
+                                    icon: 'success',
+                                    confirmButtonText: 'OK'
+                                }).then(() => {
+                                    // Reload the page after 'OK' button is clicked
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire('Error!', data.message, 'error');
+                            }
+                        })
+                        .catch(error => {
+                            Swal.fire('Error!', 'An error occurred during deletion.', 'error');
+                        });
+                    }
+                });
+            });
+        });
+    });
 </script>
 
 
 <script>
-    document.getElementById('editSubjectForm').addEventListener('submit', function(e) {
+    document.getElementById('editForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const formData = new FormData(this);
     
-    fetch('functions/update-subject.php', {
+    fetch('includes/update_subject.php', {
       method: 'POST',
       body: formData,
     })

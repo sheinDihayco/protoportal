@@ -1,19 +1,31 @@
 <?php
-require_once 'connection.php';
+include("../includes/connect.php");
+include("../includes/connection.php");
+session_start();
 
 $connection = new Connection();
-$conn = $connection->open();
+$pdo = $connection->open();
+if (isset($_GET['id'])) {
+    $subjectId = $_GET['id'];
+    $database = new Connection();
+    $db = $database->open();
 
-header('Content-Type: application/json'); // Ensure the content type is set to JSON
+    try {
+        $stmt = $db->prepare("SELECT * FROM tbl_subjects WHERE id = :id");
+        $stmt->execute(['id' => $subjectId]);
+        $subject = $stmt->fetch(PDO::FETCH_ASSOC);
 
-try {
-    $stmt = $conn->prepare("SELECT * FROM tbl_subjects ORDER BY id"); // Retrieve all subjects
-    $stmt->execute();
-    $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($subject) {
+            // Return subject data as JSON
+            echo json_encode($subject);
+        } else {
+            echo json_encode(null); // No subject found
+        }
+    } catch (PDOException $e) {
+        echo json_encode(null); // Error fetching subject
+    }
 
-    echo json_encode(['status' => 'success', 'data' => $data]);
-} catch (PDOException $e) {
-    echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+    $database->close();
+} else {
+    echo json_encode(null); // No ID provided
 }
-
-$connection->close();

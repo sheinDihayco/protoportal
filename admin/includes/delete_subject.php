@@ -1,22 +1,36 @@
 <?php
-include_once "../includes/connect.php";
 
-if (isset($_GET['id'])) {
-    $subjectId = $_GET['id'];
+include("../includes/connect.php");
+include("../includes/connection.php");
+session_start();
 
-    // Prepare the SQL statement to delete the subject
-    $sql = "DELETE FROM tbl_subjects WHERE id = :id";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':id', $subjectId, PDO::PARAM_INT);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Decode the JSON body
+    $data = json_decode(file_get_contents('php://input'), true);
+    $subjectId = $data['id'];
 
-    // Execute the statement and set session messages accordingly
-    if ($stmt->execute()) {
-        $_SESSION['subject_deleted'] = true;
-    } else {
-        $_SESSION['subject_deleted'] = false;
+    // Open database connection
+    $database = new Connection();
+    $db = $database->open();
+
+    try {
+        // Prepare the SQL delete statement
+        $sql = "DELETE FROM tbl_subjects WHERE id = :id";
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':id', $subjectId);
+
+        // Execute the delete statement
+        if ($stmt->execute()) {
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Unable to delete the subject.']);
+        }
+    } catch (PDOException $e) {
+        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    } finally {
+        $database->close();
     }
-
-    // Redirect to the subject page with a success message
-    header("Location:../subject.php?error=delete-success");
-    exit();
+} else {
+    echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
 }
+?>  

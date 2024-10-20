@@ -88,104 +88,83 @@
     </div>
 
     <section class="section dashboard">
+        <!-- End Students Enrolled -->
+            <div class="col-12">
+                <div class="card recent-sales overflow-auto">
+                    <div class="card-body">
+                        <h5 class="card-title">Students <span>| Enrolled</span></h5>
+                        
+                    <!-- Search Bar 
+                    <form method="GET" action="">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name="search_user" placeholder="Search by username" value="<?php echo isset($_GET['search_user']) ? htmlspecialchars($_GET['search_user']) : ''; ?>">
+                            <button class="btn btn-primary" type="submit">Search</button>
+                        </div>
+                    </form>-->
+                        <table class="table table-borderless datatable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Student ID</th>
+                                    <th scope="col">Full Name</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                          <tbody>
+                                <?php
+                                // Database connection
+                                $database = new Connection();
+                                $db = $database->open();
 
-        <div class="col-12">
-            <div class="card recent-sales overflow-auto">
-                <div class="filter">
-                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                        <li class="dropdown-header text-start">
-                            <h6>Filter</h6>
-                        </li>
-                        <li><a class="dropdown-item" href="#">Today</a></li>
-                        <li><a class="dropdown-item" href="#">This Month</a></li>
-                        <li><a class="dropdown-item" href="#">This Year</a></li>
-                    </ul>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">Students <span>| Enrolled</span></h5>
-                    <table class="table table-borderless datatable">
-                        <thead>
-                            <tr>
-                                <th scope="col">Student ID</th>
-                                <th scope="col">Full Name</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $database = new Connection();
-                            $db = $database->open();
+                                try {
+                                    // Check if the search input is set
+                                    $searchQuery = "";
+                                    if (isset($_GET['search_user']) && !empty($_GET['search_user'])) {
+                                        $search_user = htmlspecialchars($_GET['search_user']);
+                                        $searchQuery = " WHERE user_name LIKE '%$search_user%'";
+                                    }
 
-                            try {
-                                $sql = 'SELECT * FROM tbl_students ORDER BY lname ASC';
-                                foreach ($db->query($sql) as $row) {
-                            ?>
-                                    <tr>
-                                        <th scope="row" style="font-size:bold;"><a href=""><?php echo $row["user_name"] ?></a></th>
-                                        <td><?php echo $row["lname"] ?>, <?php echo $row["fname"] ?></td>
-                                        <td><?php echo $row["status"] ?></td>
-                                        <td>
+                                    // Query to fetch students based on search criteria
+                                    $sql = "SELECT * FROM tbl_students $searchQuery ORDER BY lname ASC";
+                                    foreach ($db->query($sql) as $row) {
+                                ?>
+                                        <tr>
+                                            <th scope="row" style="font-size:bold;"><a href=""><?php echo $row["user_name"] ?></a></th>
+                                            <td><?php echo $row["lname"] ?>, <?php echo $row["fname"] ?></td>
+                                            <td><?php echo $row["status"] ?></td>
+                                            <td>
+                                                <!-- Edit Button -->
+                                                <button type="button" class="btn btn-sm btn-warning ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editStudent<?php echo htmlspecialchars($row['user_id']); ?>"></button>
 
-                                            <!-- Edit Button -->
-                                            <button type="button" class="btn btn-sm btn-warning ri-edit-2-fill" data-bs-toggle="modal" data-bs-target="#editStudent<?php echo htmlspecialchars($row['user_id']); ?>"></button>
+                                                <!-- View Profile Button -->
+                                                <form action="student_profile.php" method="post" style="display:inline;">
+                                                    <input type="hidden" name="stud_id" value="<?php echo htmlspecialchars($row['user_id']); ?>">
+                                                    <button type="submit" class="btn btn-sm btn-success" name="submit">
+                                                        <i class="ri-arrow-right-circle-fill"></i>
+                                                    </button>
+                                                </form>
 
-                                            <form action="student_profile.php" method="post" style="display:inline;">
-                                                <input type="hidden" name="stud_id" value="<?php echo htmlspecialchars($row['user_id']); ?>">
-                                                <button type="submit" class="btn btn-sm btn-success" name="submit">
-                                                    <i class="ri-arrow-right-circle-fill"></i>
-                                                </button>
-                                            </form>
-
-                                            <form method="POST" action="../admin/upload/delete-student.php" style="display:inline;"  id="deleteStudentForm" >
-                                                <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($row["user_id"]); ?>">
-                                                <button type="submit" class="btn btn-sm btn-danger ri-delete-bin-6-line" onclick="confirmDelete()"></button>
-                                            </form>
-
-
-                                        <!--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                                            <script>
-                                            function confirmDelete() {
-                                                // Get the form element
-                                                const form = document.getElementById("deleteStudentForm");
-                                                
-                                                Swal.fire({
-                                                    title: 'Are you sure?',
-                                                    text: "Do you really want to delete this student? This action cannot be undone.",
-                                                    icon: 'warning',
-                                                    showCancelButton: true,
-                                                    confirmButtonColor: '#d33',
-                                                    cancelButtonColor: '#3085d6',
-                                                    confirmButtonText: 'Yes, delete it!',
-                                                    cancelButtonText: 'Cancel'
-                                                }).then((result) => {
-                                                    if (result.isConfirmed) {
-                                                        // Submit the form after confirmation
-                                                        form.submit();
-                                                    }
-                                                });
-                                            }
-                                            </script>-->
-
-
-
-                                        <td>
-
-                                            <?php include('modals/form-edit-Student.php'); ?>
-                                    </tr>
-                            <?php
+                                                <!-- Delete Button -->
+                                                <form method="POST" action="../admin/upload/delete-student.php" style="display:inline;" id="deleteStudentForm">
+                                                    <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($row["user_id"]); ?>">
+                                                    <button type="submit" class="btn btn-sm btn-danger ri-delete-bin-6-line" onclick="confirmDelete()"></button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <?php include('modals/form-edit-Student.php'); ?>
+                                <?php
+                                    }
+                                } catch (PDOException $e) {
+                                    echo "There is some problem in connection: " . $e->getMessage();
                                 }
-                            } catch (PDOException $e) {
-                                echo "There is some problem in connection: " . $e->getMessage();
-                            }
-                            $database->close();
-                            ?>
-                        </tbody>
-                    </table>
+                                $database->close();
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div><!-- End Students Enrolled -->
+        <!-- End Students Enrolled -->
 
     </section>
 

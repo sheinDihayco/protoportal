@@ -92,7 +92,7 @@
             <ul class="nav nav-tabs nav-tabs-bordered">
 
               <button type="button" class="icon-button">
-                <a href="../admin/payment.php" class="icon-link">
+                <a href="../admin/user-student.php" class="icon-link">
                   <i class="ri-arrow-go-back-line"></i>
                 </a>
               </button>
@@ -115,7 +115,7 @@
                 <div class="card-body">
                   <h5 class="card-title">Students <span>| Enrolled</span></h5>
 
-                  <table class="table table-borderless datatable">
+                  <table class="table table-borderless">
                     <thead>
                       <tr>
                         <th scope="col">Student ID</th>
