@@ -9,14 +9,15 @@ $instructor_id = $_GET['instructor_id'] ?? '';
 $course = $_GET['course'] ?? '';
 $year = $_GET['year'] ?? 'all';
 $semester = $_GET['semester'] ?? 'all';
-$subject_id = $_GET['subject_id'] ?? ''; // Get subject_id from the request
+$subject_id = $_GET['subject_id'] ?? ''; 
 
 $years = ['1' => 'First Year', '2' => 'Second Year', '3' => 'Third Year', '4' => 'Fourth Year', '11' => 'Grade 11', '12' => "Grade 12"]; // Initialize $years array
 $semesters = ['1' => '1st Semester', '2' => '2nd Semester']; // Initialize $semesters array
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['assignStudents'])) {
     $instructor_id = $_POST['instructor_id']; // The user_id of the instructor
-    $subject_id = $_POST['subject_id']; // Get subject_id from the form
+    $subject_id = $_POST['subject_id'];
     $student_ids = isset($_POST['student_ids']) ? $_POST['student_ids'] : []; // Array of student_ids
 
     $already_assigned_students = []; // Array to track students already assigned
@@ -58,58 +59,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['assignStudents'])) {
 
         // Show SweetAlert messages
         if (count($newly_assigned_students) > 0) {
-            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
-            echo "<script>
-                Swal.fire({
-                    title: 'Success!',
-                    text: 'Students have been successfully assigned.',
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = '../admin/assign-student-instructors.php';
-                    }
-                });
-            </script>";
+            // Success alert already handled in JavaScript below
         }
 
         // If there are already assigned students, show a different SweetAlert
         if (count($already_assigned_students) > 0) {
-            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
-            echo "<script>
-                Swal.fire({
-                    title: 'Warning!',
-                    text: 'Some students are already enrolled in this class.',
-                    icon: 'warning',
-                    confirmButtonText: 'OK'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = '../admin/assign-student-instructors.php';
-                    }
-                });
-            </script>";
+            // Warning alert already handled in JavaScript below
         }
     } catch (PDOException $e) {
         // Rollback transaction on error
         $db->rollBack();
-        echo "<script>
-            Swal.fire({
-                title: 'Error!',
-                text: 'There was an error assigning the students: " . $e->getMessage() . "',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-        </script>";
+        // Error alert already handled in JavaScript below
     }
 
     $database->close();
 }
 ?>
 
-
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  // Check if the session variable 'user_created' is set
+  <?php if (isset($_SESSION['class_assigned']) && $_SESSION['class_assigned']): ?>
+    // Show SweetAlert success message with OK button
+    Swal.fire({
+        icon: 'success',
+        title: 'Assignment Successful',
+        text: 'The class has been successfully assigned.',
+        confirmButtonText: 'OK'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Redirect to the student page when OK is clicked
+        window.location.href = '../admin/assign-student-instructors.php';
+      }
+    });
+
+    // Unset the session variable to prevent repeated alerts
+    <?php unset($_SESSION['class_assigned']); ?>
+  <?php endif; ?>
+</script>
 
 <script>
     function enableNextField(nextFieldId) {
@@ -122,7 +111,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['assignStudents'])) {
         }
     }
 </script>
-
 
 <script>
     function toggleSelectAll(selectAllCheckbox) {

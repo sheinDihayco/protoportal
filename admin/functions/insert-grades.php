@@ -10,6 +10,7 @@ if (isset($_POST['register'])) {
 
     // Retrieve the data from the form
     $user_id = $_POST['user_id'] ?? null;
+    $instructor_id = $_POST['instructor_id'];
     $id = $_POST['subject'] ?? null;
     $year = $_POST['year'] ?? null;
     $semester = $_POST['semester'] ?? null;
@@ -17,14 +18,15 @@ if (isset($_POST['register'])) {
     $grade = $_POST['grade'] ?? null;
 
     // Ensure none of the required fields are missing
-    if ($user_id && $id && $year && $semester && $term && $grade) {
+    if ($user_id && $instructor_id && $id && $year && $semester && $term && $grade) {
         // Prepare and execute the insert query
         try {
-            $sql = "INSERT INTO tbl_grades (user_id, year, semester, term, grade, id) VALUES (:user_id, :year, :semester, :term, :grade, :id)";
-            $stmt = $db->prepare($sql);
+            $sql = "INSERT INTO tbl_grades (user_id, instructor_id, year, semester, term, grade, id) VALUES (:user_id, :instructor_id, :year, :semester, :term, :grade, :id)";
+            $stmt = $db->prepare($sql); 
 
             // Bind the parameters
             $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+            $stmt->bindParam(':instructor_id', $instructor_id, PDO::PARAM_INT);
             $stmt->bindParam(':year', $year, PDO::PARAM_INT);
             $stmt->bindParam(':semester', $semester, PDO::PARAM_INT);
             $stmt->bindParam(':term', $term, PDO::PARAM_STR);

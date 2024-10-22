@@ -3,6 +3,7 @@ $database = new Connection();
 $db = $database->open();
 
 $subjects = []; // Initialize as an empty array
+$instructor_id = $_SESSION['user_id'];
 
 try {
     $sql = "SELECT * FROM tbl_subjects ORDER BY year ASC";
@@ -26,6 +27,9 @@ $database->close();
             <div class="modal-body"  style="background-color: #e6ffe6;">
                 <div class="card-body p-4">
                     <form action="../admin/functions/insert-grades.php" method="post" novalidate>
+                        
+                        <input type="hidden" name="instructor_id" value="<?php echo $instructor_id; ?>">
+
                         <div class="row mb-3">
                             <div class="col-md-2">
                                 <label for="user_id<?php echo htmlspecialchars($student['user_id']); ?>" class="form-label">No.</label>
