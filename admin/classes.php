@@ -20,16 +20,16 @@
                     <div class="card recent-sales overflow-auto">
                         <div class="card-body">
                             <h5 class="card-title">Classes <span>| Enrolled </span></h5>
-                            <table class="table table-borderless datatable">
+                            <table class="table table-striped datatable">
                                 <thead>
                                     <tr>    
                                         <th scope="col">Instructor</th>
                                         <th scope="col">Subject Code</th>
                                         <th scope="col">Subject Description</th>
-                                        <th scope="col">View Students</th>
+                                        <th scope="col">View Class</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                               <tbody>
                                 <?php if (!empty($instructors)): ?>
                                     <?php
                                     // Initialize an array to keep track of displayed instructor-subject combinations
@@ -37,7 +37,7 @@
                                     ?>
                                     <?php foreach ($instructors as $instructor_id => $instructor): ?>
                                         <?php foreach ($instructor['courses'] as $course => $course_data): ?>
-                                            <?php foreach ($course_data['subjects'] as $subject): ?>
+                                            <?php foreach ($course_data['subjects'] as $subject_id => $subject): ?>
                                                 <?php
                                                 // Create a unique key for the instructor-subject combination
                                                 $unique_key = $instructor['name'] . '|' . $subject['code'];
@@ -52,9 +52,7 @@
                                                         <td><?php echo htmlspecialchars($subject['code']); ?></td>
                                                         <td><?php echo htmlspecialchars($subject['description']); ?></td>
                                                         <td>
-                                                            <a href="../admin/class-assigned.php?user_id=<?php echo htmlspecialchars($instructor_id); ?>" class="btn btn-success btn-sm">
-                                                                <i class="ri-arrow-right-circle-fill"></i>
-                                                            </a>
+                                                            <a href="class-assigned.php?instructor_id=<?php echo htmlspecialchars($instructor_id); ?>&subject_id=<?php echo htmlspecialchars($subject_id); ?>" class="btn btn-success btn-sm">  <i class="ri-arrow-right-circle-fill"></i> </a>
                                                         </td>
                                                     </tr>
                                                 <?php } ?>
@@ -67,7 +65,6 @@
                                     </tr>
                                 <?php endif; ?>
                             </tbody>
-
                             </table>
                         </div>
                     </div>

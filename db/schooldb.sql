@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 14, 2024 at 03:43 AM
+-- Generation Time: Oct 24, 2024 at 04:42 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -57,10 +57,7 @@ INSERT INTO `tbl_course` (`course_id`, `course_description`, `course_year`) VALU
 (31, 'BSOA', 3),
 (32, 'GAS', 12),
 (33, 'HUMSS', 12),
-(34, 'ICT', 11),
-(36, 'SUBJECT', 4),
-(38, 'SUBJECT', 3),
-(40, 'SUBJECT', 5);
+(34, 'ICT', 11);
 
 -- --------------------------------------------------------
 
@@ -122,8 +119,9 @@ INSERT INTO `tbl_events` (`id`, `title`, `description`, `start_date`, `end_date`
 (15, 'Prelim Examination', 'Preliminary examinations for the first semester.', '2024-08-29', '2024-08-31'),
 (16, 'SPG/SSG Election', 'Student elections for SPG/SSG.', '2024-09-10', '2024-09-14'),
 (17, 'Start of Classes', 'Beginning of the first semester classes.', '2024-07-29', '2024-07-29'),
-(35, 'SAMPLE EVENT', 'THIS IS 4TH EVENT SAMPLE', '2024-09-28', '2024-09-28'),
-(36, 'SAMPLE EVENT 2', 'THIS IS SAMPLE EVENT 2.', '2024-09-22', '2024-09-23');
+(35, 'SAMPLE EVENT', 'THIS IS A EVENT SAMPLE.', '2024-09-28', '2024-09-28'),
+(37, 'Teachers Day', 'Teacher&#039;s Day Celebration in MIIT.', '2024-10-04', '2024-10-04'),
+(38, 'Sample Title', 'This is a sample event.', '2024-10-12', '2024-10-13');
 
 -- --------------------------------------------------------
 
@@ -134,12 +132,21 @@ INSERT INTO `tbl_events` (`id`, `title`, `description`, `start_date`, `end_date`
 CREATE TABLE `tbl_grades` (
   `grade_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `instructor_id` int(11) NOT NULL,
   `id` int(20) NOT NULL,
   `semester` int(11) NOT NULL,
   `year` int(11) NOT NULL,
   `term` varchar(20) NOT NULL,
   `grade` decimal(5,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_grades`
+--
+
+INSERT INTO `tbl_grades` (`grade_id`, `user_id`, `instructor_id`, `id`, `semester`, `year`, `term`, `grade`) VALUES
+(1, 55, 55, 19, 1, 2, 'Prelim', 1.50),
+(2, 62, 55, 21, 1, 2, 'Midterm', 1.50);
 
 -- --------------------------------------------------------
 
@@ -154,6 +161,16 @@ CREATE TABLE `tbl_payments` (
   `semester` varchar(20) NOT NULL,
   `paymentPeriod` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_payments`
+--
+
+INSERT INTO `tbl_payments` (`payment_id`, `user_id`, `payment_status`, `semester`, `paymentPeriod`) VALUES
+(81, 62, 'Pending', '1st', 'Prelim'),
+(83, 70, 'Paid', '1st', 'Prelim'),
+(84, 55, 'Pending', '1st', 'Prelim'),
+(85, 64, 'Paid', '1st', 'Prelim');
 
 -- --------------------------------------------------------
 
@@ -203,10 +220,18 @@ CREATE TABLE `tbl_schedule` (
 
 INSERT INTO `tbl_schedule` (`schedule_id`, `instructor_id`, `course_id`, `subject_id`, `room_id`, `time_id`, `day_id`) VALUES
 (120, 55, 24, 63, 8, 3, 1),
-(121, 52, 24, 235, 7, 4, 6),
-(122, 52, 12, 22, 5, 3, 1),
-(123, 52, 16, 111, 5, 9, 3),
-(124, 62, 17, 22, 12, 9, 2);
+(121, 52, 24, 235, 7, 4, 2),
+(123, 52, 16, 111, 8, 9, 3),
+(125, 52, 15, 72, 16, 14, 4),
+(126, 62, 12, 34, 5, 3, 6),
+(128, 52, 17, 18, 7, 14, 2),
+(129, 55, 18, 103, 12, 4, 4),
+(131, 55, 32, 65, 16, 38, 5),
+(132, 52, 12, 10, 8, 13, 3),
+(135, 55, 12, 21, 16, 12, 2),
+(136, 62, 17, 18, 14, 38, 1),
+(137, 55, 12, 92, 8, 12, 5),
+(139, 55, 12, 17, 8, 12, 4);
 
 -- --------------------------------------------------------
 
@@ -232,8 +257,7 @@ INSERT INTO `tbl_sched_time` (`time_id`, `start_time`, `end_time`) VALUES
 (13, '08:00:00', '09:00:00'),
 (14, '13:00:00', '14:00:00'),
 (15, '14:00:00', '15:00:00'),
-(28, '15:00:00', '15:10:00'),
-(32, '15:25:00', '15:30:00');
+(38, '12:00:00', '13:00:00');
 
 -- --------------------------------------------------------
 
@@ -296,9 +320,11 @@ CREATE TABLE `tbl_students` (
 --
 
 INSERT INTO `tbl_students` (`user_id`, `user_name`, `lname`, `fname`, `middleInitial`, `Suffix`, `course`, `year`, `contact`, `gender`, `bdate`, `pob`, `email`, `major`, `nationality`, `civilStatus`, `religion`, `modality`, `fb`, `curAddress`, `cityAdd`, `zipcode`, `fatherName`, `fwork`, `motherName`, `mwork`, `primarySchool`, `primaryAddress`, `primaryCompleted`, `entermediateSchool`, `entermediateAddress`, `entermediateCompleted`, `hsSchool`, `hsAddress`, `hsCompleted`, `shSchool`, `shAddress`, `shCompleted`, `collegeSchool`, `collegeAddress`, `collegeCompleted`, `user_image`, `user_role`, `user_pass`, `semester`, `status`, `date`) VALUES
-(50, 'MIIT-2021-1007', 'Marabiles', 'Kylie', '', '', 'ABM', 11, '', '', '', '', 'marbiles1007@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$52Hp8QZVBLWshtYiX3MJIerTXbK1L5Hb2yZG0WUaiopdbIbUWCQf.', 1, 'Enrolled', NULL),
-(51, 'MIIT-2021-137', 'Dihayco', 'Sheinalie', '', '', 'BSIT', 4, '', '', '', '', 'dihayco020903@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$CIVJVN5xS//Nj.Vj5cdcx.9zbaSOfiP4oyed.pVNH/xtaOkCfu0oW', 1, 'Enrolled', NULL),
-(52, 'MIIT-2021-124', 'Algarme', 'Zean Mariuss', 'N/A', 'N/A', 'BSIT', 4, 'N/A', 'M', '2002-11-22', 'N/A', 'zuild@gmail.com', 'PROGRAMMING', 'FILIPINO', 'SINGLE', 'N/A', 'FACE TO FACE', 'ZEAN MARIUSS ALGRAME', 'TUNGKOP, MINGLANILLA', 'CEBU', '6037', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '-', 'N/A', 'N/A', '-', 'N/A', 'N/A', '-', 'N/A', 'N/A', '-', '', '', '', '', 'student', '$2y$10$.dJwhHqJ8DRiFJhBrn7DqO.PyK6VOdaBohNKi0xa.MWWpBCHVx.zS', 1, 'Enrolled', '2024-09-09');
+(55, 'MIIT-2021-290', 'Rizada', 'Junrih', '', '', 'BSIT', 4, '', '', '', '', 'jrizada@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$At1PioCqfJ4Gat5JjJA26.sulg0VFbmGy.QB8vn0b.jwO9wm09xx.', 1, 'Enrolled', NULL),
+(62, 'MIIT-2021-137', 'Dihayco', 'Sheinalie', 'V.', '-', 'BSIT', 4, '09996707038', 'Male', '2003-02-09', 'Mactan, Lapu-Lapu City , Cebu', 'dihayco020903@gmail.com', 'Programming', 'Filipino', 'Single', 'Roman Catholic', 'Face to Face', 'Shien Dihayco', 'Purok Sagay, Kalubihan', 'City of Naga', '6037', 'Mechille V. DIhayco', 'N/A', 'Divina V. Dihayco', 'Baby Sitter', 'Punta Engano Elementary School', 'Puntan Engano, Lapu-Lapu City', '2012-2013', 'TCES', 'Tuyan, City of Naga', '2015-2016', 'TNHS', 'Tabtuy, Tuyan, City of Naga, Cebu', '2018-2019 ', 'TUYAN SENIOR HIGH SCHOOL', 'Tabtuy, Tuyan, City of Naga, Cebu', '2020-2021', 'MIIT', 'Inayagan, City of Naga, Cebu', '-', '../admin/upload/upload-files/me.jpg', 'student', '$2y$10$wHvjB.cfCxMllJ3flBObs.rdYo2qAS6z6.487UK0lnqrGF7xaj.Ka', 1, 'Enrolled', '0000-00-00'),
+(64, 'MIIT-2021-160', 'Tahanlangit', 'Louie', '', '', 'BSIT', 4, '', '', '', '', 'louiethnlngt@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$i68SkvJE919QGzqXz39d5.iLwVpZ1ck9urjxXo.2QvAGTfjQgpgFG', 1, 'Enrolled', NULL),
+(70, 'MIIT-2021-124', 'Algarme', 'Zean Mariuss', 'C.', '-', 'BSIT', 4, '09912988991', 'Male', '2002-11-22', '', 'zuild@gmail.com', 'Programming', 'Filipino', 'Single', '', 'Face to Face', 'Zean Marius C. Algarme', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '../admin/upload/upload-files/zean.jpg', 'student', '$2y$10$ZIM/V13fhN/ZBGioJEuXf.raS3YBTcwaKhry3qRoaNeGd4ivu.axq', 1, 'Enrolled', '0000-00-00'),
+(73, 'MIIT-2000-100', 'Dihayco', 'Althea', '', '', 'ABM', 12, '', '', '', '', 'thea@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$VR8R2Q6UPU6iClYsfo.mb.1R5FjZc.luVRGQvV90PULBZf782jgV2', 1, 'Enrolled', NULL);
 
 -- --------------------------------------------------------
 
@@ -307,17 +333,30 @@ INSERT INTO `tbl_students` (`user_id`, `user_name`, `lname`, `fname`, `middleIni
 --
 
 CREATE TABLE `tbl_student_instructors` (
+  `id` int(11) NOT NULL,
   `student_id` int(11) NOT NULL,
-  `instructor_id` int(11) NOT NULL
+  `instructor_id` int(11) NOT NULL,
+  `subject_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_student_instructors`
 --
 
-INSERT INTO `tbl_student_instructors` (`student_id`, `instructor_id`) VALUES
-(51, 55),
-(52, 55);
+INSERT INTO `tbl_student_instructors` (`id`, `student_id`, `instructor_id`, `subject_id`) VALUES
+(6, 55, 55, 24),
+(7, 62, 55, 24),
+(8, 64, 55, 24),
+(9, 70, 55, 24),
+(10, 55, 52, 265),
+(11, 62, 52, 265),
+(12, 64, 52, 265),
+(13, 70, 52, 265),
+(18, 73, 62, 267),
+(19, 55, 62, 66),
+(20, 62, 62, 66),
+(21, 64, 62, 66),
+(22, 70, 62, 66);
 
 -- --------------------------------------------------------
 
@@ -559,7 +598,7 @@ INSERT INTO `tbl_subjects` (`id`, `year`, `semester`, `code`, `description`, `le
 (223, 11, 2, 'Res111', 'Practical Research 1', 0, 0, 0, '', 660, 'ABM'),
 (224, 11, 2, 'Entrep111', 'Principles of Marketing', 0, 0, 0, '', 660, 'ABM'),
 (225, 11, 2, 'Acctg211', 'Fundamentals of Accountancy, Business and Manageme', 0, 0, 0, 'Acctg111', 660, 'ABM'),
-(226, 12, 1, 'Humanities312', 'Contemporary Philippine Arts from the Regions', 0, 0, 0, '', 580, 'ABM'),
+(226, 12, 1, 'Humanities312', 'Contemporary Philippine Arts from the Regions', 0, 0, 0, 'None', 580, 'ABM'),
 (227, 12, 1, 'Science211', 'Earth and Life Science', 0, 0, 0, '', 580, 'ABM'),
 (228, 12, 1, 'PE311', 'Physical Education and Health', 0, 0, 0, 'PE211', 580, 'ABM'),
 (229, 12, 1, 'PracticalRes211', 'Practical Research 2', 0, 0, 0, '', 580, 'ABM'),
@@ -592,7 +631,7 @@ INSERT INTO `tbl_subjects` (`id`, `year`, `semester`, `code`, `description`, `le
 (256, 11, 2, 'ETech111', 'Empowerment Technologies (E-Tech): ICT for Profess', 0, 0, 0, '', 660, 'GAS'),
 (257, 11, 2, 'Humanities211', 'Introduction to World Religions and Belief Systems', 0, 0, 0, '', 660, 'GAS'),
 (258, 11, 2, 'Elective2', 'Creative Non-Fiction: Literary Essay', 0, 0, 0, 'Elective1', 660, 'GAS'),
-(259, 12, 1, 'Humanities312', 'Contemporary Philippine Arts from the Regions', 0, 0, 0, '', 580, 'GAS'),
+(259, 12, 1, 'Humanities312', 'Contemporary Philippine Arts from the Regions', 0, 0, 0, 'None', 580, 'GAS'),
 (260, 12, 1, 'Science211', 'Earth and Life Science', 0, 0, 0, '', 580, 'GAS'),
 (261, 12, 1, 'PE311', 'Physical Education and Health', 0, 0, 0, 'PE211', 580, 'GAS'),
 (262, 12, 1, 'Humanities412', 'Personal Development/Pansariling Kaunlaran', 0, 0, 0, 'Math311, PracticalRes211', 580, 'GAS'),
@@ -617,7 +656,7 @@ INSERT INTO `tbl_subjects` (`id`, `year`, `semester`, `code`, `description`, `le
 (281, 11, 1, 'Eng211', 'English for Academic and Professional Purposes', 0, 0, 0, '', 660, 'ICT'),
 (282, 11, 1, 'Fil211', 'Paglutas sa Filipino sa Piling Larangan (Tech-Voc)', 0, 0, 0, '', 660, 'ICT'),
 (283, 11, 1, 'CS111', 'Computer System Servicing', 0, 0, 0, '', 660, 'ICT'),
-(284, 11, 1, 'COMP111', 'Computer Programming I', 0, 0, 0, '', 660, 'ICT'),
+(284, 11, 1, 'COMP111', 'Computer Programming I', 0, 0, 0, 'None', 660, 'ICT'),
 (285, 11, 2, 'Eng311', 'Reading and Writing Skill', 0, 0, 0, 'Eng211', 580, 'ICT'),
 (286, 11, 2, 'Fil311', 'Pagbasa at Pagsusuri sa Iba’t-ibang Teksto Tungo s', 0, 0, 0, 'Fil211', 580, 'ICT'),
 (287, 11, 2, 'Math311', 'Statistics and Probability', 0, 0, 0, 'Math111', 580, 'ICT'),
@@ -663,7 +702,7 @@ CREATE TABLE `tbl_users` (
   `hire_date` date DEFAULT NULL,
   `department` varchar(100) DEFAULT NULL,
   `phone_number` varchar(15) DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL
+  `address` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -671,10 +710,11 @@ CREATE TABLE `tbl_users` (
 --
 
 INSERT INTO `tbl_users` (`user_id`, `user_fname`, `user_lname`, `user_email`, `user_name`, `user_pass`, `user_role`, `user_image`, `date_of_birth`, `gender`, `hire_date`, `department`, `phone_number`, `address`) VALUES
-(37, 'Jessa mae', 'Carzano', 'jessamae@gmail.com', 'Carzano@123', '$2y$10$EvkWpYHY.6O4XjTMI1yXVu4rpw38pW2PUuHpn0V16e2O23oa.BBSq', 'admin', '../admin/upload/upload-files/maam_jessa.png', NULL, NULL, NULL, NULL, NULL, NULL),
-(52, 'Romulo', 'Estrera', 'estrera@gmail.com', 'Estrera', '$2y$10$.W8L3Xy6ln2DmwBUt0sWFez1UfYj0byLvoCTQuEvXVSdSxFJv.Aqy', 'teacher', '', '1980-02-28', 'Male', '2018-02-09', 'IT', '09999999999', 'Car-Car City, Cebu'),
-(55, 'Michael John ', 'Bustamante', 'ser.mike@gmail.com', 'Mike', '$2y$10$/Z0UlCAijDzg5/Hu0BgKm.xDaMhLxdY/LDWA2rAlzaN/a6UlTsXxi', 'teacher', '', '1989-01-01', 'Male', '2020-01-02', 'IT', '09999999999', 'Tungkop, Minglanilla, Cebu'),
-(62, 'Jason', 'Lipreso', 'jLipreso@gmail.com', 'jLipreso', '$2y$10$PhJWuONt8ruLngzav7v1g.OGuAoxUJUOEw9xwAMcnYiPRfjv8QLb.', 'teacher', '', '1998-01-20', 'Male', '2024-03-28', 'IT', '09999999999', 'City of Naga, Cebu');
+(37, 'Jessa mae', 'Carzano', 'jCarzano@gmail.com', 'Carzano@123', '$2y$10$EvkWpYHY.6O4XjTMI1yXVu4rpw38pW2PUuHpn0V16e2O23oa.BBSq', 'admin', '../admin/upload/upload-files/carzano.jpg', '1998-05-09', 'Female', '2019-03-02', 'Accounting Department', '09356472827', 'Inayagan, City of Naga'),
+(52, 'Romulo', 'Estrera', 'estrera@gmail.com', 'Estrera', '$2y$10$.W8L3Xy6ln2DmwBUt0sWFez1UfYj0byLvoCTQuEvXVSdSxFJv.Aqy', 'teacher', '', '1980-02-28', 'Male', '2018-02-09', 'IT', '09999999998', 'Car-Car City, Cebu'),
+(55, 'Michael John ', 'Bustamante', 'ser.mike@gmail.com', 'Mike', '$2y$10$/Z0UlCAijDzg5/Hu0BgKm.xDaMhLxdY/LDWA2rAlzaN/a6UlTsXxi', 'teacher', '../admin/upload/upload-files/ser_mike.jpg', '1989-01-01', 'Male', '2020-01-02', 'IT', '09999999999', 'Tungkop, Minglanilla, Cebu'),
+(62, 'Jason', 'Lipreso', 'jLipreso@gmail.com', 'jLipreso', '$2y$10$PhJWuONt8ruLngzav7v1g.OGuAoxUJUOEw9xwAMcnYiPRfjv8QLb.', 'teacher', '', '1998-01-20', 'Male', '2024-03-28', 'IT', '091234567898', 'City of Naga, Cebu'),
+(65, 'admin', 'admin', 'admin@gmail.com', 'admin', '$2y$10$rCn3pvsp/.vc5/GjlB/5R.TfwZZ9mlrZAeWv0p4X1yPLsks0jvF.G', 'admin', '../admin/upload/upload-files/20240905_154657.jpg', '1990-10-11', 'Female', '2020-01-01', 'IT', '09999999999', 'Tungkop, Minglanilla, Cebu');
 
 --
 -- Indexes for dumped tables
@@ -704,7 +744,8 @@ ALTER TABLE `tbl_events`
 ALTER TABLE `tbl_grades`
   ADD PRIMARY KEY (`grade_id`),
   ADD KEY `grade_id` (`id`),
-  ADD KEY `tbl_grades_ibfk_1` (`user_id`);
+  ADD KEY `tbl_grades_ibfk_1` (`user_id`),
+  ADD KEY `instructor_id` (`instructor_id`);
 
 --
 -- Indexes for table `tbl_payments`
@@ -747,8 +788,10 @@ ALTER TABLE `tbl_students`
 -- Indexes for table `tbl_student_instructors`
 --
 ALTER TABLE `tbl_student_instructors`
-  ADD PRIMARY KEY (`student_id`,`instructor_id`),
-  ADD KEY `tbl_student_instructors_ibfk_2` (`instructor_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `student_id` (`student_id`),
+  ADD KEY `instructor_id` (`instructor_id`),
+  ADD KEY `subject_id` (`subject_id`);
 
 --
 -- Indexes for table `tbl_subjects`
@@ -770,7 +813,7 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_course`
 --
 ALTER TABLE `tbl_course`
-  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `tbl_days`
@@ -782,19 +825,19 @@ ALTER TABLE `tbl_days`
 -- AUTO_INCREMENT for table `tbl_events`
 --
 ALTER TABLE `tbl_events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `tbl_grades`
 --
 ALTER TABLE `tbl_grades`
-  MODIFY `grade_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `grade_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_payments`
 --
 ALTER TABLE `tbl_payments`
-  MODIFY `payment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `payment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT for table `tbl_rooms`
@@ -806,31 +849,37 @@ ALTER TABLE `tbl_rooms`
 -- AUTO_INCREMENT for table `tbl_schedule`
 --
 ALTER TABLE `tbl_schedule`
-  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
+  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
 
 --
 -- AUTO_INCREMENT for table `tbl_sched_time`
 --
 ALTER TABLE `tbl_sched_time`
-  MODIFY `time_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `time_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `tbl_students`
 --
 ALTER TABLE `tbl_students`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+
+--
+-- AUTO_INCREMENT for table `tbl_student_instructors`
+--
+ALTER TABLE `tbl_student_instructors`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `tbl_subjects`
 --
 ALTER TABLE `tbl_subjects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=312;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=315;
 
 --
 -- AUTO_INCREMENT for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- Constraints for dumped tables
@@ -841,6 +890,7 @@ ALTER TABLE `tbl_users`
 --
 ALTER TABLE `tbl_grades`
   ADD CONSTRAINT `grade_id` FOREIGN KEY (`id`) REFERENCES `tbl_subjects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `instructor_id` FOREIGN KEY (`instructor_id`) REFERENCES `tbl_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `tbl_grades_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `tbl_students` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -864,8 +914,9 @@ ALTER TABLE `tbl_schedule`
 -- Constraints for table `tbl_student_instructors`
 --
 ALTER TABLE `tbl_student_instructors`
-  ADD CONSTRAINT `tbl_student_instructors_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `tbl_students` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `tbl_student_instructors_ibfk_2` FOREIGN KEY (`instructor_id`) REFERENCES `tbl_users` (`user_id`);
+  ADD CONSTRAINT `tbl_student_instructors_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `tbl_students` (`user_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `tbl_student_instructors_ibfk_2` FOREIGN KEY (`instructor_id`) REFERENCES `tbl_users` (`user_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `tbl_student_instructors_ibfk_3` FOREIGN KEY (`subject_id`) REFERENCES `tbl_subjects` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -20,41 +20,38 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Class Records <span>| Currently Enrolled</span></h5>
-                        <table class="table table-borderless">
-                            <thead>
-                                <tr> 
-                                    <th scope="col">Student ID</th>
-                                    <th scope="col">Student Name</th>
-                                    <th scope="col">Course & Year</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php if (!empty($grouped_students)): ?>
-                                    <?php foreach ($grouped_students as $course_year => $students_list): ?>
+                        <table class="table table-striped datatable">
+                    <thead>
+                        <tr> 
+                            <th scope="col">Student ID</th>
+                            <th scope="col">Student Name</th>
+                            <th scope="col">Course & Year</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (!empty($grouped_students)): ?>
+                            <?php foreach ($grouped_students as $subject_id => $students_by_course_year): ?>
+                                <?php foreach ($students_by_course_year as $course_year => $students_list): ?>
+                                    <?php foreach ($students_list as $student): ?>
                                         <tr>
-                                            <td colspan="3" class="table-primary">
-                                                <strong><?php echo htmlspecialchars($course_year); ?></strong>
+                                            <td>
+                                                <a href="student_profile.php?user_id=<?php echo htmlspecialchars($student['user_id']); ?>">
+                                                    <?php echo htmlspecialchars($student['user_name']); ?>
+                                                </a>
                                             </td>
-                                        </tr>
-                                        <?php foreach ($students_list as $student): ?>
-                                            <tr>
-                                                <td>
-                                                    <a href="student_profile.php?user_id=<?php echo htmlspecialchars($student['user_id']); ?>">
-                                                        <?php echo htmlspecialchars($student['user_name']); ?>
-                                                    </a>
-                                                </td>
-                                                <td><?php echo htmlspecialchars($student['lname']); ?>, <?php echo htmlspecialchars($student['fname']); ?></td>
-                                                <td><?php echo htmlspecialchars($student['course']); ?> - <?php echo htmlspecialchars($student['year']); ?></td>
-                                            </tr>  
-                                        <?php endforeach; ?>
+                                            <td><?php echo htmlspecialchars($student['lname']); ?>, <?php echo htmlspecialchars($student['fname']); ?></td>
+                                            <td><?php echo htmlspecialchars($student['course']); ?> - <?php echo htmlspecialchars($student['year']); ?></td>
+                                        </tr>  
                                     <?php endforeach; ?>
-                                <?php else: ?>
-                                    <tr>
-                                        <td colspan="3">No students assigned to this instructor.</td>
-                                    </tr>
-                                <?php endif; ?>
-                            </tbody>
-                        </table>
+                                <?php endforeach; ?>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="3">No students assigned to this subject.</td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
                 </div> <!-- Closing card-body -->
             </div> <!-- Closing card -->
         </div> <!-- Closing col-12 -->

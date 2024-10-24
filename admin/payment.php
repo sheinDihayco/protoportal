@@ -26,7 +26,7 @@
         </div>
         <div class="card-body">
           <h5 class="card-title">Students <span>| Enrolled</span></h5>
-          <table class="table table-borderless datatable">
+          <table class="table table-striped datatable">
             <thead>
               <tr>
                 <th scope="col">Student ID</th>

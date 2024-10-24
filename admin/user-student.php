@@ -101,7 +101,7 @@
                             <button class="btn btn-primary" type="submit">Search</button>
                         </div>
                     </form>-->
-                        <table class="table table-borderless datatable">
+                        <table class="table table-striped datatable">
                             <thead>
                                 <tr>
                                     <th scope="col">Student ID</th>

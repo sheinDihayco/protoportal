@@ -24,7 +24,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Courses <span>| Available </span></h5>
 
-                            <table class="table table-borderless datatable">
+                            <table class="table table-striped datatable">
                                 <thead>
                                     <tr>
                                         <th scope="col">Course Description</th>

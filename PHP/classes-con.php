@@ -7,26 +7,27 @@ $conn = $connection->open();
 $results = [];
 
 try {
-   $stmt = $conn->prepare("
-    SELECT
-        u.user_id AS instructor_id, 
-        u.user_fname, 
-        u.user_lname, 
-        st.course, 
-        st.year,
-        sub.code, 
-        sub.description
-    FROM 
-        tbl_student_instructors si
-    JOIN 
-        tbl_students st ON si.student_id = st.user_id
-    JOIN 
-        tbl_users u ON si.instructor_id = u.user_id
-    JOIN 
-        tbl_subjects sub ON si.subject_id = sub.id
-    ORDER BY 
-        u.user_id, st.course, st.year
-");
+    $stmt = $conn->prepare("
+        SELECT
+            u.user_id AS instructor_id, 
+            u.user_fname, 
+            u.user_lname, 
+            st.course, 
+            st.year,
+            sub.code, 
+            sub.description,
+            sub.id AS subject_id
+        FROM 
+            tbl_student_instructors si
+        JOIN 
+            tbl_students st ON si.student_id = st.user_id
+        JOIN 
+            tbl_users u ON si.instructor_id = u.user_id
+        JOIN 
+            tbl_subjects sub ON si.subject_id = sub.id
+        ORDER BY 
+            u.user_id, st.course, st.year
+    ");
 
     $stmt->execute();
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -44,6 +45,7 @@ foreach ($results as $row) {
     $year = $row['year'];
     $subject_code = $row['code'];
     $subject_description = $row['description'];
+    $subject_id = $row['subject_id']; // Get subject ID
 
     // Initialize the instructor if not already done
     if (!isset($instructors[$instructor_id])) {
@@ -66,8 +68,8 @@ foreach ($results as $row) {
         $instructors[$instructor_id]['courses'][$course]['years'][] = $year;
     }
 
-    // Add subject details to the course
-    $instructors[$instructor_id]['courses'][$course]['subjects'][] = [
+    // Add subject details to the course, including the subject ID
+    $instructors[$instructor_id]['courses'][$course]['subjects'][$subject_id] = [
         'code' => $subject_code,
         'description' => $subject_description
     ];
