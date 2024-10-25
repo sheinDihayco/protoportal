@@ -1,6 +1,8 @@
 <?php
 include_once 'includes/connection.php';
 
+$userid = $_SESSION['login'];
+
 $connection = new Connection();
 $conn = $connection->open();
 

@@ -1,45 +1,81 @@
 <?php
-include_once 'includes/connection.php'; // Ensure to include your database connection file
+include_once 'includes/connection.php';
 
-// Initialize database connection
+$userid = $_SESSION['login'];
+
 $connection = new Connection();
 $conn = $connection->open();
 
-// Initialize $students array
-$students = [];
-
-// Get the logged-in instructor's user ID
-$instructor_id = $_SESSION["login"]; 
+$results = [];
 
 try {
-    // Query to get students assigned to the logged-in instructor
     $stmt = $conn->prepare("
-        SELECT ts.user_id, ts.fname, ts.lname, ts.course, ts.year, ts.user_name
-        FROM tbl_students ts
-        INNER JOIN tbl_student_instructors tsi ON ts.user_id = tsi.student_id
-        WHERE tsi.instructor_id = :instructor_id
-        ORDER BY ts.course, ts.year ASC
+        SELECT
+            u.user_id AS instructor_id, 
+            u.user_fname, 
+            u.user_lname, 
+            st.course, 
+            st.year,
+            sub.code, 
+            sub.description,
+            sub.id AS subject_id
+        FROM 
+            tbl_student_instructors si
+        JOIN 
+            tbl_students st ON si.student_id = st.user_id
+        JOIN 
+            tbl_users u ON si.instructor_id = u.user_id
+        JOIN 
+            tbl_subjects sub ON si.subject_id = sub.id
+        ORDER BY 
+            u.user_id, st.course, st.year
     ");
-    $stmt->bindParam(':instructor_id', $instructor_id, PDO::PARAM_INT);
+
     $stmt->execute();
-
-    // Fetch the students
-    $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    // Group students by course and year
-    $grouped_students = [];
-    foreach ($students as $student) {
-        $course_year_key = "{$student['course']} - {$student['year']}";
-        $grouped_students[$course_year_key][] = $student;
-    }
-
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-    echo "<p>Error fetching student data: " . htmlspecialchars($e->getMessage()) . "</p>";
-    exit(); // Stop further execution in case of an error
+    echo "Error: " . $e->getMessage();
 }
 
-// Close the connection
 $connection->close();
+
+// Grouping results by instructor and course, including subject details
+$instructors = [];
+foreach ($results as $row) {
+    $instructor_id = $row['instructor_id'];
+    $course = $row['course'];
+    $year = $row['year'];
+    $subject_code = $row['code'];
+    $subject_description = $row['description'];
+    $subject_id = $row['subject_id']; // Get subject ID
+
+    // Initialize the instructor if not already done
+    if (!isset($instructors[$instructor_id])) {
+        $instructors[$instructor_id] = [
+            'name' => $row['user_fname'] . ' ' . $row['user_lname'],
+            'courses' => []
+        ];
+    }
+
+    // Initialize the course if not already done
+    if (!isset($instructors[$instructor_id]['courses'][$course])) {
+        $instructors[$instructor_id]['courses'][$course] = [
+            'years' => [],
+            'subjects' => []
+        ];
+    }
+
+    // Add year to the course
+    if (!in_array($year, $instructors[$instructor_id]['courses'][$course]['years'])) {
+        $instructors[$instructor_id]['courses'][$course]['years'][] = $year;
+    }
+
+    // Add subject details to the course, including the subject ID
+    $instructors[$instructor_id]['courses'][$course]['subjects'][$subject_id] = [
+        'code' => $subject_code,
+        'description' => $subject_description
+    ];
+}
 ?>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

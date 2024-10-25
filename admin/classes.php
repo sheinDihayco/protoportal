@@ -7,7 +7,7 @@
         <h1>Assigned Classes to Instructors</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                <li class="breadcrumb-item"><a href="assign-student-instructors.php">Back</a></li>
                 <li class="breadcrumb-item active">Classes</li>
             </ol>
         </nav>

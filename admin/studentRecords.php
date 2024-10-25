@@ -6,71 +6,72 @@
     <h1>Student Records</h1>
     <nav>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+        <li class="breadcrumb-item"><a href="index2.php">Home</a></li>
         <li class="breadcrumb-item active">Enrolled</li>
       </ol>
     </nav>
   </div>
-
-  <section class="section dashboard">
-    <div class="col-12">
-        <div class="card recent-sales overflow-auto">
-            <div class="filter">
-                <!-- Filter options -->
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">Class Records <span>| Currently Enrolled</span></h5>
-                <table class="table table-borderless">
-                    <thead>
-                        <tr>
-                            <th scope="col">Student ID</th>
-                            <th scope="col">Student Name</th>
-                            <th scope="col">Course & Year</th>
-                            <th scope="col">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if (!empty($grouped_students)): ?>
-                            <?php foreach ($grouped_students as $course_year => $students_list): ?>
-                                <tr>
-                                    <td colspan="4" class="table-primary">
-                                        <strong><?php echo htmlspecialchars($course_year); ?></strong>
-                                    </td>
-                                </tr>
-                                <?php foreach ($students_list as $student): ?>
+    <section class="section dashboard">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card recent-sales overflow-auto">
+                        <div class="card-body">
+                            <h5 class="card-title">Classes <span>| Enrolled </span></h5>
+                            <table class="table table-striped datatable">
+                                <thead>
                                     <tr>
-                                        <td>
-                                            <a href="student_profile.php?user_id=<?php echo htmlspecialchars($student['user_id']); ?>">
-                                                <?php echo htmlspecialchars($student['user_name']); ?>
-                                            </a>
-                                        </td>
-                                        <td><?php echo htmlspecialchars($student['lname']); ?>, <?php echo htmlspecialchars($student['fname']); ?></td>
-                                        <td><?php echo htmlspecialchars($student['course']); ?> - <?php echo htmlspecialchars($student['year']); ?></td>
-                                        <td>
-                                            <!-- Button to trigger the modal for grade insertion -->
-                                            <button type="button" class="btn btn-sm btn-warning ri-add-box-fill" data-bs-toggle="modal" data-bs-target="#insertGrade<?php echo htmlspecialchars($student['user_id']); ?>"></button>
-
-                                            <!-- Form to delete the user -->
-                                            <form method="POST" action="../admin/upload/delete-students.php" onsubmit="return confirmDelete(this);" style="display:inline;">
-                                                <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($student['user_id']); ?>">
-                                                <button type="submit" class="btn btn-sm btn-danger ri-delete-bin-6-line"></button>
-                                            </form>
-                                        </td>
+                                        <th scope="col">Subject Code</th>
+                                        <th scope="col">Subject Description</th>
+                                        <th scope="col">View Class</th>
                                     </tr>
-                                    <?php include('modals/insert-grade.php'); ?>
-                                <?php endforeach; ?>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <tr>
-                                <td colspan="4">No students assigned to this instructor.</td>
-                            </tr>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
-            </div> <!-- Closing card-body -->
-        </div> <!-- Closing card -->
-    </div> <!-- Closing col-12 -->
-</section>
+                                </thead>
+                                <tbody>
+                                    <?php if (!empty($instructors)): ?>
+                                        <?php
+                                        // Initialize an array to keep track of displayed instructor-subject combinations
+                                        $displayed = [];
+                                        ?>
+                                        <?php foreach ($instructors as $instructor_id => $instructor): ?>
+                                            <?php if ($instructor_id == $userid): // Only show classes of the logged-in instructor ?>
+                                                <?php foreach ($instructor['courses'] as $course => $course_data): ?>
+                                                    <?php foreach ($course_data['subjects'] as $subject_id => $subject): ?>
+                                                        <?php
+                                                        // Create a unique key for the instructor-subject combination
+                                                        $unique_key = $instructor['name'] . '|' . $subject['code'];
+
+                                                        // Check if this combination has already been displayed
+                                                        if (!in_array($unique_key, $displayed)) {
+                                                            // If not, display it and add it to the displayed array
+                                                            $displayed[] = $unique_key; // Mark as displayed
+                                                            ?>
+                                                            <tr>
+                                                                <td><?php echo htmlspecialchars($subject['code']); ?></td>
+                                                                <td><?php echo htmlspecialchars($subject['description']); ?></td>
+                                                                <td>
+                                                                    <a href="class-assigned-instructor.php?instructor_id=<?php echo htmlspecialchars($instructor_id); ?>&subject_id=<?php echo htmlspecialchars($subject_id); ?>" class="btn btn-success btn-sm">
+                                                                        <i class="ri-arrow-right-circle-fill"></i>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        <?php } ?>
+                                                    <?php endforeach; ?>
+                                                <?php endforeach; ?>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <tr>
+                                            <td colspan="4">No records found.</td>
+                                        </tr>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </main>
 
 <?php include_once "../templates/footer.php"; ?>

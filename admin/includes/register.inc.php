@@ -1,6 +1,10 @@
 <?php
-include_once "connect.php";
+include_once '../includes/connect.php';  // Use connect.php for $pdo connection
 session_start(); // Start the session
+
+if (!isset($pdo)) {
+    die("Database connection error.");
+}
 
 if (isset($_POST["register"])) {
     $role = $_POST["role"];
@@ -19,30 +23,30 @@ if (isset($_POST["register"])) {
     // Hash the password
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    // Prepare SQL statement
-    if ($role == 'student') {
+    // Prepare SQL statement based on role
+    if ($role === 'student') {
         $schoolid = $_POST["schoolid"];
-        $statement = $conn->prepare("INSERT INTO tbl_students (fname, lname, email, user_name, user_pass, user_role) VALUES (:firstName, :lastName, :email, :userName, :password, :role)");
-        $statement->bindParam(':userName', $schoolid);  // Ensure that 'schoolid' is used for students
+        $statement = $pdo->prepare("INSERT INTO tbl_students (fname, lname, email, user_name, user_pass, user_role) VALUES (:firstName, :lastName, :email, :userName, :password, :role)");
+        $statement->bindParam(':userName', $schoolid);  // Use schoolid for students
     } else {
         $username = $_POST["username"];
-        $statement = $conn->prepare("INSERT INTO tbl_users (user_fname, user_lname, user_email, user_name, user_pass, user_role) VALUES (:firstName, :lastName, :email, :userName, :password, :role)");
-        $statement->bindParam(':userName', $username);  // Ensure that 'username' is used for non-students
+        $statement = $pdo->prepare("INSERT INTO tbl_users (user_fname, user_lname, user_email, user_name, user_pass, user_role) VALUES (:firstName, :lastName, :email, :userName, :password, :role)");
+        $statement->bindParam(':userName', $username);  // Use username for non-students
     }
 
-    // Bind parameters for both queries
+    // Bind parameters common to both queries
     $statement->bindParam(':firstName', $firstName);
     $statement->bindParam(':lastName', $lastName);
     $statement->bindParam(':email', $email);
-    $statement->bindParam(':password', $hashedPassword);  // Bind the hashed password
+    $statement->bindParam(':password', $hashedPassword);
     $statement->bindParam(':role', $role);
 
     // Execute the query
     if ($statement->execute()) {
         $_SESSION['user_created'] = true;
 
-        // Determine redirection based on user role
-        if ($role == 'student') {
+        // Redirect based on user role
+        if ($role === 'student') {
             header("location:../user-student.php?register=success");
         } else {
             header("location:../user.php?register=success");
@@ -53,3 +57,4 @@ if (isset($_POST["register"])) {
     }
     exit;
 }
+?>

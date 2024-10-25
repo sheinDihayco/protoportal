@@ -1,7 +1,6 @@
 <?php include_once "../templates/header.php"; ?>
 <?php include_once 'includes/connection.php';
 
-session_start();
 // Create an instance of the Connection class
 $connClass = new Connection();
 $conn = $connClass->open();

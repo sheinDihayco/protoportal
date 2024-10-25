@@ -6,12 +6,19 @@ $connection = new Connection();
 $pdo = $connection->open(); // Use $pdo instead of $db for consistency
 $userid = $_SESSION["login"];
 
+// Get current year and month
+$currentYear = date('Y');
+$currentMonth = date('m');
+
 $connection = new Connection();
 $pdo = $connection->open();
 
-// Fetch events from the database ordered by title and start date
-$sql = "SELECT * FROM tbl_events ORDER BY title, start_date ASC";
-$stmt = $pdo->query($sql);
+// Fetch events for the current month
+$sql = "SELECT * FROM tbl_events WHERE (DATE_FORMAT(start_date, '%Y-%m') = :currentMonthYear OR DATE_FORMAT(end_date, '%Y-%m') = :currentMonthYear) ORDER BY start_date ASC";
+$stmt = $pdo->prepare($sql);
+$currentMonthYear = $currentYear . '-' . $currentMonth;
+$stmt->bindParam(':currentMonthYear', $currentMonthYear, PDO::PARAM_STR);
+$stmt->execute();
 
 $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -70,13 +77,16 @@ $userid = $_SESSION["login"]; // Get the logged-in instructor's user ID
 
 try {
     // Query to count the number of students assigned to the specific instructor
-    $countSql = "SELECT COUNT(*) AS student_count
-                FROM tbl_student_instructors
-                WHERE instructor_id = :instructor_id";
-    $countStmt = $pdo->prepare($countSql);
-    $countStmt->execute([':instructor_id' => $userid]);
-    $countResult = $countStmt->fetch(PDO::FETCH_ASSOC);
-    $studentCount = $countResult['student_count'];
+        $countSql = "
+            SELECT COUNT(DISTINCT student_id) AS student_count
+            FROM tbl_student_instructors
+            WHERE instructor_id = :instructor_id
+        ";
+        $countStmt = $pdo->prepare($countSql);
+        $countStmt->execute([':instructor_id' => $userid]);
+        $countResult = $countStmt->fetch(PDO::FETCH_ASSOC);
+        $studentCount = $countResult['student_count'];
+
 
     // Query to get students assigned to the specific instructor
     $sql = "SELECT s.user_id, s.lname, s.fname, s.course, s.year, s.status, s.user_name

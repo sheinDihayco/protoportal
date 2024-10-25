@@ -91,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['assignStudents'])) {
     }).then((result) => {
       if (result.isConfirmed) {
         // Redirect to the student page when OK is clicked
-        window.location.href = '../admin/assign-student-instructors.php';
+        window.location.href = '../admin/classes.php';
       }
     });
 

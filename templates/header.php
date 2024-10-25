@@ -347,13 +347,12 @@ $database->close();
       </li>
       <!-- End Dashboard Nav -->
 
-      <!-- Start Forms Nav -->
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-book-fill"></i><span>Academics</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li class="nav-item">
+          <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-book-fill"></i><span>Academics</span><i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <li class="nav-item">
             <a class="nav-link collapsed" href="../admin/set-schedule.php">
               <i class="bi bi-circle-fill"></i>
               <span>Schedules</span>
@@ -387,11 +386,9 @@ $database->close();
               <span>Assign Class</span>
             </a>
           </li>
-
-        </ul>
+          </ul>
       </li><!-- End Tables Nav -->
 
-      <!-- End Forms Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#user-nav" data-bs-toggle="collapse" href="#">
@@ -410,6 +407,7 @@ $database->close();
               <span>Instructors</span>
             </a>
           </li>
+          
         </ul>
       </li><!-- End Tables Nav -->
 
@@ -434,7 +432,7 @@ $database->close();
         </a>
       </li>
 
-      <li class="nav-item">
+      <!--<li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-file-earmark-fill"></i><span>Form</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
@@ -452,7 +450,7 @@ $database->close();
             </a>
           </li>
         </ul>
-      </li><!-- End Tables Nav -->
+      </li> End Tables Nav -->
 
       <br>
     </ul>

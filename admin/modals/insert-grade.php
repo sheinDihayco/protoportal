@@ -50,19 +50,24 @@ $database->close();
                                 <select name="subject" class="form-select" id="subject<?php echo htmlspecialchars($student['user_id']); ?>" required>
                                     <option value="" disabled selected>Select a subject</option>
                                     <?php
-                                    // Filter subjects based on the student's course
-                                    foreach ($subjects as $subject):
-                                        if ($subject['course'] === $student['course']): ?>
-                                            <option value="<?php echo htmlspecialchars($subject['id']); ?>"><?php echo htmlspecialchars($subject['code']); ?></option>
-                                    <?php endif;
-                                    endforeach; ?>
+                                        foreach ($subjects as $subject):
+                                            if ($subject['course'] === $student['course'] && $subject['year'] === $student['year']): ?>
+                                                <option value="<?php echo htmlspecialchars($subject['id']); ?>">
+                                                    <?php echo htmlspecialchars($subject['code']); ?> - <?php echo htmlspecialchars($subject['description']); ?>
+                                                </option>
+                                            <?php endif;
+                                        endforeach;
+                                    ?>
+
                                 </select>
                                 <div class="invalid-feedback">Please select a subject.</div>
                             </div>
+                            
                             <div class="col-md-3">
                                 <label for="year<?php echo htmlspecialchars($student['user_id']); ?>" class="form-label">Year</label>
-                                <input type="text" name="year" class="form-control" id="year<?php echo htmlspecialchars($student['user_id']); ?>" required>
+                                <input type="text" class="form-control" id="year<?php echo htmlspecialchars($student['user_id']); ?>" value="<?php echo htmlspecialchars($student['year']); ?>" name="year" readonly>
                             </div>
+
                             <div class="col-md-3">
                                 <label for="semester<?php echo htmlspecialchars($student['user_id']); ?>" class="form-label">Semester</label>
                                 <input type="text" name="semester" class="form-control" id="semester<?php echo htmlspecialchars($student['user_id']); ?>" required>

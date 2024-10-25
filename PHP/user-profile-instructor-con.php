@@ -33,7 +33,7 @@ $connection->close();
     }).then((result) => {
       if (result.isConfirmed) {
         // Redirect to the student page when OK is clicked
-        window.location.href = '../admin/user-profile-admin.php';
+        window.location.href = '../admin/user-profile-instructor.php';
       }
     });
 

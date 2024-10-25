@@ -339,24 +339,24 @@ $database->close();
               </li>-->
 
        <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="ri-user-fill"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li class="nav-item">
-            <a class="nav-link collapsed" href="../admin/studentRecords.php">
-              <i class="bi bi-circle-fill"></i>
-              <span>Students</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link collapsed" href="../admin/grade.php">
-              <i class="bi bi-circle-fill"></i>
-              <span>Grades</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Tables Nav -->
+          <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-book-fill"></i><span>Academics</span><i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <li class="nav-item">
+              <a class="nav-link collapsed" href="../admin/studentRecords.php">
+                <i class="bi bi-circle-fill"></i>
+                <span>Students</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link collapsed" href="../admin/grade.php">
+                <i class="bi bi-circle-fill"></i>
+                <span>Grades</span>
+              </a>
+            </li>
+          </ul>
+        </li><!-- End Tables Nav -->
 
         <li class="nav-item">
           <a class="nav-link collapsed" href="../admin/event-teacher.php">
@@ -364,8 +364,6 @@ $database->close();
             <span>Events</span>
           </a>
         </li>
-
-      </ul>
 
       <!-- <div style="margin-top: 13%; position:fixed">
         <label class="switch">

@@ -15,10 +15,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Connection failed: " . $conn->connect_error);
     }
 
+    // Sanitize input
     $user_id = $conn->real_escape_string($_POST['user_id']);
+    $subject_id = $conn->real_escape_string($_POST['subject_id']);
 
-    // Delete the assigned student record from tbl_student_instructors
-    $sql = "DELETE FROM tbl_student_instructors WHERE student_id = '$user_id'";
+    // Delete the assigned student record from tbl_student_instructors for the specific subject
+    $sql = "DELETE FROM tbl_student_instructors WHERE student_id = '$user_id' AND subject_id = '$subject_id'";
 
     if ($conn->query($sql) === TRUE) {
         $_SESSION['delete_success'] = true; // Set session variable for SweetAlert
