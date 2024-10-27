@@ -36,40 +36,6 @@ $connection->close();
 
 <script>
     $(document).ready(function() {
-        // Handle time slot form submission
-        $('#timeSlotForm').on('submit', function(event) {
-            event.preventDefault();
-            $.ajax({
-                url: 'includes/insert-time-slot.inc.php',
-                type: 'POST',
-                data: $(this).serialize(),
-                success: function(response) {
-                    const data = JSON.parse(response);
-                    if (data.status === 'success') {
-                        $('#timeSlotModal').modal('hide');
-                        loadTimes(); // Refresh the time slots table
-
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success!',
-                            text: data.message,
-                            confirmButtonText: 'OK'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                window.location.href = '../admin/set-slots.php'; // Redirect after confirmation
-                            }
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error!',
-                            text: data.message,
-                            confirmButtonText: 'OK'
-                        });
-                    }
-                }
-            });
-        });
 
 
         // Load and display time slots
@@ -132,8 +98,6 @@ $connection->close();
             });
         });
 
-
-
         // Load and display rooms
         function loadRooms() {
             $.ajax({
@@ -157,7 +121,6 @@ $connection->close();
                 }
             });
         }
-
 
         // Display edit modal with current time slot data
         $(document).on('click', '.edit-time', function() {
@@ -200,7 +163,6 @@ $connection->close();
                 }
             });
         });
-
 
 
         $(document).on('click', '.delete-time', function() {

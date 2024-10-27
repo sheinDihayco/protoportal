@@ -73,7 +73,7 @@ if (isset($_SESSION['initial_update_error'])) {
         Swal.fire({
             icon: 'success',
             title: 'Registration Successful',
-            text: 'The user has been successfully registered!',
+            text: 'The student has been successfully registered!',
             confirmButtonText: 'OK'
         }).then((result) => {
             if (result.isConfirmed) {

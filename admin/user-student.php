@@ -81,8 +81,8 @@
                         <div class="col-12">
                             <button class="btn btn-primary w-100" type="submit" name="register">Register</button>
                         </div>
-                </div>
-                </form>
+                        </div>
+                    </form>
             </div>
         </div>
     </div>
