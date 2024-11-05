@@ -26,6 +26,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['event_created'] = true;
 
     // Redirect to the page where the alert should be displayed
-    header("Location: ../event2.php");
+    header("Location: ../event.php");
     exit();
 }

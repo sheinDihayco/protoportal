@@ -359,6 +359,13 @@ $database->close();
     </li>
 
     <li class="nav-item">
+      <a class="nav-link collapsed" href="../admin/student-classes.php">
+        <i class="bi bi-book-fill"></i>
+        <span>Classes</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
       <a class="nav-link collapsed" href="../admin/event-student.php">
         <i class="bi bi-calendar-fill"></i>
         <span>Events</span>
@@ -446,7 +453,7 @@ $database->close();
     <li class="nav-item">
       <a class="nav-link collapsed" href="../admin/payment1.php">
         <i class="bi bi-wallet-fill"></i>
-        <span>Payment</span>
+        <span>Payment / Grades </span>
       </a>
     </li>
 

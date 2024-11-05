@@ -19,15 +19,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $connection->close();
 
         // Redirect with a success parameter
-        header("Location: ../event2.php?deleted=true");
+        header("Location: ../event.php?deleted=true");
         exit();
     } else {
         // Redirect with failure parameter
-        header("Location: ../event2.php?deleted=false");
+        header("Location: ../event.php?deleted=false");
         exit();
     }
 } else {
     // Redirect with failure parameter
-    header("Location: ../event2.php?deleted=false");
+    header("Location: ../event.php?deleted=false");
     exit();
 }

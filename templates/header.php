@@ -412,7 +412,7 @@ $database->close();
       </li><!-- End Tables Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="../admin/event2.php">
+        <a class="nav-link collapsed" href="../admin/event.php">
           <i class="bi bi-calendar-fill"></i>
           <span>Events</span>
         </a>

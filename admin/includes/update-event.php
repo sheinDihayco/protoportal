@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Set success session variable and redirect
         $_SESSION['event_edited'] = true;
-        header("Location: ../event2.php");
+        header("Location: ../event.php");
         exit();
     } else {
         echo "Event ID is missing.";
