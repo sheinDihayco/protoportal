@@ -242,15 +242,15 @@
     </div>
     <!-- End Table for Student Records -->
 
-<!-- JavaScript for Select All functionality -->
-<script>
-  document.getElementById('select-all').addEventListener('click', function() {
-      var checkboxes = document.querySelectorAll('.student-checkbox');
-      for (var checkbox of checkboxes) {
-          checkbox.checked = this.checked;
-      }
-  });
-</script>
+    <!-- JavaScript for Select All functionality -->
+    <script>
+    document.getElementById('select-all').addEventListener('click', function() {
+        var checkboxes = document.querySelectorAll('.student-checkbox');
+        for (var checkbox of checkboxes) {
+            checkbox.checked = this.checked;
+        }
+    });
+    </script>
 
 </section>
 

@@ -27,41 +27,59 @@
                                         <?php endforeach; ?>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <?php
-                                    // Create time slots from 7:00 AM to 5:00 PM
-                                    $startTime = strtotime('07:00');
-                                    $endTime = strtotime('17:00');
-                                    $timeInterval = 60 * 60; // 1-hour interval
+                                    <tbody>
+                                        <?php
+                                        // Create time slots from 7:00 AM to 5:00 PM
+                                        $startTime = strtotime('07:00');
+                                        $endTime = strtotime('17:00');
+                                        $timeInterval = 60 * 60; // 1-hour interval
 
-                                    while ($startTime <= $endTime):
-                                        $currentSlot = date('H:i', $startTime);
-                                        $nextSlot = date('H:i', $startTime + $timeInterval);
-                                    ?>
-                                        <tr>
-                                            <td><?php echo htmlspecialchars($currentSlot . ' - ' . $nextSlot); ?></td>
-                                            <?php foreach ($daysOfWeek as $day): ?>
-                                                <td>
-                                                    <?php
-                                                    foreach ($schedules as $schedule) {
-                                                        if (
-                                                            $schedule['day_name'] === $day &&
-                                                            $schedule['start_time'] >= $currentSlot &&
-                                                            $schedule['start_time'] < $nextSlot
-                                                        ) {
-                                                            echo htmlspecialchars($schedule['subject_description']) . "<br>" .
-                                                                 htmlspecialchars($schedule['room_name']) . "<br>" . htmlspecialchars($schedule['instructor_name']);
+                                        while ($startTime <= $endTime):
+                                            $currentSlot = date('H:i', $startTime);
+                                            $nextSlot = date('H:i', $startTime + $timeInterval);
+                                        ?>
+                                            <tr>
+                                                <td><?php echo htmlspecialchars($currentSlot . ' - ' . $nextSlot); ?></td>
+                                                <?php foreach ($daysOfWeek as $day): ?>
+                                                    <td class="schedule-cell">
+                                                        <?php
+                                                        if (!empty($schedules) && is_array($schedules)) {
+                                                            $hasSchedule = false; // Flag to check if there is any schedule for this cell
+                                                            foreach ($schedules as $schedule) {
+                                                                if (
+                                                                    $schedule['day_name'] === $day &&
+                                                                    $schedule['start_time'] >= $currentSlot &&
+                                                                    $schedule['start_time'] < $nextSlot
+                                                                ) {
+                                                                    $hasSchedule = true;
+                                                        ?>
+                                                                    <div class="schedule-container">
+                                                                        <?php
+                                                                            echo htmlspecialchars($schedule['instructor_name']) . "<br>" .
+                                                                                "(" . htmlspecialchars($schedule['course_description']) . ") " ."<br>" .
+                                                                                htmlspecialchars($schedule['subject_description']) . "<br>" .
+                                                                                htmlspecialchars($schedule['room_name']);
+                                                                            ?>
+                                                                    </div>
+                                                                    <hr>
+                                                        <?php
+                                                                }
+                                                            }
+                                                            if (!$hasSchedule) {
+                                                                echo "";
+                                                            }
+                                                        } else {
+                                                            echo "";
                                                         }
-                                                    }
-                                                    ?>
-                                                </td>
-                                            <?php endforeach; ?>
-                                        </tr>
-                                    <?php
-                                        $startTime += $timeInterval;
-                                    endwhile;
-                                    ?>
-                                </tbody>
+                                                        ?>
+                                                    </td>
+                                                <?php endforeach; ?>
+                                            </tr>
+                                        <?php
+                                            $startTime += $timeInterval;
+                                        endwhile;
+                                        ?>
+                                    </tbody>
                             </table>
                         </div>
                     </div>

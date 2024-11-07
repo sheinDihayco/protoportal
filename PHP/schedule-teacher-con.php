@@ -45,103 +45,107 @@ $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <style>
-    .card-title {
-        font-family: "Times New Roman", serif;
-        font-size: 24px;
-        color: #2c3e50;
+    /* Container styling for the schedule */
+    .schedule-container {
+        position: relative;
+        padding: 15px;
         margin-bottom: 20px;
+        border: 1px solid #c0c0c0;
+        border-radius: 10px;
+        background-color: #ffffff;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
 
+    /* Action button styling with improved visibility */
+    .schedule-container .action-buttons {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 12px;
+        border-radius: 6px;
+        color: #ffffff;
+    }
+
+    .schedule-container:hover .action-buttons {
+        display: block;
+    }
+
+    /* Formal table styling with emphasis on structure */
     .formal-schedule {
         background-color: #ffffff;
-        border-collapse: collapse;
+        border-collapse: separate;
+        border-spacing: 0;
         width: 100%;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border-radius: 8px;
+        overflow: hidden;
     }
 
-    .formal-schedule th,
-    .formal-schedule td {
-        border: 1px solid #dddddd;
-        text-align: center;
-        padding: 12px;
-        vertical-align: middle;
-    }
-
+    /* Header styling with refined color and uppercase text */
     .formal-schedule th {
-        background-color: #2c3e50;
+        background-color: #1a1a2e;
         color: #ffffff;
-        font-weight: bold;
+        font-weight: 700;
         font-size: 16px;
+        padding: 16px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
     }
 
+    /* Body cell styling for a structured appearance */
     .formal-schedule td {
+        border-top: 1px solid #dddddd;
         font-size: 14px;
-        color: #2c3e50;
+        color: #333333;
+        padding: 14px;
+        text-align: center;
         background-color: #f9f9f9;
     }
 
+    /* Alternating row background for readability */
     .formal-schedule tr:nth-child(even) {
-        background-color: #f1f1f1;
+        background-color: #f3f3f3;
     }
 
+    /* Hover effect for rows to improve focus */
     .formal-schedule tr:hover {
-        background-color: #e1e1e1;
+        background-color: #eaeaea;
         cursor: pointer;
     }
 
-    /* Styling for table header cells */
-    .table th {
-        font-weight: bold;
-        background-color: #2c3e50;
-        color: white;
-    }
-
-    /* Padding and alignment */
+    /* Table and cell adjustments */
     .table th,
     .table td {
-        padding: 15px;
-        text-align: center;
+        padding: 16px;
         vertical-align: middle;
+        font-size: 15px;
     }
 
-    /* Responsive styling */
+    /* Responsive adjustments for smaller screens */
     @media (max-width: 768px) {
-
         .formal-schedule th,
         .formal-schedule td {
-            font-size: 12px;
-            padding: 8px;
+            font-size: 13px;
+            padding: 10px;
         }
     }
 
+    /* Link styling for a consistent, formal appearance */
     a {
         text-decoration: none !important;
+        color: inherit;
     }
 
-    .breadcrumb-item a {
-        text-decoration: none !important;
-    }
-
-    .breadcrumb-item.active {
-        text-decoration: none;
-    }
-
+    .breadcrumb-item a,
+    .breadcrumb-item.active,
     .navbar-brand {
         text-decoration: none !important;
+        color: #4a4a4a;
+        font-weight: 600;
     }
 
-    .alert {
-        padding: 20px;
-        background-color: #4CAF50;
-        color: white;
-        opacity: 1;
-        transition: opacity 0.6s;
-        margin-bottom: 15px;
-        border-radius: 4px;
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 5000;
-        width: 300px;
-    }
 </style>

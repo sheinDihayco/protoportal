@@ -96,13 +96,8 @@ foreach ($results as $row) {
   });
 </script>
 
-
-<!-- Template Main JS File -->
-<script src="../assets/js/main.js"></script>
-
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <!-- SweetAlert2 JS -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
   function confirmDelete(form) {

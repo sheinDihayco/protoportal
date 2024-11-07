@@ -1,5 +1,4 @@
-<?php
-include_once 'includes/connection.php';
+<?php include_once 'includes/connection.php';
 
 // Create an instance of the Connection class
 $connClass = new Connection();
@@ -45,9 +44,9 @@ $schedules = fetchSchedules($conn);
 $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 ?>
-
-<!-- Optional: AJAX for dynamic updates (if required) -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
     $(document).ready(function() {
@@ -61,17 +60,13 @@ $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday
             }
         );
 
-        // Additional jQuery for edit and delete actions
         $('.edit-btn').on('click', function() {
             var scheduleId = $(this).data('id');
-            // Load schedule data into the edit modal
-            // Your AJAX call to fetch and populate data for editing
         });
 
         $('.delete-btn').on('click', function() {
             var scheduleId = $(this).data('id');
-            // Handle delete action
-            // Your AJAX call to delete the schedule
+            X
         });
     });
 </script>
@@ -113,6 +108,48 @@ $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday
             });
         }
 
+        $('#scheduleForm').submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'POST',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function(response) {
+                    if (response.error) {
+                        // Show conflict or other error alert
+                        Swal.fire({
+                            title: 'Conflict!',
+                            text: response.error,
+                            icon: 'warning',
+                            confirmButtonText: 'OK'
+                        });
+                    } else {
+                        // Show success alert
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Schedule created successfully.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Redirect to set-schedule.php after confirmation
+                                window.location.href = '../admin/set-schedule.php';
+                            }
+                        });
+                    }
+                },
+                error: function() {
+                    // Show error in toast
+                    $('#statusToast').removeClass('bg-success').addClass('bg-danger');
+                    $('#toastTitle').text('Error');
+                    $('#toastBody').text('Failed to add schedule.');
+                    var toast = new bootstrap.Toast($('#statusToast'));
+                    toast.show();
+                }
+            });
+        });
+
         function populateDropdowns() {
             $.ajax({
                 url: 'includes/fetch-options.php',
@@ -135,6 +172,47 @@ $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday
                 }
             });
         }
+
+        $('#scheduleForm').submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'POST',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function(response) {
+                    if (response.error) {
+                        // Show error in toast
+                        $('#statusToast').removeClass('bg-success').addClass('bg-danger');
+                        $('#toastTitle').text('Error');
+                        $('#toastBody').text(response.error);
+                    } else {
+                        // Show success alert using SweetAlert2
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Schedule created successfully.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Redirect to set-schedule.php after confirmation
+                                window.location.href = '../admin/set-schedule.php';
+                            }
+                        });
+                    }
+                    var toast = new bootstrap.Toast($('#statusToast'));
+                    toast.show();
+                },
+                error: function() {
+                    // Show error in toast
+                    $('#statusToast').removeClass('bg-success').addClass('bg-danger');
+                    $('#toastTitle').text('Error');
+                    $('#toastBody').text('Failed to add schedule.');
+                    var toast = new bootstrap.Toast($('#statusToast'));
+                    toast.show();
+                }
+            });
+        });
 
         $(document).on('click', '.edit-btn', function() {
             var scheduleId = $(this).data('id');
@@ -268,50 +346,6 @@ $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday
             });
         });
 
-        $('#scheduleForm').submit(function(e) {
-            e.preventDefault();
-            $.ajax({
-                url: $(this).attr('action'),
-                type: 'POST',
-                data: $(this).serialize(),
-                dataType: 'json',
-                success: function(response) {
-                    if (response.error) {
-                        // Show SweetAlert2 when a conflict occurs
-                        Swal.fire({
-                            title: 'Conflict Detected!',
-                            text: 'The instructor, time, day, course, room, and subject are already in use. Please choose different options.',
-                            icon: 'error',
-                            confirmButtonText: 'OK'
-                        });
-                    } else if (response.success) {
-                        // Show success alert using SweetAlert2
-                        Swal.fire({
-                            title: 'Success!',
-                            text: 'Schedule created successfully.',
-                            icon: 'success',
-                            confirmButtonText: 'OK'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                // Redirect to set-schedule.php after confirmation
-                                window.location.href = '../admin/set-schedule.php';
-                            }
-                        });
-                    }
-                    var toast = new bootstrap.Toast($('#statusToast'));
-                    toast.show();
-                },
-                error: function() {
-                    // Show error in toast
-                    $('#statusToast').removeClass('bg-success').addClass('bg-danger');
-                    $('#toastTitle').text('Error');
-                    $('#toastBody').text('Failed to add schedule.');
-                    var toast = new bootstrap.Toast($('#statusToast'));
-                    toast.show();
-                }
-            });
-        });
-
         // Initial load
         loadSchedules();
         populateDropdowns();
@@ -319,100 +353,108 @@ $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday
 </script>
 
 <style>
+    /* Container styling for the schedule */
     .schedule-container {
         position: relative;
-        padding: 5px;
-        margin-bottom: 10px;
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid #c0c0c0;
+        border-radius: 10px;
+        background-color: #ffffff;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
 
+    /* Action button styling with improved visibility */
     .schedule-container .action-buttons {
         display: none;
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 12px;
+        border-radius: 6px;
+        color: #ffffff;
     }
 
     .schedule-container:hover .action-buttons {
         display: block;
     }
 
+    /* Formal table styling with emphasis on structure */
     .formal-schedule {
         background-color: #ffffff;
-        border-collapse: collapse;
+        border-collapse: separate;
+        border-spacing: 0;
         width: 100%;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border-radius: 8px;
+        overflow: hidden;
     }
 
-    .formal-schedule th,
-    .formal-schedule td {
-        border: 1px solid #dddddd;
-        text-align: center;
-        padding: 12px;
-        vertical-align: middle;
-    }
-
+    /* Header styling with refined color and uppercase text */
     .formal-schedule th {
-        background-color: #2c3e50;
+        background-color: #1a1a2e;
         color: #ffffff;
-        font-weight: bold;
+        font-weight: 700;
         font-size: 16px;
+        padding: 16px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
     }
 
+    /* Body cell styling for a structured appearance */
     .formal-schedule td {
+        border-top: 1px solid #dddddd;
         font-size: 14px;
-        color: #2c3e50;
+        color: #333333;
+        padding: 14px;
+        text-align: center;
         background-color: #f9f9f9;
     }
 
+    /* Alternating row background for readability */
     .formal-schedule tr:nth-child(even) {
-        background-color: #f1f1f1;
+        background-color: #f3f3f3;
     }
 
+    /* Hover effect for rows to improve focus */
     .formal-schedule tr:hover {
-        background-color: #e1e1e1;
+        background-color: #eaeaea;
         cursor: pointer;
     }
 
-    /* Styling for table header cells */
-    .table th {
-        font-weight: bold;
-        background-color: #2c3e50;
-        color: white;
-    }
-
-    /* Padding and alignment */
+    /* Table and cell adjustments */
     .table th,
     .table td {
-        padding: 15px;
-        text-align: center;
+        padding: 16px;
         vertical-align: middle;
+        font-size: 15px;
     }
 
-    /* Responsive styling */
+    /* Responsive adjustments for smaller screens */
     @media (max-width: 768px) {
-
         .formal-schedule th,
         .formal-schedule td {
-            font-size: 12px;
-            padding: 8px;
+            font-size: 13px;
+            padding: 10px;
         }
     }
 
+    /* Link styling for a consistent, formal appearance */
     a {
         text-decoration: none !important;
+        color: inherit;
     }
 
-    .breadcrumb-item a {
-        text-decoration: none !important;
-    }
-
-    .breadcrumb-item.active {
-        text-decoration: none;
-    }
-
+    .breadcrumb-item a,
+    .breadcrumb-item.active,
     .navbar-brand {
         text-decoration: none !important;
+        color: #4a4a4a;
+        font-weight: 600;
     }
-   
+
 </style>
+

@@ -178,6 +178,7 @@
       </div><!-- End Left side columns -->
     </div>
   </section>
+  
 </main><!-- End #main -->
 
 <?php include_once "../templates/footer.php"; ?>

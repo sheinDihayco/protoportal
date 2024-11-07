@@ -2,15 +2,17 @@
 <?php include_once "../PHP/studentRecords-con.php"; ?>
 
 <main id="main" class="main">
-  <div class="pagetitle">
+
+    <div class="pagetitle">
     <h1>Student Records</h1>
     <nav>
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index2.php">Home</a></li>
-        <li class="breadcrumb-item active">Enrolled</li>
-      </ol>
+    <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="index2.php">Home</a></li>
+    <li class="breadcrumb-item active">Enrolled</li>
+    </ol>
     </nav>
-  </div>
+    </div>
+
     <section class="section dashboard">
         <div class="col-lg-12">
             <div class="row">

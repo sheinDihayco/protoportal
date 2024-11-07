@@ -1,9 +1,10 @@
-
 <!-- Vendor JS Files -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 <?php
-
 // Check for success or error after deletion
 if (isset($_SESSION['delete_success']) && $_SESSION['delete_success'] === true) {
     echo '<script>
@@ -48,28 +49,6 @@ if (isset($_GET['update']) && $_GET['update'] == 'success') {
 }
 ?>
 
-<!-- Vendor JS Files 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<script>
-  function confirmDelete() {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'Cancel'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Submit the form if confirmed
-        document.getElementById('deleteEmployee').submit();
-      }
-    });
-  }
-</script>-->
 
 <script>
   // Check if the session variable 'user_created' is set
@@ -92,15 +71,15 @@ if (isset($_GET['update']) && $_GET['update'] == 'success') {
   <?php endif; ?>
 </script>
 
-    <style>
-        .custom-profile-img {
-        width: 100px; /* Set the desired width */
-        height: 100px; /* Set the desired height */
-        border-radius: 50%; /* Make it circular */
-        object-fit: cover; /* Ensure the image covers the entire area */
-        }
+<style>
+    .custom-profile-img {
+    width: 100px; /* Set the desired width */
+    height: 100px; /* Set the desired height */
+    border-radius: 50%; /* Make it circular */
+    object-fit: cover; /* Ensure the image covers the entire area */
+    }
 
-    </style>
+</style>
 
 
 <script>
@@ -145,3 +124,17 @@ if (isset($_GET['update']) && $_GET['update'] == 'success') {
     <?php endif; ?>
 </script>
 
+
+<!-- Template Main JS File -->
+<script>
+    document.getElementById('role').addEventListener('change', function() {
+        var role = this.value;
+        if (role === 'student') {
+            document.getElementById('usernameDiv').style.display = 'none';
+            document.getElementById('schoolidDiv').style.display = 'block';
+        } else {
+            document.getElementById('usernameDiv').style.display = 'block';
+            document.getElementById('schoolidDiv').style.display = 'none';
+        }
+    });
+</script>

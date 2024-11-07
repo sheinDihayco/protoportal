@@ -23,7 +23,7 @@
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
                 <a class="nav-link nav-profile" href="#" data-bs-toggle="dropdown">
-                    <img src="upload-files/<?php echo htmlspecialchars($image); ?>" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image" class="custom-profile-img">
+                    <img src="upload-files/<?php echo htmlspecialchars($image); ?>" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image" class="rounded-circle">
                 </a><!-- End Profile Iamge Icon -->
 
                 <h2><?php echo htmlspecialchars($studs['user_lname']); ?>, <?php echo htmlspecialchars($studs['user_fname']); ?> </h2>
@@ -56,60 +56,49 @@
 
         <div class="tab-content pt-2">
             <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                <form action="" method="post">
-                    <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id); ?>"> 
+                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                    <h5 class="card-title">Profile Details</h5>
 
-                    <div class="row mb-3">
-                                <div class="col-md-4">
-                                    <label for="last-name" class="form-label">Last Name:</label>
-                                    <input type="text" id="last-name" name="last-name" class="form-control" value="<?php echo htmlspecialchars($studs['user_lname']); ?>" readonly>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="first-name" class="form-label">First Name:</label>
-                                    <input type="text" id="first-name" name="first-name" class="form-control" value="<?php echo htmlspecialchars($studs['user_fname']); ?>" readonly>
-                                </div>
-
-                                <div class="col-md-3">
-                                    <label for="gender" class="form-label">Gender:</label>
-                                    <input type="text" id="gender" name="gend" class="form-control" value="<?php echo ($studs['gender'] == 'M') ? 'Male' : 'Female'; ?>" readonly>
-                                </div>
-
-
+                    <div class="row">
+                        <div class="col-lg-3 col-md-4 label">Fullname </div>
+                        <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs['user_lname']); ?>, <?php echo htmlspecialchars($studs['user_fname']); ?></div>
                     </div>
 
-                    <div class="row mb-3">
-                                <div class="col-md-4">
-                                    <label for="date_of_birth" class="form-label">Date of Birth:</label>
-                                    <input type="date" id="date_of_birth" name="bdate" class="form-control" value="<?php echo htmlspecialchars($studs['date_of_birth']); ?>" readonly>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label for="address" class="form-label">Address</label>
-                                    <input type="text" id="address" name="add" class="form-control" value="<?php echo htmlspecialchars($studs['address']); ?>" readonly>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label for="email" class="form-label">Email Address:</label>
-                                    <input type="email" id="email" name="email" class="form-control" value="<?php echo htmlspecialchars($studs['user_email']); ?>" readonly>
-                                </div>
+                    <div class="row">
+                        <div class="col-lg-3 col-md-4 label">Gender</div>
+                        <div class="col-lg-9 col-md-8"><?php echo ($studs['gender'] == 'M') ? 'Male' : 'Female'; ?></div>
                     </div>
 
-                    <div class="row mb-3">
-                                <div class="col-md-4">
-                                    <label for="hire_date" class="form-label">Hire Date</label>
-                                    <input type="date" id="hire_date" name="hdate" class="form-control" value="<?php echo htmlspecialchars($studs['hire_date']); ?>" readonly>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="department" class="form-label">Department:</label>
-                                    <input type="text" id="department" name="dept" class="form-control" value="<?php echo htmlspecialchars($studs['department']); ?>" readonly>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="phone_number" class="form-label">Phone Number:</label>
-                                    <input type="text" id="phone_number" name="cnum" class="form-control" value="<?php echo htmlspecialchars($studs['phone_number']); ?>" readonly>
-                                </div>
-
+                    <div class="row">
+                        <div class="col-lg-3 col-md-4 label">Date of Birth</div>
+                        <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs['date_of_birth']); ?></div>
                     </div>
-                </form>
+
+                    <div class="row">
+                        <div class="col-lg-3 col-md-4 label">Address</div>
+                        <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs['address']); ?></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-3 col-md-4 label">Email Address</div>
+                        <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs['user_email']); ?></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-3 col-md-4 label">Hire Date</div>
+                        <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs['hire_date']); ?></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-3 col-md-4 label">Department</div>
+                        <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs['department']); ?></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-3 col-md-4 label">Phone Number</div>
+                        <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs['phone_number']); ?></div>
+                    </div>
+                </div>
             </div>
       
             <div class="tab-pane fade profile-edit pt-3" id="profile-edit">

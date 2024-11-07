@@ -13,56 +13,99 @@
   <section class="section dashboard">
     <div class="col-12">
       <div class="card recent-sales overflow-auto">
-        <div class="filter">
-          <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-            <li class="dropdown-header text-start">
-              <h6>Filter</h6>
-            </li>
-            <li><a class="dropdown-item" href="#">Today</a></li>
-            <li><a class="dropdown-item" href="#">This Month</a></li>
-            <li><a class="dropdown-item" href="#">This Year</a></li>
-          </ul>
-        </div>
         <div class="card-body">
-          <h5 class="card-title">Students <span>| Enrolled</span></h5>
-          <table class="table table-striped datatable">
-            <thead>
-              <tr>
-                <th scope="col">Student ID</th>
-                <th scope="col">Full Name</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php
-              $database = new Connection();
-              $db = $database->open();
+            <h5 class="card-title">School ID <span>| Enrolled</span></h5>
 
-              try {
-                $sql = 'SELECT * FROM tbl_students ORDER BY lname ASC';
-                foreach ($db->query($sql) as $row) {
-              ?>
-                  <tr>
-                    <th scope="row"><a href=""><?php echo $row["user_name"] ?></a></th>
-                    <td><?php echo $row["lname"] ?>, <?php echo $row["fname"] ?></td>
-                    <td>
-                      <form action="student_profile.php" method="post">
-                        <input type="hidden" name="stud_id" value="<?php echo $row['user_id']; ?>">
-                        <button type="submit" class="btn btn-sm btn-success" name="submit"><i class="ri-arrow-right-circle-fill"></i></button>
-                      </form>
-                    </td>
+            <!-- Search Form -->
+            <form method="GET" action="" class="row g-3 align-items-center">
+                <!-- Search Input -->
+                <div class="col-md-8 d-flex gap-2">
+                    <input type="text" class="form-control" name="search_user" placeholder="Enter Student ID (e.g., MIIT-0000-000)" value="<?php echo isset($_GET['search_user']) ? htmlspecialchars($_GET['search_user']) : ''; ?>">
+                </div>
 
-                  </tr>
-              <?php
-                }
-              } catch (PDOException $e) {
-                echo "There is some problem in connection: " . $e->getMessage();
-              }
-              $database->close();
-              ?>
-            </tbody>
-          </table>
+                <!-- Search and Clear Buttons -->
+                <div class="col-md-4 d-flex gap-2">
+                    <button type="submit" name="search" class="btn btn-primary" title="Search">
+                        <i class="bx bx-search-alt"></i> Search
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="clearInputField()" title="Clear Search">
+                        <i class="bx bx-eraser"></i> Clear
+                    </button>
+                </div>
+            </form>
+
+            <!-- JavaScript to Clear the Search Input Field -->
+            <script>
+            function clearInputField() {
+                document.querySelector('input[name="search_user"]').value = '';
+                // Reload the page without the search_user parameter to hide the table
+                window.location.href = window.location.pathname;
+            }
+            </script>
+
+            <?php
+            // Only display the table if search_user is not empty
+            if (isset($_GET['search_user']) && !empty($_GET['search_user'])):
+            ?>
+                <!-- Display Table -->
+                <div class="col-12">
+                    <div class="card recent-sales overflow-auto">
+                        <div class="card-body">
+                            <h5 class="card-title">Result <span>| Enrolled Student</span></h5>
+
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Student ID</th>
+                                        <th scope="col">Full Name</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    // Database connection
+                                    $database = new Connection();
+                                    $db = $database->open();
+
+                                    try {
+                                        // Query to fetch students based on search criteria
+                                        $search_user = htmlspecialchars($_GET['search_user']);
+                                        $sql = "SELECT * FROM tbl_students WHERE user_name LIKE :search_user ORDER BY lname ASC";
+                                        $stmt = $db->prepare($sql);
+                                        $stmt->execute(['search_user' => "%$search_user%"]);
+
+                                        while ($row = $stmt->fetch()) {
+                                    ?>
+                                        <tr>
+                                            <th scope="row" style="font-weight:bold;"><a href=""><?php echo $row["user_name"] ?></a></th>
+                                            <td><?php echo $row["lname"] ?>, <?php echo $row["fname"] ?></td>
+                                            <td><?php echo $row["status"] ?></td>
+                                            <td>
+                                                <!-- Action Buttons -->
+                                                <form action="student_profile.php" method="post" style="display:inline;">
+                                                    <input type="hidden" name="stud_id" value="<?php echo htmlspecialchars($row['user_id']); ?>">
+                                                    <button type="submit" class="btn btn-sm btn-success" name="submit">
+                                                        <i class="ri-arrow-right-circle-fill"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    <?php
+                                        }
+                                    } catch (PDOException $e) {
+                                        echo "There is some problem in connection: " . $e->getMessage();
+                                    }
+                                    $database->close();
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            <?php
+            endif;
+            ?>
         </div>
       </div>
     </div><!-- End Students Enrolled -->

@@ -14,13 +14,16 @@
         <!-- Start Search bar -->
         <div class="card">
             <div class="card-body">
-                <form method="POST" action="" class="row g-3">
-                    <div class="col-md-6 form-group">
+                <!-- Improved Search Form -->
+                <form method="POST" action="" class="row g-3 align-items-end">
+                    <!-- Student ID Input -->
+                    <div class="col-md-4">
                         <label for="user_name" class="form-label">Student ID:</label>
-                        <input type="text" name="user_name" id="user_name" class="form-control" placeholder="format: MIIT-0000-000" required>
+                        <input type="text" name="user_name" id="user_name" class="form-control" placeholder="Enter Student ID (e.g., MIIT-0000-000)" required oninput="toggleFields()">
                     </div>
 
-                    <div class="col-md-2 form-group">
+                    <!-- Year Selector -->
+                    <div class="col-md-2">
                         <label for="year" class="form-label">Year:</label>
                         <select name="year" id="year" class="form-control" disabled>
                             <option value="">All Years</option>
@@ -31,7 +34,9 @@
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    <div class="col-md-2 form-group">
+
+                    <!-- Semester Selector -->
+                    <div class="col-md-2">
                         <label for="semester" class="form-label">Semester:</label>
                         <select name="semester" id="semester" class="form-control" disabled>
                             <option value="">All Semesters</option>
@@ -43,16 +48,47 @@
                         </select>
                     </div>
 
-                    <div class="col-md-2 form-group align-self-end">
-                        <button type="submit" name="search" class="btn btn-primary">
-                            <i class="bx bx-search-alt"></i>
+                    <!-- Search and Clear Buttons -->
+                    <div class="col-md-4 d-flex gap-2">
+                        <button type="submit" name="search" class="btn btn-primary" title="Search">
+                            <i class="bx bx-search-alt"></i> Search
                         </button>
-                        <button type="button" class="btn btn-secondary" onclick="clearSearchForm()">
-                            <i class="bx bx-eraser"></i>
+                        <button type="button" class="btn btn-secondary" onclick="clearSearchForm()" title="Clear Search">
+                            <i class="bx bx-eraser"></i> Clear
                         </button>
                     </div>
                 </form>
-            </div>
+
+                <!-- JavaScript to Manage Input Fields and Clear Functionality -->
+                <script>
+                function toggleFields() {
+                    // Enable Year and Semester fields when Student ID is filled
+                    const studentId = document.getElementById("user_name").value;
+                    const yearField = document.getElementById("year");
+                    const semesterField = document.getElementById("semester");
+
+                    if (studentId.trim() !== "") {
+                        yearField.disabled = false;
+                        semesterField.disabled = false;
+                    } else {
+                        yearField.disabled = true;
+                        semesterField.disabled = true;
+                    }
+                }
+
+                function clearSearchForm() {
+                    // Clear all input fields and reset form
+                    document.getElementById("user_name").value = '';
+                    document.getElementById("year").selectedIndex = 0;
+                    document.getElementById("semester").selectedIndex = 0;
+
+                    // Disable Year and Semester fields
+                    document.getElementById("year").disabled = true;
+                    document.getElementById("semester").disabled = true;
+                }
+                </script>
+
+            </div> 
         </div>
         <!-- End Search bar -->
 

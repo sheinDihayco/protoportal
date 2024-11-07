@@ -40,21 +40,20 @@
                                                 <a href="">
                                                     <?php echo htmlspecialchars($student['user_name']); ?>
                                                 </a>
-                                            </td>
-                                            <td><?php echo htmlspecialchars($student['lname']); ?>, <?php echo htmlspecialchars($student['fname']); ?></td>
-                                            <td><?php echo htmlspecialchars($student['course']); ?> - <?php echo htmlspecialchars($student['year']); ?></td>
-                                             <td>
-                                            <!-- Button to trigger the modal for grade insertion -->
-                                            <button type="button" class="btn btn-sm btn-warning ri-add-box-fill" data-bs-toggle="modal" data-bs-target="#insertGrade<?php echo htmlspecialchars($student['user_id']); ?>"></button>
+                                                </td>
+                                                <td><?php echo htmlspecialchars($student['lname']); ?>, <?php echo htmlspecialchars($student['fname']); ?></td>
+                                                <td><?php echo htmlspecialchars($student['course']); ?> - <?php echo htmlspecialchars($student['year']); ?></td>
+                                                <td>
+                                                <!-- Button to trigger the modal for grade insertion -->
+                                                <button type="button" class="btn btn-sm btn-warning ri-add-box-fill" data-bs-toggle="modal" data-bs-target="#insertGrade<?php echo htmlspecialchars($student['user_id']); ?>"></button>
 
-                                           <!-- Form to delete the user -->
-<form method="POST" action="../admin/upload/delete-students.php" style="display:inline;">
-    <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($student['user_id']); ?>">
-    <input type="hidden" name="subject_id" value="<?php echo htmlspecialchars($subject_id); ?>"> <!-- Ensure subject_id is defined -->
-    <button type="submit" class="btn btn-sm btn-danger ri-delete-bin-6-line"></button>
-</form>
-
-                                        </td>
+                                                <!-- Form to delete the user -->
+                                                    <form method="POST" action="../admin/upload/delete-students.php" style="display:inline;">
+                                                        <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($student['user_id']); ?>">
+                                                        <input type="hidden" name="subject_id" value="<?php echo htmlspecialchars($subject_id); ?>"> <!-- Ensure subject_id is defined -->
+                                                        <button type="submit" class="btn btn-sm btn-danger ri-delete-bin-6-line"></button>
+                                                    </form>
+                                             </td>
                                         </tr>  
                                          <?php include('modals/insert-grade.php'); ?>
                                     <?php endforeach; ?>
