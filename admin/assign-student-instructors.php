@@ -255,5 +255,48 @@
 </section>
 
 </main>
+<style>
+/* Button styling */
+form .btn {
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
 
+form .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+form .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+    transform: translateY(-1px);
+}
+
+form .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+form .btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+    transform: translateY(-1px);
+}
+
+form .btn-success {
+    background-color: #30962f;
+    border-color: #6c757d;
+}
+
+form .btn-success:hover {
+    background-color:green;
+    border-color: #545b62;
+    transform: translateY(-1px);
+}
+</style>
 <?php include_once "../templates/footer.php"; ?>

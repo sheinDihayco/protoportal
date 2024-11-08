@@ -11,8 +11,8 @@
             <input type="hidden" name="payment_id" value="<?php echo $row['payment_id']; ?>">
             <div class="row mb-3">
               <div class="col-md-4">
-                <label for="user_id<?php echo $row['payment_id']; ?>" class="form-label">Student ID</label>
-                <input type="text" class="form-control" id="user_id<?php echo $row['payment_id']; ?>" name="user_id" value="<?php echo $row['user_id']; ?>" readonly>
+                <label for="user_name<?php echo $row['payment_id']; ?>" class="form-label">Student ID</label>
+                <input type="text" class="form-control" id="user_name<?php echo $row['payment_id']; ?>" name="user_name" value="<?php echo $row['user_name']; ?>" readonly>
               </div>
               <div class="col-md-4">
                 <label for="semester<?php echo $row['payment_id']; ?>" class="form-label">Semester</label>

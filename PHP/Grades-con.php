@@ -75,24 +75,6 @@ if (isset($_POST['search']) && isset($_POST['user_name'])) {
 ?>
 
 <script>
-    function clearSearchForm() {
-        // Clear all input fields in the form
-        document.querySelectorAll('form input, form select, form-control').forEach(input => input.value = '');
-
-        // Check if the form is empty, and hide the section if it is
-        const isFormEmpty = Array.from(document.querySelectorAll('form input, form select, form-control'))
-            .every(input => input.value === '');
-
-        if (isFormEmpty) {
-            const gradeResult = document.querySelector('.gradeResult');
-            if (gradeResult) {
-                gradeResult.style.display = 'none';
-            }
-        }
-    }
-</script>
-
-<script>
     document.addEventListener('DOMContentLoaded', function() {
         const userNameField = document.getElementById('user_name');
         const yearField = document.getElementById('year');
@@ -127,56 +109,4 @@ if (isset($_POST['search']) && isset($_POST['user_name'])) {
     }
 </script>
 
-<!-- Add custom CSS to remove underlines -->
-<style>
-    a {
-        text-decoration: none !important;
-    }
-
-    .breadcrumb-item a {
-        text-decoration: none !important;
-    }
-
-    .breadcrumb-item.active {
-        text-decoration: none;
-    }
-
-    .navbar-brand {
-        text-decoration: none !important;
-    }
-
-    body {
-        background-color: #f8f9fa;
-    }
-
-    .container {
-        margin-top: 20px;
-    }
-
-    .form-group label {
-        font-weight: bold;
-    }
-
-    .card-body {
-        background-color: #ffffff;
-        border-radius: 5px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-    }
-
-    table {
-        margin-top: 20px;
-    }
-
-    th,
-    td {
-        text-align: center;
-    }
-
-    .no-results {
-        text-align: center;
-        color: #6c757d;
-        font-style: italic;
-    }
-</style>
 

@@ -1,12 +1,12 @@
 <div class="modal fade" id="insertModal<?php echo htmlspecialchars($row["employee_id"]); ?>" tabindex="-1" aria-labelledby="insertModalLabel<?php echo htmlspecialchars($row["employee_id"]); ?>" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content border-0 shadow-lg">
+    <div class="modal-content rounded-4 shadow-lg">
       <div class="modal-header bg-primary text-white">
         <h5 class="modal-title" id="insertModalLabel<?php echo htmlspecialchars($row["employee_id"]); ?>">Insert Employee Details</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
-      <div class="modal-body"  style="background-color: #e6ffe6;">
+      <div class="modal-body" style="background-color: #f9f9f9; padding: 30px;">
         <form action="functions/add-employee.php" method="post" class="row g-3 needs-validation" novalidate>
           <!-- Hidden field to pass employee_id -->
           <input type="hidden" name="employee_id" value="<?php echo htmlspecialchars($row['employee_id']); ?>">
@@ -58,7 +58,7 @@
           </div>
 
           <div class="col-md-12 mt-3">
-            <button type="submit" class="btn btn-primary w-100" name="submit">Save changes</button>
+            <button type="submit" class="btn btn-success btn-lg w-100" name="submit">Save Changes</button>
           </div>
         </form>
       </div>

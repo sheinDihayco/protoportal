@@ -17,20 +17,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     }
 
     // Collect and sanitize form data
-    $user_id = $conn->real_escape_string($_POST['user_id']);
+    $user_name = $conn->real_escape_string($_POST['user_name']);
     $status = $conn->real_escape_string($_POST['payment_status']);
     $semester = $conn->real_escape_string($_POST['semester']);
     $paymentPeriod = $conn->real_escape_string($_POST['paymentPeriod']);
 
-    // Check if user_id exists in tbl_students
-    $checkStudentQuery = "SELECT user_id FROM tbl_students WHERE user_id = ?";
+    // Retrieve user_id based on user_name from tbl_students
+    $checkStudentQuery = "SELECT user_id FROM tbl_students WHERE user_name = ?";
     $stmt = $conn->prepare($checkStudentQuery);
-    $stmt->bind_param("s", $user_id);
+    $stmt->bind_param("s", $user_name);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        // Prepare an insert statement
+        $student = $result->fetch_assoc();
+        $user_id = $student['user_id'];
+
+        // Prepare an insert statement for tbl_payments
         $insertQuery = "INSERT INTO tbl_payments (user_id, payment_status, semester, paymentPeriod) VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($insertQuery);
         $stmt->bind_param("ssss", $user_id, $status, $semester, $paymentPeriod);
@@ -54,3 +57,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 } else {
     echo "Invalid request method.";
 }
+?>

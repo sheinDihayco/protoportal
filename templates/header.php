@@ -328,16 +328,43 @@ $database->close();
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
-      <div class="profile-section">
-        <div class="profile-image">
-          <img src="../admin/images/miit.png" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image" >
-        </div>
-
-        <div class="text-white" style="padding: 10px; text-align: center;">
-          <h6>Microsystems International Institute of Technology Inc.</h6>
-        </div>
+    <div class="profile-section">
+      <div>
+        <img src="../admin/images/miit-logo.png" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image" class="rotate-flip">
       </div>
 
+      <div class="logo-text" style="padding: 10px; text-align: center;">
+        <h6>Microsystems International Institute of Technology Inc.</h6>
+      </div>
+    </div>
+
+    <style>
+      .rotate-flip {
+        width: 150; /* Set a desired width */
+        height: auto; /* Maintain aspect ratio */
+        animation: flip360 4s infinite alternate; /* Flip back and forth */
+        transform-style: preserve-3d; /* Ensure 3D effect for rotation */
+      }
+
+      @keyframes flip360 {
+        0% {
+          transform: rotateY(0deg); /* Front side */
+        }
+        100% {
+          transform: rotateY(180deg); /* Back side */
+        }
+      }
+
+      .logo-text h6 {
+        font-family: 'Arial', sans-serif;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        color: #ffffff;
+        text-transform: uppercase;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+    </style>
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="../admin/index.php">
@@ -363,13 +390,6 @@ $database->close();
             <a class="nav-link collapsed" href="../admin/Grades.php">
               <i class="bi bi-circle-fill"></i>
               <span>Grades</span>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link collapsed" href="../admin/course.php">
-              <i class="bi bi-circle-fill"></i>
-              <span>Courses</span>
             </a>
           </li>
 

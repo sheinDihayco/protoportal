@@ -1,13 +1,12 @@
-
 <!-- Edit Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
+        <div class="modal-content rounded-4 shadow-lg">
+            <div class="modal-header border-bottom-0">
                 <h5 class="modal-title" id="editModalLabel">Edit Schedule</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body" style="background-color:#e6ffe6;">
+            <div class="modal-body" style="padding: 30px;">
                 <div class="card-body p-4">
                     <form id="editScheduleForm" method="POST" action="./includes/update-schedule.php">
                         <input type="hidden" id="editScheduleId" name="schedule_id">
@@ -77,7 +76,7 @@
 
                         <!-- Update Button -->
                         <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary" name="update">Update</button>
+                            <button type="submit" class="btn btn-success btn-lg px-5" name="update">Save changes</button>
                         </div>
                     </form>
                 </div>
@@ -85,3 +84,28 @@
         </div>
     </div>
 </div>
+
+<style>
+  /* Custom Modal Styles for Edit Schedule */
+    #editModal .modal-content {
+        border-radius: 12px;
+    }
+
+    #editModal .modal-header {
+        background-color: #004d00; /* Dark green header */
+        color: white;
+        font-weight: bold;
+    }
+
+    #editModal .modal-body input, 
+    #editModal .modal-body select,
+    #editModal .modal-body button {
+        font-size: 1.1rem;
+    }
+
+    #editModal .modal-body {
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+    }
+</style>

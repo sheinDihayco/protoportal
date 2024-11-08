@@ -12,39 +12,33 @@
 
     <div class="container">
         <!-- Start Search bar -->
-        <div class="card">
+        <div class="card mt-4">
             <div class="card-body">
+               <h5 class="card-title">Search grades <span>| Recorded</span></h5>
                 <!-- Improved Search Form -->
                 <form method="POST" action="" class="row g-3 align-items-end">
                     <!-- Student ID Input -->
                     <div class="col-md-4">
-                        <label for="user_name" class="form-label">Student ID:</label>
                         <input type="text" name="user_name" id="user_name" class="form-control" placeholder="Enter Student ID (e.g., MIIT-0000-000)" required oninput="toggleFields()">
                     </div>
 
                     <!-- Year Selector -->
                     <div class="col-md-2">
-                        <label for="year" class="form-label">Year:</label>
                         <select name="year" id="year" class="form-control" disabled>
                             <option value="">All Years</option>
-                            <?php foreach ($years as $year): ?>
-                                <option value="<?php echo htmlspecialchars($year); ?>" <?php echo isset($_POST['year']) && $_POST['year'] == $year ? 'selected' : ''; ?>>
-                                    <?php echo htmlspecialchars($year); ?>
-                                </option>
-                            <?php endforeach; ?>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
                         </select>
                     </div>
 
                     <!-- Semester Selector -->
                     <div class="col-md-2">
-                        <label for="semester" class="form-label">Semester:</label>
                         <select name="semester" id="semester" class="form-control" disabled>
                             <option value="">All Semesters</option>
-                            <?php foreach ($semesters as $semester): ?>
-                                <option value="<?php echo htmlspecialchars($semester); ?>" <?php echo isset($_POST['semester']) && $_POST['semester'] == $semester ? 'selected' : ''; ?>>
-                                    <?php echo htmlspecialchars($semester); ?>
-                                </option>
-                            <?php endforeach; ?>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
                         </select>
                     </div>
 
@@ -58,36 +52,6 @@
                         </button>
                     </div>
                 </form>
-
-                <!-- JavaScript to Manage Input Fields and Clear Functionality -->
-                <script>
-                function toggleFields() {
-                    // Enable Year and Semester fields when Student ID is filled
-                    const studentId = document.getElementById("user_name").value;
-                    const yearField = document.getElementById("year");
-                    const semesterField = document.getElementById("semester");
-
-                    if (studentId.trim() !== "") {
-                        yearField.disabled = false;
-                        semesterField.disabled = false;
-                    } else {
-                        yearField.disabled = true;
-                        semesterField.disabled = true;
-                    }
-                }
-
-                function clearSearchForm() {
-                    // Clear all input fields and reset form
-                    document.getElementById("user_name").value = '';
-                    document.getElementById("year").selectedIndex = 0;
-                    document.getElementById("semester").selectedIndex = 0;
-
-                    // Disable Year and Semester fields
-                    document.getElementById("year").disabled = true;
-                    document.getElementById("semester").disabled = true;
-                }
-                </script>
-
             </div> 
         </div>
         <!-- End Search bar -->
@@ -194,5 +158,41 @@
 
 
 </main>
+
+<script>
+    // JavaScript to Manage Input Fields and Clear Functionality
+    function toggleFields() {
+        // Enable Year and Semester fields when Student ID is filled
+        const studentId = document.getElementById("user_name").value;
+        const yearField = document.getElementById("year");
+        const semesterField = document.getElementById("semester");
+
+        if (studentId.trim() !== "") {
+            yearField.disabled = false;
+            semesterField.disabled = false;
+        } else {
+            yearField.disabled = true;
+            semesterField.disabled = true;
+        }
+    }
+
+    function clearSearchForm() {
+        // Clear all input fields and reset form
+        document.getElementById("user_name").value = '';
+        document.getElementById("year").selectedIndex = 0;
+        document.getElementById("semester").selectedIndex = 0;
+
+        // Disable Year and Semester fields
+        document.getElementById("year").disabled = true;
+        document.getElementById("semester").disabled = true;
+
+        // Hide the table by setting its display style to 'none'
+        const resultTable = document.querySelector(".gradeResult");
+        if (resultTable) {
+            resultTable.style.display = 'none';
+        }
+    }
+
+</script>
 
 <?php include_once "../templates/footer.php"; ?>

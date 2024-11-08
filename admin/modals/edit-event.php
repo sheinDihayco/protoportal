@@ -1,14 +1,12 @@
-
-<!-- Edit Event Modal (Dynamically Generated) -->
 <?php foreach ($filteredEvents as $title => $event) : ?>
     <div class="modal fade" id="editEventModal<?php echo htmlspecialchars($event['id']); ?>" tabindex="-1" aria-labelledby="editEventModalLabel<?php echo htmlspecialchars($event['id']); ?>" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
+            <div class="modal-content rounded-4 shadow-lg">
+                <div class="modal-header border-bottom-0">
                     <h5 class="modal-title" id="editEventModalLabel<?php echo htmlspecialchars($event['id']); ?>">Edit Event</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" style="background-color:#e6ffe6;">
+                <div class="modal-body" style="background-color: #f9f9f9; padding: 30px;">
                     <!-- Edit Event Form -->
                     <form action="../admin/includes/update-event.php" method="POST">
                         <input type="hidden" name="eventId" value="<?php echo htmlspecialchars($event['id']); ?>">
@@ -36,12 +34,35 @@
                         <!-- Modal Footer -->
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Update Event</button>
+                            <button type="submit" class="btn btn-success btn-lg px-5">Update Event</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
 <?php endforeach; ?>
+
+<style>
+    /* Custom Modal Styles */
+    .modal-content {
+        border-radius: 12px;
+    }
+
+    .modal-header {
+        background-color: #004d00; /* Dark green header */
+        color: white;
+        font-weight: bold;
+    }
+
+    .modal-body input, 
+    .modal-body textarea,
+    .modal-body button {
+        font-size: 1.1rem;
+    }
+
+    .modal-body {
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+</style>

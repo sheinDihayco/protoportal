@@ -125,6 +125,7 @@ if (isset($_GET['update']) && $_GET['update'] == 'success') {
 </script>
 
 
+
 <!-- Template Main JS File -->
 <script>
     document.getElementById('role').addEventListener('change', function() {
@@ -137,4 +138,13 @@ if (isset($_GET['update']) && $_GET['update'] == 'success') {
             document.getElementById('schoolidDiv').style.display = 'none';
         }
     });
+</script>
+
+<!-- JavaScript to Clear the Search Input Field -->
+<script>
+function clearInputField() {
+    document.querySelector('input[name="search_user"]').value = '';
+    // Hide the table by reloading the page without the search_user parameter
+    window.location.href = window.location.pathname;
+}
 </script>

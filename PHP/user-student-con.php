@@ -1,5 +1,3 @@
-
-
 <!-- Vendor JS Files -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
@@ -114,4 +112,32 @@ if (isset($_SESSION['delete_error'])) {
     unset($_SESSION['delete_error']); // Clear the session variable
 }
 ?>
+
+
+<!-- JavaScript to Clear the Search Input Field -->
+<script>
+function clearInputField() {
+    document.querySelector('input[name="search_user"]').value = '';
+
+    // Hide the table by setting its display style to 'none'
+    const resultTable = document.querySelector(".tblStudents");
+    if (resultTable) {
+        resultTable.style.display = 'none';
+    }
+}
+</script>
+
+<!-- Template Main JS File -->
+<script>
+    document.getElementById('role').addEventListener('change', function() {
+        var role = this.value;
+        if (role === 'student') {
+            document.getElementById('usernameDiv').style.display = 'none';
+            document.getElementById('schoolidDiv').style.display = 'block';
+        } else {
+            document.getElementById('usernameDiv').style.display = 'block';
+            document.getElementById('schoolidDiv').style.display = 'none';
+        }
+    });
+</script>
 
