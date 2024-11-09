@@ -1,6 +1,5 @@
 <?php include_once "../templates/header.php";?>
 
-
 <main id="main" class="main">
 
 <div class="pagetitle">

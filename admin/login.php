@@ -98,7 +98,7 @@
                 <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="300">
                   <div class="card shadow login-card">
                     <div class="card-body">
-                      <h5 class="card-title text-center pb-3 fs-4">Login to Your Account</h5>
+                      <h5 class="card-title text-center pb-3 fs-4 text-black">Login to Your Account</h5>
                       <form action="includes/login.inc.php" method="post">
                         <div class="mb-3">
                           <label for="identifier" class="form-label" style="color: black;">Username or School ID</label>

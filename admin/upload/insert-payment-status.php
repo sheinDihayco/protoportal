@@ -1,14 +1,14 @@
 <?php
-session_start(); // Ensure you start the session
+session_start(); // Ensure session is started at the beginning
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
     // Database connection details
     $servername = "localhost";
     $username = "root";
     $password = "";
     $dbname = "schooldb";
 
-    // Create connection
+    // Create a database connection
     $conn = new mysqli($servername, $username, $password, $dbname);
 
     // Check connection
@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
             header("Location: ../student_profile.php?user_id=" . urlencode($user_id) . "&success=created");
             exit();
         } else {
-            echo "Error: " . $insertQuery . "<br>" . $conn->error;
+            echo "Error: " . $stmt->error;
         }
     } else {
         echo "Error: Student ID does not exist.";
@@ -55,6 +55,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $stmt->close();
     $conn->close();
 } else {
-    echo "Invalid request method.";
+    echo "Invalid request method or missing submit button.";
 }
 ?>

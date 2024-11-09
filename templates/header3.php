@@ -345,21 +345,21 @@ $database->close();
     </div>
 
     <style>
-      .rotate-flip {
-        width: 150; /* Set a desired width */
-        height: auto; /* Maintain aspect ratio */
-        animation: flip360 4s infinite alternate; /* Flip back and forth */
-        transform-style: preserve-3d; /* Ensure 3D effect for rotation */
+      /*.rotate-flip {
+        width: 150; 
+        height: auto; 
+        animation: flip360 4s infinite alternate; 
+        transform-style: preserve-3d; 
       }
 
       @keyframes flip360 {
         0% {
-          transform: rotateY(0deg); /* Front side */
+          transform: rotateY(0deg); 
         }
         100% {
-          transform: rotateY(180deg); /* Back side */
+          transform: rotateY(180deg); 
         }
-      }
+      }*/
 
       .logo-text h6 {
         font-family: 'Arial', sans-serif;

@@ -124,22 +124,6 @@ if (isset($_GET['update']) && $_GET['update'] == 'success') {
     <?php endif; ?>
 </script>
 
-
-
-<!-- Template Main JS File -->
-<script>
-    document.getElementById('role').addEventListener('change', function() {
-        var role = this.value;
-        if (role === 'student') {
-            document.getElementById('usernameDiv').style.display = 'none';
-            document.getElementById('schoolidDiv').style.display = 'block';
-        } else {
-            document.getElementById('usernameDiv').style.display = 'block';
-            document.getElementById('schoolidDiv').style.display = 'none';
-        }
-    });
-</script>
-
 <!-- JavaScript to Clear the Search Input Field -->
 <script>
 function clearInputField() {

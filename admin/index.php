@@ -97,7 +97,7 @@
                                         <h6 style="font-size:12px"><?php echo htmlspecialchars($todaysEvent['start_date']); ?></h6>
                                         <li class="list-group-item d-flex justify-content-between align-items-start">
                                             <div style="flex-grow: 1;">
-                                                <h6 class="card-title"><?php echo htmlspecialchars($todaysEvent['title']); ?></h6>
+                                                <h6 class="card-title" style="font-size: 20px;"><?php echo htmlspecialchars($todaysEvent['title']); ?></h6>
                                                 <!--<p>Description: <?php echo htmlspecialchars($todaysEvent['description']); ?></p>-->
                                             </div>
                                         </li>
@@ -112,7 +112,7 @@
                 <!-- End Event -->
 
                 <!-- Student Report -->
-                <div class="card">
+                <div class="card mt-4">
                   <div class="filter">
                     <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
@@ -219,7 +219,6 @@
         </div>
 
         <div class="col-lg-4">
-
             <!-- Event List -->
             <div class="card">
                 <div class="card-body">

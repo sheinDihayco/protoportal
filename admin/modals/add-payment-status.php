@@ -6,11 +6,12 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" style="background-color: #f9f9f9; padding: 30px;">
+        <!-- Ensure form action points to the correct PHP script -->
         <form action="../admin/upload/insert-payment-status.php" method="POST" novalidate>
           <div class="row mb-3">
             <div class="col-md-4">
               <label for="user_name" class="form-label">Student ID</label>
-              <input type="text" class="form-control" id="user_name" name="user_name" placeholder="Enter Student ID" value="<?php echo htmlspecialchars($studs["user_name"]); ?>" required>
+              <input type="text" class="form-control" id="user_name" name="user_name" placeholder="Enter Student ID" value="<?php echo htmlspecialchars($studs["user_name"]); ?>" readonly>
               <div class="invalid-feedback">Please provide a valid Student ID.</div>
             </div>
             <div class="col-md-4">
@@ -47,13 +48,15 @@
             </div>
           </div>
           <div class="d-flex justify-content-end">
-            <button type="submit" class="btn btn-success btn-lg px-5">Insert Payment</button>
+            <!-- Ensure submit button has name="submit" -->
+            <button type="submit" name="submit" class="btn btn-success btn-lg px-5">Insert Payment</button>
           </div>
         </form>
       </div>
     </div>
   </div>
 </div>
+
 
 <style>
   /* Custom Modal Styles for Insert Payment */

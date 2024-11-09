@@ -105,7 +105,7 @@ $database->close();
     <div class="d-flex align-items-center justify-content-between">
       <a href="../admin/index.php" class="logo d-flex align-items-center">
         <!--<img src="../assets/img/miit.png" alt="">-->
-        <span class="d-none d-lg-block text-white">MicroTech</span>
+        <span class="d-none d-lg-block text-white">MicroTech <span style="font-size: 12px; color: white; margin-left: -6px">MIIT</span></span> 
       </a>
       <i class="bi bi-list toggle-sidebar-btn text-white"></i>
     </div><!-- End Logo -->
@@ -339,21 +339,21 @@ $database->close();
     </div>
 
     <style>
-      .rotate-flip {
-        width: 150; /* Set a desired width */
-        height: auto; /* Maintain aspect ratio */
-        animation: flip360 4s infinite alternate; /* Flip back and forth */
-        transform-style: preserve-3d; /* Ensure 3D effect for rotation */
+      /*.rotate-flip {
+        width: 150; 
+        height: auto; 
+        animation: flip360 4s infinite alternate; 
+        transform-style: preserve-3d; 
       }
 
       @keyframes flip360 {
         0% {
-          transform: rotateY(0deg); /* Front side */
+          transform: rotateY(0deg); 
         }
         100% {
-          transform: rotateY(180deg); /* Back side */
+          transform: rotateY(180deg); 
         }
-      }
+      }*/
 
       .logo-text h6 {
         font-family: 'Arial', sans-serif;
