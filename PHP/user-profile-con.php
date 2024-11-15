@@ -98,10 +98,13 @@ $connection->close();
     text-decoration: none !important;
   }
   .custom-profile-img {
-  width: 100px; /* Set the desired width */
-  height: 100px; /* Set the desired height */
-  border-radius: 50%; /* Make it circular */
-  object-fit: cover; /* Ensure the image covers the entire area */
+      width: 150px;
+      height: 160px;
+      object-fit: cover; 
+      border: 3px solid blue; 
+      border-radius: 0; 
+      display: block; 
+      margin: 0 auto; 
   }
 
   /* Styling the profile name */

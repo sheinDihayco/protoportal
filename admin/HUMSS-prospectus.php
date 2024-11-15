@@ -43,78 +43,54 @@
 
 
 <style>
-  main {
-    line-height: 1.6;
-    color: #333;
-    margin: 0;
-    padding: 20px;
-    background-color: #f4f4f4;
-  }
+/* Adjust font sizes and table responsiveness */
+.pagetitle {
+  font-size: 1.5rem;
+}
 
-  .section {
-    padding: 20px;
-    border: 1px solid #dcdcdc;
-    border-radius: 10px;
-    background: #fff;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
-  }
+.table-responsive {
+  overflow-x: auto;
+}
 
-  .dashboard {
-    max-width: 1200px;
-    margin: auto;
-  }
-
-  h6 {
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .pagetitle {
     font-size: 1.4rem;
-    color: #004080;
-    /*border-bottom: 1px solid #e0e0e0;*/
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-    font-weight: bold;
   }
-
-  h4 {
-    font-size: 1.4rem;
-    color: #004080;
-    /*border-bottom: 1px solid #e0e0e0;*/
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-    font-weight: bold;
+  .table thead th {
+    font-size: 0.95rem;
   }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
+  .table tbody td {
+    font-size: 0.9rem;
   }
+}
 
-  th,
-  td {
-    padding: 12px;
-    text-align: left;
-    border: 1px solid #e0e0e0;
+@media (max-width: 992px) {
+  .pagetitle {
+    font-size: 1.3rem;
   }
+}
 
-  th {
-    background-color: #f5f5f5;
-    color: #333;
-    font-weight: bold;
+@media (max-width: 768px) {
+  .pagetitle {
+    font-size: 1.2rem;
+  }
+  .table thead th,
+  .table tbody td {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .pagetitle {
+    font-size: 1rem;
     text-align: center;
   }
-
-  tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
+  .table thead th,
+  .table tbody td {
+    font-size: 0.8rem;
   }
-
-  tbody tr:hover {
-    background-color: #f1f1f1;
-  }
-
-  p {
-    font-size: 1.2rem;
-    color: #666;
-  }
+}
 </style>
 
 <?php include_once "../templates/footer.php"; ?>

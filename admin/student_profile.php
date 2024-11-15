@@ -96,9 +96,9 @@
                         }
 
                         $sql = 'SELECT s.*, p.*
-                            FROM tbl_students s 
-                            LEFT JOIN tbl_payments p ON s.user_id = p.user_id
-                            WHERE s.user_id = ?';
+                                FROM tbl_students s 
+                                LEFT JOIN tbl_payments p ON s.user_id = p.user_id
+                                WHERE s.user_id = ?';
 
                         if ($stmt = $conn->prepare($sql)) {
                           $stmt->bind_param("s", $studid);
@@ -106,16 +106,25 @@
                           $result = $stmt->get_result();
 
                           while ($row = $result->fetch_assoc()) {
+                            // Determine the badge class based on payment status
+                            $payment_status = htmlspecialchars($row["payment_status"]);
+                            $badge_class = '';
+
+                            if ($payment_status === 'PENDING') {
+                              $badge_class = 'badge-warning'; // Orange for Pending
+                            } elseif ($payment_status === 'PAID') {
+                              $badge_class = 'badge-success'; // Green for Paid
+                            } elseif ($payment_status === 'OVERDUE') {
+                              $badge_class = 'badge-danger'; // Red for Overdue
+                            } else {
+                              $badge_class = 'badge-secondary'; // Default gray for others
+                            }
                         ?>
                             <tr>
                               <th scope="row"><a href=""><?php echo htmlspecialchars($row["user_name"]); ?></a></th>
-
                               <td><?php echo htmlspecialchars($row["semester"]) ? htmlspecialchars($row["semester"]) : 'Choose semester'; ?></td>
-
                               <td><?php echo htmlspecialchars($row["paymentPeriod"]) ? htmlspecialchars($row["paymentPeriod"]) : 'Choose payment period'; ?></td>
-
-                              <td><?php echo htmlspecialchars($row["payment_status"]) ? htmlspecialchars($row["payment_status"]) : 'Not Available'; ?></td>
-
+                              <td><span class="badge <?php echo $badge_class; ?>"><?php echo $payment_status ? $payment_status : 'Not Available'; ?></span></td>
                               <td>
                                 <div style="display: inline;">
                                   <!-- Edit Button -->
@@ -139,16 +148,10 @@
                                     <button type="button" class="btn btn-sm btn-danger ri-delete-bin-6-line"
                                       onclick="confirmDelete(<?php echo $payment_id; ?>, '<?php echo $user_id; ?>')"></button>
                                   </form>
-
-
                                 </div>
 
                                 <?php include('modals/update-payment-form.php'); ?>
                               </td>
-
-
-
-
                             </tr>
                         <?php
                           }
@@ -214,6 +217,10 @@
                     <div class="row mb-4 card" >
                       <div class="col-lg-12">
                         <h5 class="card-title">Academic Details</h5>
+                        <div class="row">
+                          <div class="col-lg-4 label">Academic Year</div>
+                          <div class="col-lg-8"><?php echo htmlspecialchars($studs["sy"]); ?></div>
+                        </div>
                         <div class="row">
                           <div class="col-lg-4 label">Course</div>
                           <div class="col-lg-8"><?php echo htmlspecialchars($studs["course"]); ?></div>
@@ -408,13 +415,25 @@
 
                     <!-- Year & Semester -->
                     <div class="row mb-3">
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                         <label for="year" class="form-label">Year</label>
                         <input type="text" class="form-control" id="year" name="year" value="<?= htmlspecialchars($studs['year']); ?>" required>
                         <div class="invalid-feedback">Please provide a valid year.</div>
                       </div>
 
-                      <div class="col-md-6">
+                      <div class="col-md-4">
+                        <label for="sy" class="form-label">Academic Year</label>
+                        <select type="text" class="form-control" id="sy" name="sy" value="<?= htmlspecialchars($studs['sy']); ?>" required>
+                            <option value="">Select Academic Year</option>
+                            <option value="2024-2025" <?= ($studs['sy'] == '2024-2025') ? 'selected' : ''; ?>>2024-2025</option>
+                            <option value="2023-2024" <?= ($studs['sy'] == '2023-2024') ? 'selected' : ''; ?>>2023-2024</option>
+                            <option value="2022-2023" <?= ($studs['sy'] == '2022-2023') ? 'selected' : ''; ?>>2022-2023</option>
+                            <option value="2020-2021" <?= ($studs['sy'] == '2020-2021') ? 'selected' : ''; ?>>2020-2021</option>  
+                        </select>
+                        <div class="invalid-feedback">Please provide a valid year.</div>
+                      </div>
+
+                      <div class="col-md-4">
                         <label for="semester" class="form-label">Semester</label>
                         <select class="form-select" id="semester" name="semester" required>
                           <option value="" disabled>Select Semester</option>
@@ -454,5 +473,14 @@
   <!-- Start Section -->
 
 </main>
+<style>
+  .custom-profile-img {
+    width: 100px; /* Set the desired width */
+    height: 100px; /* Set the desired height */
+    border-radius: 50%; /* Make it circular */
+    border: 3px solid blue; 
+    object-fit: cover; /* Ensure the image covers the entire area */
+  }
+</style>
 
 <?php include_once "../templates/footer.php"; ?>

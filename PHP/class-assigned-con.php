@@ -16,7 +16,7 @@ if (!empty($instructor_id) && !empty($subject_id)) {
     try {
         // Query to get students assigned to the selected instructor and subject (grouped by subject_id)
         $stmt = $conn->prepare("
-            SELECT ts.user_id, ts.fname, ts.lname, ts.course, ts.year, ts.user_name, tsi.subject_id
+            SELECT ts.user_id, ts.fname, ts.lname, ts.course, ts.year, ts.user_name, ts.status, tsi.subject_id
             FROM tbl_students ts
             INNER JOIN tbl_student_instructors tsi ON ts.user_id = tsi.student_id
             INNER JOIN tbl_subjects tsub ON tsi.subject_id = tsub.id

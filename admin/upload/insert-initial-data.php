@@ -21,6 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $lname = $conn->real_escape_string($_POST['lname']);
     $course = $conn->real_escape_string($_POST['course']);
     $year = $conn->real_escape_string($_POST['year']);
+    $sy = $conn->real_escape_string($_POST['sy']);
     $semester = $conn->real_escape_string($_POST['semester']);
     $status = $conn->real_escape_string($_POST['status']);
 
@@ -31,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     if ($result->num_rows > 0) {
         // Student ID already exists, perform update
         $updateQuery = "UPDATE tbl_students 
-                        SET fname = '$fname', lname = '$lname', course = '$course', year = '$year', status = '$status', semester = '$semester'
+                        SET fname = '$fname', lname = '$lname', course = '$course', year = '$year', sy = '$sy', status = '$status', semester = '$semester'
                         WHERE user_id = '$user_id'";
 
         if ($conn->query($updateQuery) === TRUE) {
@@ -41,8 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         }
     } else {
         // Student ID does not exist, perform insert
-        $insertQuery = "INSERT INTO tbl_students (user_id, fname, lname, course, year, semester, status)
-                        VALUES ('$user_id', '$fname', '$lname', '$course', '$year', '$semester', '$status')";
+        $insertQuery = "INSERT INTO tbl_students (user_id, fname, lname, course, year, sy,  semester, status)
+                        VALUES ('$user_id', '$fname', '$lname', '$course', '$year', '$sy', '$semester', '$status')";
 
         if ($conn->query($insertQuery) === TRUE) {
             $_SESSION['initial_update'] = true; // Success flag

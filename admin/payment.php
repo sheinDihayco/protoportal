@@ -73,7 +73,15 @@
                                 <tr>
                                     <th scope="row" style="font-weight:bold;"><a href=""><?php echo $row["user_name"] ?></a></th>
                                     <td><?php echo $row["lname"] ?>, <?php echo $row["fname"] ?></td>
-                                    <td><?php echo $row["status"] ?></td>
+                                    <td>
+                                        <?php if (htmlspecialchars($row['status']) == 'Enrolled'): ?>
+                                            <span class="badge badge-success">Enrolled</span>
+                                        <?php elseif (htmlspecialchars($row['status']) == 'UnEnrolled'): ?>
+                                            <span class="badge badge-danger">UnEnrolled</span>
+                                        <?php else: ?>
+                                            <span class="badge badge-secondary">Not Available</span>
+                                        <?php endif; ?>
+                                    </td>
                                     <td>
                                         <!-- Action Buttons -->
                                         <form action="student_profile.php" method="post" style="display:inline;">
@@ -105,17 +113,43 @@
 
 <!-- JavaScript to Clear the Search Input Field -->
 <script>
-function clearInputField() {
-    document.querySelector('input[name="search_user"]').value = '';
+    function clearInputField() {
+        document.querySelector('input[name="search_user"]').value = '';
 
-    // Hide the table by setting its display style to 'none'
-    const resultTable = document.querySelector(".tblStudents");
-    if (resultTable) {
-        resultTable.style.display = 'none';
+        // Hide the table by setting its display style to 'none'
+        const resultTable = document.querySelector(".tblStudents");
+        if (resultTable) {
+            resultTable.style.display = 'none';
+        }
     }
-}
 </script>
 
+<style>
+    .badge-success {
+        background-color: green;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 20px;
+        display: inline-block;
+    }
+
+    .badge-danger {
+        background-color: red;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 20px;
+        display: inline-block;
+    }
+
+    .badge-secondary {
+        background-color: gray;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 20px;
+        display: inline-block;
+    }
+
+</style>
 <?php
 include_once "../templates/footer.php";
 ?>

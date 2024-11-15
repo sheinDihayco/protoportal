@@ -554,8 +554,16 @@
   </div>
 </section>
     
-  </main><!-- End #main -->
-
+</main><!-- End #main -->
+<style>
+  .custom-profile-img {
+    width: 100px; /* Set the desired width */
+    height: 100px; /* Set the desired height */
+    border-radius: 50%; /* Make it circular */
+    border: 3px solid blue; 
+    object-fit: cover; /* Ensure the image covers the entire area */
+  }
+</style>
 <?php include_once "../templates/footer.php"; ?>
 
   

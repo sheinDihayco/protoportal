@@ -78,16 +78,6 @@ $connection->close();
   .navbar-brand {
     text-decoration: none !important;
   }
-  .custom-profile-img {
-      width: 150px;
-      height: 160px;
-      object-fit: cover; 
-       border: 5px solid gray; 
-      border-radius: 0; 
-      display: block; 
-      margin: 0 auto; 
-  }
-
   /* Styling the profile name */
   .custom-name {
     font-weight: 500; /* Medium weight for the text */

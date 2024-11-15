@@ -74,6 +74,56 @@ if (isset($_POST['search']) && isset($_POST['user_name'])) {
 }
 ?>
 
+<?php
+// Assuming the form is submitted via POST and semester is set
+$selectedSemester = isset($_POST['semester']) ? $_POST['semester'] : '';
+
+// Map semester values to display text (optional)
+$semesterText = [
+    '1' => '1st',
+    '2' => '2nd',
+];
+
+// Display the semester if selected
+?>
+
+<style>
+    .card-title {
+        font-size: 16px;
+        line-height: 1.6;
+        color: #333;
+    }
+
+    .info-row {
+        display: flex;
+        justify-content: space-between;  /* Spaces the items between left and right */
+        margin-bottom: 8px; /* Space between rows */
+    }
+
+    .info-item {
+        display: flex;
+        align-items: center;
+        flex-basis: 45%; /* Make sure each item takes up equal space */
+    }
+
+    .info-item strong {
+        margin-right: 10px; /* Space between label and value */
+    }
+
+    /* Optional: Responsive design for smaller screens */
+    @media (max-width: 768px) {
+        .info-row {
+            flex-direction: column; /* Stack the rows vertically */
+            align-items: flex-start;
+        }
+
+        .info-item {
+            flex-basis: 100%;  /* Make each item take the full width */
+        }
+    }
+
+</style>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const userNameField = document.getElementById('user_name');

@@ -76,3 +76,120 @@ try {
 $database->close();
 ?>
 
+<!-- Styles to make the page responsive -->
+<style>
+/* Table responsiveness */
+.table-responsive {
+  overflow-x: auto;
+}
+
+/* Responsive font sizes for better readability */
+.pagetitle h1 {
+  font-size: 2rem;
+}
+
+@media (max-width: 1200px) {
+  .pagetitle h1 {
+    font-size: 1.8rem;
+  }
+
+  .table th, .table td {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .pagetitle h1 {
+    font-size: 1.6rem;
+  }
+
+  .table th, .table td {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .pagetitle h1 {
+    font-size: 1.5rem;
+  }
+
+  .table th, .table td {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .pagetitle h1 {
+    font-size: 1.3rem;
+  }
+
+  .table th, .table td {
+    font-size: 0.75rem;
+  }
+}
+  .badge-success {
+    background-color: green;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    display: inline-block;
+  }
+
+  .badge-danger {
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    display: inline-block;
+  }
+
+  .badge-secondary {
+    background-color: gray;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    display: inline-block;
+  }
+  /* Warning badge (Pending) */
+  .badge-warning {
+      background-color: orange;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 20px;
+      display: inline-block;
+  }
+
+    .card-title {
+        font-size: 16px;
+        line-height: 1.6;
+        color: #333;
+    }
+
+    .info-row {
+        display: flex;
+        justify-content: space-between;  /* Spaces the items between left and right */
+        margin-bottom: 8px; /* Space between rows */
+    }
+
+    .info-item {
+        display: flex;
+        align-items: center;
+        flex-basis: 45%; /* Make sure each item takes up equal space */
+    }
+
+    .info-item strong {
+        margin-right: 10px; /* Space between label and value */
+    }
+
+    /* Optional: Responsive design for smaller screens */
+    @media (max-width: 768px) {
+        .info-row {
+            flex-direction: column; /* Stack the rows vertically */
+            align-items: flex-start;
+        }
+
+        .info-item {
+            flex-basis: 100%;  /* Make each item take the full width */
+        }
+    }
+</style>

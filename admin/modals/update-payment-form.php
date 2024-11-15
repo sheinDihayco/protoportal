@@ -40,9 +40,9 @@
                 <label for="payment_status<?php echo $row['payment_id']; ?>" class="form-label">Status</label>
                 <select class="form-select" id="payment_status<?php echo $row['payment_id']; ?>" name="payment_status" required>
                   <option value="" disabled>Select status</option>
-                  <option value="Paid" <?php if ($row['payment_status'] == "Paid") echo "selected"; ?>>Paid</option>
-                  <option value="Pending" <?php if ($row['payment_status'] == "Pending") echo "selected"; ?>>Pending</option>
-                  <option value="Overdue" <?php if ($row['payment_status'] == "Overdue") echo "selected"; ?>>Overdue</option>
+                  <option value="PAID" <?php if ($row['payment_status'] == "PAID") echo "selected"; ?>>Paid</option>
+                  <option value="PENDING" <?php if ($row['payment_status'] == "PENDING") echo "selected"; ?>>Pending</option>
+                  <option value="OVERDUE" <?php if ($row['payment_status'] == "OVERDUE") echo "selected"; ?>>Overdue</option>
                 </select>
                 <div class="invalid-feedback">Please select a status.</div>
               </div>

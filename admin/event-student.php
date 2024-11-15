@@ -4,7 +4,6 @@
 <main id="main" class="main">
     <div class="pagetitle">
         <h1>School Calendar</h1>
-        <!-- <button type="button" class="ri-calendar-2-line tablebutton" data-bs-toggle="modal" data-bs-target="#addEventModal"></button>-->
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.php">Home</a></li>
@@ -12,7 +11,6 @@
             </ol>
         </nav>
     </div>
-
 
     <!-- Add Event Modal -->
     <div class="modal fade" id="addEventModal" tabindex="-1" aria-labelledby="addEventModalLabel" aria-hidden="true">
@@ -41,7 +39,6 @@
                             <label for="eventDescription" class="form-label">Event Description</label>
                             <textarea class="form-control" id="eventDescription" name="eventDescription" rows="3"></textarea>
                         </div>
-                        <!-- Modal Footer -->
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Add Event</button>
@@ -88,19 +85,6 @@
                                             </h6>
                                             <p><?php echo htmlspecialchars($event['description']); ?></p>
                                         </div>
-                                        <!--   <div style="display: flex; align-items: flex-start;">
-                                            <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editEventModal<?php echo htmlspecialchars($event['id']); ?>" style="margin-right: 5px;">
-                                                <i class="bi bi-pencil"></i>
-                                            </button>
-
-                                            <form id="deleteForm<?php echo htmlspecialchars($event['id']); ?>" method="POST" action="../admin/upload/delete_event.php" style="display:inline;">
-                                                <input type="hidden" name="event_id" value="<?php echo htmlspecialchars($event['id']); ?>">
-                                                <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete(<?php echo htmlspecialchars($event['id']); ?>)">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                            </form>
-
-                                        </div>-->
                                     </li>
                                 <?php endforeach; ?>
                             </ul>
@@ -115,7 +99,6 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">School Events Calendar</h5>
-                        <!-- Display Calendar -->
                         <div id='calendar'></div>
                     </div>
                 </div>
@@ -132,7 +115,6 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <!-- Edit Event Form -->
                             <form action="../admin/includes/update-event.php" method="POST">
                                 <input type="hidden" name="eventId" value="<?php echo htmlspecialchars($event['id']); ?>">
 
@@ -156,7 +138,6 @@
                                     <textarea class="form-control" id="editEventDescription<?php echo htmlspecialchars($event['id']); ?>" name="eventDescription" rows="3"><?php echo htmlspecialchars($event['description']); ?></textarea>
                                 </div>
 
-                                <!-- Modal Footer -->
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                     <button type="submit" class="btn btn-primary">Update Event</button>
@@ -166,27 +147,67 @@
                     </div>
                 </div>
             </div>
-
         <?php endforeach; ?>
     </section>
 </main>
 
-<!-- Date Picker Modal -->
-<div class="modal fade" id="datePickerModal" tabindex="-1" aria-labelledby="datePickerModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="datePickerModalLabel">Choose Date</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div id="datepicker" style="width: 100%;"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
+<?php include_once "../templates/footer.php"; ?>
 
-<?php include_once "../templates/footer.php" ?>ss
+<style>
+/* Basic table styling */
+.overflow-auto ul.list-group-item {
+    font-size: 16px;
+}
+
+/* Responsive styling */
+@media (max-width: 1200px) {
+    .pagetitle h1 {
+        font-size: 1.8rem;
+    }
+    .breadcrumb-item a,
+    .breadcrumb-item.active {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .pagetitle h1 {
+        font-size: 1.5rem;
+    }
+
+    .modal-content,
+    .form-control {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .breadcrumb-item a,
+    .breadcrumb-item.active {
+        font-size: 0.85rem;
+    }
+
+    .overflow-auto ul.list-group-item h6.card-title {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .pagetitle h1 {
+        font-size: 1.3rem;
+    }
+
+    .overflow-auto ul.list-group-item h6.card-title {
+        font-size: 0.9rem;
+    }
+
+    .modal-content {
+        padding: 10px;
+    }
+
+    .calendar,
+    #calendar {
+        overflow-x: auto;
+    }
+}
+</style>

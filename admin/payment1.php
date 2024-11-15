@@ -19,7 +19,7 @@
                 <div class="row">
                     <!-- Recent Sales -->
                     <div class="col-12">
-                        <div class="card recent-sales overflow-auto">
+                        <div class="card mt-4">
 
                             <div class="filter">
                                 <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
@@ -36,7 +36,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Students <span>| Enrolled</span></h5>
 
-                                <table class="table table-borderless datatable">
+                                <table class="table table-striped">
                                     <thead>
                                         <tr>
                                             <th scope="col">Student ID</th>

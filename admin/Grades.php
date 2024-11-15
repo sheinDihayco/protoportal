@@ -9,7 +9,6 @@
     </div>
     <!-- End Page Title -->
 
-
     <div class="container">
         <!-- Start Search bar -->
         <div class="card mt-4">
@@ -24,8 +23,8 @@
 
                     <!-- Year Selector -->
                     <div class="col-md-2">
-                        <select name="year" id="year" class="form-control" disabled>
-                            <option value="">All Years</option>
+                        <select name="year" id="year" class="form-control" disabled onchange="toggleFields()">
+                            <option value="">Select Year</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -38,14 +37,14 @@
                     <!-- Semester Selector -->
                     <div class="col-md-2">
                         <select name="semester" id="semester" class="form-control" disabled>
-                            <option value="">All Semesters</option>
+                            <option value="">Select Semester</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                         </select>
                     </div>
 
                     <!-- Search and Clear Buttons -->
-                    <div class="col-md-4 d-flex gap-2">
+                    <div class="col-md-3 d-flex gap-2">
                         <button type="submit" name="search" class="btn btn-primary" title="Search">
                             <i class="bx bx-search-alt"></i> Search
                         </button>
@@ -54,6 +53,7 @@
                         </button>
                     </div>
                 </form>
+
             </div> 
         </div>
         <!-- End Search bar -->
@@ -63,20 +63,28 @@
             <div class="gradeResult">
                 <div class="card mt-4">
                     <div class="card-body">
-                        <p class="card-title" style="font-size: 16px; line-height: 1.6; color: #333;">
-                            <strong style="margin-right: 200px;">
-                                <?php echo htmlspecialchars($studentInfo['lname']); ?>,
-                                <?php echo htmlspecialchars($studentInfo['fname']); ?>
-                            </strong>
-                            <strong style="margin-right: 200px;">
-                                <?php echo htmlspecialchars($studentInfo['course']); ?> - <?php echo htmlspecialchars($studentInfo['year']); ?>
-                            </strong> <br>
-                            <strong style="margin-right: 240px;">
-                                <?php echo htmlspecialchars($studentInfo['user_name']); ?>
-                            </strong>
-                            <strong>
-                                Semester: <span><?php echo htmlspecialchars($studentInfo['semester']); ?></span>
-                            </strong>
+                        <p class="card-title">
+                            <div class="info-row">
+                                <div class="info-item">
+                                    <strong>Name:</strong> 
+                                    <?php echo htmlspecialchars($studentInfo['lname']); ?>, 
+                                    <?php echo htmlspecialchars($studentInfo['fname']); ?>
+                                </div>
+                                <div class="info-item">
+                                    <strong>Course & Year:</strong> 
+                                    <?php echo htmlspecialchars($studentInfo['course']); ?> - <?php echo htmlspecialchars($studentInfo['year']); ?>
+                                </div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-item">
+                                    <strong>User Name:</strong> 
+                                    <?php echo htmlspecialchars($studentInfo['user_name']); ?>
+                                </div>
+                                <div class="info-item">
+                                    <strong>Semester:</strong> 
+                                    <?php echo htmlspecialchars($semesterText[$selectedSemester] ?? ''); ?>
+                                </div>
+                            </div>
                         </p>
 
                         <?php if (!empty($grades)): ?>
@@ -157,36 +165,29 @@
         <?php endif; ?>
         <!-- End display result -->
     </div>
-
-
 </main>
-
 <script>
     // JavaScript to Manage Input Fields and Clear Functionality
     function toggleFields() {
-        // Enable Year and Semester fields when Student ID is filled
-        const studentId = document.getElementById("user_name").value;
-        const yearField = document.getElementById("year");
-        const semesterField = document.getElementById("semester");
+        const studentIdField = document.getElementById('user_name');
+        const yearField = document.getElementById('year');
+        const semesterField = document.getElementById('semester');
 
-        if (studentId.trim() !== "") {
-            yearField.disabled = false;
-            semesterField.disabled = false;
-        } else {
-            yearField.disabled = true;
-            semesterField.disabled = true;
-        }
+        // Enable Year if Student ID is filled
+        yearField.disabled = !studentIdField.value;
+
+        // Enable Semester if Year is selected
+        semesterField.disabled = !yearField.value;
     }
 
     function clearSearchForm() {
-        // Clear all input fields and reset form
-        document.getElementById("user_name").value = '';
-        document.getElementById("year").selectedIndex = 0;
-        document.getElementById("semester").selectedIndex = 0;
+        document.getElementById('user_name').value = '';
+        document.getElementById('year').value = '';
+        document.getElementById('semester').value = '';
 
-        // Disable Year and Semester fields
-        document.getElementById("year").disabled = true;
-        document.getElementById("semester").disabled = true;
+        // Reset field states
+        document.getElementById('year').disabled = true;
+        document.getElementById('semester').disabled = true;
 
         // Hide the table by setting its display style to 'none'
         const resultTable = document.querySelector(".gradeResult");
@@ -194,7 +195,5 @@
             resultTable.style.display = 'none';
         }
     }
-
 </script>
-
 <?php include_once "../templates/footer.php"; ?>

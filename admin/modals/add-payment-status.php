@@ -40,9 +40,9 @@
               <label for="payment_status" class="form-label">Status</label>
               <select class="form-select" id="payment_status" name="payment_status" required>
                 <option value="" disabled selected>Select status</option>
-                <option value="Paid">Paid</option>
-                <option value="Pending">Pending</option>
-                <option value="Overdue">Overdue</option>
+                <option value="PAID">Paid</option>
+                <option value="PENDING">Pending</option>
+                <option value="OVERDUE">Overdue</option>
               </select>
               <div class="invalid-feedback">Please select a status.</div>
             </div>

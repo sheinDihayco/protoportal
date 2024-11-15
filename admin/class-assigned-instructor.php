@@ -26,6 +26,7 @@
                             <th scope="col">Student ID</th>
                             <th scope="col">Student Name</th>
                             <th scope="col">Course & Year</th>
+                            <th scope="col">Status</th>
                             <th scope="col"> Action </th>
                         </tr>
                     </thead>
@@ -43,6 +44,15 @@
                                                 </td>
                                                 <td><?php echo htmlspecialchars($student['lname']); ?>, <?php echo htmlspecialchars($student['fname']); ?></td>
                                                 <td><?php echo htmlspecialchars($student['course']); ?> - <?php echo htmlspecialchars($student['year']); ?></td>
+                                                <td>
+                                                    <?php if (htmlspecialchars($student['status']) == 'Enrolled'): ?>
+                                                        <span class="badge badge-success">Enrolled</span>
+                                                    <?php elseif (htmlspecialchars($student['status']) == 'UnEnrolled'): ?>
+                                                        <span class="badge badge-danger">UnEnrolled</span>
+                                                    <?php else: ?>
+                                                        <span class="badge badge-secondary">Not Available</span>
+                                                    <?php endif; ?>
+                                                </td>
                                                 <td>
                                                 <!-- Button to trigger the modal for grade insertion -->
                                                 <button type="button" class="btn btn-sm btn-warning ri-add-box-fill" data-bs-toggle="modal" data-bs-target="#insertGrade<?php echo htmlspecialchars($student['user_id']); ?>"></button>
@@ -71,5 +81,30 @@
         </div> <!-- Closing col-12 -->
     </section>
 </main>
+<style>
+    .badge-success {
+        background-color: green;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 20px;
+        display: inline-block;
+    }
 
+    .badge-danger {
+        background-color: red;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 20px;
+        display: inline-block;
+    }
+
+    .badge-secondary {
+        background-color: gray;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 20px;
+        display: inline-block;
+    }
+
+</style>
 <?php include_once "../templates/footer.php"; ?>

@@ -222,13 +222,6 @@ if (isset($_GET['delete-success']) && $_GET['delete-success'] === 'true') {
   .navbar-brand {
     text-decoration: none !important;
   }
-  .custom-profile-img {
-      width: 150px;
-      height: 160px;
-      object-fit: cover; 
-      border-radius: 0; 
-  }
-
   /* Styling the profile name */
   .custom-name {
     font-weight: 500; /* Medium weight for the text */
@@ -236,9 +229,47 @@ if (isset($_GET['delete-success']) && $_GET['delete-success'] === 'true') {
     color: #f8f9fa; /* Text color */
   }
 
+  .custom-profile-img {
+    width: 100px; /* Set the desired width */
+    height: 100px; /* Set the desired height */
+    border-radius: 50%; /* Make it circular */
+    object-fit: cover; /* Ensure the image covers the entire area */
+  }
+
   /* Add some padding between image and text */
   .custom-nav-link .ps-2 {
     padding-left: 10px;
+  }
+.badge-success {
+    background-color: green;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    display: inline-block;
+  }
+
+  .badge-danger {
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    display: inline-block;
+  }
+
+  .badge-secondary {
+    background-color: gray;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    display: inline-block;
+  }
+  /* Warning badge (Pending) */
+  .badge-warning {
+      background-color: orange;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 20px;
+      display: inline-block;
   }
 
 </style>

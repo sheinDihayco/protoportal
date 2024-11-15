@@ -7,7 +7,7 @@
         <h1> Currently Enrolled Classes</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="assign-student-instructors.php">Back</a></li>
+                <li class="breadcrumb-item"><a href="../admin/index3.php">Home</a></li>
                 <li class="breadcrumb-item active">Classes</li>
             </ol>
         </nav>
@@ -17,7 +17,7 @@
         <div class="col-lg-12">
             <div class="row">
                 <div class="col-12">
-                    <div class="card recent-sales overflow-auto">
+                    <div class="card mt-4">
                         <div class="card-body">
                             <h5 class="card-title">Classes <span>| Enrolled </span></h5>
                             <table class="table table-striped datatable">
@@ -65,6 +65,7 @@
                                                             <td>
                                                                 <a href="class-assigned-students.php?instructor_id=<?php echo htmlspecialchars($instructor['user_id']); ?>&subject_id=<?php echo htmlspecialchars($subject_id); ?>" class="btn btn-success btn-sm"><i class="ri-arrow-right-circle-fill"></i></a>
                                                             </td>
+                                    
                                                         </tr>
                                                     <?php }
                                                 } ?>

@@ -578,3 +578,53 @@
 </main>
 
 <?php include_once "../templates/footer.php"; ?>
+<style>
+/* Adjust font sizes and table responsiveness */
+.pagetitle {
+  font-size: 1.5rem;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .pagetitle {
+    font-size: 1.4rem;
+  }
+  .table thead th {
+    font-size: 0.95rem;
+  }
+  .table tbody td {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .pagetitle {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .pagetitle {
+    font-size: 1.2rem;
+  }
+  .table thead th,
+  .table tbody td {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .pagetitle {
+    font-size: 1rem;
+    text-align: center;
+  }
+  .table thead th,
+  .table tbody td {
+    font-size: 0.8rem;
+  }
+}
+</style>

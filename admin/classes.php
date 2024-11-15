@@ -17,10 +17,10 @@
         <div class="col-lg-12">
             <div class="row">
                 <div class="col-12">
-                    <div class="card recent-sales overflow-auto">
+                    <div class="card mt-4">
                         <div class="card-body">
                             <h5 class="card-title">Classes <span>| Enrolled </span></h5>
-                            <table class="table table-striped datatable">
+                            <table class="table table-striped">
                                 <thead>
                                     <tr>    
                                         <th scope="col">Instructor</th>

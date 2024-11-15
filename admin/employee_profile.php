@@ -25,7 +25,7 @@
                     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
                         <a class="nav-link nav-profile" href="#" data-bs-toggle="dropdown">
-                            <img src="upload-files/<?php echo htmlspecialchars($image); ?>" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image" class=".custom-profile-img ">
+                            <img src="upload-files/<?php echo htmlspecialchars($image); ?>" id="currentPhoto" onerror="this.src='images/default.png'" alt="Profile Image" class="custom-profile-img ">
                         </a><!-- End Profile Iamge Icon -->
 
                         <h2><?php echo htmlspecialchars($userDetails['user_lname']); ?>, <?php echo htmlspecialchars($userDetails['user_fname']); ?> </h2>
@@ -174,5 +174,15 @@
     </section>
   <!-- Start Section -->
 </main>
+
+<style>
+  .custom-profile-img {
+    width: 100px; /* Set the desired width */
+    height: 100px; /* Set the desired height */
+    border-radius: 50%; /* Make it circular */
+    object-fit: cover; /* Ensure the image covers the entire area */
+    border: 3px solid blue; 
+  }
+</style>
 
 <?php include_once "../templates/footer.php"; ?>

@@ -20,7 +20,7 @@
                     <div class="card recent-sales overflow-auto">
                         <div class="card-body">
                             <h5 class="card-title">Classes <span>| Enrolled </span></h5>
-                            <table class="table table-striped datatable">
+                            <table class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th scope="col">Subject Code</th>
@@ -75,5 +75,4 @@
         </div>
     </section>
 </main>
-
 <?php include_once "../templates/footer.php"; ?>
