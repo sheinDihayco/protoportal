@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 24, 2024 at 04:42 AM
+-- Generation Time: Nov 16, 2024 at 07:04 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -120,7 +120,7 @@ INSERT INTO `tbl_events` (`id`, `title`, `description`, `start_date`, `end_date`
 (16, 'SPG/SSG Election', 'Student elections for SPG/SSG.', '2024-09-10', '2024-09-14'),
 (17, 'Start of Classes', 'Beginning of the first semester classes.', '2024-07-29', '2024-07-29'),
 (35, 'SAMPLE EVENT', 'THIS IS A EVENT SAMPLE.', '2024-09-28', '2024-09-28'),
-(37, 'Teachers Day', 'Teacher&#039;s Day Celebration in MIIT.', '2024-10-04', '2024-10-04'),
+(37, 'Teachers Day', 'Teachers Day Celebration in MIIT.', '2024-10-04', '2024-10-04'),
 (38, 'Sample Title', 'This is a sample event.', '2024-10-12', '2024-10-13');
 
 -- --------------------------------------------------------
@@ -137,6 +137,7 @@ CREATE TABLE `tbl_grades` (
   `semester` int(11) NOT NULL,
   `year` int(11) NOT NULL,
   `term` varchar(20) NOT NULL,
+  `sy` varchar(50) DEFAULT NULL,
   `grade` decimal(5,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -144,9 +145,15 @@ CREATE TABLE `tbl_grades` (
 -- Dumping data for table `tbl_grades`
 --
 
-INSERT INTO `tbl_grades` (`grade_id`, `user_id`, `instructor_id`, `id`, `semester`, `year`, `term`, `grade`) VALUES
-(1, 55, 55, 19, 1, 2, 'Prelim', 1.50),
-(2, 62, 55, 21, 1, 2, 'Midterm', 1.50);
+INSERT INTO `tbl_grades` (`grade_id`, `user_id`, `instructor_id`, `id`, `semester`, `year`, `term`, `sy`, `grade`) VALUES
+(2, 5, 6, 64, 1, 4, 'Prelim', '2024-2025', 1.50),
+(3, 5, 6, 63, 1, 4, 'Midterm', '2024-2025', 1.50),
+(4, 14, 6, 64, 1, 4, 'Prelim', '2023-2024', 1.50),
+(5, 3, 6, 66, 2, 4, 'Prelim', '2024-2025', 1.50),
+(6, 14, 7, 63, 1, 4, 'Prelim', '2024-2025', 1.90),
+(7, 12, 7, 63, 1, 4, 'Prelim', '2024-2025', 1.90),
+(8, 15, 23, 52, 2, 3, 'Final', '2023-2024', 1.50),
+(10, 7, 7, 235, 2, 12, 'Final', '2023-2024', 3.50);
 
 -- --------------------------------------------------------
 
@@ -167,10 +174,13 @@ CREATE TABLE `tbl_payments` (
 --
 
 INSERT INTO `tbl_payments` (`payment_id`, `user_id`, `payment_status`, `semester`, `paymentPeriod`) VALUES
-(81, 62, 'Pending', '1st', 'Prelim'),
-(83, 70, 'Paid', '1st', 'Prelim'),
-(84, 55, 'Pending', '1st', 'Prelim'),
-(85, 64, 'Paid', '1st', 'Prelim');
+(1, 14, 'PAID', '1st', 'Prelim'),
+(2, 14, 'PENDING', '1st', 'Midterm'),
+(3, 12, 'PAID', '1st', 'Prelim'),
+(4, 12, 'PAID', '1st', 'Midterm'),
+(5, 12, 'PAID', '1st', 'Pre-final'),
+(6, 5, 'PAID', '1st', 'Prelim'),
+(7, 5, 'PAID', '1st', 'Midterm');
 
 -- --------------------------------------------------------
 
@@ -228,10 +238,19 @@ INSERT INTO `tbl_schedule` (`schedule_id`, `instructor_id`, `course_id`, `subjec
 (129, 55, 18, 103, 12, 4, 4),
 (131, 55, 32, 65, 16, 38, 5),
 (132, 52, 12, 10, 8, 13, 3),
-(135, 55, 12, 21, 16, 12, 2),
+(135, 55, 12, 21, 16, 12, 1),
 (136, 62, 17, 18, 14, 38, 1),
 (137, 55, 12, 92, 8, 12, 5),
-(139, 55, 12, 17, 8, 12, 4);
+(139, 55, 12, 17, 8, 12, 4),
+(140, 55, 15, 69, 7, 13, 3),
+(141, 55, 24, 21, 8, 15, 6),
+(142, 6, 24, 66, 5, 3, 2),
+(143, 6, 24, 64, 7, 9, 2),
+(144, 7, 24, 284, 7, 4, 3),
+(145, 8, 23, 17, 16, 4, 1),
+(146, 7, 16, 20, 8, 9, 4),
+(147, 6, 22, 16, 16, 3, 5),
+(148, 8, 17, 19, 14, 13, 6);
 
 -- --------------------------------------------------------
 
@@ -257,7 +276,8 @@ INSERT INTO `tbl_sched_time` (`time_id`, `start_time`, `end_time`) VALUES
 (13, '08:00:00', '09:00:00'),
 (14, '13:00:00', '14:00:00'),
 (15, '14:00:00', '15:00:00'),
-(38, '12:00:00', '13:00:00');
+(38, '12:00:00', '13:00:00'),
+(40, '15:00:00', '16:00:00');
 
 -- --------------------------------------------------------
 
@@ -274,6 +294,7 @@ CREATE TABLE `tbl_students` (
   `Suffix` varchar(15) NOT NULL,
   `course` varchar(50) NOT NULL,
   `year` int(10) NOT NULL,
+  `sy` varchar(50) DEFAULT NULL,
   `contact` varchar(20) NOT NULL,
   `gender` varchar(10) NOT NULL,
   `bdate` varchar(50) NOT NULL,
@@ -312,19 +333,23 @@ CREATE TABLE `tbl_students` (
   `user_pass` varchar(100) NOT NULL,
   `semester` int(11) NOT NULL,
   `status` varchar(20) NOT NULL,
-  `date` date DEFAULT NULL
+  `date` date DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_students`
 --
 
-INSERT INTO `tbl_students` (`user_id`, `user_name`, `lname`, `fname`, `middleInitial`, `Suffix`, `course`, `year`, `contact`, `gender`, `bdate`, `pob`, `email`, `major`, `nationality`, `civilStatus`, `religion`, `modality`, `fb`, `curAddress`, `cityAdd`, `zipcode`, `fatherName`, `fwork`, `motherName`, `mwork`, `primarySchool`, `primaryAddress`, `primaryCompleted`, `entermediateSchool`, `entermediateAddress`, `entermediateCompleted`, `hsSchool`, `hsAddress`, `hsCompleted`, `shSchool`, `shAddress`, `shCompleted`, `collegeSchool`, `collegeAddress`, `collegeCompleted`, `user_image`, `user_role`, `user_pass`, `semester`, `status`, `date`) VALUES
-(55, 'MIIT-2021-290', 'Rizada', 'Junrih', '', '', 'BSIT', 4, '', '', '', '', 'jrizada@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$At1PioCqfJ4Gat5JjJA26.sulg0VFbmGy.QB8vn0b.jwO9wm09xx.', 1, 'Enrolled', NULL),
-(62, 'MIIT-2021-137', 'Dihayco', 'Sheinalie', 'V.', '-', 'BSIT', 4, '09996707038', 'Male', '2003-02-09', 'Mactan, Lapu-Lapu City , Cebu', 'dihayco020903@gmail.com', 'Programming', 'Filipino', 'Single', 'Roman Catholic', 'Face to Face', 'Shien Dihayco', 'Purok Sagay, Kalubihan', 'City of Naga', '6037', 'Mechille V. DIhayco', 'N/A', 'Divina V. Dihayco', 'Baby Sitter', 'Punta Engano Elementary School', 'Puntan Engano, Lapu-Lapu City', '2012-2013', 'TCES', 'Tuyan, City of Naga', '2015-2016', 'TNHS', 'Tabtuy, Tuyan, City of Naga, Cebu', '2018-2019 ', 'TUYAN SENIOR HIGH SCHOOL', 'Tabtuy, Tuyan, City of Naga, Cebu', '2020-2021', 'MIIT', 'Inayagan, City of Naga, Cebu', '-', '../admin/upload/upload-files/me.jpg', 'student', '$2y$10$wHvjB.cfCxMllJ3flBObs.rdYo2qAS6z6.487UK0lnqrGF7xaj.Ka', 1, 'Enrolled', '0000-00-00'),
-(64, 'MIIT-2021-160', 'Tahanlangit', 'Louie', '', '', 'BSIT', 4, '', '', '', '', 'louiethnlngt@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$i68SkvJE919QGzqXz39d5.iLwVpZ1ck9urjxXo.2QvAGTfjQgpgFG', 1, 'Enrolled', NULL),
-(70, 'MIIT-2021-124', 'Algarme', 'Zean Mariuss', 'C.', '-', 'BSIT', 4, '09912988991', 'Male', '2002-11-22', '', 'zuild@gmail.com', 'Programming', 'Filipino', 'Single', '', 'Face to Face', 'Zean Marius C. Algarme', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '../admin/upload/upload-files/zean.jpg', 'student', '$2y$10$ZIM/V13fhN/ZBGioJEuXf.raS3YBTcwaKhry3qRoaNeGd4ivu.axq', 1, 'Enrolled', '0000-00-00'),
-(73, 'MIIT-2000-100', 'Dihayco', 'Althea', '', '', 'ABM', 12, '', '', '', '', 'thea@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$VR8R2Q6UPU6iClYsfo.mb.1R5FjZc.luVRGQvV90PULBZf782jgV2', 1, 'Enrolled', NULL);
+INSERT INTO `tbl_students` (`user_id`, `user_name`, `lname`, `fname`, `middleInitial`, `Suffix`, `course`, `year`, `sy`, `contact`, `gender`, `bdate`, `pob`, `email`, `major`, `nationality`, `civilStatus`, `religion`, `modality`, `fb`, `curAddress`, `cityAdd`, `zipcode`, `fatherName`, `fwork`, `motherName`, `mwork`, `primarySchool`, `primaryAddress`, `primaryCompleted`, `entermediateSchool`, `entermediateAddress`, `entermediateCompleted`, `hsSchool`, `hsAddress`, `hsCompleted`, `shSchool`, `shAddress`, `shCompleted`, `collegeSchool`, `collegeAddress`, `collegeCompleted`, `user_image`, `user_role`, `user_pass`, `semester`, `status`, `date`, `created_at`) VALUES
+(3, 'MIIT-2021-160', 'Tahanlangit', 'Louie', '', '', 'BSIT', 4, '2024-2025', '', '', '', '', 'louiethnlngt@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$ed.brAOqxTOf7vNlF90NMOSYauVd.fEZ/SfCNUV8sIXUZRQJy9p1O', 1, 'Enrolled', NULL, '2024-10-27 13:47:47'),
+(4, 'MIIT-2021-290', 'Rizada', 'Junrih', '', '', 'BSIT', 4, NULL, '', '', '', '', 'rizada@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$cJ2G/xTNDiPHlR0PbwJ2Ru0RCMHKW0KKD1XxcrmwyDT9bWTGLtoqu', 1, 'Enrolled', NULL, '2024-10-27 13:48:10'),
+(5, 'MIIT-2021-124', 'Aguipo', 'Ashielamae', '', '', 'BSIT', 4, NULL, '', '', '', '', 'aguipo@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$hFBg2TcfYSg.XTVZOcbeDeAJksKEZIT01vcHKSGTW7j0cAq29yqka', 1, 'Enrolled', NULL, '2024-10-27 13:48:45'),
+(6, 'MIIT-2021-080', 'Lazaga', 'Cherry mae', '', '', 'BSBA', 4, NULL, '', '', '', '', 'cherry@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$i3r9ygggLneM6zJEIerdzuZTQ7x2wGKSOl6s2.o0Oz8e8EADNxpSC', 1, 'Enrolled', NULL, '2024-11-05 00:03:06'),
+(7, 'MIIT-2024-120', 'Dihayco', 'Althea', '', '', 'ABM', 12, NULL, '', '', '', '', 'thea@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$tCQ8iqCMcw0IwHlBYTQlFukRpMbamgcBU7SSEUQjIWu6WZunUaL5S', 1, 'Enrolled', NULL, '2024-11-05 00:03:45'),
+(12, 'MIIT-2021-123', 'Algarme', 'Zean Mariuss', 'C.', '', 'BSIT', 4, '2024-2025', '09912988991', 'Male', '2002-11-22', 'N/A', 'zuild@gmail.com', 'Programming', 'Filipino', 'Single', 'Christian', 'Face to Face', 'Zean Marius C. Algarme', 'Tungkop, Minglanilla', 'Cebu', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '../admin/upload/upload-files/zean.jpg', 'student', '$2y$10$U9suz/.D9hO70cAR4HWm6uLx./mEnUKGZZolKiKreOEkHRsr53U4q', 1, 'Enrolled', '0000-00-00', '2024-11-07 05:40:27'),
+(14, 'MIIT-2021-137', 'Dihayco', 'Sheinalie', 'V.', '', 'BSIT', 4, '2024-2025', '09996707038', 'Female', '2003-02-09', 'Mactan, Lapu-Lapu City , Cebu', 'dihayco020903@gmail.com', 'Programming', 'Filipino', 'Single', 'Roman Catholic', 'Face to Face', 'Shien Dihayco', 'Purok Sagay, Kalubihan', 'City of Naga', '6037', 'Mechille V. DIhayco', 'N/A', 'Divina V. Dihayco', 'Baby Sitter', 'Punta Engano Elementary School', 'Puntan Engano, Lapu-Lapu City', '2012-2013', 'TCES', 'Tuyan, City of Naga', '2014-2015', 'TNHS', 'Tabtuy, Tuyan, City of Naga, Cebu', '2018-2019 ', 'TUYAN SENIOR HIGH SCHOOL', 'Tabtuy, Tuyan, City of Naga, Cebu', '2020-2021', 'MIIT', 'INAYAGAN CITY OF NAGA CEBU', '-', '../admin/upload/upload-files/me.jpg', 'student', '$2y$10$AWL8LVEB.T2wNDFDrlNpzuAuXetYJNnM3t22jO3i6nBd6oORpsX92', 1, 'Enrolled', '0000-00-00', '2024-11-09 06:39:57'),
+(15, 'MIIT-2022-198', 'student', 'student', '', '', 'BSIT', 3, NULL, '', '', '', '', 'student200@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$F8sBMqumVPaz3ysIkB/ODO/NGqn6976QqiElohVwReSrqVX3GYHg.', 2, 'Enrolled', NULL, '2024-11-11 07:43:00');
 
 -- --------------------------------------------------------
 
@@ -344,19 +369,29 @@ CREATE TABLE `tbl_student_instructors` (
 --
 
 INSERT INTO `tbl_student_instructors` (`id`, `student_id`, `instructor_id`, `subject_id`) VALUES
-(6, 55, 55, 24),
-(7, 62, 55, 24),
-(8, 64, 55, 24),
-(9, 70, 55, 24),
-(10, 55, 52, 265),
-(11, 62, 52, 265),
-(12, 64, 52, 265),
-(13, 70, 52, 265),
-(18, 73, 62, 267),
-(19, 55, 62, 66),
-(20, 62, 62, 66),
-(21, 64, 62, 66),
-(22, 70, 62, 66);
+(3, 3, 6, 66),
+(4, 4, 6, 66),
+(5, 5, 6, 66),
+(8, 3, 6, 65),
+(9, 4, 6, 65),
+(10, 5, 6, 65),
+(13, 3, 6, 64),
+(14, 4, 6, 64),
+(15, 5, 6, 64),
+(16, 7, 7, 232),
+(19, 3, 7, 63),
+(20, 4, 7, 63),
+(21, 5, 7, 63),
+(24, 3, 8, 67),
+(25, 4, 8, 67),
+(26, 5, 8, 67),
+(27, 12, 7, 63),
+(28, 14, 6, 64),
+(29, 14, 6, 66),
+(30, 14, 6, 65),
+(31, 14, 7, 63),
+(32, 14, 8, 67),
+(34, 15, 23, 52);
 
 -- --------------------------------------------------------
 
@@ -702,19 +737,21 @@ CREATE TABLE `tbl_users` (
   `hire_date` date DEFAULT NULL,
   `department` varchar(100) DEFAULT NULL,
   `phone_number` varchar(15) DEFAULT NULL,
-  `address` varchar(100) DEFAULT NULL
+  `address` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_users`
 --
 
-INSERT INTO `tbl_users` (`user_id`, `user_fname`, `user_lname`, `user_email`, `user_name`, `user_pass`, `user_role`, `user_image`, `date_of_birth`, `gender`, `hire_date`, `department`, `phone_number`, `address`) VALUES
-(37, 'Jessa mae', 'Carzano', 'jCarzano@gmail.com', 'Carzano@123', '$2y$10$EvkWpYHY.6O4XjTMI1yXVu4rpw38pW2PUuHpn0V16e2O23oa.BBSq', 'admin', '../admin/upload/upload-files/carzano.jpg', '1998-05-09', 'Female', '2019-03-02', 'Accounting Department', '09356472827', 'Inayagan, City of Naga'),
-(52, 'Romulo', 'Estrera', 'estrera@gmail.com', 'Estrera', '$2y$10$.W8L3Xy6ln2DmwBUt0sWFez1UfYj0byLvoCTQuEvXVSdSxFJv.Aqy', 'teacher', '', '1980-02-28', 'Male', '2018-02-09', 'IT', '09999999998', 'Car-Car City, Cebu'),
-(55, 'Michael John ', 'Bustamante', 'ser.mike@gmail.com', 'Mike', '$2y$10$/Z0UlCAijDzg5/Hu0BgKm.xDaMhLxdY/LDWA2rAlzaN/a6UlTsXxi', 'teacher', '../admin/upload/upload-files/ser_mike.jpg', '1989-01-01', 'Male', '2020-01-02', 'IT', '09999999999', 'Tungkop, Minglanilla, Cebu'),
-(62, 'Jason', 'Lipreso', 'jLipreso@gmail.com', 'jLipreso', '$2y$10$PhJWuONt8ruLngzav7v1g.OGuAoxUJUOEw9xwAMcnYiPRfjv8QLb.', 'teacher', '', '1998-01-20', 'Male', '2024-03-28', 'IT', '091234567898', 'City of Naga, Cebu'),
-(65, 'admin', 'admin', 'admin@gmail.com', 'admin', '$2y$10$rCn3pvsp/.vc5/GjlB/5R.TfwZZ9mlrZAeWv0p4X1yPLsks0jvF.G', 'admin', '../admin/upload/upload-files/20240905_154657.jpg', '1990-10-11', 'Female', '2020-01-01', 'IT', '09999999999', 'Tungkop, Minglanilla, Cebu');
+INSERT INTO `tbl_users` (`user_id`, `user_fname`, `user_lname`, `user_email`, `user_name`, `user_pass`, `user_role`, `user_image`, `date_of_birth`, `gender`, `hire_date`, `department`, `phone_number`, `address`, `created_at`) VALUES
+(5, 'Jessamae', 'Carzano', 'jessamae@gmail.com', 'Carzano123', '$2y$10$jTZGRfxOfLzaaX1MU7gvEuJ1keSj37cfdamBSFZUhcvYDIdJs9/SO', 'admin', '../admin/upload/upload-files/carzano.jpg', '1995-03-04', 'Female', '2024-09-15', 'IT Department', '09225687342', 'City of Naga, Cebu', '2024-10-27 13:43:00'),
+(6, 'Jason', 'Lipreso', 'jLipreso@gmail.com', 'jLipreso', '$2y$10$WPEuWqddPAGB6c.HZ.bkZ.ehFahpkUl2MXv4nWAJnpUP4PAI1qXmu', 'teacher', '../admin/upload/upload-files/cabag.webp', '1996-03-04', 'Male', '2024-09-15', 'IT', '093748264853', 'City of Naga, Cebu', '2024-10-27 13:46:10'),
+(7, 'Michael John ', 'Bustamante', 'ser.mike@gmail.com', 'Bustamante', '$2y$10$7pGbgbZ1ESJEjsBDlWjsD.xxXL1QDFC2094J8wJjuZqXNE3qiHw.q', 'teacher', '../admin/upload/upload-files/ser_mike.jpg', '1996-11-19', 'Male', '2015-01-29', 'IT Department', '09999999999', 'Lipata, Minglanilla , Cebu', '2024-10-27 13:46:36'),
+(8, 'Romulo', 'Estrera', 'estrera@gmail.com', 'Estrera', '$2y$10$B../i9kFcjWHnaOgpS2FceCstKJqMNLPuuof3C8pDwkcTEathraBy', 'teacher', '', '1984-11-08', 'Male', '2015-11-08', 'IT Department', '09456373823', 'Car-Car City, Cebu', '2024-10-27 13:46:55'),
+(20, 'Admin', 'Admin', 'admin123@gmail.com', 'Admin', '$2y$10$kGxcCcffxLzu2c9bPljWXe4z0ngREcVXN9Iz7qTe.UeaOWpMdU.c6', 'admin', '', '2000-11-08', 'Female', '2024-11-08', 'Admin', '0987194878', 'Inayagan, City of Naga', '2024-11-08 08:28:25'),
+(23, 'Ethel', 'Bolen', 'ethelbolen@gmail.com', 'Bolen', '$2y$10$uCyGXQPfoQXtIs345FI2ke0ZIgFmESvakqtNVEHXCtBsgkqYRd6tm', 'teacher', '', NULL, NULL, NULL, NULL, NULL, NULL, '2024-11-11 07:38:30');
 
 --
 -- Indexes for dumped tables
@@ -825,19 +862,19 @@ ALTER TABLE `tbl_days`
 -- AUTO_INCREMENT for table `tbl_events`
 --
 ALTER TABLE `tbl_events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `tbl_grades`
 --
 ALTER TABLE `tbl_grades`
-  MODIFY `grade_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `grade_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tbl_payments`
 --
 ALTER TABLE `tbl_payments`
-  MODIFY `payment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `payment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbl_rooms`
@@ -849,25 +886,25 @@ ALTER TABLE `tbl_rooms`
 -- AUTO_INCREMENT for table `tbl_schedule`
 --
 ALTER TABLE `tbl_schedule`
-  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
+  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
 
 --
 -- AUTO_INCREMENT for table `tbl_sched_time`
 --
 ALTER TABLE `tbl_sched_time`
-  MODIFY `time_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `time_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `tbl_students`
 --
 ALTER TABLE `tbl_students`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `tbl_student_instructors`
 --
 ALTER TABLE `tbl_student_instructors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `tbl_subjects`
@@ -879,7 +916,7 @@ ALTER TABLE `tbl_subjects`
 -- AUTO_INCREMENT for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Constraints for dumped tables
