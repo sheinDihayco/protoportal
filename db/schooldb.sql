@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 16, 2024 at 07:04 AM
+-- Generation Time: Nov 19, 2024 at 01:04 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -391,7 +391,10 @@ INSERT INTO `tbl_student_instructors` (`id`, `student_id`, `instructor_id`, `sub
 (30, 14, 6, 65),
 (31, 14, 7, 63),
 (32, 14, 8, 67),
-(34, 15, 23, 52);
+(34, 15, 23, 52),
+(35, 7, 7, 228),
+(36, 7, 23, 227),
+(37, 7, 6, 233);
 
 -- --------------------------------------------------------
 
@@ -750,7 +753,7 @@ INSERT INTO `tbl_users` (`user_id`, `user_fname`, `user_lname`, `user_email`, `u
 (6, 'Jason', 'Lipreso', 'jLipreso@gmail.com', 'jLipreso', '$2y$10$WPEuWqddPAGB6c.HZ.bkZ.ehFahpkUl2MXv4nWAJnpUP4PAI1qXmu', 'teacher', '../admin/upload/upload-files/cabag.webp', '1996-03-04', 'Male', '2024-09-15', 'IT', '093748264853', 'City of Naga, Cebu', '2024-10-27 13:46:10'),
 (7, 'Michael John ', 'Bustamante', 'ser.mike@gmail.com', 'Bustamante', '$2y$10$7pGbgbZ1ESJEjsBDlWjsD.xxXL1QDFC2094J8wJjuZqXNE3qiHw.q', 'teacher', '../admin/upload/upload-files/ser_mike.jpg', '1996-11-19', 'Male', '2015-01-29', 'IT Department', '09999999999', 'Lipata, Minglanilla , Cebu', '2024-10-27 13:46:36'),
 (8, 'Romulo', 'Estrera', 'estrera@gmail.com', 'Estrera', '$2y$10$B../i9kFcjWHnaOgpS2FceCstKJqMNLPuuof3C8pDwkcTEathraBy', 'teacher', '', '1984-11-08', 'Male', '2015-11-08', 'IT Department', '09456373823', 'Car-Car City, Cebu', '2024-10-27 13:46:55'),
-(20, 'Admin', 'Admin', 'admin123@gmail.com', 'Admin', '$2y$10$kGxcCcffxLzu2c9bPljWXe4z0ngREcVXN9Iz7qTe.UeaOWpMdU.c6', 'admin', '', '2000-11-08', 'Female', '2024-11-08', 'Admin', '0987194878', 'Inayagan, City of Naga', '2024-11-08 08:28:25'),
+(20, 'Admin', 'Admin', 'admin123@gmail.com', 'Admin', '$2y$10$kGxcCcffxLzu2c9bPljWXe4z0ngREcVXN9Iz7qTe.UeaOWpMdU.c6', 'admin', '../admin/upload/upload-files/cabag.webp', '2000-11-08', 'Male', '2024-11-08', 'Admin', '0987194878', 'Inayagan, City of Naga', '2024-11-08 08:28:25'),
 (23, 'Ethel', 'Bolen', 'ethelbolen@gmail.com', 'Bolen', '$2y$10$uCyGXQPfoQXtIs345FI2ke0ZIgFmESvakqtNVEHXCtBsgkqYRd6tm', 'teacher', '', NULL, NULL, NULL, NULL, NULL, NULL, '2024-11-11 07:38:30');
 
 --
@@ -904,7 +907,7 @@ ALTER TABLE `tbl_students`
 -- AUTO_INCREMENT for table `tbl_student_instructors`
 --
 ALTER TABLE `tbl_student_instructors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `tbl_subjects`

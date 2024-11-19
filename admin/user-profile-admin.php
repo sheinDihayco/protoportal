@@ -66,7 +66,7 @@
 
                         <div class="row">
                             <div class="col-lg-3 col-md-4 label">Gender</div>
-                            <div class="col-lg-9 col-md-8"><?php echo ($studs['gender'] == 'M') ? 'Male' : 'Female'; ?></div>
+                            <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs['gender']); ?></div>
                         </div>
 
                         <div class="row">
@@ -183,7 +183,7 @@
                             </div>
                             <div class="col-md-3">
                                 <label for="gender" class="form-label">Gender:</label>
-                                <input type="text" id="gender" name="gend" class="form-control" value="<?php echo ($studs['gender'] == 'M') ? 'Male' : 'Female'; ?>" readonly>
+                                <input type="text" id="gender" name="gend" class="form-control" value="<?php echo htmlspecialchars($studs['gender']); ?>" readonly>
                             </div>
                         </div>
 

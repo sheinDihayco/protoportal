@@ -72,12 +72,12 @@
                                 </div>
                                 <div class="info-item">
                                     <strong>Course & Year:</strong> 
-                                    <?php echo htmlspecialchars($studentInfo['course']); ?> - <?php echo htmlspecialchars($studentInfo['year']); ?>
+                                  <?php echo htmlspecialchars($studentInfo['course']); ?> - <?php echo htmlspecialchars($yearText[$selectedYear] ?? ''); ?>
                                 </div>
-                            </div>
+                            </div>  
                             <div class="info-row">
                                 <div class="info-item">
-                                    <strong>User Name:</strong> 
+                                    <strong>School ID:</strong> 
                                     <?php echo htmlspecialchars($studentInfo['user_name']); ?>
                                 </div>
                                 <div class="info-item">

@@ -6,7 +6,11 @@
         <h1>Student Records</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="../admin/classes.php">Classes</a></li>
+                <li class="breadcrumb-item">
+                    <a href="../admin/classes.php" class="icon-link">
+                        <i class="ri-arrow-go-back-line"></i>
+                    </a>
+                </li>
                 <li class="breadcrumb-item active">Enrolled</li>
             </ol>
         </nav>

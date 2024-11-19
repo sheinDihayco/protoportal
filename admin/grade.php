@@ -48,12 +48,12 @@
                     <div class="col-md-4">
                         <select class="form-select" name="year" id="year" disabled onchange="toggleFields()" required>
                             <option value="" selected>Select Year Level</option>
-                            <option value="1">1st Year</option>
-                            <option value="2">2nd Year</option>
-                            <option value="3">3rd Year</option>
-                            <option value="4">4th Year</option>
-                            <option value="11">11th Grade</option>
-                            <option value="12">12th Grade</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
                         </select>
                     </div>
 

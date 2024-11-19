@@ -77,11 +77,21 @@ if (isset($_POST['search']) && isset($_POST['user_name'])) {
 <?php
 // Assuming the form is submitted via POST and semester is set
 $selectedSemester = isset($_POST['semester']) ? $_POST['semester'] : '';
+$selectedYear = isset($_POST['year']) ? $_POST['year'] : '';
 
 // Map semester values to display text (optional)
 $semesterText = [
     '1' => '1st',
     '2' => '2nd',
+];
+$yearText = [
+    '1' => '1',
+    '2' => '2',
+    '3' => '3',
+    '4' => '4',
+    '11' => '11',
+    '12' => '12', 
+    
 ];
 
 // Display the semester if selected

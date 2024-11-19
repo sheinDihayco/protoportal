@@ -68,7 +68,7 @@
 
                     <div class="row">
                         <div class="col-lg-3 col-md-4 label">Gender</div>
-                        <div class="col-lg-9 col-md-8"><?php echo ($studs['gender'] == 'M') ? 'Male' : 'Female'; ?></div>
+                        <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($studs['gender']); ?></div>
                     </div>
 
                     <div class="row">
@@ -148,28 +148,28 @@
                 </div>
 
                 <script>
-                            function previewImageAndShowSaveButton() {
-                                var fileInput = document.getElementById('fileInput');
-                                var currentPhoto = document.getElementById('currentPhoto');
-                                var saveButton = document.getElementById('saveButton');
-                                var updateProfileText = document.getElementById('updateProfileText');
-                                var updateProfileIcon = document.getElementById('updateProfileIcon');
+                    function previewImageAndShowSaveButton() {
+                        var fileInput = document.getElementById('fileInput');
+                        var currentPhoto = document.getElementById('currentPhoto');
+                        var saveButton = document.getElementById('saveButton');
+                        var updateProfileText = document.getElementById('updateProfileText');
+                        var updateProfileIcon = document.getElementById('updateProfileIcon');
 
-                                // Check if a file is selected
-                                if (fileInput.files && fileInput.files[0]) {
-                                    var reader = new FileReader();
-                                    reader.onload = function (e) {
-                                        // Replace the current profile image with the new selected image
-                                        currentPhoto.src = e.target.result;
-                                    }
-                                    reader.readAsDataURL(fileInput.files[0]);
-
-                                    // Display the save button and hide "Update Profile" text and icon
-                                    saveButton.style.display = 'block';
-                                    updateProfileText.style.display = 'none';
-                                    updateProfileIcon.style.display = 'none';
-                                }
+                        // Check if a file is selected
+                        if (fileInput.files && fileInput.files[0]) {
+                            var reader = new FileReader();
+                            reader.onload = function (e) {
+                                // Replace the current profile image with the new selected image
+                                currentPhoto.src = e.target.result;
                             }
+                            reader.readAsDataURL(fileInput.files[0]);
+
+                            // Display the save button and hide "Update Profile" text and icon
+                            saveButton.style.display = 'block';
+                            updateProfileText.style.display = 'none';
+                            updateProfileIcon.style.display = 'none';
+                        }
+                    }
                 </script>
 
                 <form action="functions/update-instructor.php" method="post" class="needs-validation" novalidate>
@@ -186,7 +186,7 @@
                         </div>
                         <div class="col-md-3">
                             <label for="gender" class="form-label">Gender:</label>
-                            <input type="text" id="gender" name="gend" class="form-control" value="<?php echo ($studs['gender'] == 'M') ? 'Male' : 'Female'; ?>" readonly>
+                            <input type="text" id="gender" name="gend" class="form-control" value="<?php echo htmlspecialchars($studs['gender']); ?>" readonly>
                         </div>
                     </div>
 

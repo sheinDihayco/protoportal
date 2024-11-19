@@ -124,7 +124,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['assignStudents'])) {
     }
 </script>
 
-
 <script>
     function clearSearchForm() {
         // Clear all input fields in the form
@@ -135,12 +134,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['assignStudents'])) {
             .every(input => input.value === '');
 
         if (isFormEmpty) {
-            const studentResult = document.querySelector('.studentResult');
+            const studentResult = document.querySelector('.studentSelection');
+
             if (studentResult) {
                 studentResult.style.display = 'none';
             }
         }
     }
+</script>
+
+<!-- JavaScript for Select All functionality -->
+<script>
+    document.getElementById('select-all').addEventListener('click', function() {
+        var checkboxes = document.querySelectorAll('.student-checkbox');
+        for (var checkbox of checkboxes) {
+            checkbox.checked = this.checked;
+        }
+    });
 </script>
 
 <style>
