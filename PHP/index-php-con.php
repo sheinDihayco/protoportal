@@ -109,3 +109,45 @@ $connection->close();
     <?php unset($_SESSION['success']); ?>
   <?php endif; ?>
 </script>
+
+<script>
+    // Check if the session variable 'user_updated' is set
+    <?php if (isset($_SESSION['change_password']) && $_SESSION['change_password']): ?>
+        // Show SweetAlert success message with customized button and styling
+        Swal.fire({
+            icon: 'success',
+            title: 'Update Completed!',
+            text: 'Your password has been successfully updated.',
+            confirmButtonText: 'OK',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Redirect to the admin page when OK is clicked
+                window.location.href = '../admin/index.php';
+            }
+        });
+
+        // Unset the session variable to prevent repeated alerts
+        <?php unset($_SESSION['change_password']); ?>
+    <?php endif; ?>
+</script>
+
+<script>
+    // Check if the session variable 'not_change_password' is set
+    <?php if (isset($_SESSION['not_change_password']) && $_SESSION['not_change_password']): ?> 
+        // Show SweetAlert error message with customized button and styling
+        Swal.fire({
+            icon: 'error',  // Use 'error' icon for failed updates
+            title: 'Update Failed!',
+            text: 'Your password could not be updated. Please check your inputs and try again.',
+            confirmButtonText: 'Try Again',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Optionally redirect to the change password page or stay on the same page
+                window.location.href = '../admin/change-pass.php';  // Redirect to the change password page
+            }
+        });
+
+        // Unset the session variable to prevent repeated alerts
+        <?php unset($_SESSION['not_change_password']); ?>
+    <?php endif; ?>
+</script>

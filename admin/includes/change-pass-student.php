@@ -9,7 +9,7 @@ $dbname = "schooldb";
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die(json_encode(["status" => "error", "message" => "Connection failed."]));
 }
 
 session_start();
@@ -20,8 +20,8 @@ if (!isset($_SESSION["login"])) {
 
 $userid = $_SESSION["login"];
 
-$roleSql = "SELECT user_role FROM tbl_users WHERE user_id = ?";
-
+// Ensure the user is a student
+$roleSql = "SELECT user_role FROM tbl_students WHERE user_id = ?";
 if ($roleStmt = $conn->prepare($roleSql)) {
     $roleStmt->bind_param("s", $userid);
 
@@ -29,6 +29,10 @@ if ($roleStmt = $conn->prepare($roleSql)) {
         $roleStmt->bind_result($userRole);
         $roleStmt->fetch();
         $roleStmt->close();
+
+        if ($userRole !== 'student') {
+            die(json_encode(["status" => "error", "message" => "Unauthorized access."]));
+        }
     } else {
         die(json_encode(["status" => "error", "message" => "Error fetching user role."]));
     }
@@ -43,6 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $newPassword = trim($_POST['newPassword']);
     $renewPassword = trim($_POST['renewPassword']);
 
+    // Validate input fields
     if (empty($currentPassword) || empty($newPassword) || empty($renewPassword)) {
         echo json_encode(["status" => "error", "message" => "All fields are required."]);
         exit;
@@ -53,10 +58,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    $passwordSql = ($userRole === 'student') 
-        ? "SELECT user_pass FROM tbl_students WHERE user_id = ?" 
-        : "SELECT user_pass FROM tbl_users WHERE user_id = ?";
-
+    // Fetch the current hashed password
+    $passwordSql = "SELECT user_pass FROM tbl_students WHERE user_id = ?";
     if ($stmt = $conn->prepare($passwordSql)) {
         $stmt->bind_param("s", $userid);
 
@@ -65,24 +68,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->fetch();
             $stmt->close();
 
+            // Verify the current password
             if (password_verify($currentPassword, $hashedPassword)) {
+                // Hash the new password
                 $newHashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
 
-                $updateSql = ($userRole === 'student') 
-                    ? "UPDATE tbl_students SET user_pass = ? WHERE user_id = ?" 
-                    : "UPDATE tbl_users SET user_pass = ? WHERE user_id = ?";
-
+                // Update the password in the database
+                $updateSql = "UPDATE tbl_students SET user_pass = ? WHERE user_id = ?";
                 if ($updateStmt = $conn->prepare($updateSql)) {
                     $updateStmt->bind_param("ss", $newHashedPassword, $userid);
 
                     if ($updateStmt->execute()) {
                         $_SESSION['change_password'] = true;
-                        header("Location: ../account-settings-admin?changepass=success");
+                        header("Location: ../account-settings.php?changepass=success");
                         echo json_encode(["status" => "success", "message" => "Password updated successfully."]);
                         exit;
                     } else {
-                        $_SESSION['not_change_password'] = true;
-                        header("Location: ../account-settings-admin?changepass=success");
+                        $_SESSION['change_password'] = true;
+                        header("Location: ../account-settings.php?changepass=success");
                         echo json_encode(["status" => "error", "message" => "Error updating password."]);
                         exit;
                     }
@@ -111,4 +114,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit;
 }
 ?>
-

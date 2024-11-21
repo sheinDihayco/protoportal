@@ -101,33 +101,33 @@
 
                 <div class="tab-pane fade pt-3" id="profile-change-password">
                   <!-- Change Password Form -->
-                    <form action="../admin/includes/change-pass.php" method="post">
+                  <form action="../admin/includes/change-pass-instructor.php" method="post" accept-charset="UTF-8">
 
-                          <div class="row mb-3">
-                              <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
-                              <div class="col-md-8 col-lg-9">
+                      <div class="row mb-3">
+                          <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                          <div class="col-md-8 col-lg-9">
                               <input name="currentPassword" type="password" class="form-control" id="currentPassword" required>
-                              </div>
                           </div>
+                      </div>
 
-                          <div class="row mb-3">
-                              <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
-                              <div class="col-md-8 col-lg-9">
+                      <div class="row mb-3">
+                          <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                          <div class="col-md-8 col-lg-9">
                               <input name="newPassword" type="password" class="form-control" id="newPassword" required>
-                              </div>
                           </div>
+                      </div>
 
-                          <div class="row mb-3">
-                              <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
-                              <div class="col-md-8 col-lg-9">
+                      <div class="row mb-3">
+                          <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+                          <div class="col-md-8 col-lg-9">
                               <input name="renewPassword" type="password" class="form-control" id="renewPassword" required>
-                              </div>
                           </div>
+                      </div>
 
-                          <div class="text-center">
-                              <button type="submit" class="btn btn-primary">Change Password</button>
-                          </div>
-                    </form>
+                      <div class="text-center">
+                          <button type="submit" class="btn btn-primary">Change Password</button>
+                      </div>
+                  </form>
                   <!-- End Change Password Form -->
                 </div>
 
@@ -154,4 +154,44 @@
 
 <?php include_once "../templates/footer.php"; ?>
 
-  
+<script>
+    // Check if the session variable 'user_updated' is set
+    <?php if (isset($_SESSION['change_password']) && $_SESSION['change_password']): ?>
+        // Show SweetAlert success message with customized button and styling
+        Swal.fire({
+            icon: 'success',
+            title: 'Update Completed!',
+            text: 'Your password has been successfully updated.',
+            confirmButtonText: 'OK',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Redirect to the admin page when OK is clicked
+                window.location.href = '../admin/index2.php';
+            }
+        });
+
+        // Unset the session variable to prevent repeated alerts
+        <?php unset($_SESSION['change_password']); ?>
+    <?php endif; ?>
+</script>
+
+<script>
+    // Check if the session variable 'not_change_password' is set
+    <?php if (isset($_SESSION['not_change_password']) && $_SESSION['not_change_password']): ?> 
+        // Show SweetAlert error message with customized button and styling
+        Swal.fire({
+            icon: 'error',  // Use 'error' icon for failed updates
+            title: 'Update Failed!',
+            text: 'Your password could not be updated. Please check your inputs and try again.',
+            confirmButtonText: 'Try Again',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Optionally redirect to the change password page or stay on the same page
+                window.location.href = '../admin/change-pass-instructor.php';  // Redirect to the change password page
+            }
+        });
+
+        // Unset the session variable to prevent repeated alerts
+        <?php unset($_SESSION['not_change_password']); ?>
+    <?php endif; ?>
+</script>

@@ -143,6 +143,7 @@ $connection->close();
 <!-- Optional: AJAX for dynamic updates (if required) -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
     $(document).ready(function() {
@@ -181,8 +182,6 @@ $connection->close();
     });
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <script>
   // Check if the session variable 'user_created' is set
   <?php if (isset($_SESSION['success']) && $_SESSION['success']): ?>
@@ -197,6 +196,49 @@ $connection->close();
     // Unset the session variable to prevent repeated alerts
     <?php unset($_SESSION['success']); ?>
   <?php endif; ?>
+</script>
+
+
+<script>
+    // Check if the session variable 'user_updated' is set
+    <?php if (isset($_SESSION['change_password']) && $_SESSION['change_password']): ?>
+        // Show SweetAlert success message with customized button and styling
+        Swal.fire({
+            icon: 'success',
+            title: 'Update Completed!',
+            text: 'Your password has been successfully updated.',
+            confirmButtonText: 'OK',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Redirect to the admin page when OK is clicked
+                window.location.href = '../admin/index2.php';
+            }
+        });
+
+        // Unset the session variable to prevent repeated alerts
+        <?php unset($_SESSION['change_password']); ?>
+    <?php endif; ?>
+</script>
+
+<script>
+    // Check if the session variable 'not_change_password' is set
+    <?php if (isset($_SESSION['not_change_password']) && $_SESSION['not_change_password']): ?> 
+        // Show SweetAlert error message with customized button and styling
+        Swal.fire({
+            icon: 'error',  // Use 'error' icon for failed updates
+            title: 'Update Failed!',
+            text: 'Your password could not be updated. Please check your inputs and try again.',
+            confirmButtonText: 'Try Again',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Optionally redirect to the change password page or stay on the same page
+                window.location.href = '../admin/change-pass-instructor.php';  // Redirect to the change password page
+            }
+        });
+
+        // Unset the session variable to prevent repeated alerts
+        <?php unset($_SESSION['not_change_password']); ?>
+    <?php endif; ?>
 </script>
 
 

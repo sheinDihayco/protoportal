@@ -77,12 +77,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     if ($updateStmt->execute()) {
                         $_SESSION['change_password'] = true;
-                        header("Location: ../account-settings-admin?changepass=success");
+                        header("Location: ../account-settings-instructor.php?changepass=success");
                         echo json_encode(["status" => "success", "message" => "Password updated successfully."]);
                         exit;
                     } else {
                         $_SESSION['not_change_password'] = true;
-                        header("Location: ../account-settings-admin?changepass=success");
+                        header("Location: ../account-settings-instructor.php?changepass=success");
                         echo json_encode(["status" => "error", "message" => "Error updating password."]);
                         exit;
                     }
@@ -111,4 +111,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit;
 }
 ?>
-
