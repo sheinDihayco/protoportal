@@ -16,54 +16,54 @@
                 <!-- Search Form for Course and Year -->
                 <form method="POST" action="" class="row g-3 align-items-end">
                     <!-- Course Selection -->
-                    <div class="col-md-4">
-                        <select class="form-select" id="course" name="course" required oninput="toggleFields()" >
-                            <option value="" selected>Select Course</option>
+                    <div class="col-md-4 form-group">
+                        <select class="form-select" id="course" name="course" required onchange="toggleFields()">
+                            <option value="" <?= !isset($_POST['course']) ? 'selected' : '' ?>>Select Course</option>
                             <?php
-                            // Database connection
+                            // Open database connection
                             $database = new Connection();
                             $db = $database->open();
 
                             try {
-                                // Fetch distinct course descriptions
                                 $sql = "SELECT DISTINCT course_description FROM tbl_course";
                                 $stmt = $db->prepare($sql);
                                 $stmt->execute();
 
-                                // Populate the dropdown with course descriptions
                                 foreach ($stmt as $course) {
-                                    echo '<option value="' . htmlspecialchars($course['course_description']) . '">' . htmlspecialchars($course['course_description']) . '</option>';
+                                    $selected = (isset($_POST['course']) && $_POST['course'] == $course['course_description']) ? 'selected' : '';
+                                    echo '<option value="' . htmlspecialchars($course['course_description']) . '" ' . $selected . '>' . htmlspecialchars($course['course_description']) . '</option>';
                                 }
                             } catch (PDOException $e) {
                                 echo "<option value='' disabled>Error fetching courses</option>";
                             }
 
-                            // Close the database connection
+                            // Close database connection
                             $database->close();
                             ?>
                         </select>
                     </div>
 
                     <!-- Year Selection -->
-                    <div class="col-md-4">
-                        <select class="form-select" name="year" id="year" disabled onchange="toggleFields()" required>
-                            <option value="" selected>Select Year Level</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
+                    <div class="col-md-4 form-group">
+                        <select class="form-select" name="year" id="year" <?= empty($_POST['course']) ? 'disabled' : '' ?> required>
+                            <option value="" <?= !isset($_POST['year']) ? 'selected' : '' ?>>Select Year</option>
+                            <?php
+                            $years = [1, 2, 3, 4, 11, 12];
+                            foreach ($years as $yr) {
+                                $selected = (isset($_POST['year']) && $_POST['year'] == $yr) ? 'selected' : '';
+                                echo '<option value="' . $yr . '" ' . $selected . '>' . $yr . '</option>';
+                            }
+                            ?>
                         </select>
                     </div>
 
                     <!-- Search and Clear Buttons -->
-                    <div class="col-md-4 d-flex align-items-end">
+                    <div class="col-md-4 d-flex">
                         <button type="submit" name="search" class="btn btn-primary">
                             <i class="bx bx-search-alt"></i> Search
                         </button>
-                        <button type="button" onclick="clearSearchForm()"  class="btn btn-secondary ms-2">
-                           <i class="bx bx-eraser"></i> Clear
+                        <button type="button" onclick="clearSearchForm()" class="btn btn-secondary ms-2">
+                            <i class="bx bx-eraser"></i> Clear
                         </button>
                     </div>
                 </form>
@@ -77,8 +77,8 @@
                 <div class="card mt-4">
                     <div class="card-body">
                         <p class="card-title">
-                            <strong>Course:</strong> <?php echo htmlspecialchars($_POST['course']); ?><br>
-                            <strong>Year Level:</strong> <?php echo htmlspecialchars($_POST['year']); ?>
+                            <strong>Course:</strong> <?= htmlspecialchars($_POST['course']); ?><br>
+                            <strong>Year Level:</strong> <?= htmlspecialchars($_POST['year']); ?>
                         </p>
 
                         <!-- Displaying the Table of Grades Based on Search -->
@@ -122,14 +122,14 @@
                                             ORDER BY student_name, subject_code, term
                                         ";
 
-                                        $stmt = $pdo->prepare($sql);
+                                        $stmt = $db->prepare($sql);
                                         $stmt->bindParam(':instructor_id', $userid, PDO::PARAM_INT);
-                                        $stmt->bindParam(':course_id', $course_id, PDO::PARAM_INT);
+                                        $stmt->bindParam(':course_id', $course_id, PDO::PARAM_STR);
                                         $stmt->bindParam(':year', $year, PDO::PARAM_INT);
                                         $stmt->execute();
 
                                         if ($stmt->rowCount() === 0) {
-                                            echo "<tr><td colspan='8'>No grades found for this search criteria.</td></tr>";
+                                            echo "<tr><td colspan='8' class='text-danger'>No grades found.</td></tr>";
                                         } else {
                                             $grades_by_student = [];
 
@@ -140,8 +140,8 @@
 
                                                 if (!isset($grades_by_student[$student_name][$subject_code])) {
                                                     $grades_by_student[$student_name][$subject_code] = [
-                                                    'description' => $row['description'],
-                                                    'grades' => ['Prelim' => null, 'Midterm' => null, 'Pre-final' => null, 'Final' => null],
+                                                        'description' => $row['description'],
+                                                        'grades' => ['Prelim' => null, 'Midterm' => null, 'Pre-final' => null, 'Final' => null],
                                                     ];
                                                 }
 
@@ -282,6 +282,10 @@
         .info-item {
             flex-basis: 100%;  /* Make each item take the full width */
         }
+    }
+    .text-danger {
+        font-style: italic;
+        text-align: center;
     }
 
 </style>

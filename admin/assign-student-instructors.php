@@ -258,12 +258,12 @@
 
     <!-- JavaScript for Select All functionality -->
     <script>
-    document.getElementById('select-all').addEventListener('click', function() {
-        var checkboxes = document.querySelectorAll('.student-checkbox');
-        for (var checkbox of checkboxes) {
-            checkbox.checked = this.checked;
-        }
-    });
+        document.getElementById('select-all').addEventListener('click', function() {
+            var checkboxes = document.querySelectorAll('.student-checkbox');
+            for (var checkbox of checkboxes) {
+                checkbox.checked = this.checked;
+            }
+        });
     </script>
 
 </section>
@@ -335,6 +335,9 @@ form .btn-success:hover {
     padding: 5px 10px;
     border-radius: 20px;
     display: inline-block;
+}
+.text-danger{
+    font-style: italic;
 }
 </style>
 <?php include_once "../templates/footer.php"; ?>

@@ -36,43 +36,42 @@
         </div>
     </div>
 
-    <?php
-    // Only display the table if search_user is not empty
-    if (isset($_GET['search_user']) && !empty($_GET['search_user'])):
-    ?>
-        <!-- Display Table -->
-        <div class="col-12 tblStudents">
-            <div class="card recent-sales overflow-auto">
-                <div class="card-body">
-                    <h5 class="card-title">Result <span>| Enrolled Student</span></h5>
+<?php if (isset($_GET['search_user']) && !empty($_GET['search_user'])): ?>
+    <!-- Display Table -->
+    <div class="col-12 tblStudents">
+        <div class="card recent-sales overflow-auto">
+            <div class="card-body">
+                <h5 class="card-title">Result <span>| Enrolled Student</span></h5>
 
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">Student ID</th>
-                                <th scope="col">Full Name</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            // Database connection
-                            $database = new Connection();
-                            $db = $database->open();
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Student ID</th>
+                            <th scope="col">Full Name</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        // Database connection
+                        $database = new Connection();
+                        $db = $database->open();
 
-                            try {
-                                // Query to fetch students based on search criteria
-                                $search_user = htmlspecialchars($_GET['search_user']);
-                                $sql = "SELECT * FROM tbl_students WHERE user_name LIKE :search_user ORDER BY lname ASC";
-                                $stmt = $db->prepare($sql);
-                                $stmt->execute(['search_user' => "%$search_user%"]);
+                        try {
+                            // Query to fetch students based on search criteria
+                            $search_user = htmlspecialchars($_GET['search_user']);
+                            $sql = "SELECT * FROM tbl_students WHERE user_name LIKE :search_user ORDER BY lname ASC";
+                            $stmt = $db->prepare($sql);
+                            $stmt->execute(['search_user' => "%$search_user%"]);
 
+                            // Check if results are found
+                            if ($stmt->rowCount() > 0) {
                                 while ($row = $stmt->fetch()) {
-                            ?>
+                        ?>
                                 <tr>
-                                    <th scope="row" style="font-weight:bold;"><a href=""><?php echo $row["user_name"] ?></a></th>
-                                    <td><?php echo $row["lname"] ?>, <?php echo $row["fname"] ?></td>
+                                    <th scope="row" style="font-weight:bold;"><a href=""><?php echo htmlspecialchars($row["user_name"]); ?></a></th>
+                                    <td><?php echo htmlspecialchars($row["lname"]); ?>, <?php echo htmlspecialchars($row["fname"]); ?></td>
                                     <td>
                                         <?php if (htmlspecialchars($row['status']) == 'Enrolled'): ?>
                                             <span class="badge badge-success">Enrolled</span>
@@ -92,21 +91,24 @@
                                         </form>
                                     </td>
                                 </tr>
-                            <?php
+                        <?php
                                 }
-                            } catch (PDOException $e) {
-                                echo "There is some problem in connection: " . $e->getMessage();
+                            } else {
+                                // No results found
+                                echo "<tr><td colspan='4' class='text-danger'>No records found.</td></tr>";
                             }
-                            $database->close();
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
+                        } catch (PDOException $e) {
+                            echo "There is some problem in connection: " . $e->getMessage();
+                        }
+                        $database->close();
+                        ?>
+                    </tbody>
+                </table>
             </div>
         </div>
-    <?php
-    endif;
-    ?>
+    </div>
+<?php endif; ?>
+
 </div>
 
 </main><!-- End #main -->
@@ -148,7 +150,10 @@
         border-radius: 20px;
         display: inline-block;
     }
-
+    .text-danger{
+        text-align: center;
+        font-style: italic;
+    }
 </style>
 <?php
 include_once "../templates/footer.php";

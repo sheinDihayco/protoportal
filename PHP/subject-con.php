@@ -181,7 +181,7 @@ function fetchSubjectData(subjectId) {
       .every(input => input.value === '');
 
     if (isFormEmpty) {
-      const section = document.querySelector('.section.dashboard');
+      const section = document.querySelector('.subjectTable');
       if (section) {
         section.style.display = 'none';
       }

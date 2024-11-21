@@ -10,53 +10,82 @@
     <!-- End Page Title -->
 
     <div class="container">
-        <!-- Start Search bar -->
+        <!-- Start Search Bar -->
         <div class="card mt-4">
             <div class="card-body">
-               <h5 class="card-title">Search grades <span>| Recorded</span></h5>
-                <!-- Improved Search Form -->
-                <form method="POST" action="" class="row g-3 align-items-end">
+                <h5 class="card-title">Search Grades <span>| Recorded</span></h5>
+                <form id="searchGradesForm" action="" method="POST" class="row g-3">
                     <!-- Student ID Input -->
-                    <div class="col-md-4">
-                        <input type="text" name="user_name" id="user_name" class="form-control" placeholder="Enter Student ID (e.g., MIIT-0000-000)" required oninput="toggleFields()">
+                    <div class="col-md-4 form-group">
+                        <input 
+                            type="text" 
+                            name="user_name" 
+                            id="user_name" 
+                            class="form-control" 
+                            placeholder="Enter Student ID (e.g., MIIT-0000-000)" 
+                            required 
+                            value="<?= isset($_POST['user_name']) ? htmlspecialchars($_POST['user_name']) : '' ?>" 
+                            oninput="toggleFields()">
                     </div>
 
                     <!-- Year Selector -->
-                    <div class="col-md-2">
-                        <select name="year" id="year" class="form-control" disabled onchange="toggleFields()">
-                            <option value="">Select Year</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
+                    <div class="col-md-2 form-group">
+                        <select 
+                            class="form-select" 
+                            id="year" 
+                            name="year" 
+                            disabled 
+                            onchange="toggleFields()">
+                            <option value="" selected>Select Year</option>
+                            <?php
+                            $years = [1, 2, 3, 4, 11, 12];
+                            foreach ($years as $yr) {
+                                $selected = isset($_POST['year']) && $_POST['year'] == $yr ? 'selected' : '';
+                                echo "<option value=\"$yr\" $selected>$yr</option>";
+                            }
+                            ?>
                         </select>
                     </div>
 
                     <!-- Semester Selector -->
-                    <div class="col-md-2">
-                        <select name="semester" id="semester" class="form-control" disabled>
-                            <option value="">Select Semester</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
+                    <div class="col-md-2 form-group">
+                        <select 
+                            class="form-select" 
+                            id="semester" 
+                            name="semester" 
+                            disabled>
+                            <option value="" selected>Select Semester</option>
+                            <?php
+                            $semesters = [1, 2];
+                            foreach ($semesters as $sem) {
+                                $selected = isset($_POST['semester']) && $_POST['semester'] == $sem ? 'selected' : '';
+                                echo "<option value=\"$sem\" $selected>$sem</option>";
+                            }
+                            ?>
                         </select>
                     </div>
 
-                    <!-- Search and Clear Buttons -->
-                    <div class="col-md-3 d-flex gap-2">
-                        <button type="submit" name="search" class="btn btn-primary" title="Search">
+                    <!-- Buttons -->
+                    <div class="col-md-3 form-group align-self-end">
+                        <button 
+                            type="submit" 
+                            name="search" 
+                            class="btn btn-primary" 
+                            title="Search">
                             <i class="bx bx-search-alt"></i> Search
                         </button>
-                        <button type="button" class="btn btn-secondary" onclick="clearSearchForm()" title="Clear Search">
+                        <button 
+                            type="button" 
+                            class="btn btn-secondary" 
+                            onclick="clearSearchForm()" 
+                            title="Clear Search">
                             <i class="bx bx-eraser"></i> Clear
                         </button>
                     </div>
                 </form>
-
-            </div> 
+            </div>
         </div>
-        <!-- End Search bar -->
+        <!-- End Search Bar -->
 
         <!-- Start display result -->
         <?php if ($studentInfo): ?>
@@ -149,19 +178,19 @@
                                         <?php endforeach;
                                     else: ?>
                                         <tr>
-                                            <td colspan="8" class="no-results">No grades found.</td>
+                                            <td colspan="8" class="text-danger">No grades found.</td>
                                         </tr>
                                     <?php endif; ?>
                                 </tbody>
                             </table>
                         <?php else: ?>
-                            <p class="no-results">No grades found.</p>
+                            <p class="text-danger">No grades found.</p>
                         <?php endif; ?>
                     </div>
                 </div>
             </div>
         <?php elseif (isset($_POST['search'])): ?>
-            <p class="no-results">No student found.</p>
+            <p class="no-student">No student found.</p>
         <?php endif; ?>
         <!-- End display result -->
     </div>
@@ -196,4 +225,11 @@
         }
     }
 </script>
+<style>
+    .text-danger {
+        text-align: center;
+        font-style: italic;
+    }
+
+</style>
 <?php include_once "../templates/footer.php"; ?>
