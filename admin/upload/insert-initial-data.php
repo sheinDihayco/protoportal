@@ -53,6 +53,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     }
 
     // Redirect based on the result of the operation
-    header("Location: ../user-student.php");
+    header("Location: ../student_profile.php");
     $conn->close();
 }

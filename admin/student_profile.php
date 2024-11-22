@@ -54,7 +54,7 @@
               </button>
 
               <li class="nav-item">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
               </li>
               <li class="nav-item">
                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Info</button>
@@ -273,7 +273,7 @@
               <!--End Profile Overview-->
 
               <!-- Start Profile Edit -->
-              <div class="tab-pane fade profile-edit pt-0" id="profile-edit">
+              <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
                 <h5 class="card-title">Initial Details</h5>
                   <form action="upload/insert-initial-data.php" method="post" class="needs-validation" novalidate>
                     <!-- Hidden field to pass user_id -->

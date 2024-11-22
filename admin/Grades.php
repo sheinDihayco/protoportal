@@ -168,10 +168,15 @@
 
                                                     if ($grade_count > 0) {
                                                         $final_grade = $total_grade / $grade_count;
-                                                        echo $final_grade <= 3.0 ? 'PASSED' : 'FAILED';
+                                                        if ($final_grade <= 3.0) {
+                                                            echo '<span class="badge badge-success">PASSED</span>';
+                                                        } else {
+                                                            echo '<span class="badge badge-danger">FAILED</span>';
+                                                        }
                                                     } else {
-                                                        echo 'N/A';
+                                                        echo '<span class="badge badge-secondary">No Grade</span>';
                                                     }
+                                                    echo "</td></tr>";
                                                     ?>
                                                 </td>
                                             </tr>
@@ -226,10 +231,68 @@
     }
 </script>
 <style>
+  .badge-success {
+    background-color: green;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    display: inline-block;
+  }
+
+  .badge-danger {
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    display: inline-block;
+  }
+
+  .badge-secondary {
+    background-color: gray;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    display: inline-block;
+  }
+  
+    .card-title {
+        font-size: 16px;
+        line-height: 1.6;
+        color: #333;
+    }
+
+    .info-row {
+        display: flex;
+        justify-content: space-between;  /* Spaces the items between left and right */
+        margin-bottom: 8px; /* Space between rows */
+    }
+
+    .info-item {
+        display: flex;
+        align-items: center;
+        flex-basis: 45%; /* Make sure each item takes up equal space */
+    }
+
+    .info-item strong {
+        margin-right: 10px; /* Space between label and value */
+    }
+
+    /* Optional: Responsive design for smaller screens */
+    @media (max-width: 768px) {
+        .info-row {
+            flex-direction: column; /* Stack the rows vertically */
+            align-items: flex-start;
+        }
+
+        .info-item {
+            flex-basis: 100%;  /* Make each item take the full width */
+        }
+    }
     .text-danger {
-        text-align: center;
         font-style: italic;
+        text-align: center;
     }
 
 </style>
+
 <?php include_once "../templates/footer.php"; ?>

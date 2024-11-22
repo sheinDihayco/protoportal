@@ -38,7 +38,7 @@ if (isset($_SESSION['initial_update']) && $_SESSION['initial_update']) {
                 confirmButtonText: 'OK'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = '../admin/user-student.php';
+                    window.location.href = '../admin/student_profile.php';
                 }
             });
         </script>";
@@ -56,7 +56,7 @@ if (isset($_SESSION['initial_update_error'])) {
                 confirmButtonText: 'OK'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = '../admin/user-student.php';
+                    window.location.href = '../admin/student_profile.php';
                 }
             });
         </script>";

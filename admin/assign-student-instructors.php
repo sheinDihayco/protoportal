@@ -222,8 +222,8 @@
                                         // Status with badges
                                         if (htmlspecialchars($row['status']) == 'Enrolled') {
                                             echo "<span class='badge badge-success'>Enrolled</span>";
-                                        } elseif (htmlspecialchars($row['status']) == 'UnEnrolled') {
-                                            echo "<span class='badge badge-danger'>UnEnrolled</span>";
+                                        } elseif (htmlspecialchars($row['status']) == 'Unenrolled') {
+                                            echo "<span class='badge badge-danger'>Unenrolled</span>";
                                         } else {
                                             echo "<span class='badge badge-secondary'>Not Available</span>";
                                         }

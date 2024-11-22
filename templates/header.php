@@ -238,6 +238,13 @@ $database->close();
               <span>Grades</span>
             </a>
           </li>
+          
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="../admin/assign-student-instructors.php">
+              <i class="bi bi-circle-fill"></i>
+              <span>Assign Class</span>
+            </a>
+          </li>
 
           <li class="nav-item">
             <a class="nav-link collapsed" href="../admin/classes.php">
@@ -246,12 +253,7 @@ $database->close();
             </a>
           </li>
 
-          <li class="nav-item">
-            <a class="nav-link collapsed" href="../admin/assign-student-instructors.php">
-              <i class="bi bi-circle-fill"></i>
-              <span>Assign Class</span>
-            </a>
-          </li>
+
           </ul>
       </li><!-- End Tables Nav -->
 

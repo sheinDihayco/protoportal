@@ -7,7 +7,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" style="background-color: #f9f9f9; padding: 30px;">
-        <form id="addSubjectForm" action="functions/add-subject.php" method="POST">
+        <form id="addSubjectForm" action="functions/add-subjects.php" method="POST">
           <div class="row g-3">
             <div class="col-md-6">
               <label for="code" class="form-label">Course Code</label>

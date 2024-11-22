@@ -43,6 +43,7 @@ if (isset($_GET['update']) && $_GET['update'] == 'success') {
                 confirmButtonText: 'OK'
             }).then((result) => {
                 if (result.isConfirmed) {
+                    window.location.href = '../admin/employee_profile.php';
                 }
             });
         </script>";
@@ -62,7 +63,7 @@ if (isset($_GET['update']) && $_GET['update'] == 'success') {
     }).then((result) => {
       if (result.isConfirmed) {
         // Redirect to the student page when OK is clicked
-        window.location.href = '../admin/user.php';
+        window.location.href = '../admin/employee_profile.php';
       }
     });
 

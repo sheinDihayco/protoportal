@@ -49,8 +49,8 @@
                                             <td>
                                                 <?php if (htmlspecialchars($student['status']) == 'Enrolled'): ?>
                                                     <span class="badge badge-success">Enrolled</span>
-                                                <?php elseif (htmlspecialchars($student['status']) == 'UnEnrolled'): ?>
-                                                    <span class="badge badge-danger">UnEnrolled</span>
+                                                <?php elseif (htmlspecialchars($student['status']) == 'Unenrolled'): ?>
+                                                    <span class="badge badge-danger">Unenrolled</span>
                                                 <?php else: ?>
                                                     <span class="badge badge-secondary">Not Available</span>
                                                 <?php endif; ?>

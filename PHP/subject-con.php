@@ -5,46 +5,35 @@
 <!-- Bootstrap CSS -->
 
 <script>
-  // Check if the session variable 'user_created' is set
-  <?php if (isset($_SESSION['subject_created']) && $_SESSION['subject_created']): ?>
-    // Show SweetAlert success message with OK button
-    Swal.fire({
-      icon: 'success',
-      title: 'Successful',
-      text: 'The subject has been successfully created!',
-      confirmButtonText: 'OK'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Redirect to the student page when OK is clicked
-        window.location.href = '../admin/subject.php';
-      }
-    });
+  // Function to handle the SweetAlert and reload logic
+  function handleAlert(sessionVar, icon, title, text) {
+    if (sessionVar) {
+      Swal.fire({
+        icon: icon,
+        title: title,
+        text: text,
+        confirmButtonText: 'OK'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          location.reload();
+        }
+      });
+    }
+  }
 
-    // Unset the session variable to prevent repeated alerts
+  // PHP embedding for the 'subject_created' session variable
+  <?php if (isset($_SESSION['subject_created']) && $_SESSION['subject_created']): ?>
+    handleAlert(true, 'success', 'Successful', 'The subject has been successfully created!');
     <?php unset($_SESSION['subject_created']); ?>
   <?php endif; ?>
-</script>
 
-<script>
-  // Check if the session variable 'subject_updated' is set
+  // PHP embedding for the 'subject_updated' session variable
   <?php if (isset($_SESSION['subject_updated']) && $_SESSION['subject_updated']): ?>
-    // Show SweetAlert success message with OK button
-    Swal.fire({
-      icon: 'success',
-      title: 'Update Complete!',
-      text: 'The subject has been successfully updated!',
-      confirmButtonText: 'OK'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Redirect to the student page when OK is clicked
-        window.location.href = '../admin/subject.php';
-      }
-    });
-
-    // Unset the session variable to prevent repeated alerts
+    handleAlert(true, 'success', 'Update Complete!', 'The subject has been successfully updated!');
     <?php unset($_SESSION['subject_updated']); ?>
   <?php endif; ?>
 </script>
+
 
 <script>
 function fetchSubjectData(subjectId) {

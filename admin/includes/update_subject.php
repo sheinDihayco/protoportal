@@ -43,7 +43,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Redirect to subject.php after successful update
     $_SESSION['subject_updated'] = true;
-    header("Location: ../subject.php?status=update-success");
+   // Construct the URL dynamically
+    $url = "../subject.php?course=" . urlencode($course) . "&year=" . urlencode($year) . "&semester=" . urlencode($semester);
+
+    // Redirect to the constructed URL
+    header("Location: $url");
     exit();
 }
 
