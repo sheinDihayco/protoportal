@@ -173,5 +173,4 @@
     </section>
 </main>
 
-<?php include_once "../PHP/course-script.php"; ?>
 <?php include_once "../templates/footer.php" ?>

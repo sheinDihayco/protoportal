@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 19, 2024 at 01:04 PM
+-- Generation Time: Nov 22, 2024 at 11:52 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -57,7 +57,8 @@ INSERT INTO `tbl_course` (`course_id`, `course_description`, `course_year`) VALU
 (31, 'BSOA', 3),
 (32, 'GAS', 12),
 (33, 'HUMSS', 12),
-(34, 'ICT', 11);
+(34, 'ICT', 11),
+(45, 'Crim', 1);
 
 -- --------------------------------------------------------
 
@@ -121,7 +122,8 @@ INSERT INTO `tbl_events` (`id`, `title`, `description`, `start_date`, `end_date`
 (17, 'Start of Classes', 'Beginning of the first semester classes.', '2024-07-29', '2024-07-29'),
 (35, 'SAMPLE EVENT', 'THIS IS A EVENT SAMPLE.', '2024-09-28', '2024-09-28'),
 (37, 'Teachers Day', 'Teachers Day Celebration in MIIT.', '2024-10-04', '2024-10-04'),
-(38, 'Sample Title', 'This is a sample event.', '2024-10-12', '2024-10-13');
+(38, 'Sample Title', 'This is a sample event.', '2024-10-12', '2024-10-13'),
+(41, 'sample event', 'sample event', '2024-11-25', '2024-11-26');
 
 -- --------------------------------------------------------
 
@@ -175,12 +177,15 @@ CREATE TABLE `tbl_payments` (
 
 INSERT INTO `tbl_payments` (`payment_id`, `user_id`, `payment_status`, `semester`, `paymentPeriod`) VALUES
 (1, 14, 'PAID', '1st', 'Prelim'),
-(2, 14, 'PENDING', '1st', 'Midterm'),
+(2, 14, 'PAID', '1st', 'Midterm'),
 (3, 12, 'PAID', '1st', 'Prelim'),
 (4, 12, 'PAID', '1st', 'Midterm'),
 (5, 12, 'PAID', '1st', 'Pre-final'),
 (6, 5, 'PAID', '1st', 'Prelim'),
-(7, 5, 'PAID', '1st', 'Midterm');
+(7, 5, 'PAID', '1st', 'Midterm'),
+(8, 14, 'PENDING', '1st', 'Pre-final'),
+(9, 3, 'PAID', '1st', 'Prelim'),
+(10, 4, 'PAID', '1st', 'Midterm');
 
 -- --------------------------------------------------------
 
@@ -343,13 +348,15 @@ CREATE TABLE `tbl_students` (
 
 INSERT INTO `tbl_students` (`user_id`, `user_name`, `lname`, `fname`, `middleInitial`, `Suffix`, `course`, `year`, `sy`, `contact`, `gender`, `bdate`, `pob`, `email`, `major`, `nationality`, `civilStatus`, `religion`, `modality`, `fb`, `curAddress`, `cityAdd`, `zipcode`, `fatherName`, `fwork`, `motherName`, `mwork`, `primarySchool`, `primaryAddress`, `primaryCompleted`, `entermediateSchool`, `entermediateAddress`, `entermediateCompleted`, `hsSchool`, `hsAddress`, `hsCompleted`, `shSchool`, `shAddress`, `shCompleted`, `collegeSchool`, `collegeAddress`, `collegeCompleted`, `user_image`, `user_role`, `user_pass`, `semester`, `status`, `date`, `created_at`) VALUES
 (3, 'MIIT-2021-160', 'Tahanlangit', 'Louie', '', '', 'BSIT', 4, '2024-2025', '', '', '', '', 'louiethnlngt@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$ed.brAOqxTOf7vNlF90NMOSYauVd.fEZ/SfCNUV8sIXUZRQJy9p1O', 1, 'Enrolled', NULL, '2024-10-27 13:47:47'),
-(4, 'MIIT-2021-290', 'Rizada', 'Junrih', '', '', 'BSIT', 4, NULL, '', '', '', '', 'rizada@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$cJ2G/xTNDiPHlR0PbwJ2Ru0RCMHKW0KKD1XxcrmwyDT9bWTGLtoqu', 1, 'Enrolled', NULL, '2024-10-27 13:48:10'),
-(5, 'MIIT-2021-124', 'Aguipo', 'Ashielamae', '', '', 'BSIT', 4, NULL, '', '', '', '', 'aguipo@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$hFBg2TcfYSg.XTVZOcbeDeAJksKEZIT01vcHKSGTW7j0cAq29yqka', 1, 'Enrolled', NULL, '2024-10-27 13:48:45'),
+(4, 'MIIT-2021-290', 'Rizada', 'Junrih', 'v.', '', 'BSIT', 4, NULL, '09754392634', 'Male', '2002-06-09', 'South Poblacion, Naga City', 'jrizadajunrih08@gmail.com', 'Programming', 'Filipino', 'divorced', 'Roman Catholic', 'Face to Face', 'JrizadaJunrih', 'Purok Marmol, Uling', 'City of Naga', '6037', 'N/A', '', 'Cirila V. Rizada', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '../admin/upload/upload-files/image (1).png', 'student', '$2y$10$cJ2G/xTNDiPHlR0PbwJ2Ru0RCMHKW0KKD1XxcrmwyDT9bWTGLtoqu', 1, 'Enrolled', '0000-00-00', '2024-10-27 13:48:10'),
+(5, 'MIIT-2021-124', 'Aguipo', 'Ashielamae', 'C.', '', 'BSIT', 4, NULL, '09750997526', 'Female', '2002-09-07', 'Minglanilla, Emergency', 'aguipo@gmail.com', '', 'Filipino', 'Single', 'Roman Catholic', '', 'Ashielamae Caballa Aguipo', 'Purok Riverside 3 Cantao-an', 'City of Naga', '6037', 'Asis Aguipo', 'driver', 'Exequila Aguipo', 'N/A', 'CES', 'Cantao-an City of Naga Cebu', '', 'CES', 'Cantao-an City of Naga Cebu', '', 'CNHS', 'Cantao-an City of Naga Cebu', '', 'TUYAN SENIOR HIGH SCHOOL', 'Tabtuy, Tuyan, City of Naga, Cebu', '', 'MIIT', 'Inayagan, City of Naga, Cebu', '', '', 'student', '$2y$10$sdDZ8z5Elt1Q7S3jaUwD0OpT3fEgxB2yOKFFt05VD6Ibzx7fVxJRK', 1, 'Enrolled', '0000-00-00', '2024-10-27 13:48:45'),
 (6, 'MIIT-2021-080', 'Lazaga', 'Cherry mae', '', '', 'BSBA', 4, NULL, '', '', '', '', 'cherry@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$i3r9ygggLneM6zJEIerdzuZTQ7x2wGKSOl6s2.o0Oz8e8EADNxpSC', 1, 'Enrolled', NULL, '2024-11-05 00:03:06'),
 (7, 'MIIT-2024-120', 'Dihayco', 'Althea', '', '', 'ABM', 12, NULL, '', '', '', '', 'thea@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$tCQ8iqCMcw0IwHlBYTQlFukRpMbamgcBU7SSEUQjIWu6WZunUaL5S', 1, 'Enrolled', NULL, '2024-11-05 00:03:45'),
 (12, 'MIIT-2021-123', 'Algarme', 'Zean Mariuss', 'C.', '', 'BSIT', 4, '2024-2025', '09912988991', 'Male', '2002-11-22', 'N/A', 'zuild@gmail.com', 'Programming', 'Filipino', 'Single', 'Christian', 'Face to Face', 'Zean Marius C. Algarme', 'Tungkop, Minglanilla', 'Cebu', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '../admin/upload/upload-files/zean.jpg', 'student', '$2y$10$U9suz/.D9hO70cAR4HWm6uLx./mEnUKGZZolKiKreOEkHRsr53U4q', 1, 'Enrolled', '0000-00-00', '2024-11-07 05:40:27'),
 (14, 'MIIT-2021-137', 'Dihayco', 'Sheinalie', 'V.', '', 'BSIT', 4, '2024-2025', '09996707038', 'Female', '2003-02-09', 'Mactan, Lapu-Lapu City , Cebu', 'dihayco020903@gmail.com', 'Programming', 'Filipino', 'Single', 'Roman Catholic', 'Face to Face', 'Shien Dihayco', 'Purok Sagay, Kalubihan', 'City of Naga', '6037', 'Mechille V. DIhayco', 'N/A', 'Divina V. Dihayco', 'Baby Sitter', 'Punta Engano Elementary School', 'Puntan Engano, Lapu-Lapu City', '2012-2013', 'TCES', 'Tuyan, City of Naga', '2014-2015', 'TNHS', 'Tabtuy, Tuyan, City of Naga, Cebu', '2018-2019 ', 'TUYAN SENIOR HIGH SCHOOL', 'Tabtuy, Tuyan, City of Naga, Cebu', '2020-2021', 'MIIT', 'INAYAGAN CITY OF NAGA CEBU', '-', '../admin/upload/upload-files/me.jpg', 'student', '$2y$10$AWL8LVEB.T2wNDFDrlNpzuAuXetYJNnM3t22jO3i6nBd6oORpsX92', 1, 'Enrolled', '0000-00-00', '2024-11-09 06:39:57'),
-(15, 'MIIT-2022-198', 'student', 'student', '', '', 'BSIT', 3, NULL, '', '', '', '', 'student200@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$F8sBMqumVPaz3ysIkB/ODO/NGqn6976QqiElohVwReSrqVX3GYHg.', 2, 'Enrolled', NULL, '2024-11-11 07:43:00');
+(15, 'MIIT-2022-198', 'student', 'student', '', '', 'BSIT', 3, NULL, '', '', '', '', 'student200@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$RdJpgV5hzMUKQYj1VCJ/3uKJZCIuuJDrq8apHkjdsPRzOimYpG1X6', 2, 'Enrolled', NULL, '2024-11-11 07:43:00'),
+(17, 'MIIT-2021-130', 'Birao', 'Ritch', 'C', '', 'BSIT', 4, NULL, '09260018622', 'Male', '', 'Tuyan City of Naga', 'ritchbirao@gmail.com', 'Programming', 'Filipino', 'Single', 'Roman Catholic', 'Face to Face', 'ritchbirao@gmail.com', 'Purok Talong Tuyan', 'City of Naga', '6037', 'Ricardo Birao', '', 'Carolina Birao', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$02HjBg5oJmvKvdVBOK.cK.Yv6E2krqBFhNo1RiWYDb3kSz1jMgh/6', 0, '', '0000-00-00', '2024-11-22 03:48:12'),
+(18, 'MIIT-2021-103', 'Tapic', 'Kerwin', '', '', 'BSIT', 4, NULL, '09483489658', 'Male', '2002-03-17', 'Naga City', 'kerwintapic17@gmail.com', 'Programming', 'Filipino', 'Single', 'Roman Catholic', 'face to face', 'Kerwin Tapic', 'Inayagan', 'City of Naga', '6037', 'Darwin', '', 'Maricel', '', 'Inayagan Elemantary', 'Inayagan, Naga City', '2010-2013', 'Inayagan Elementary', 'Inayagan, Naga City', '2013-2015', 'Tungkop Minglanilla', 'Minglanilla', '2015-2018', 'UV Minglanilla', 'Minglanilla', '2018-2020', 'MIIT', 'Inayagan, City of Naga, Cebu', '2020-2025', '', 'student', '$2y$10$NkV2HnXEhxXKTax9aeUcyuLX8zUolo.b/k8ICPHV8xKjKRWh0isQa', 0, '', '0000-00-00', '2024-11-22 03:56:35');
 
 -- --------------------------------------------------------
 
@@ -752,9 +759,13 @@ INSERT INTO `tbl_users` (`user_id`, `user_fname`, `user_lname`, `user_email`, `u
 (5, 'Jessamae', 'Carzano', 'jessamae@gmail.com', 'Carzano123', '$2y$10$jTZGRfxOfLzaaX1MU7gvEuJ1keSj37cfdamBSFZUhcvYDIdJs9/SO', 'admin', '../admin/upload/upload-files/carzano.jpg', '1995-03-04', 'Female', '2024-09-15', 'IT Department', '09225687342', 'City of Naga, Cebu', '2024-10-27 13:43:00'),
 (6, 'Jason', 'Lipreso', 'jLipreso@gmail.com', 'jLipreso', '$2y$10$WPEuWqddPAGB6c.HZ.bkZ.ehFahpkUl2MXv4nWAJnpUP4PAI1qXmu', 'teacher', '../admin/upload/upload-files/cabag.webp', '1996-03-04', 'Male', '2024-09-15', 'IT', '093748264853', 'City of Naga, Cebu', '2024-10-27 13:46:10'),
 (7, 'Michael John ', 'Bustamante', 'ser.mike@gmail.com', 'Bustamante', '$2y$10$7pGbgbZ1ESJEjsBDlWjsD.xxXL1QDFC2094J8wJjuZqXNE3qiHw.q', 'teacher', '../admin/upload/upload-files/ser_mike.jpg', '1996-11-19', 'Male', '2015-01-29', 'IT Department', '09999999999', 'Lipata, Minglanilla , Cebu', '2024-10-27 13:46:36'),
-(8, 'Romulo', 'Estrera', 'estrera@gmail.com', 'Estrera', '$2y$10$B../i9kFcjWHnaOgpS2FceCstKJqMNLPuuof3C8pDwkcTEathraBy', 'teacher', '', '1984-11-08', 'Male', '2015-11-08', 'IT Department', '09456373823', 'Car-Car City, Cebu', '2024-10-27 13:46:55'),
+(8, 'Romulo', 'Estrera', 'estrera@gmail.com', 'Estrera', '$2y$10$8PpgoZA8.yUvy4WvbsynF.iZqcPyYIuvLY6khVvPEa1sc8oNCmxAG', 'teacher', '', '1984-11-08', 'Male', '2015-11-08', 'IT Department', '09456373823', 'Car-Car City, Cebu', '2024-10-27 13:46:55'),
 (20, 'Admin', 'Admin', 'admin123@gmail.com', 'Admin', '$2y$10$kGxcCcffxLzu2c9bPljWXe4z0ngREcVXN9Iz7qTe.UeaOWpMdU.c6', 'admin', '../admin/upload/upload-files/cabag.webp', '2000-11-08', 'Male', '2024-11-08', 'Admin', '0987194878', 'Inayagan, City of Naga', '2024-11-08 08:28:25'),
-(23, 'Ethel', 'Bolen', 'ethelbolen@gmail.com', 'Bolen', '$2y$10$uCyGXQPfoQXtIs345FI2ke0ZIgFmESvakqtNVEHXCtBsgkqYRd6tm', 'teacher', '', NULL, NULL, NULL, NULL, NULL, NULL, '2024-11-11 07:38:30');
+(23, 'Ethel', 'Bolen', 'ethelbolen@gmail.com', 'Bolen', '$2y$10$uCyGXQPfoQXtIs345FI2ke0ZIgFmESvakqtNVEHXCtBsgkqYRd6tm', 'teacher', '', NULL, NULL, NULL, NULL, NULL, NULL, '2024-11-11 07:38:30'),
+(24, 'admin', 'admin', 'admin123@gmail.com', 'admin', '$2y$10$y5LfiXeHfOruMh0CVSEvaevU2RfIu47ML6JwVFhFOQmjcr2nEwnnS', 'admin', '', NULL, NULL, NULL, NULL, NULL, NULL, '2024-11-21 04:20:46'),
+(25, 'Admin1', 'Admin1', 'admin123@gmail.com', 'Admin1', '$2y$10$ui6F9YJIBmFITRQYTEVTteErWxrdYDMh1JRq16VbBmlNHdO9SoGZu', 'admin', '', NULL, NULL, NULL, NULL, NULL, NULL, '2024-11-21 04:22:11'),
+(26, 'Teacher', 'Teacher', 'Teacher101@gmail.com', 'Teacher', '$2y$10$aAsQK8Mi0D6BJABn6dSfrOrulTAut5iximbbvnTY1ndfQlp2IqAdO', 'teacher', '', NULL, NULL, NULL, NULL, NULL, NULL, '2024-11-21 05:23:15'),
+(27, 'cher', 'cher', 'cher@gmail.com', 'cher', '$2y$10$.7NQN9ystu08U6uVSaDVPe7EYn62dEk5t2slRUnXaUpWb7JO0G1ni', 'teacher', '', NULL, NULL, NULL, NULL, NULL, NULL, '2024-11-22 10:50:52');
 
 --
 -- Indexes for dumped tables
@@ -853,7 +864,7 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_course`
 --
 ALTER TABLE `tbl_course`
-  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `tbl_days`
@@ -865,7 +876,7 @@ ALTER TABLE `tbl_days`
 -- AUTO_INCREMENT for table `tbl_events`
 --
 ALTER TABLE `tbl_events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `tbl_grades`
@@ -877,7 +888,7 @@ ALTER TABLE `tbl_grades`
 -- AUTO_INCREMENT for table `tbl_payments`
 --
 ALTER TABLE `tbl_payments`
-  MODIFY `payment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `payment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tbl_rooms`
@@ -901,7 +912,7 @@ ALTER TABLE `tbl_sched_time`
 -- AUTO_INCREMENT for table `tbl_students`
 --
 ALTER TABLE `tbl_students`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `tbl_student_instructors`
@@ -919,7 +930,7 @@ ALTER TABLE `tbl_subjects`
 -- AUTO_INCREMENT for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Constraints for dumped tables

@@ -83,7 +83,7 @@
                                     </td>
                                     <td>
                                         <!-- Action Buttons -->
-                                        <form action="student_profile.php" method="post" style="display:inline;">
+                                        <form action="payment_status.php" method="post" style="display:inline;">
                                             <input type="hidden" name="stud_id" value="<?php echo htmlspecialchars($row['user_id']); ?>">
                                             <button type="submit" class="btn btn-sm btn-success" name="submit">
                                                 <i class="ri-arrow-right-circle-fill"></i>
