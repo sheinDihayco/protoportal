@@ -528,7 +528,7 @@
                                     <div style="margin-top: 10%"></div>
                                     <h6 class="text-justify mb-4">I hereby certify that all entries herein are true and correct. I certify further that I will read thoroughly the agreement/policy and commit myself to follow its provision.</h6>
 
-                                    <div class="row mb-3">
+                                    <!--<div class="row mb-3">
 
                                       <div class="col-md-4">
                                         <label for="date" class="form-label">Date: </label>
@@ -536,7 +536,7 @@
                                       </div>
 
 
-                                    </div>
+                                    </div>-->
 
                                     <div class="d-flex justify-content-end">
                                       <button type="submit" class="btn btn-primary" name="submit">Save</button>
