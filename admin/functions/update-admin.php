@@ -38,15 +38,15 @@ if (isset($_POST['submit'])) {
         // Set session variable to indicate successful update
         $_SESSION['admin_updated'] = true;
         // Redirect or show a success message
-        header("Location: ../employee_profile.php?status=success");
+        header("Location: ../user-profile-admin.php?status=success");
         exit();
     } else {
         // Redirect or show an error message
-        header("Location: ../employee_profile.php?status=error");
+        header("Location: ../user-profile-admin.php?status=error");
         exit();
     }
 } else {
     // Redirect back if the form wasn't submitted
-    header("Location: ../employee_profile.php");
+    header("Location: ../user-profile-admin.php");
     exit();
 }

@@ -13,6 +13,7 @@ try {
     $stmt = $conn->prepare("
         SELECT
             st.user_id AS student_id,  -- Using student_id instead of instructor_id
+            st.*,
             u.user_fname, 
             u.user_lname, 
             st.course, 

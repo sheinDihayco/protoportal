@@ -48,7 +48,7 @@
               <ul class="nav nav-tabs nav-tabs-bordered">
 
                 <li class="nav-item">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
+                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
                 </li>
 
                 <li class="nav-item">
@@ -59,7 +59,7 @@
               
             <div class="tab-content pt-2">
 
-                <div class="tab-pane fade pt-3" id="profile-settings">
+                <div class="tab-pane show active fade pt-3" id="profile-settings">
                   <!-- Settings Form -->
                     <form>
 

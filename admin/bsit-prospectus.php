@@ -17,6 +17,7 @@
               <table class="table table-bordered">
                 <thead>
                   <tr>
+                    <th>Grade</th>
                     <th>Course Code</th>
                     <th>Course Title/Description</th>
                     <th>Lec</th>
@@ -29,6 +30,7 @@
                 <tbody>
                   <?php foreach ($subjects as $subject) : ?>
                     <tr>
+                      <td><?php echo htmlspecialchars($subject['final_grade']); ?></td>
                       <td><?php echo htmlspecialchars($subject['code']); ?></td>
                       <td><?php echo htmlspecialchars($subject['description']); ?></td>
                       <td><?php echo htmlspecialchars($subject['lec']); ?></td>

@@ -20,13 +20,12 @@
                     <div class="card mt-4">
                         <div class="card-body">
                             <h5 class="card-title">Classes <span>| Enrolled </span></h5>
-                            <table class="table table-striped datatable">
+                            <table class="table table-striped">
                                 <thead>
                                     <tr>    
                                         <th scope="col">Instructor</th>
                                         <th scope="col">Subject Code</th>
                                         <th scope="col">Subject Description</th>
-                                        <th scope="col">View Class</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -62,10 +61,6 @@
                                                             <td><?php echo htmlspecialchars($instructor['user_fname'] . ' ' . $instructor['user_lname']); ?></td>
                                                             <td><?php echo htmlspecialchars($subject['code']); ?></td>
                                                             <td><?php echo htmlspecialchars($subject['description']); ?></td>
-                                                            <td>
-                                                                <a href="class-assigned-students.php?instructor_id=<?php echo htmlspecialchars($instructor['user_id']); ?>&subject_id=<?php echo htmlspecialchars($subject_id); ?>" class="btn btn-success btn-sm"><i class="ri-arrow-right-circle-fill"></i></a>
-                                                            </td>
-                                    
                                                         </tr>
                                                     <?php }
                                                 } ?>

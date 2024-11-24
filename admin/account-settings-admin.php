@@ -48,7 +48,7 @@
               <ul class="nav nav-tabs nav-tabs-bordered">
 
                 <li class="nav-item">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
+                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
                 </li>
 
                 <li class="nav-item">
@@ -99,7 +99,7 @@
                     </form><!-- End settings Form -->
                 </div>
 
-                <div class="tab-pane fade pt-3" id="profile-change-password">
+                <div class="tab-pane show active fade pt-3" id="profile-change-password">
                   <!-- Change Password Form -->
                   <form action="../admin/includes/change-pass.php" method="post" accept-charset="UTF-8">
 

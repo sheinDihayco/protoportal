@@ -95,9 +95,9 @@
                                 <div class="ps-3">
                                     <?php if ($todaysEvent) : ?>
                                         <h6 style="font-size:12px"><?php echo htmlspecialchars($todaysEvent['start_date']); ?></h6>
-                                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
                                             <div style="flex-grow: 1;">
-                                                <h6 class="card-title" style="font-size: 20px;"><?php echo htmlspecialchars($todaysEvent['title']); ?></h6>
+                                                <h6 class="card-title" style="font-size: 27px;"><?php echo htmlspecialchars($todaysEvent['title']); ?></h6>
                                                 <!--<p>Description: <?php echo htmlspecialchars($todaysEvent['description']); ?></p>-->
                                             </div>
                                         </li>

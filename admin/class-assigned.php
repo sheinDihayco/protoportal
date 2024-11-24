@@ -23,7 +23,7 @@
                 <!-- Filter options -->
             </div>
             <div class="card-body">
-                <h5 class="card-title">Class Records <span>| Currently Enrolled</span></h5>
+                <h5 class="card-title">Class Records <span>| Academic Year: <?php echo htmlspecialchars($student['sy']); ?></span> <span>| Semester: <?php echo htmlspecialchars($student['semester']); ?></span></h5>
                 <table class="table table-striped">
                     <thead>
                         <tr> 
