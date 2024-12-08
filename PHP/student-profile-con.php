@@ -44,7 +44,11 @@ include_once "includes/connection.php";
 
 try {
   // Fetching student details from tbl_students
-  $statement = $conn->prepare("SELECT * FROM tbl_students WHERE user_id = :sid");
+  $statement = $conn->prepare("SELECT s.*, sd.*  
+                             FROM tbl_students s 
+                             LEFT JOIN tbl_students_details sd 
+                             ON s.user_id = sd.user_id 
+                             WHERE s.user_id = :sid");
   $statement->bindParam(':sid', $studid, PDO::PARAM_INT);
   $statement->execute();
   $studs = $statement->fetch(PDO::FETCH_ASSOC);

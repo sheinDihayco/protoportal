@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 22, 2024 at 11:52 AM
+-- Generation Time: Dec 08, 2024 at 06:43 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,18 @@ SET time_zone = "+00:00";
 --
 -- Database: `schooldb`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_academic_year`
+--
+
+CREATE TABLE `tbl_academic_year` (
+  `ac_id` int(11) NOT NULL,
+  `year_start` varchar(15) NOT NULL,
+  `year_end` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -57,8 +69,7 @@ INSERT INTO `tbl_course` (`course_id`, `course_description`, `course_year`) VALU
 (31, 'BSOA', 3),
 (32, 'GAS', 12),
 (33, 'HUMSS', 12),
-(34, 'ICT', 11),
-(45, 'Crim', 1);
+(34, 'ICT', 11);
 
 -- --------------------------------------------------------
 
@@ -123,7 +134,8 @@ INSERT INTO `tbl_events` (`id`, `title`, `description`, `start_date`, `end_date`
 (35, 'SAMPLE EVENT', 'THIS IS A EVENT SAMPLE.', '2024-09-28', '2024-09-28'),
 (37, 'Teachers Day', 'Teachers Day Celebration in MIIT.', '2024-10-04', '2024-10-04'),
 (38, 'Sample Title', 'This is a sample event.', '2024-10-12', '2024-10-13'),
-(41, 'sample event', 'sample event', '2024-11-25', '2024-11-26');
+(41, 'sample event', 'sample event', '2024-11-25', '2024-11-26'),
+(42, 'Sample Event', 'This is a sample event.', '2024-11-23', '2024-11-24');
 
 -- --------------------------------------------------------
 
@@ -151,11 +163,16 @@ INSERT INTO `tbl_grades` (`grade_id`, `user_id`, `instructor_id`, `id`, `semeste
 (2, 5, 6, 64, 1, 4, 'Prelim', '2024-2025', 1.50),
 (3, 5, 6, 63, 1, 4, 'Midterm', '2024-2025', 1.50),
 (4, 14, 6, 64, 1, 4, 'Prelim', '2023-2024', 1.50),
-(5, 3, 6, 66, 2, 4, 'Prelim', '2024-2025', 1.50),
 (6, 14, 7, 63, 1, 4, 'Prelim', '2024-2025', 1.90),
 (7, 12, 7, 63, 1, 4, 'Prelim', '2024-2025', 1.90),
 (8, 15, 23, 52, 2, 3, 'Final', '2023-2024', 1.50),
-(10, 7, 7, 235, 2, 12, 'Final', '2023-2024', 3.50);
+(10, 7, 7, 235, 2, 12, 'Final', '2023-2024', 3.50),
+(12, 14, 7, 47, 2, 3, 'Final', '2022-2023', 2.10),
+(13, 14, 6, 64, 1, 4, 'Final', '2024-2025', 1.50),
+(14, 14, 6, 65, 1, 4, 'Final', '2024-2025', 1.50),
+(15, 14, 6, 66, 1, 4, 'Final', '2024-2025', 1.50),
+(16, 14, 8, 67, 1, 4, 'Final', '2024-2025', 1.50),
+(17, 14, 7, 63, 1, 4, 'Final', '2024-2025', 1.80);
 
 -- --------------------------------------------------------
 
@@ -170,22 +187,6 @@ CREATE TABLE `tbl_payments` (
   `semester` varchar(20) NOT NULL,
   `paymentPeriod` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tbl_payments`
---
-
-INSERT INTO `tbl_payments` (`payment_id`, `user_id`, `payment_status`, `semester`, `paymentPeriod`) VALUES
-(1, 14, 'PAID', '1st', 'Prelim'),
-(2, 14, 'PAID', '1st', 'Midterm'),
-(3, 12, 'PAID', '1st', 'Prelim'),
-(4, 12, 'PAID', '1st', 'Midterm'),
-(5, 12, 'PAID', '1st', 'Pre-final'),
-(6, 5, 'PAID', '1st', 'Prelim'),
-(7, 5, 'PAID', '1st', 'Midterm'),
-(8, 14, 'PENDING', '1st', 'Pre-final'),
-(9, 3, 'PAID', '1st', 'Prelim'),
-(10, 4, 'PAID', '1st', 'Midterm');
 
 -- --------------------------------------------------------
 
@@ -228,34 +229,6 @@ CREATE TABLE `tbl_schedule` (
   `time_id` int(11) NOT NULL,
   `day_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tbl_schedule`
---
-
-INSERT INTO `tbl_schedule` (`schedule_id`, `instructor_id`, `course_id`, `subject_id`, `room_id`, `time_id`, `day_id`) VALUES
-(120, 55, 24, 63, 8, 3, 1),
-(121, 52, 24, 235, 7, 4, 2),
-(123, 52, 16, 111, 8, 9, 3),
-(125, 52, 15, 72, 16, 14, 4),
-(126, 62, 12, 34, 5, 3, 6),
-(128, 52, 17, 18, 7, 14, 2),
-(129, 55, 18, 103, 12, 4, 4),
-(131, 55, 32, 65, 16, 38, 5),
-(132, 52, 12, 10, 8, 13, 3),
-(135, 55, 12, 21, 16, 12, 1),
-(136, 62, 17, 18, 14, 38, 1),
-(137, 55, 12, 92, 8, 12, 5),
-(139, 55, 12, 17, 8, 12, 4),
-(140, 55, 15, 69, 7, 13, 3),
-(141, 55, 24, 21, 8, 15, 6),
-(142, 6, 24, 66, 5, 3, 2),
-(143, 6, 24, 64, 7, 9, 2),
-(144, 7, 24, 284, 7, 4, 3),
-(145, 8, 23, 17, 16, 4, 1),
-(146, 7, 16, 20, 8, 9, 4),
-(147, 6, 22, 16, 16, 3, 5),
-(148, 8, 17, 19, 14, 13, 6);
 
 -- --------------------------------------------------------
 
@@ -314,6 +287,29 @@ CREATE TABLE `tbl_students` (
   `curAddress` varchar(200) NOT NULL,
   `cityAdd` varchar(200) NOT NULL,
   `zipcode` varchar(30) NOT NULL,
+  `user_image` varchar(50) NOT NULL,
+  `user_role` varchar(50) NOT NULL,
+  `user_pass` varchar(100) NOT NULL,
+  `status` varchar(20) NOT NULL,
+  `semester` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_students`
+--
+
+INSERT INTO `tbl_students` (`user_id`, `user_name`, `lname`, `fname`, `middleInitial`, `Suffix`, `course`, `year`, `sy`, `contact`, `gender`, `bdate`, `pob`, `email`, `major`, `nationality`, `civilStatus`, `religion`, `modality`, `fb`, `curAddress`, `cityAdd`, `zipcode`, `user_image`, `user_role`, `user_pass`, `status`, `semester`) VALUES
+(1, 'MIIT-2021-137', 'Dihayco', 'Sheinalie', 'V.', '-', 'BSIT', 4, '2023-2024', '09999999999', 'Female', '2003-02-09', 'Mactan, Lapu-Lapu City , Cebu', 'dihayco020903@gmail.com', '', 'Filipino', 'Single', 'Roman Catholic', 'face to face', 'Shien Dihayco', 'Purok Sagay, Kalubihan', 'City of Naga', '6037', '../admin/upload/upload-files/me.jpg', 'student', '$2y$10$7lKs5rlL8skc2QBRXRXTPO/jeaVh2qSomh/6jRvFM8gCkJ10BfXq.', 'Enrolled', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_students_details`
+--
+
+CREATE TABLE `tbl_students_details` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `fatherName` varchar(50) NOT NULL,
   `fwork` varchar(50) NOT NULL,
   `motherName` varchar(50) NOT NULL,
@@ -325,38 +321,22 @@ CREATE TABLE `tbl_students` (
   `entermediateAddress` text NOT NULL,
   `entermediateCompleted` varchar(30) NOT NULL,
   `hsSchool` varchar(100) NOT NULL,
-  `hsAddress` text NOT NULL,
+  `hsAddress` varchar(50) NOT NULL,
   `hsCompleted` varchar(30) NOT NULL,
   `shSchool` varchar(100) NOT NULL,
   `shAddress` text NOT NULL,
   `shCompleted` varchar(30) NOT NULL,
   `collegeSchool` varchar(100) NOT NULL,
   `collegeAddress` text NOT NULL,
-  `collegeCompleted` varchar(30) NOT NULL,
-  `user_image` varchar(50) NOT NULL,
-  `user_role` varchar(50) NOT NULL,
-  `user_pass` varchar(100) NOT NULL,
-  `semester` int(11) NOT NULL,
-  `status` varchar(20) NOT NULL,
-  `date` date DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `collegeCompleted` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tbl_students`
+-- Dumping data for table `tbl_students_details`
 --
 
-INSERT INTO `tbl_students` (`user_id`, `user_name`, `lname`, `fname`, `middleInitial`, `Suffix`, `course`, `year`, `sy`, `contact`, `gender`, `bdate`, `pob`, `email`, `major`, `nationality`, `civilStatus`, `religion`, `modality`, `fb`, `curAddress`, `cityAdd`, `zipcode`, `fatherName`, `fwork`, `motherName`, `mwork`, `primarySchool`, `primaryAddress`, `primaryCompleted`, `entermediateSchool`, `entermediateAddress`, `entermediateCompleted`, `hsSchool`, `hsAddress`, `hsCompleted`, `shSchool`, `shAddress`, `shCompleted`, `collegeSchool`, `collegeAddress`, `collegeCompleted`, `user_image`, `user_role`, `user_pass`, `semester`, `status`, `date`, `created_at`) VALUES
-(3, 'MIIT-2021-160', 'Tahanlangit', 'Louie', '', '', 'BSIT', 4, '2024-2025', '', '', '', '', 'louiethnlngt@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$ed.brAOqxTOf7vNlF90NMOSYauVd.fEZ/SfCNUV8sIXUZRQJy9p1O', 1, 'Enrolled', NULL, '2024-10-27 13:47:47'),
-(4, 'MIIT-2021-290', 'Rizada', 'Junrih', 'v.', '', 'BSIT', 4, NULL, '09754392634', 'Male', '2002-06-09', 'South Poblacion, Naga City', 'jrizadajunrih08@gmail.com', 'Programming', 'Filipino', 'divorced', 'Roman Catholic', 'Face to Face', 'JrizadaJunrih', 'Purok Marmol, Uling', 'City of Naga', '6037', 'N/A', '', 'Cirila V. Rizada', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '../admin/upload/upload-files/image (1).png', 'student', '$2y$10$cJ2G/xTNDiPHlR0PbwJ2Ru0RCMHKW0KKD1XxcrmwyDT9bWTGLtoqu', 1, 'Enrolled', '0000-00-00', '2024-10-27 13:48:10'),
-(5, 'MIIT-2021-124', 'Aguipo', 'Ashielamae', 'C.', '', 'BSIT', 4, NULL, '09750997526', 'Female', '2002-09-07', 'Minglanilla, Emergency', 'aguipo@gmail.com', '', 'Filipino', 'Single', 'Roman Catholic', '', 'Ashielamae Caballa Aguipo', 'Purok Riverside 3 Cantao-an', 'City of Naga', '6037', 'Asis Aguipo', 'driver', 'Exequila Aguipo', 'N/A', 'CES', 'Cantao-an City of Naga Cebu', '', 'CES', 'Cantao-an City of Naga Cebu', '', 'CNHS', 'Cantao-an City of Naga Cebu', '', 'TUYAN SENIOR HIGH SCHOOL', 'Tabtuy, Tuyan, City of Naga, Cebu', '', 'MIIT', 'Inayagan, City of Naga, Cebu', '', '', 'student', '$2y$10$sdDZ8z5Elt1Q7S3jaUwD0OpT3fEgxB2yOKFFt05VD6Ibzx7fVxJRK', 1, 'Enrolled', '0000-00-00', '2024-10-27 13:48:45'),
-(6, 'MIIT-2021-080', 'Lazaga', 'Cherry mae', '', '', 'BSBA', 4, NULL, '', '', '', '', 'cherry@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$i3r9ygggLneM6zJEIerdzuZTQ7x2wGKSOl6s2.o0Oz8e8EADNxpSC', 1, 'Enrolled', NULL, '2024-11-05 00:03:06'),
-(7, 'MIIT-2024-120', 'Dihayco', 'Althea', '', '', 'ABM', 12, NULL, '', '', '', '', 'thea@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$tCQ8iqCMcw0IwHlBYTQlFukRpMbamgcBU7SSEUQjIWu6WZunUaL5S', 1, 'Enrolled', NULL, '2024-11-05 00:03:45'),
-(12, 'MIIT-2021-123', 'Algarme', 'Zean Mariuss', 'C.', '', 'BSIT', 4, '2024-2025', '09912988991', 'Male', '2002-11-22', 'N/A', 'zuild@gmail.com', 'Programming', 'Filipino', 'Single', 'Christian', 'Face to Face', 'Zean Marius C. Algarme', 'Tungkop, Minglanilla', 'Cebu', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '../admin/upload/upload-files/zean.jpg', 'student', '$2y$10$U9suz/.D9hO70cAR4HWm6uLx./mEnUKGZZolKiKreOEkHRsr53U4q', 1, 'Enrolled', '0000-00-00', '2024-11-07 05:40:27'),
-(14, 'MIIT-2021-137', 'Dihayco', 'Sheinalie', 'V.', '', 'BSIT', 4, '2024-2025', '09996707038', 'Female', '2003-02-09', 'Mactan, Lapu-Lapu City , Cebu', 'dihayco020903@gmail.com', 'Programming', 'Filipino', 'Single', 'Roman Catholic', 'Face to Face', 'Shien Dihayco', 'Purok Sagay, Kalubihan', 'City of Naga', '6037', 'Mechille V. DIhayco', 'N/A', 'Divina V. Dihayco', 'Baby Sitter', 'Punta Engano Elementary School', 'Puntan Engano, Lapu-Lapu City', '2012-2013', 'TCES', 'Tuyan, City of Naga', '2014-2015', 'TNHS', 'Tabtuy, Tuyan, City of Naga, Cebu', '2018-2019 ', 'TUYAN SENIOR HIGH SCHOOL', 'Tabtuy, Tuyan, City of Naga, Cebu', '2020-2021', 'MIIT', 'INAYAGAN CITY OF NAGA CEBU', '-', '../admin/upload/upload-files/me.jpg', 'student', '$2y$10$AWL8LVEB.T2wNDFDrlNpzuAuXetYJNnM3t22jO3i6nBd6oORpsX92', 1, 'Enrolled', '0000-00-00', '2024-11-09 06:39:57'),
-(15, 'MIIT-2022-198', 'student', 'student', '', '', 'BSIT', 3, NULL, '', '', '', '', 'student200@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$RdJpgV5hzMUKQYj1VCJ/3uKJZCIuuJDrq8apHkjdsPRzOimYpG1X6', 2, 'Enrolled', NULL, '2024-11-11 07:43:00'),
-(17, 'MIIT-2021-130', 'Birao', 'Ritch', 'C', '', 'BSIT', 4, NULL, '09260018622', 'Male', '', 'Tuyan City of Naga', 'ritchbirao@gmail.com', 'Programming', 'Filipino', 'Single', 'Roman Catholic', 'Face to Face', 'ritchbirao@gmail.com', 'Purok Talong Tuyan', 'City of Naga', '6037', 'Ricardo Birao', '', 'Carolina Birao', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'student', '$2y$10$02HjBg5oJmvKvdVBOK.cK.Yv6E2krqBFhNo1RiWYDb3kSz1jMgh/6', 0, '', '0000-00-00', '2024-11-22 03:48:12'),
-(18, 'MIIT-2021-103', 'Tapic', 'Kerwin', '', '', 'BSIT', 4, NULL, '09483489658', 'Male', '2002-03-17', 'Naga City', 'kerwintapic17@gmail.com', 'Programming', 'Filipino', 'Single', 'Roman Catholic', 'face to face', 'Kerwin Tapic', 'Inayagan', 'City of Naga', '6037', 'Darwin', '', 'Maricel', '', 'Inayagan Elemantary', 'Inayagan, Naga City', '2010-2013', 'Inayagan Elementary', 'Inayagan, Naga City', '2013-2015', 'Tungkop Minglanilla', 'Minglanilla', '2015-2018', 'UV Minglanilla', 'Minglanilla', '2018-2020', 'MIIT', 'Inayagan, City of Naga, Cebu', '2020-2025', '', 'student', '$2y$10$NkV2HnXEhxXKTax9aeUcyuLX8zUolo.b/k8ICPHV8xKjKRWh0isQa', 0, '', '0000-00-00', '2024-11-22 03:56:35');
+INSERT INTO `tbl_students_details` (`id`, `user_id`, `fatherName`, `fwork`, `motherName`, `mwork`, `primarySchool`, `primaryAddress`, `primaryCompleted`, `entermediateSchool`, `entermediateAddress`, `entermediateCompleted`, `hsSchool`, `hsAddress`, `hsCompleted`, `shSchool`, `shAddress`, `shCompleted`, `collegeSchool`, `collegeAddress`, `collegeCompleted`) VALUES
+(1, 1, 'Mechille V. DIhayco', 'N/A', 'Divina V. Dihayco', 'Baby Sitter', 'Punta Engano Elementary School', 'Puntan Engano, Lapu-Lapu City', '2012-2013', 'TCES', 'Tuyan, City of Naga', '2014-2015', 'TNHS', 'Tabtuy, Tuyan, City of Naga, Cebu', '2018-2019 ', 'TUYAN SENIOR HIGH SCHOOL', 'Tabtuy, Tuyan, City of Naga, Cebu', '2020-2021', 'MIIT', 'Inayagan, City of Naga, Cebu', '-');
 
 -- --------------------------------------------------------
 
@@ -370,38 +350,6 @@ CREATE TABLE `tbl_student_instructors` (
   `instructor_id` int(11) NOT NULL,
   `subject_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tbl_student_instructors`
---
-
-INSERT INTO `tbl_student_instructors` (`id`, `student_id`, `instructor_id`, `subject_id`) VALUES
-(3, 3, 6, 66),
-(4, 4, 6, 66),
-(5, 5, 6, 66),
-(8, 3, 6, 65),
-(9, 4, 6, 65),
-(10, 5, 6, 65),
-(13, 3, 6, 64),
-(14, 4, 6, 64),
-(15, 5, 6, 64),
-(16, 7, 7, 232),
-(19, 3, 7, 63),
-(20, 4, 7, 63),
-(21, 5, 7, 63),
-(24, 3, 8, 67),
-(25, 4, 8, 67),
-(26, 5, 8, 67),
-(27, 12, 7, 63),
-(28, 14, 6, 64),
-(29, 14, 6, 66),
-(30, 14, 6, 65),
-(31, 14, 7, 63),
-(32, 14, 8, 67),
-(34, 15, 23, 52),
-(35, 7, 7, 228),
-(36, 7, 23, 227),
-(37, 7, 6, 233);
 
 -- --------------------------------------------------------
 
@@ -756,10 +704,10 @@ CREATE TABLE `tbl_users` (
 --
 
 INSERT INTO `tbl_users` (`user_id`, `user_fname`, `user_lname`, `user_email`, `user_name`, `user_pass`, `user_role`, `user_image`, `date_of_birth`, `gender`, `hire_date`, `department`, `phone_number`, `address`, `created_at`) VALUES
-(5, 'Jessamae', 'Carzano', 'jessamae@gmail.com', 'Carzano123', '$2y$10$jTZGRfxOfLzaaX1MU7gvEuJ1keSj37cfdamBSFZUhcvYDIdJs9/SO', 'admin', '../admin/upload/upload-files/carzano.jpg', '1995-03-04', 'Female', '2024-09-15', 'IT Department', '09225687342', 'City of Naga, Cebu', '2024-10-27 13:43:00'),
+(5, 'Jessamae', 'Carzano', 'jessamae@gmail.com', 'Carzano123', '$2y$10$jTZGRfxOfLzaaX1MU7gvEuJ1keSj37cfdamBSFZUhcvYDIdJs9/SO', 'admin', '../admin/upload/upload-files/carzano.jpg', '1995-03-04', 'Female', '2017-09-15', 'IT Department', '09225687342', 'City of Naga, Cebu', '2024-10-27 13:43:00'),
 (6, 'Jason', 'Lipreso', 'jLipreso@gmail.com', 'jLipreso', '$2y$10$WPEuWqddPAGB6c.HZ.bkZ.ehFahpkUl2MXv4nWAJnpUP4PAI1qXmu', 'teacher', '../admin/upload/upload-files/cabag.webp', '1996-03-04', 'Male', '2024-09-15', 'IT', '093748264853', 'City of Naga, Cebu', '2024-10-27 13:46:10'),
 (7, 'Michael John ', 'Bustamante', 'ser.mike@gmail.com', 'Bustamante', '$2y$10$7pGbgbZ1ESJEjsBDlWjsD.xxXL1QDFC2094J8wJjuZqXNE3qiHw.q', 'teacher', '../admin/upload/upload-files/ser_mike.jpg', '1996-11-19', 'Male', '2015-01-29', 'IT Department', '09999999999', 'Lipata, Minglanilla , Cebu', '2024-10-27 13:46:36'),
-(8, 'Romulo', 'Estrera', 'estrera@gmail.com', 'Estrera', '$2y$10$8PpgoZA8.yUvy4WvbsynF.iZqcPyYIuvLY6khVvPEa1sc8oNCmxAG', 'teacher', '', '1984-11-08', 'Male', '2015-11-08', 'IT Department', '09456373823', 'Car-Car City, Cebu', '2024-10-27 13:46:55'),
+(8, 'Romulo', 'Estrera', 'estrera@gmail.com', 'Estrera', '$2y$10$8PpgoZA8.yUvy4WvbsynF.iZqcPyYIuvLY6khVvPEa1sc8oNCmxAG', 'teacher', '../admin/upload/upload-files/estrera.jpg', '1984-11-08', 'Male', '2015-11-08', 'IT Department', '09456373823', 'Car-Car City, Cebu', '2024-10-27 13:46:55'),
 (20, 'Admin', 'Admin', 'admin123@gmail.com', 'Admin', '$2y$10$kGxcCcffxLzu2c9bPljWXe4z0ngREcVXN9Iz7qTe.UeaOWpMdU.c6', 'admin', '../admin/upload/upload-files/cabag.webp', '2000-11-08', 'Male', '2024-11-08', 'Admin', '0987194878', 'Inayagan, City of Naga', '2024-11-08 08:28:25'),
 (23, 'Ethel', 'Bolen', 'ethelbolen@gmail.com', 'Bolen', '$2y$10$uCyGXQPfoQXtIs345FI2ke0ZIgFmESvakqtNVEHXCtBsgkqYRd6tm', 'teacher', '', NULL, NULL, NULL, NULL, NULL, NULL, '2024-11-11 07:38:30'),
 (24, 'admin', 'admin', 'admin123@gmail.com', 'admin', '$2y$10$y5LfiXeHfOruMh0CVSEvaevU2RfIu47ML6JwVFhFOQmjcr2nEwnnS', 'admin', '', NULL, NULL, NULL, NULL, NULL, NULL, '2024-11-21 04:20:46'),
@@ -770,6 +718,12 @@ INSERT INTO `tbl_users` (`user_id`, `user_fname`, `user_lname`, `user_email`, `u
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `tbl_academic_year`
+--
+ALTER TABLE `tbl_academic_year`
+  ADD PRIMARY KEY (`ac_id`);
 
 --
 -- Indexes for table `tbl_course`
@@ -836,12 +790,18 @@ ALTER TABLE `tbl_students`
   ADD PRIMARY KEY (`user_id`);
 
 --
+-- Indexes for table `tbl_students_details`
+--
+ALTER TABLE `tbl_students_details`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `student` (`user_id`);
+
+--
 -- Indexes for table `tbl_student_instructors`
 --
 ALTER TABLE `tbl_student_instructors`
-  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`instructor_id`),
   ADD KEY `student_id` (`student_id`),
-  ADD KEY `instructor_id` (`instructor_id`),
   ADD KEY `subject_id` (`subject_id`);
 
 --
@@ -861,6 +821,12 @@ ALTER TABLE `tbl_users`
 --
 
 --
+-- AUTO_INCREMENT for table `tbl_academic_year`
+--
+ALTER TABLE `tbl_academic_year`
+  MODIFY `ac_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `tbl_course`
 --
 ALTER TABLE `tbl_course`
@@ -876,19 +842,19 @@ ALTER TABLE `tbl_days`
 -- AUTO_INCREMENT for table `tbl_events`
 --
 ALTER TABLE `tbl_events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `tbl_grades`
 --
 ALTER TABLE `tbl_grades`
-  MODIFY `grade_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `grade_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `tbl_payments`
 --
 ALTER TABLE `tbl_payments`
-  MODIFY `payment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `payment_id` int(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_rooms`
@@ -900,7 +866,7 @@ ALTER TABLE `tbl_rooms`
 -- AUTO_INCREMENT for table `tbl_schedule`
 --
 ALTER TABLE `tbl_schedule`
-  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
+  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_sched_time`
@@ -912,19 +878,19 @@ ALTER TABLE `tbl_sched_time`
 -- AUTO_INCREMENT for table `tbl_students`
 --
 ALTER TABLE `tbl_students`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `tbl_student_instructors`
+-- AUTO_INCREMENT for table `tbl_students_details`
 --
-ALTER TABLE `tbl_student_instructors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+ALTER TABLE `tbl_students_details`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_subjects`
 --
 ALTER TABLE `tbl_subjects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=315;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=320;
 
 --
 -- AUTO_INCREMENT for table `tbl_users`
@@ -942,13 +908,13 @@ ALTER TABLE `tbl_users`
 ALTER TABLE `tbl_grades`
   ADD CONSTRAINT `grade_id` FOREIGN KEY (`id`) REFERENCES `tbl_subjects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `instructor_id` FOREIGN KEY (`instructor_id`) REFERENCES `tbl_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `tbl_grades_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `tbl_students` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `tbl_grades_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `tbl_students_personal_details` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tbl_payments`
 --
 ALTER TABLE `tbl_payments`
-  ADD CONSTRAINT `payment` FOREIGN KEY (`user_id`) REFERENCES `tbl_students` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `payment` FOREIGN KEY (`user_id`) REFERENCES `tbl_students_personal_details` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tbl_schedule`
@@ -962,12 +928,18 @@ ALTER TABLE `tbl_schedule`
   ADD CONSTRAINT `tbl_schedule_ibfk_5` FOREIGN KEY (`time_id`) REFERENCES `tbl_sched_time` (`time_id`);
 
 --
+-- Constraints for table `tbl_students_details`
+--
+ALTER TABLE `tbl_students_details`
+  ADD CONSTRAINT `student` FOREIGN KEY (`user_id`) REFERENCES `tbl_students` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `tbl_student_instructors`
 --
 ALTER TABLE `tbl_student_instructors`
-  ADD CONSTRAINT `tbl_student_instructors_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `tbl_students` (`user_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `tbl_student_instructors_ibfk_2` FOREIGN KEY (`instructor_id`) REFERENCES `tbl_users` (`user_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `tbl_student_instructors_ibfk_3` FOREIGN KEY (`subject_id`) REFERENCES `tbl_subjects` (`id`);
+  ADD CONSTRAINT `student_id` FOREIGN KEY (`student_id`) REFERENCES `tbl_students` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `subject_id` FOREIGN KEY (`subject_id`) REFERENCES `tbl_subjects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_id` FOREIGN KEY (`instructor_id`) REFERENCES `tbl_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

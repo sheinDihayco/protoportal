@@ -8,7 +8,11 @@ $pdo = $connection->open();
 // Fetch the logged-in user's data using the session variable
 $userid = $_SESSION['login']; // Assuming 'login' stores the user_id of the logged-in user
 
-$sql = "SELECT * FROM tbl_students WHERE user_id = :userid";
+$sql = "SELECT s.*, sd.*  
+          FROM tbl_students s 
+          LEFT JOIN tbl_students_details sd 
+          ON s.user_id = sd.user_id 
+          WHERE s.user_id = :userid";
 $stmt = $pdo->prepare($sql);
 $stmt->bindParam(':userid', $userid, PDO::PARAM_INT);
 $stmt->execute();

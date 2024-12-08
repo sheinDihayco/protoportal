@@ -29,7 +29,8 @@
             </a><!-- End Profile Iamge Icon -->
 
           <h2><?php echo htmlspecialchars($studs["lname"]); ?>, <?php echo htmlspecialchars($studs["fname"]); ?> <span><?php echo htmlspecialchars($studs["middleInitial"]); ?></span></h2>
-          <h3><?php echo htmlspecialchars($studs["course"]); ?> - <?php echo htmlspecialchars($studs["year"]); ?></h3>
+          <h3><?php echo htmlspecialchars($studs["course"]); ?> - <?php echo htmlspecialchars($studs["year"]); ?> <?php echo htmlspecialchars($studs["major"]); ?></h3>
+         
           <div class="social-links mt-2">
             <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
             <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
@@ -41,238 +42,223 @@
     </div>
     <div class="col-lg-8">
       
-        <!-- Recent Sales -->
         <div class="card">
           <div class="card-body pt-3">
-            <!-- Bordered Tabs -->
             <ul class="nav nav-tabs nav-tabs-bordered">
+                <button type="button" class="icon-button">
+                  <a href="../admin/user-student.php" class="icon-link">
+                    <i class="ri-arrow-go-back-line"></i>
+                  </a>
+                </button>
 
-              <button type="button" class="icon-button">
-                <a href="../admin/user-student.php" class="icon-link">
-                  <i class="ri-arrow-go-back-line"></i>
-                </a>
-              </button>
-
-              <li class="nav-item">
-                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
-              </li>
-              <li class="nav-item">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Info</button>
-              </li>
+                <li class="nav-item">
+                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Personal Details</button>
+                </li>
+              
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#education-overview">More</button>
+                </li>
+                
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Info</button>
+                </li>
             </ul>
-            <!-- End Bordered Tabs -->
 
             <div class="tab-content pt-2">
 
-              <!--Start Profile Overview-->
-                <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                    <!-- Personal Details and Academic Details -->
-                    <div class="row mb-4 card">
-                      <!-- Personal Details -->
-                      <div class="col-md-12">
-                        <h5 class="card-title">Personal Details</h5>
-                    
-                        <div class="row">
-                          <div class="col-lg-4 label">Full Name</div>
-                          <div class="col-lg-8"><?php echo htmlspecialchars($studs["lname"]) . ', ' . htmlspecialchars($studs["fname"]) . ' ' . htmlspecialchars($studs["middleInitial"]); ?> <?php echo htmlspecialchars($studs["Suffix"]); ?></div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-lg-4 label">School ID</div>
-                          <div class="col-lg-8"><?php echo htmlspecialchars($studs["user_name"]); ?></div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-lg-4 label">Gender</div>
-                          <div class="col-lg-8"><?php echo htmlspecialchars($studs["gender"]); ?></div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-lg-4 label">Date of Birth</div>
-                          <div class="col-lg-8"><?php echo htmlspecialchars($studs["bdate"]); ?></div>
-                        </div>
-                        <div class="row">
-                          <div class="col-lg-4 label">Place of Birth</div>
-                          <div class="col-lg-8"><?php echo htmlspecialchars($studs["pob"]); ?></div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-lg-4 label">Nationality</div>
-                          <div class="col-lg-8"><?php echo htmlspecialchars($studs["nationality"]); ?></div>
-                        </div>
+              <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                  <!-- Personal Details-->
+                  <div class="row mb-4 ">
+                    <div class="col-md-12">
+                      <h5 class="card-title">Personal Details</h5>
+                      
+                      <div class="row">
+                        <div class="col-lg-4 label">School ID</div>
+                        <div class="col-lg-8"><?php echo htmlspecialchars($studs["user_name"]); ?></div>
+                      </div>
+                      
+                      <div class="row">
+                        <div class="col-lg-4 label">Academic Year</div>
+                        <div class="col-lg-8"><?php echo htmlspecialchars($studs["sy"]); ?></div>
                       </div>
 
+                      <div class="row">
+                        <div class="col-lg-4 label">Full Name</div>
+                        <div class="col-lg-8"><?php echo htmlspecialchars($studs["lname"]) . ', ' . htmlspecialchars($studs["fname"]) . ' ' . htmlspecialchars($studs["middleInitial"]); ?> <?php echo htmlspecialchars($studs["Suffix"]); ?></div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-4 label">Gender</div>
+                        <div class="col-lg-8"><?php echo htmlspecialchars($studs["gender"]); ?></div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-4 label">Date of Birth</div>
+                        <div class="col-lg-8"><?php echo htmlspecialchars($studs["bdate"]); ?></div>
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-4 label">Place of Birth</div>
+                        <div class="col-lg-8"><?php echo htmlspecialchars($studs["pob"]); ?></div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-4 label">Nationality</div>
+                        <div class="col-lg-8"><?php echo htmlspecialchars($studs["nationality"]); ?></div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-4 label">Civil Status</div>
+                        <div class="col-lg-8"><?php echo htmlspecialchars($studs["civilStatus"]); ?></div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-4 label">Religion</div>
+                        <div class="col-lg-8"><?php echo htmlspecialchars($studs["religion"]); ?></div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-4 label">Modality</div>
+                        <div class="col-lg-8"><?php echo htmlspecialchars($studs["modality"]); ?></div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-4 label">Facebook Account</div>
+                        <div class="col-lg-8"><?php echo htmlspecialchars($studs["fb"]); ?></div>
+                      </div>
+                      
                       <div class="row">
                         <div class="col-lg-4 label">Email Address</div>
                         <div class="col-lg-8"><?php echo htmlspecialchars($studs["email"]); ?></div>
                       </div>
                     </div>
-                    
-                    <!-- Academic Details -->
-                    <div class="row mb-4 card" >
-                      <div class="col-lg-12">
-                        <h5 class="card-title">Academic Details</h5>
-                        <div class="row">
-                          <div class="col-lg-4 label">Academic Year</div>
-                          <div class="col-lg-8"><?php echo htmlspecialchars($studs["sy"]); ?></div>
+                  </div>
+
+                  <!-- Address & Contact Information  -->
+                  <div class="row mb-4 ">
+                        <!-- Address & Contact Information -->
+                        <div class="col-md-12">
+                          <h5 class="card-title">Address & Contact Information</h5>
+                          <div class="row">
+                            <div class="col-lg-4 label">Current Address</div>
+                            <div class="col-lg-8"><?php echo htmlspecialchars($studs["curAddress"]); ?></div>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-4 label">City</div>
+                            <div class="col-lg-8"><?php echo htmlspecialchars($studs["cityAdd"]); ?></div>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-4 label">Zip Code</div>
+                            <div class="col-lg-8"><?php echo htmlspecialchars($studs["zipcode"]); ?></div>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-4 label">Phone Number</div>
+                            <div class="col-lg-8"><?php echo htmlspecialchars($studs["contact"]); ?></div>
+                          </div>
                         </div>
-                        <div class="row">
-                          <div class="col-lg-4 label">Course</div>
-                          <div class="col-lg-8"><?php echo htmlspecialchars($studs["course"]); ?></div>
+
+                  </div> 
+                  
+              </div>
+
+              <div class="tab-pane fade profile-overview" id="education-overview">
+                  <div class="row mb-4 " >
+                    <div class="col-md-12">
+                      <h5 class="card-title">Educational Attainment</h5>
+                      
+                      <div class="row">
+                        <!-- Primary Details -->
+                        <div class="col-lg-6">
+                          <h6 class="card-title">Primary Details</h6>
+                          <div class="row">
+                            <div class="col-lg-12 label">School Name</div>
+                            <div class="col-lg-12"><?php echo htmlspecialchars($studs["primarySchool"]); ?></div>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-12 label">School Address</div>
+                            <div class="col-lg-12"><?php echo htmlspecialchars($studs["primaryAddress"]); ?></div>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-12 label">Year Completed</div>
+                            <div class="col-lg-12"><?php echo htmlspecialchars($studs["primaryCompleted"]); ?></div>
+                          </div>
                         </div>
-                        <div class="row">
-                          <div class="col-lg-4 label">Year</div>
-                          <div class="col-lg-8"><?php echo htmlspecialchars($studs["year"]); ?></div>
-                        </div>
-                        <div class="row">
-                          <div class="col-lg-4 label">Major</div>
-                          <div class="col-lg-8"><?php echo htmlspecialchars($studs["major"]); ?></div>
-                        </div>
-                        <div class="row">
-                          <div class="col-lg-4 label">Civil Status</div>
-                          <div class="col-lg-8"><?php echo htmlspecialchars($studs["civilStatus"]); ?></div>
-                        </div>
-                        <div class="row">
-                          <div class="col-lg-4 label">Religion</div>
-                          <div class="col-lg-8"><?php echo htmlspecialchars($studs["religion"]); ?></div>
-                        </div>
-                        <div class="row">
-                          <div class="col-lg-4 label">Modality</div>
-                          <div class="col-lg-8"><?php echo htmlspecialchars($studs["modality"]); ?></div>
-                        </div>
-                        <div class="row">
-                          <div class="col-lg-4 label">Facebook Account</div>
-                          <div class="col-lg-8"><?php echo htmlspecialchars($studs["fb"]); ?></div>
+
+                        <!-- Intermediate Details -->
+                        <div class="col-lg-6">
+                          <h6 class="card-title">Intermediate Details</h6>
+                          <div class="row">
+                            <div class="col-lg-12 label">School Name</div>
+                            <div class="col-lg-12"><?php echo htmlspecialchars($studs["entermediateSchool"]); ?></div>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-12 label">School Address</div>
+                            <div class="col-lg-12"><?php echo htmlspecialchars($studs["entermediateAddress"]); ?></div>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-12 label">Year Completed</div>
+                            <div class="col-lg-12"><?php echo htmlspecialchars($studs["entermediateCompleted"]); ?></div>
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    <!-- Address & Contact Information  -->
-                    <div class="row mb-4 card">
-                          <!-- Address & Contact Information -->
-                          <div class="col-md-12">
-                            <h5 class="card-title">Address & Contact Information</h5>
-                            <div class="row">
-                              <div class="col-lg-4 label">Current Address</div>
-                              <div class="col-lg-8"><?php echo htmlspecialchars($studs["curAddress"]); ?></div>
-                            </div>
-                            <div class="row">
-                              <div class="col-lg-4 label">City</div>
-                              <div class="col-lg-8"><?php echo htmlspecialchars($studs["cityAdd"]); ?></div>
-                            </div>
-                            <div class="row">
-                              <div class="col-lg-4 label">Zip Code</div>
-                              <div class="col-lg-8"><?php echo htmlspecialchars($studs["zipcode"]); ?></div>
-                            </div>
-                            <div class="row">
-                              <div class="col-lg-4 label">Phone Number</div>
-                              <div class="col-lg-8"><?php echo htmlspecialchars($studs["contact"]); ?></div>
-                            </div>
+                      <div class="row mt-4">
+                        <!-- High School Details -->
+                        <div class="col-lg-6">
+                          <h6 class="card-title">Secondary Details</h6>
+                          <div class="row">
+                            <div class="col-lg-12 label">School Name</div>
+                            <div class="col-lg-12"><?php echo htmlspecialchars($studs["hsSchool"]); ?></div>
                           </div>
-
-                    </div> 
-
-                    <!-- Educational Attainment -->
-                    <div class="row mb-4 card" >
-                      <!-- Educational Attainment -->
-                      <div class="col-md-12">
-                        <h5 class="card-title">Educational Attainment</h5>
-                        <div class="row">
-                          <!-- Primary Details -->
-                          <div class="col-lg-6">
-                            <h6 class="card-title">Primary Details</h6>
-                            <div class="row">
-                              <div class="col-lg-12 label">School Name</div>
-                              <div class="col-lg-12"><?php echo htmlspecialchars($studs["primarySchool"]); ?></div>
-                            </div>
-                            <div class="row">
-                              <div class="col-lg-12 label">School Address</div>
-                              <div class="col-lg-12"><?php echo htmlspecialchars($studs["primaryAddress"]); ?></div>
-                            </div>
-                            <div class="row">
-                              <div class="col-lg-12 label">Year Completed</div>
-                              <div class="col-lg-12"><?php echo htmlspecialchars($studs["primaryCompleted"]); ?></div>
-                            </div>
+                          <div class="row">
+                            <div class="col-lg-12 label">School Address</div>
+                            <div class="col-lg-12"><?php echo htmlspecialchars($studs["hsAddress"]); ?></div>
                           </div>
-
-                          <!-- Intermediate Details -->
-                          <div class="col-lg-6">
-                            <h6 class="card-title">Intermediate Details</h6>
-                            <div class="row">
-                              <div class="col-lg-12 label">School Name</div>
-                              <div class="col-lg-12"><?php echo htmlspecialchars($studs["entermediateSchool"]); ?></div>
-                            </div>
-                            <div class="row">
-                              <div class="col-lg-12 label">School Address</div>
-                              <div class="col-lg-12"><?php echo htmlspecialchars($studs["entermediateAddress"]); ?></div>
-                            </div>
-                            <div class="row">
-                              <div class="col-lg-12 label">Year Completed</div>
-                              <div class="col-lg-12"><?php echo htmlspecialchars($studs["entermediateCompleted"]); ?></div>
-                            </div>
+                          <div class="row">
+                            <div class="col-lg-12 label">Year Completed</div>
+                            <div class="col-lg-12"><?php echo htmlspecialchars($studs["hsCompleted"]); ?></div>
                           </div>
                         </div>
 
-                        <div class="row mt-4">
-                          <!-- High School Details -->
-                          <div class="col-lg-6">
-                            <h6 class="card-title">Secondary Details</h6>
-                            <div class="row">
-                              <div class="col-lg-12 label">School Name</div>
-                              <div class="col-lg-12"><?php echo htmlspecialchars($studs["hsSchool"]); ?></div>
-                            </div>
-                            <div class="row">
-                              <div class="col-lg-12 label">School Address</div>
-                              <div class="col-lg-12"><?php echo htmlspecialchars($studs["hsAddress"]); ?></div>
-                            </div>
-                            <div class="row">
-                              <div class="col-lg-12 label">Year Completed</div>
-                              <div class="col-lg-12"><?php echo htmlspecialchars($studs["hsCompleted"]); ?></div>
-                            </div>
+                        <!-- Senior High School Details -->
+                        <div class="col-lg-6">
+                          <h6 class="card-title">Senior High Details</h6>
+                          <div class="row">
+                            <div class="col-lg-12 label">School Name</div>
+                            <div class="col-lg-12"><?php echo htmlspecialchars($studs["shSchool"]); ?></div>
                           </div>
-
-                          <!-- Senior High School Details -->
-                          <div class="col-lg-6">
-                            <h6 class="card-title">Senior High Details</h6>
-                            <div class="row">
-                              <div class="col-lg-12 label">School Name</div>
-                              <div class="col-lg-12"><?php echo htmlspecialchars($studs["shSchool"]); ?></div>
-                            </div>
-                            <div class="row">
-                              <div class="col-lg-12 label">School Address</div>
-                              <div class="col-lg-12"><?php echo htmlspecialchars($studs["shAddress"]); ?></div>
-                            </div>
-                            <div class="row">
-                              <div class="col-lg-12 label">Year Completed</div>
-                              <div class="col-lg-12"><?php echo htmlspecialchars($studs["shCompleted"]); ?></div>
-                            </div>
+                          <div class="row">
+                            <div class="col-lg-12 label">School Address</div>
+                            <div class="col-lg-12"><?php echo htmlspecialchars($studs["shAddress"]); ?></div>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-12 label">Year Completed</div>
+                            <div class="col-lg-12"><?php echo htmlspecialchars($studs["shCompleted"]); ?></div>
                           </div>
                         </div>
+                      </div>
 
-                        <div class="row mt-4">
-                          <!-- College Details -->
-                          <div class="col-lg-12">
-                            <h6 class="card-title">College Details</h6>
-                            <div class="row">
-                              <div class="col-lg-12 label">School Name</div>
-                              <div class="col-lg-12"><?php echo htmlspecialchars($studs["collegeSchool"]); ?></div>
-                            </div>
-                            <div class="row">
-                              <div class="col-lg-12 label">School Address</div>
-                              <div class="col-lg-12"><?php echo htmlspecialchars($studs["collegeAddress"]); ?></div>
-                            </div>
-                            <div class="row">
-                              <div class="col-lg-12 label">Year Completed</div>
-                              <div class="col-lg-12"><?php echo htmlspecialchars($studs["collegeCompleted"]); ?></div>
-                            </div>
+                      <div class="row mt-4">
+                        <!-- College Details -->
+                        <div class="col-lg-12">
+                          <h6 class="card-title">College Details</h6>
+                          <div class="row">
+                            <div class="col-lg-12 label">School Name</div>
+                            <div class="col-lg-12"><?php echo htmlspecialchars($studs["collegeSchool"]); ?></div>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-12 label">School Address</div>
+                            <div class="col-lg-12"><?php echo htmlspecialchars($studs["collegeAddress"]); ?></div>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-12 label">Year Completed</div>
+                            <div class="col-lg-12"><?php echo htmlspecialchars($studs["collegeCompleted"]); ?></div>
                           </div>
                         </div>
                       </div>
                     </div>
-                </div>
-              <!--End Profile Overview-->
+                  </div>
+              </div>
 
-              <!-- Start Profile Edit -->
               <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
                 <h5 class="card-title">Initial Details</h5>
                   <form action="upload/insert-initial-data.php" method="post" class="needs-validation" novalidate>
@@ -357,15 +343,13 @@
                     </div>
                   </form>
               </div>
-              <!-- End Profile Edit -->
 
             </div>
-          </div><!-- End Bordered Tabs -->
+          </div>
         </div>
-      </div><!-- End Left side columns -->
+      </div>
     </div>
   </section>
-  <!-- Start Section -->
 
 </main>
 <style>

@@ -81,7 +81,7 @@
                     <form action="functions/update-admin.php" method="post" class="needs-validation" novalidate>
                         <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id); ?>"> 
 
-                        <div class="row mb-3 card p-4">
+                        <div class="row mb-3 p-4">
                               <h5 class="card-title">Profile Details</h5>
                             <div class="row">
                                 <div class="col-md-4">
@@ -92,7 +92,7 @@
                                     <label for="first-name" class="form-label">First Name:</label>
                                     <input type="text" id="first-name" name="first-name" class="form-control" value="<?php echo htmlspecialchars($studs['user_fname']); ?>" readonly>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <label for="gender" class="form-label">Gender:</label>
                                     <input type="text" id="gender" name="gend" class="form-control" value="<?php echo htmlspecialchars($studs['gender']); ?>" readonly>
                                 </div>
