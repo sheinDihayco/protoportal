@@ -17,7 +17,7 @@
               <table class="table table-bordered">
                 <thead>
                   <tr>
-                    <th>Grade</th>
+                    <th>Final Grade</th>
                     <th>Course Code</th>
                     <th>Course Title/Description</th>
                     <th>Lec</th>
